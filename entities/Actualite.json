@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "titre": {
+      "type": "string"
+    },
+    "contenu": {
+      "type": "string"
+    },
+    "extrait": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "categorie": {
+      "type": "string",
+      "enum": [
+        "Annonce",
+        "Concours",
+        "\u00c9v\u00e9nement",
+        "R\u00e9sultat",
+        "Communiqu\u00e9",
+        "Tour de Dour",
+        "Candidature",
+        "Partenaire"
+      ]
+    },
+    "date_publication": {
+      "type": "string"
+    },
+    "publie": {
+      "type": "boolean"
+    },
+    "a_la_une": {
+      "type": "boolean"
+    },
+    "slug": {
+      "type": "string"
+    }
+  },
+  "required": [],
+  "name": "Actualite"
+}

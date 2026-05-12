@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "prenom_nom": {
+      "type": "string"
+    },
+    "titre": {
+      "type": "string"
+    },
+    "concours": {
+      "type": "string",
+      "enum": [
+        "Miss Dour",
+        "Mister Dour",
+        "Fashionist'ART"
+      ]
+    },
+    "annee": {
+      "type": "number"
+    },
+    "photo_url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "actif": {
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "name": "Laureat"
+}

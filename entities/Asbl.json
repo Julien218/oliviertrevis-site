@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "nom": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "mission": {
+      "type": "string"
+    },
+    "activites": {
+      "type": "string"
+    },
+    "email_contact": {
+      "type": "string"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "site_web": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "photos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "videos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ordre": {
+      "type": "number"
+    },
+    "actif": {
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "name": "Asbl"
+}

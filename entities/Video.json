@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "titre": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "youtube_id": {
+      "type": "string"
+    },
+    "youtube_url": {
+      "type": "string"
+    },
+    "miniature_url": {
+      "type": "string"
+    },
+    "categorie": {
+      "type": "string",
+      "enum": [
+        "ASBL",
+        "Tour de Dour",
+        "Miss & Mister Dour",
+        "Fashionist'ART",
+        "Interviews",
+        "Concours",
+        "Coulisses",
+        "Archives"
+      ]
+    },
+    "date_publication": {
+      "type": "string"
+    },
+    "a_la_une": {
+      "type": "boolean"
+    },
+    "actif": {
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "name": "Video"
+}

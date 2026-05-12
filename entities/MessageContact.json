@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "prenom": {
+      "type": "string"
+    },
+    "nom": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "objet": {
+      "type": "string",
+      "enum": [
+        "Information",
+        "Inscription concours",
+        "Partenariat",
+        "Presse",
+        "B\u00e9n\u00e9vole",
+        "Autre"
+      ]
+    },
+    "message": {
+      "type": "string"
+    },
+    "lu": {
+      "type": "boolean"
+    },
+    "repondu": {
+      "type": "boolean"
+    },
+    "consentement_rgpd": {
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "name": "MessageContact"
+}

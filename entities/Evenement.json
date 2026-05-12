@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "titre": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "date_debut": {
+      "type": "string"
+    },
+    "date_fin": {
+      "type": "string"
+    },
+    "lieu": {
+      "type": "string"
+    },
+    "categorie": {
+      "type": "string",
+      "enum": [
+        "Miss & Mister Dour",
+        "Tour de Dour",
+        "ASBL",
+        "Fashionist'ART",
+        "Autre"
+      ]
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "lien_inscription": {
+      "type": "string"
+    },
+    "actif": {
+      "type": "boolean"
+    },
+    "a_la_une": {
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "name": "Evenement"
+}

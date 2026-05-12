@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "properties": {
+    "prenom": {
+      "type": "string"
+    },
+    "nom": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "date_naissance": {
+      "type": "string"
+    },
+    "ville": {
+      "type": "string"
+    },
+    "concours": {
+      "type": "string",
+      "enum": [
+        "Miss Dour",
+        "Mister Dour",
+        "Fashionist'ART"
+      ]
+    },
+    "motivation": {
+      "type": "string"
+    },
+    "photo_url": {
+      "type": "string"
+    },
+    "statut": {
+      "type": "string",
+      "enum": [
+        "Re\u00e7ue",
+        "En cours",
+        "Accept\u00e9e",
+        "Refus\u00e9e"
+      ]
+    },
+    "annee": {
+      "type": "number"
+    },
+    "consentement_rgpd": {
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "name": "Candidature"
+}

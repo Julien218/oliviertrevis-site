@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "nom": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "site_web": {
+      "type": "string"
+    },
+    "categorie": {
+      "type": "string",
+      "enum": [
+        "Institutionnel",
+        "Commercial",
+        "Associatif",
+        "M\u00e9dia",
+        "Autre"
+      ]
+    },
+    "ordre": {
+      "type": "number"
+    },
+    "actif": {
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "name": "Partenaire"
+}
