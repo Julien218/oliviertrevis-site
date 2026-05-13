@@ -5,7 +5,7 @@ import { Video, Actualite } from "@/api/entities";
 import { LOGO_OT, BRAND, LOGO_TDD } from "@/api/supabase";
 import { SOCIAL_LINKS } from "@/api/links";
 import { Play, ArrowRight, ExternalLink, ChevronDown, Youtube, Sparkles } from "lucide-react";
-import ProjectCarousel from "@/components/ProjectCarousel";
+import OrbitalSystem from "@/components/OrbitalSystem";
 
 /* ── Google Fonts ───────────────────────────────────────────────────────────── */
 function HomeStyles() {
@@ -440,8 +440,10 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          {/* Carousel WOW */}
-          <ProjectCarousel />
+          {/* Système orbital */}
+          <div className="flex justify-center">
+            <OrbitalSystem />
+          </div>
 
           {/* CTA voir tout */}
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}

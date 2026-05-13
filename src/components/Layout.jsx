@@ -367,59 +367,6 @@ function FullscreenMenu({ open, onClose, isActive }) {
                   </span>
                 </motion.div>
               </div>
-
-              {/* ══ COLONNE DROITE : Orbital 3D ══ */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ delay: 0.25, duration: 0.6, ease: [0.23,1,0.32,1] }}
-                className="hidden lg:flex flex-col items-center justify-center px-8 py-16"
-                style={{ minWidth: 380, borderLeft: "1px solid rgba(255,255,255,0.04)" }}>
-
-                {/* Label au-dessus */}
-                <p className="text-xs font-bold uppercase tracking-[0.4em] mb-8"
-                  style={{ color: BRAND.gold, opacity: 0.5 }}>
-                  L'écosystème
-                </p>
-
-                {/* SYSTÈME ORBITAL */}
-                <OrbitalSystem paused={false} />
-
-                {/* Légende en dessous */}
-                <div className="mt-8 text-center">
-                  <p className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "'Montserrat',sans-serif" }}>
-                    Cliquez sur un projet pour y accéder
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* ── Version mobile : grille des projets (pas d'orbital) ── */}
-            <div className="lg:hidden px-10 pb-10">
-              <p className="text-xs font-bold uppercase tracking-[0.4em] mb-4" style={{ color: BRAND.gold, opacity: 0.5 }}>
-                Les projets
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                {ORBITAL_ITEMS.map((item, i) => {
-                  const card = (
-                    <div className="flex items-center gap-3 p-3 rounded-2xl transition-all"
-                      style={{ background: `${item.c}10`, border: `1px solid ${item.c}25` }}
-                      onMouseEnter={e => e.currentTarget.style.background = `${item.c}20`}
-                      onMouseLeave={e => e.currentTarget.style.background = `${item.c}10`}>
-                      <div className="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0">
-                        <img src={item.logo} alt={item.titre} className="w-full h-full object-cover" />
-                      </div>
-                      <span className="text-xs font-bold leading-tight" style={{ color: item.c, fontFamily: "'Montserrat',sans-serif" }}>
-                        {item.titre}
-                      </span>
-                    </div>
-                  );
-                  return item.external
-                    ? <a key={i} href={item.site} target="_blank" rel="noopener noreferrer" onClick={onClose}>{card}</a>
-                    : <Link key={i} to={item.site} onClick={onClose}>{card}</Link>;
-                })}
-              </div>
             </div>
           </motion.div>
         </>
