@@ -491,15 +491,7 @@ export default function Layout({ children }) {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                   style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 50%)" }} />
               </motion.div>
-              <div className="hidden sm:block">
-                <p className="font-black text-white text-xs leading-none tracking-[0.12em] uppercase">
-                  Olivier Trevis
-                </p>
-                <p className="text-[9px] leading-none mt-1 font-light tracking-[0.22em]"
-                  style={{ color: BRAND.gold, opacity: 0.75 }}>
-                  AGIR ET CONSTRUIRE ENSEMBLE
-                </p>
-              </div>
+
             </Link>
 
             {/* ── Nav desktop — pills avec morphing actif ── */}
@@ -575,12 +567,7 @@ export default function Layout({ children }) {
                 style={{ border: `1.5px solid ${BRAND.gold}40` }}>
                 <img src={LOGO_OT} alt="Olivier Trevis" className="w-full h-full object-cover" />
               </div>
-              <div>
-                <p className="font-black text-white text-base tracking-wider uppercase">OLIVIER TREVIS</p>
-                <p className="text-xs mt-0.5 tracking-[0.2em] font-light" style={{ color: BRAND.gold, opacity: 0.8 }}>
-                  AGIR ET CONSTRUIRE ENSEMBLE
-                </p>
-              </div>
+
             </Link>
             <nav className="flex flex-wrap gap-x-6 gap-y-2">
               {NAV.map(n => (
