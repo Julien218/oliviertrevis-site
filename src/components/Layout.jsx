@@ -24,11 +24,11 @@ const NAV = [
 
 // ── Projets pour le menu plein écran ────────────────────────────────────────
 const MENU_PROJETS = [
-  { titre: "Miss & Mister Dour",  logo: LOGO_MISS,    site: "https://missetmisterdour.be",  c: "#c9a84c" },
-  { titre: "Fashionist'ART",      logo: LOGO_FASHION, site: "https://fashionistartdour.be", c: "#e91e8c" },
+  { titre: "Miss & Mister Dour",  logo: LOGO_MISS,    site: "https://www.missetmisterdour.be",  c: "#c9a84c" },
+  { titre: "Fashionist'ART",      logo: LOGO_FASHION, site: "https://www.fashionistartdour.be", c: "#e91e8c" },
   { titre: "Le Tour de Dour",     logo: LOGO_TDD,     site: "/tour-de-dour",                c: "#D47A2C", internal: true },
-  { titre: "P&V Assurances",      logo: LOGO_PV,      site: "https://assurancesdour.be",    c: "#9b1c1c" },
-  { titre: "Synergie Dour",       logo: LOGO_SYNERGIE,site: "https://synergiedour.be",       c: "#1e40af" },
+  { titre: "P&V Assurances",      logo: LOGO_PV,      site: "https://www.assurancesdour.be",    c: "#9b1c1c" },
+  { titre: "Synergie Dour",       logo: LOGO_SYNERGIE,site: "https://www.synergiedour.be",       c: "#1e40af" },
 ];
 
 const FOOTER_SOCIALS = [

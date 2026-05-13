@@ -23,7 +23,7 @@ const PROJETS = [
     sous: "Concours de beauté",
     desc: "L'événement glamour de Dour — élégance, diversité et charisme depuis 2012.",
     logo: LOGO_MISS,
-    site: "https://missetmisterdour.be",
+    site: "https://www.missetmisterdour.be",
     // Couleurs issues du logo : noir/or royal
     c1: "#c9a84c", c2: "#e8d48a", bg: "#0a0800",
     particleColors: ["#c9a84c", "#e8d48a", "#fff8dc", "#f0d060"],
@@ -41,7 +41,7 @@ const PROJETS = [
     sous: "Mode, art & créativité",
     desc: "Mode artistique, expression créative et style autour de Dour.",
     logo: LOGO_FASHION,
-    site: "https://fashionistartdour.be",
+    site: "https://www.fashionistartdour.be",
     // Couleurs : magenta/cyan/orange
     c1: "#e91e8c", c2: "#00bcd4", bg: "#0a0008",
     particleColors: ["#e91e8c", "#ff6b6b", "#00bcd4", "#ff9800", "#c084fc"],
@@ -75,7 +75,7 @@ const PROJETS = [
     sous: "Agence de Dour",
     desc: "Votre conseiller assurances de confiance — auto, habitation, famille.",
     logo: LOGO_PV,
-    site: "https://assurancesdour.be",
+    site: "https://www.assurancesdour.be",
     // Couleurs : rouge cardinal/orange P&V
     c1: "#9b1c1c", c2: "#ea580c", bg: "#0a0202",
     particleColors: ["#9b1c1c", "#ea580c", "#fca5a5", "#fed7aa"],
@@ -91,7 +91,7 @@ const PROJETS = [
     sous: "Réseau économique local",
     desc: "Le réseau qui connecte commerçants et indépendants de Dour.",
     logo: LOGO_SYNERGIE,
-    site: "https://synergiedour.be",
+    site: "https://www.synergiedour.be",
     // Couleurs : bleu marine/or — ADN Synergie
     c1: "#1e40af", c2: "#d4a847", bg: "#020510",
     particleColors: ["#1e40af", "#3b82f6", "#d4a847", "#fbbf24"],

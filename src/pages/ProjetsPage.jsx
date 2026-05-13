@@ -15,7 +15,7 @@ const PROJETS = [
     soustitre: "Concours de beauté & représentation",
     description: "Le grand concours de beauté, d'élégance et de représentation locale de la région de Dour. Un événement qui célèbre la diversité, le charisme et les talents de la communauté.",
     tags: ["Concours", "Beauté", "Représentation", "Dour", "Inclusion"],
-    site: "https://missetmisterdour.be",
+    site: "https://www.missetmisterdour.be",
     socials: [
       { href: SOCIAL_LINKS.missMisterDour.facebook,  Icon: FbIcon, color: "#1877f2", label: "Facebook" },
       { href: SOCIAL_LINKS.missMisterDour.instagram, Icon: IgIcon, color: "#e1306c", label: "Instagram" },
@@ -32,7 +32,7 @@ const PROJETS = [
     soustitre: "Mode, art & créativité",
     description: "Une plateforme dédiée à la mode artistique, au style créatif et à l'expression vestimentaire. Fashionist'ART valorise les créateurs, les stylistes et les passionnés de mode autour de Dour.",
     tags: ["Mode", "Art", "Créativité", "Stylisme", "Expression"],
-    site: "https://fashionistartdour.be",
+    site: "https://www.fashionistartdour.be",
     socials: [
       { href: SOCIAL_LINKS.fashionistArt.facebook,  Icon: FbIcon, color: "#1877f2", label: "Facebook" },
       { href: SOCIAL_LINKS.fashionistArt.instagram, Icon: IgIcon, color: "#e1306c", label: "Instagram" },
@@ -48,7 +48,7 @@ const PROJETS = [
     soustitre: "Agence de Dour",
     description: "Votre conseiller assurances de confiance à Dour. Auto, habitation, famille, santé, entreprise — des solutions personnalisées et un accompagnement de proximité.",
     tags: ["Assurances", "Proximité", "Dour", "Conseils"],
-    site: "https://assurancesdour.be",
+    site: "https://www.assurancesdour.be",
     socials: [
       { href: SOCIAL_LINKS.pvAssurances.facebook, Icon: FbIcon, color: "#1877f2", label: "Facebook" },
     ],
@@ -63,7 +63,7 @@ const PROJETS = [
     soustitre: "Réseau local",
     description: "La plateforme qui connecte les commerçants, indépendants et acteurs économiques de Dour. Ensemble, dynamisons notre territoire et valorisons nos forces locales.",
     tags: ["Réseau", "Commerce", "Local", "Dour"],
-    site: "https://synergiedour.be",
+    site: "https://www.synergiedour.be",
     socials: [
       { href: SOCIAL_LINKS.synergieDour.facebook, Icon: FbIcon, color: "#1877f2", label: "Facebook" },
     ],
