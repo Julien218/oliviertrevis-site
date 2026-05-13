@@ -5,6 +5,7 @@ import { Video, Actualite } from "@/api/entities";
 import { LOGO_OT, BRAND, LOGO_TDD } from "@/api/supabase";
 import { SOCIAL_LINKS } from "@/api/links";
 import { Play, ArrowRight, ExternalLink, ChevronDown, Youtube, Sparkles } from "lucide-react";
+import ProjectCarousel from "@/components/ProjectCarousel";
 
 /* ── Google Fonts ───────────────────────────────────────────────────────────── */
 function HomeStyles() {
@@ -415,12 +416,12 @@ export default function HomePage() {
       </div>
 
       {/* ══════════════════════════════════════════
-          3. PROJETS — Grille de cartes flottantes
+          3. PROJETS — Carousel WOW avec logos officiels
       ══════════════════════════════════════════ */}
       <section id="projets" className="relative py-28 px-4 overflow-hidden">
         <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at 50% 50%, ${BRAND.navyLight}80 0%, ${BRAND.black} 70%)` }} />
         <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: `linear-gradient(${BRAND.gold}06 1px, transparent 1px), linear-gradient(90deg, ${BRAND.gold}06 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(${BRAND.gold}05 1px, transparent 1px), linear-gradient(90deg, ${BRAND.gold}05 1px, transparent 1px)`,
           backgroundSize: "80px 80px"
         }} />
 
@@ -442,19 +443,12 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          {/* Grille asymétrique 5 cartes */}
-          {/* Ligne 1 : 3 cartes */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
-            {PROJETS.slice(0, 3).map((p, i) => <ProjectCard key={p.id} p={p} i={i} />)}
-          </div>
-          {/* Ligne 2 : 2 cartes centrées */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:max-w-2xl md:mx-auto">
-            {PROJETS.slice(3).map((p, i) => <ProjectCard key={p.id} p={p} i={i + 3} />)}
-          </div>
+          {/* Carousel WOW */}
+          <ProjectCarousel />
 
           {/* CTA voir tout */}
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-            className="text-center mt-12">
+            className="text-center mt-14">
             <Link to="/projets"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-bold text-sm transition-all hover:scale-105"
               style={{ background: `${BRAND.gold}12`, color: BRAND.gold, border: `1px solid ${BRAND.gold}30` }}>
@@ -464,7 +458,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
+            {/* ══════════════════════════════════════════
           4. TOUR DE DOUR — Dernières vidéos
       ══════════════════════════════════════════ */}
       {videos.length > 0 && (
