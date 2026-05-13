@@ -11,13 +11,27 @@ export const getLogoUrl  = (f) => `${STORAGE_URL}/logos/${f}`;
 export const getPhotoUrl = (f) => `${STORAGE_URL}/photos/${f}`;
 export const getVideoUrl = (f) => `${STORAGE_URL}/videos/${f}`;
 
+// Logo officiel Olivier Trevis — hébergé sur Base44 CDN
+export const LOGO_OT = "https://media.base44.com/images/public/6a0371a87c9257126b051d5a/892f73e5f_LogoOlivierTrevisOfficielJs-INNOVIA.jpg";
+
 export const LOGOS = {
-  olivierTrevis:  getLogoUrl("olivier-trevis.jpg"),
+  olivierTrevis:  LOGO_OT,
   pvAssurances:   getLogoUrl("pv-assurances-dour.png"),
   missMisterDour: getLogoUrl("miss-mister-dour.png"),
   synergieDour:   getLogoUrl("synergie-dour.png"),
   fashionistArt:  getLogoUrl("fashionist-art.png"),
   tourDeDour:     getLogoUrl("tour-de-dour.png"),
+};
+
+// Palette identitaire tirée du logo Olivier Trevis
+export const BRAND = {
+  navy:      "#0d1b2a",   // bleu marine foncé (fond logo)
+  navyLight: "#1a2d42",   // marine légèrement plus clair
+  gold:      "#c9a84c",   // or/doré
+  goldLight: "#e0c068",   // or clair
+  silver:    "#b0b8c8",   // argent/gris clair
+  white:     "#f0f4f8",   // blanc cassé
+  black:     "#070d14",   // noir profond
 };
 
 export default supabase;

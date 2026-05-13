@@ -1,387 +1,321 @@
-import { useState, useEffect } from "react";
-import { LOGOS as SB_LOGOS } from "@/api/supabase";
-import { SOCIAL_LINKS } from "@/api/links";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Video, Actualite } from "@/api/entities";
-import { motion } from "framer-motion";
-import {
-  ArrowRight, Play, Trophy, ChevronDown, Shield, Sparkles, Users,
-  MapPin, Mic, Camera, Heart, Star, ExternalLink, Mail, MessageCircle,
-  Facebook, Instagram
-} from "lucide-react";
+import { LOGO_OT, BRAND } from "@/api/supabase";
+import { SOCIAL_LINKS } from "@/api/links";
+import { Play, ArrowRight, ExternalLink, MapPin, ChevronRight } from "lucide-react";
 
-// ── Photos hero ─────────────────────────────────────────────────────────────
-const PHOTOS = [
-  "https://media.base44.com/images/public/6a0371a87c9257126b051d5a/155bbfad3_WhatsAppImage2026-04-30at060533.jpg",
-  "https://media.base44.com/images/public/6a0371a87c9257126b051d5a/d7db2f75a_WhatsAppImage2026-04-30at0605331.jpg",
-  "https://media.base44.com/images/public/6a0371a87c9257126b051d5a/1de0407b8_WhatsAppImage2026-04-30at0605332.jpg",
-  "https://media.base44.com/images/public/6a0371a87c9257126b051d5a/05ca7758e_WhatsAppImage2026-04-30at0605333.jpg",
-  "https://media.base44.com/images/public/6a0371a87c9257126b051d5a/dd27d338c_WhatsAppImage2026-04-30at0605334.jpg",
-  "https://media.base44.com/images/public/6a0371a87c9257126b051d5a/4d236abc0_WhatsAppImage2026-04-30at0605335.jpg",
-];
+// ── Icônes sociales ──────────────────────────────────────────────────────────
+function FbIcon() { return <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>; }
+function IgIcon() { return <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>; }
+function TkIcon() { return <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>; }
 
-// ── Icônes réseaux sociaux ───────────────────────────────────────────────────
-function FbIcon({ className = "w-4 h-4" }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-    </svg>
-  );
-}
-function IgIcon({ className = "w-4 h-4" }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-    </svg>
-  );
-}
-function TkIcon({ className = "w-4 h-4" }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-    </svg>
-  );
-}
-
-// ── Données projets avec tous les liens ──────────────────────────────────────
+// ── Projets avec leurs sites officiels ──────────────────────────────────────
 const PROJETS = [
   {
-    id: "miss-mister",
-    logo: SB_LOGOS.missMisterDour,
-    logoBg: "#0a0a0a",
-    accent: "#d4af37",
-    accentDark: "#92600a",
-    gradient: "from-yellow-950/70 to-black",
-    border: "border-yellow-500/30",
-    badgeColor: "text-yellow-400",
-    tag: "Concours & Événement",
     titre: "Miss & Mister Dour",
-    sousTitre: "Fashionist'ART",
-    desc: "Le concours d'élégance, de créativité et d'art local qui révèle les talents de Dour depuis plus de 27 éditions. Une célébration de la mode, de l'art et de la représentation locale.",
-    interne: "/miss-mister-dour",
-    site: SOCIAL_LINKS.missMisterDour.site,
+    soustitre: "Fashionist'ART",
+    desc: "Le grand concours de beauté, mode et créativité de Dour.",
+    site: "https://missetmisterdour.be",
+    siteFashion: "https://fashionistartdour.be",
+    emoji: "👑",
+    accent: BRAND.gold,
     socials: [
-      { href: SOCIAL_LINKS.missMisterDour.facebook,  Icon: FbIcon, label: "Facebook",  color: "#1877f2" },
-      { href: SOCIAL_LINKS.missMisterDour.instagram, Icon: IgIcon, label: "Instagram", color: "#e1306c" },
-      { href: SOCIAL_LINKS.missMisterDour.tiktok,    Icon: TkIcon, label: "TikTok",    color: "#ffffff" },
+      { href: SOCIAL_LINKS.missMisterDour.facebook, Icon: FbIcon },
+      { href: SOCIAL_LINKS.missMisterDour.instagram, Icon: IgIcon },
+      { href: SOCIAL_LINKS.missMisterDour.tiktok, Icon: TkIcon },
     ],
-    stats: [{ val: "27+", label: "Éditions" }, { val: "100+", label: "Candidats" }, { val: "1", label: "Miss Province 2026" }],
   },
   {
-    id: "fashionist-art",
-    logo: SB_LOGOS.fashionistArt,
-    logoBg: "#0a0a0a",
-    accent: "#ec4899",
-    accentDark: "#831843",
-    gradient: "from-pink-950/70 to-black",
-    border: "border-pink-500/30",
-    badgeColor: "text-pink-400",
-    tag: "Mode & Art",
-    titre: "Fashionist'ART",
-    sousTitre: "Dour",
-    desc: "L'événement où la mode rencontre l'art, la créativité et la passion. Défilés, créations originales, artistes locaux et rencontres hautes en couleur au cœur de Dour.",
-    interne: "/miss-mister-dour",
-    site: "https://www.fashionistartdour.be",
-    socials: [
-      { href: SOCIAL_LINKS.fashionistArt.facebook,  Icon: FbIcon, label: "Facebook",  color: "#1877f2" },
-      { href: SOCIAL_LINKS.fashionistArt.instagram, Icon: IgIcon, label: "Instagram", color: "#e1306c" },
-    ],
-    stats: [{ val: "2+", label: "Éditions" }, { val: "50+", label: "Créateurs" }, { val: "∞", label: "Inspiration" }],
-  },
-  {
-    id: "tour-de-dour",
-    logo: SB_LOGOS.tourDeDour,
-    logoBg: "#0a0a0a",
-    accent: "#ef4444",
-    accentDark: "#7f1d1d",
-    gradient: "from-red-950/70 to-black",
-    border: "border-red-500/30",
-    badgeColor: "text-red-400",
-    tag: "Vidéos & Découvertes",
-    titre: "Le Tour de Dour",
-    sousTitre: "d'Olivier Trevis",
-    desc: "Une série de vidéos, visites filmées, interviews et reportages pour découvrir Dour autrement — ses lieux, ses gens, ses histoires et ses initiatives. 47+ épisodes publiés.",
-    interne: "/tour-de-dour",
-    site: null,
-    socials: [
-      { href: SOCIAL_LINKS.tourDeDour.facebook,  Icon: FbIcon, label: "Facebook Tour de Dour", color: "#1877f2" },
-      { href: SOCIAL_LINKS.olivierTrevis.instagram, Icon: IgIcon, label: "Instagram",          color: "#e1306c" },
-    ],
-    stats: [{ val: "47+", label: "Épisodes" }, { val: "2245+", label: "Abonnés FB" }, { val: "∞", label: "Lieux visités" }],
-  },
-  {
-    id: "synergie-dour",
-    logo: SB_LOGOS.synergieDour,
-    logoBg: "#0a1628",
-    accent: "#3b82f6",
-    accentDark: "#1e3a5f",
-    gradient: "from-blue-950/70 to-black",
-    border: "border-blue-500/30",
-    badgeColor: "text-blue-400",
-    tag: "Réseau local",
-    titre: "Synergie Dour",
-    sousTitre: "Association des commerçants",
-    desc: "La plateforme qui connecte les commerçants, indépendants et professions libérales de Dour. Un réseau local fort pour dynamiser la vie économique et sociale de la ville.",
-    interne: null,
-    site: SOCIAL_LINKS.synergieDour.site,
-    socials: [
-      { href: SOCIAL_LINKS.synergieDour.facebook, Icon: FbIcon, label: "Facebook Synergie Dour", color: "#1877f2" },
-    ],
-    stats: [{ val: "1", label: "Communauté" }, { val: "Dour", label: "Ancrage local" }, { val: "∞", label: "Connexions" }],
-  },
-  {
-    id: "pv-assurances",
-    logo: SB_LOGOS.pvAssurances,
-    logoBg: "#fff",
-    accent: "#0ea5e9",
-    accentDark: "#0c4a6e",
-    gradient: "from-sky-950/70 to-black",
-    border: "border-sky-500/30",
-    badgeColor: "text-sky-400",
-    tag: "Assurances",
     titre: "P&V Assurances",
-    sousTitre: "Agence de Dour",
-    desc: "Votre agent P&V de confiance à Dour. Protection auto, habitation, famille et entreprise. Un accompagnement personnalisé pour tous vos projets d'assurances.",
-    interne: null,
-    site: SOCIAL_LINKS.pvAssurances.site,
-    socials: [
-      { href: SOCIAL_LINKS.pvAssurances.facebook, Icon: FbIcon, label: "Facebook P&V Dour", color: "#1877f2" },
-    ],
-    stats: [{ val: "1402", label: "J'aime FB" }, { val: "Dour", label: "Agence locale" }, { val: "P&V", label: "Réseau national" }],
+    soustitre: "Agence de Dour",
+    desc: "Votre conseiller assurances de confiance à Dour.",
+    site: "https://assurancesdour.be",
+    emoji: "🛡️",
+    accent: "#4a9eff",
+    socials: [{ href: SOCIAL_LINKS.pvAssurances.facebook, Icon: FbIcon }],
+  },
+  {
+    titre: "Synergie Dour",
+    soustitre: "Réseau local",
+    desc: "Le réseau qui connecte les acteurs économiques de Dour.",
+    site: "https://synergiedour.be",
+    emoji: "🤝",
+    accent: "#6ee7b7",
+    socials: [{ href: SOCIAL_LINKS.synergieDour.facebook, Icon: FbIcon }],
+  },
+  {
+    titre: "Le Tour de Dour",
+    soustitre: "Reportages & vidéos",
+    desc: "Des vidéos et reportages pour valoriser Dour et ses habitants.",
+    site: "/tour-de-dour",
+    emoji: "🎬",
+    accent: "#f87171",
+    internal: true,
+    socials: [{ href: SOCIAL_LINKS.tourDeDour.facebook, Icon: FbIcon }],
   },
 ];
 
-// ── Carrousel logos ──────────────────────────────────────────────────────────
-const LOGOS_CAROUSEL = [
-  { src: SB_LOGOS.olivierTrevis,  label: "Olivier Trevis",      href: "/a-propos",                              external: false, bg: "#0d1117" },
-  { src: SB_LOGOS.pvAssurances,   label: "P&V Assurances Dour", href: SOCIAL_LINKS.pvAssurances.site,           external: true,  bg: "#fff"    },
-  { src: SB_LOGOS.missMisterDour, label: "Miss & Mister Dour",  href: SOCIAL_LINKS.missMisterDour.site,         external: true,  bg: "#000"    },
-  { src: SB_LOGOS.synergieDour,   label: "Synergie Dour",       href: SOCIAL_LINKS.synergieDour.site,           external: true,  bg: "#0d1b4b" },
-  { src: SB_LOGOS.fashionistArt,  label: "Fashionist'ART",      href: "https://www.fashionistartdour.be",       external: true,  bg: "#000"    },
-  { src: SB_LOGOS.tourDeDour,     label: "Le Tour de Dour",     href: SOCIAL_LINKS.tourDeDour.facebook,         external: true,  bg: "#0a1628" },
-];
-const LOGOS_LOOP = [...LOGOS_CAROUSEL, ...LOGOS_CAROUSEL, ...LOGOS_CAROUSEL];
+// ── Composant : carte projet ─────────────────────────────────────────────────
+function ProjetCard({ p, i }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: i * 0.1 }} viewport={{ once: true }}
+      className="group rounded-2xl p-6 transition-all duration-300 hover:translate-y-[-2px]"
+      style={{ background: `linear-gradient(135deg, ${BRAND.navyLight} 0%, ${BRAND.navy} 100%)`, border: `1px solid ${p.accent}25` }}
+      onMouseEnter={e => e.currentTarget.style.borderColor = p.accent + "50"}
+      onMouseLeave={e => e.currentTarget.style.borderColor = p.accent + "25"}>
 
-// ── Valeurs ──────────────────────────────────────────────────────────────────
-const VALEURS = [
-  { icon: <Heart className="w-5 h-5" />,   titre: "Engagement local",        desc: "Chaque projet est ancré dans la réalité de Dour et de sa communauté." },
-  { icon: <Users className="w-5 h-5" />,   titre: "Inclusion",               desc: "Rassembler, peu importe l'âge, l'origine ou le profil." },
-  { icon: <Star className="w-5 h-5" />,    titre: "Valorisation des talents", desc: "Révéler et mettre en lumière les talents locaux." },
-  { icon: <Sparkles className="w-5 h-5" />,titre: "Culture & Art",           desc: "L'art et la culture comme vecteurs de fierté et de développement." },
-  { icon: <Trophy className="w-5 h-5" />,  titre: "Excellence",              desc: "Des événements qui reflètent positivement l'image de Dour." },
-  { icon: <MapPin className="w-5 h-5" />,  titre: "Visibilité",              desc: "Faire rayonner Dour en Belgique et à l'international." },
-];
+      <div className="text-3xl mb-3">{p.emoji}</div>
+      <h3 className="font-black text-white text-lg leading-tight">{p.titre}</h3>
+      <p className="text-xs font-medium mb-3" style={{ color: p.accent }}>{p.soustitre}</p>
+      <p className="text-xs leading-relaxed mb-4" style={{ color: BRAND.silver, opacity: 0.75 }}>{p.desc}</p>
 
+      <div className="flex items-center gap-1.5 mb-4">
+        {p.socials.map((s, si) => (
+          <a key={si} href={s.href} target="_blank" rel="noopener noreferrer"
+            className="w-7 h-7 rounded-full flex items-center justify-center transition-all"
+            style={{ border: `1px solid ${BRAND.gold}25`, color: BRAND.silver }}
+            onMouseEnter={e => { e.currentTarget.style.color = p.accent; e.currentTarget.style.borderColor = p.accent + "60"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = BRAND.silver; e.currentTarget.style.borderColor = BRAND.gold + "25"; }}>
+            <s.Icon />
+          </a>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {p.internal ? (
+          <Link to={p.site}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold transition-all"
+            style={{ background: `${p.accent}15`, color: p.accent, border: `1px solid ${p.accent}30` }}>
+            Voir <ArrowRight className="w-3 h-3" />
+          </Link>
+        ) : (
+          <a href={p.site} target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold transition-all"
+            style={{ background: `linear-gradient(135deg, ${BRAND.gold}, ${BRAND.goldLight})`, color: BRAND.navy }}>
+            Site officiel <ExternalLink className="w-3 h-3" />
+          </a>
+        )}
+        {p.siteFashion && (
+          <a href={p.siteFashion} target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-all"
+            style={{ background: `${BRAND.gold}10`, color: BRAND.gold, border: `1px solid ${BRAND.gold}25` }}>
+            Fashionist'ART ↗
+          </a>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Page principale ──────────────────────────────────────────────────────────
 export default function HomePage() {
-  const [actualites, setActualites]   = useState([]);
-  const [videos, setVideos]           = useState([]);
-  const [activePhoto, setActivePhoto] = useState(0);
+  const [videos, setVideos]       = useState([]);
+  const [actus, setActus]         = useState([]);
+  const [logoLoaded, setLogoLoaded] = useState(false);
 
   useEffect(() => {
-    Actualite.filter({ a_la_une: true, publie: true }).then(d => setActualites(d.slice(0, 3))).catch(() => {});
-    Video.filter({ a_la_une: true, actif: true }).then(d => setVideos(d.slice(0, 4))).catch(() => {});
-    const t = setInterval(() => setActivePhoto(p => (p + 1) % PHOTOS.length), 4500);
-    return () => clearInterval(t);
+    Video.filter({ actif: true, a_la_une: true }).then(d => setVideos(d.slice(0, 3))).catch(() => {});
+    Actualite.filter({ publie: true, a_la_une: true }).then(d => setActus(d.slice(0, 3))).catch(() => {});
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen text-white" style={{ background: BRAND.black }}>
 
-      <style>{`
-        @keyframes scrollLeft {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(calc(-100% / 3)); }
-        }
-        .carousel-track {
-          display: flex;
-          width: max-content;
-          animation: scrollLeft 30s linear infinite;
-        }
-        .carousel-track:hover { animation-play-state: paused; }
-      `}</style>
+      {/* ══════════════════════════════════════════
+          HERO — Logo central + identité
+      ══════════════════════════════════════════ */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+        {/* Fond dégradé marine */}
+        <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at 50% 30%, ${BRAND.navyLight} 0%, ${BRAND.black} 70%)` }} />
+        {/* Halo doré */}
+        <div className="absolute inset-0 opacity-15"
+          style={{ background: `radial-gradient(ellipse at 50% 40%, ${BRAND.gold} 0%, transparent 55%)` }} />
+        {/* Lignes décoratives */}
+        <div className="absolute inset-0 overflow-hidden opacity-5">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="absolute inset-0 rounded-full border"
+              style={{ borderColor: BRAND.gold, transform: `scale(${0.3 + i * 0.2})` }} />
+          ))}
+        </div>
 
-      {/* ════════════════════════════════════════════════════════
-          HERO — Photo carousel + titre
-      ════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          {PHOTOS.map((src, i) => (
-            <div key={i} className="absolute inset-0 transition-opacity duration-1200"
-              style={{ opacity: i === activePhoto ? 1 : 0 }}>
-              <img src={src} alt="" className="w-full h-full object-cover object-top" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
+        <div className="relative flex flex-col items-center text-center max-w-3xl mx-auto">
+          {/* Logo officiel */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="mb-10">
+            <div className="w-52 h-52 md:w-64 md:h-64 rounded-3xl overflow-hidden mx-auto shadow-2xl"
+              style={{ border: `2px solid ${BRAND.gold}50`, boxShadow: `0 0 60px ${BRAND.gold}25` }}>
+              <img
+                src={LOGO_OT}
+                alt="Olivier Trevis — Agir et Construire Ensemble"
+                className="w-full h-full object-cover"
+                onLoad={() => setLogoLoaded(true)}
+              />
             </div>
-          ))}
-        </div>
+          </motion.div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 w-full">
-          <div className="max-w-2xl">
-            <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9 }}>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-500/30 bg-yellow-500/10 mb-8">
-                <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-                <span className="text-yellow-400 text-xs font-semibold tracking-widest uppercase">Dour · Belgique</span>
-              </div>
-              <h1 className="text-7xl md:text-9xl font-black leading-none mb-2 tracking-tight text-white">OLIVIER</h1>
-              <h1 className="text-7xl md:text-9xl font-black leading-none mb-6 tracking-tight"
-                style={{ background: "linear-gradient(135deg, #d4af37 0%, #fff8e1 50%, #d4af37 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          {/* Titre + slogan */}
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
+            <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-3 leading-none">
+              <span className="text-white">OLIVIER</span><br />
+              <span style={{ background: `linear-gradient(135deg, ${BRAND.gold}, ${BRAND.goldLight})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                 TREVIS
-              </h1>
-              <div className="w-20 h-1 rounded-full bg-gradient-to-r from-yellow-500 to-transparent mb-6" />
-              <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-2">
-                Agent P&V · Organisateur d'événements · Acteur associatif
+              </span>
+            </h1>
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <div className="h-px w-16" style={{ background: BRAND.gold, opacity: 0.5 }} />
+              <p className="text-xs tracking-[0.35em] font-light uppercase" style={{ color: BRAND.silver }}>
+                Agir et Construire Ensemble
               </p>
-              <p className="text-gray-500 text-base italic mb-10">« Agir et construire ensemble »</p>
+              <div className="h-px w-16" style={{ background: BRAND.gold, opacity: 0.5 }} />
+            </div>
+            <div className="flex items-center justify-center gap-1.5 mt-3 mb-8">
+              <MapPin className="w-3.5 h-3.5" style={{ color: BRAND.gold }} />
+              <p className="text-xs" style={{ color: BRAND.silver, opacity: 0.7 }}>Dour · Belgique</p>
+            </div>
+          </motion.div>
 
-              {/* Réseaux sociaux personnels */}
-              <div className="flex items-center gap-3 mb-10">
-                <a href={SOCIAL_LINKS.olivierTrevis.facebook} target="_blank" rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-gray-400 hover:text-[#1877f2] hover:border-[#1877f2]/40 hover:bg-[#1877f2]/10 transition-all">
-                  <FbIcon />
-                </a>
-                <a href={SOCIAL_LINKS.olivierTrevis.instagram} target="_blank" rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-gray-400 hover:text-[#e1306c] hover:border-[#e1306c]/40 hover:bg-[#e1306c]/10 transition-all">
-                  <IgIcon />
-                </a>
-                <a href={SOCIAL_LINKS.missMisterDour.tiktok} target="_blank" rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-gray-400 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all">
-                  <TkIcon />
-                </a>
-                <span className="w-px h-5 bg-white/10" />
-                <a href="mailto:contact@oliviertrevis.be"
-                  className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-gray-400 hover:text-yellow-400 hover:border-yellow-500/40 hover:bg-yellow-500/10 transition-all">
-                  <Mail className="w-4 h-4" />
-                </a>
-              </div>
+          {/* Réseaux sociaux */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-2 mb-10">
+            {[
+              { href: SOCIAL_LINKS.olivierTrevis.facebook,   Icon: FbIcon, label: "Facebook" },
+              { href: SOCIAL_LINKS.olivierTrevis.instagram,  Icon: IgIcon, label: "Instagram" },
+              { href: SOCIAL_LINKS.missMisterDour.facebook,  Icon: FbIcon, label: "Miss & Mister Dour" },
+              { href: SOCIAL_LINKS.missMisterDour.instagram, Icon: IgIcon, label: "Miss & Mister Dour IG" },
+              { href: SOCIAL_LINKS.missMisterDour.tiktok,    Icon: TkIcon, label: "TikTok" },
+            ].map((s, i) => (
+              <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" title={s.label}
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                style={{ border: `1px solid ${BRAND.gold}30`, color: BRAND.silver, background: `${BRAND.navyLight}80` }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = BRAND.gold + "80"; e.currentTarget.style.color = BRAND.gold; e.currentTarget.style.background = BRAND.gold + "12"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = BRAND.gold + "30"; e.currentTarget.style.color = BRAND.silver; e.currentTarget.style.background = BRAND.navyLight + "80"; }}>
+                <s.Icon />
+              </a>
+            ))}
+          </motion.div>
 
-              <div className="flex flex-wrap gap-3">
-                <Link to="/miss-mister-dour"
-                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-600 to-yellow-500 text-black font-black rounded-full hover:from-yellow-500 hover:to-yellow-400 transition-all text-sm">
-                  <Trophy className="w-4 h-4" /> Miss & Mister Dour
-                </Link>
-                <Link to="/tour-de-dour"
-                  className="flex items-center gap-2 px-6 py-3 border border-red-500/50 text-red-400 hover:bg-red-500/10 rounded-full transition-all text-sm font-semibold">
-                  <Play className="w-4 h-4" /> Tour de Dour
-                </Link>
-                <Link to="/contact"
-                  className="flex items-center gap-2 px-6 py-3 border border-white/20 text-gray-300 hover:bg-white/5 rounded-full transition-all text-sm font-semibold">
-                  Contact <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
+          {/* CTAs */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}
+            className="flex flex-wrap gap-3 justify-center mb-6">
+            <Link to="/projets"
+              className="flex items-center gap-2 px-7 py-3.5 rounded-full font-black text-sm transition-all hover:scale-105"
+              style={{ background: `linear-gradient(135deg, ${BRAND.gold}, ${BRAND.goldLight})`, color: BRAND.navy }}>
+              Découvrir les projets <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link to="/tour-de-dour"
+              className="flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm transition-all"
+              style={{ border: `1.5px solid ${BRAND.gold}40`, color: BRAND.gold, background: `${BRAND.gold}08` }}
+              onMouseEnter={e => e.currentTarget.style.background = BRAND.gold + "15"}
+              onMouseLeave={e => e.currentTarget.style.background = BRAND.gold + "08"}>
+              <Play className="w-4 h-4" /> Le Tour de Dour
+            </Link>
+          </motion.div>
+
+          {/* Liens rapides */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}
+            className="flex flex-wrap gap-2 justify-center text-xs">
+            {[
+              { label: "Miss & Mister Dour", href: "https://missetmisterdour.be", ext: true },
+              { label: "Vidéos",             href: "/videos",                     ext: false },
+              { label: "Contact",            href: "/contact",                    ext: false },
+            ].map((l, i) => (
+              l.ext
+                ? <a key={i} href={l.href} target="_blank" rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-full transition-all"
+                    style={{ border: `1px solid ${BRAND.gold}20`, color: BRAND.silver, opacity: 0.7 }}
+                    onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.borderColor = BRAND.gold + "40"; }}
+                    onMouseLeave={e => { e.currentTarget.style.opacity = "0.7"; e.currentTarget.style.borderColor = BRAND.gold + "20"; }}>
+                    {l.label} ↗
+                  </a>
+                : <Link key={i} to={l.href}
+                    className="px-3 py-1.5 rounded-full transition-all"
+                    style={{ border: `1px solid ${BRAND.gold}20`, color: BRAND.silver, opacity: 0.7 }}
+                    onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.borderColor = BRAND.gold + "40"; }}
+                    onMouseLeave={e => { e.currentTarget.style.opacity = "0.7"; e.currentTarget.style.borderColor = BRAND.gold + "20"; }}>
+                    {l.label}
+                  </Link>
+            ))}
+          </motion.div>
         </div>
 
-        {/* Indicateurs photos */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-          {PHOTOS.map((_, i) => (
-            <button key={i} onClick={() => setActivePhoto(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${i === activePhoto ? "bg-yellow-400 w-6" : "bg-white/25 w-2"}`} />
-          ))}
-        </div>
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-8 right-8 text-gray-600 hidden md:block">
-          <ChevronDown className="w-5 h-5" />
+        {/* Flèche scroll */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+          <div className="w-px h-12 rounded-full" style={{ background: `linear-gradient(to bottom, transparent, ${BRAND.gold}60)` }} />
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: BRAND.gold }} />
         </motion.div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════
-          CARROUSEL LOGOS
-      ════════════════════════════════════════════════════════ */}
-      <section className="py-16 bg-black border-y border-white/5 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 mb-10 text-center">
-          <p className="text-yellow-400 tracking-[0.3em] text-xs uppercase font-semibold mb-2">Ses univers</p>
-          <h2 className="text-2xl md:text-3xl font-black text-white">Tous les projets d'Olivier Trevis</h2>
-        </div>
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, #000, transparent)" }} />
-          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to left, #000, transparent)" }} />
-          <div className="overflow-hidden">
-            <div className="carousel-track" style={{ gap: "20px", padding: "0 10px" }}>
-              {LOGOS_LOOP.map((logo, i) => {
-                const Wrapper = logo.external ? "a" : Link;
-                const props = logo.external
-                  ? { href: logo.href, target: "_blank", rel: "noopener noreferrer" }
-                  : { to: logo.href };
-                return (
-                  <Wrapper key={i} {...props} className="group flex-shrink-0 cursor-pointer" style={{ width: 180, height: 180 }}>
-                    <div className="w-full h-full rounded-2xl overflow-hidden border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:border-yellow-500/50 group-hover:scale-105"
-                      style={{ background: logo.bg, boxShadow: "0 4px 24px rgba(0,0,0,0.5)" }}>
-                      <img src={logo.src} alt={logo.label}
-                        className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-110" />
-                    </div>
-                    <div className="mt-2 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <p className="text-xs font-semibold text-yellow-400 tracking-wide">{logo.label}</p>
-                    </div>
-                  </Wrapper>
-                );
-              })}
-            </div>
+      {/* ══════════════════════════════════════════
+          PROJETS
+      ══════════════════════════════════════════ */}
+      <section className="py-24 px-4" style={{ background: `linear-gradient(180deg, ${BRAND.black} 0%, ${BRAND.navy}60 100%)` }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-xs uppercase font-semibold tracking-[0.3em] mb-3" style={{ color: BRAND.gold }}>Ses engagements</p>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">Projets & Initiatives</h2>
+            <div className="w-16 h-0.5 rounded-full mx-auto" style={{ background: `linear-gradient(90deg, transparent, ${BRAND.gold}, transparent)` }} />
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            {PROJETS.map((p, i) => <ProjetCard key={i} p={p} i={i} />)}
+          </div>
+          <div className="text-center">
+            <Link to="/projets"
+              className="inline-flex items-center gap-2 text-sm font-semibold transition-all"
+              style={{ color: BRAND.gold }}
+              onMouseEnter={e => e.currentTarget.style.gap = "10px"}
+              onMouseLeave={e => e.currentTarget.style.gap = ""}>
+              Voir tous les projets <ChevronRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════
-          QUI EST OLIVIER TREVIS
-      ════════════════════════════════════════════════════════ */}
-      <section id="a-propos" className="py-24 px-4 bg-gray-950">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            {/* Photo */}
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <div className="relative aspect-square rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-gray-900 to-gray-950 flex items-center justify-center max-w-sm mx-auto md:mx-0">
-                <img src={SB_LOGOS.olivierTrevis} alt="Olivier Trevis"
-                  className="w-3/4 h-3/4 object-contain" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="bg-black/80 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                    <p className="text-white font-black text-lg leading-tight">Olivier Trevis</p>
-                    <p className="text-yellow-400 text-xs tracking-widest uppercase mt-1">Dour · Belgique</p>
-                    <div className="flex gap-2 mt-3">
-                      <a href={SOCIAL_LINKS.olivierTrevis.facebook} target="_blank" rel="noopener noreferrer"
-                        className="text-gray-500 hover:text-[#1877f2] transition-colors"><FbIcon /></a>
-                      <a href={SOCIAL_LINKS.olivierTrevis.instagram} target="_blank" rel="noopener noreferrer"
-                        className="text-gray-500 hover:text-[#e1306c] transition-colors"><IgIcon /></a>
-                    </div>
-                  </div>
+      {/* ══════════════════════════════════════════
+          QUI EST OLIVIER
+      ══════════════════════════════════════════ */}
+      <section className="py-24 px-4" style={{ background: BRAND.navy }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-14 items-center">
+            {/* Logo portrait */}
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <div className="relative max-w-xs mx-auto">
+                <div className="rounded-3xl overflow-hidden"
+                  style={{ border: `2px solid ${BRAND.gold}40`, boxShadow: `0 20px 60px ${BRAND.black}80` }}>
+                  <img src={LOGO_OT} alt="Olivier Trevis" className="w-full h-full object-cover" />
+                </div>
+                {/* Badge slogan */}
+                <div className="absolute -bottom-4 -right-4 px-4 py-2 rounded-xl"
+                  style={{ background: `linear-gradient(135deg, ${BRAND.gold}, ${BRAND.goldLight})`, color: BRAND.navy }}>
+                  <p className="text-xs font-black tracking-wider">AGIR ET CONSTRUIRE</p>
                 </div>
               </div>
             </motion.div>
 
             {/* Texte */}
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <p className="text-yellow-400 tracking-widest text-xs uppercase mb-3 font-semibold">À propos</p>
-              <h2 className="text-3xl md:text-4xl font-black text-white mb-6">
-                Un homme engagé au cœur de <span style={{ color: "#d4af37" }}>Dour</span>
+            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <p className="text-xs uppercase font-semibold tracking-[0.3em] mb-4" style={{ color: BRAND.gold }}>À propos</p>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-6 leading-tight">
+                Un acteur local ancré dans <span style={{ color: BRAND.gold }}>Dour</span>
               </h2>
-              <div className="space-y-4 text-gray-400 leading-relaxed mb-8">
-                <p>Né et ancré à <strong className="text-white">Dour</strong>, Olivier Trevis est bien plus qu'un organisateur d'événements. Il est le reflet d'une génération qui croit que chaque ville peut rayonner grâce à ses talents et sa culture.</p>
-                <p>À travers ses projets, il porte une vision simple mais puissante : <em className="text-yellow-400">mettre en avant Dour, ses habitants, ses associations et ses initiatives</em>, pour créer un sentiment de fierté collective.</p>
-                <p>Agent P&V Assurances, organisateur du concours <strong className="text-white">Miss & Mister Dour Fashionist'ART</strong>, fondateur du <strong className="text-white">Tour de Dour</strong>, animateur de <strong className="text-white">Synergie Dour</strong>...</p>
-              </div>
-
-              {/* Rôles */}
-              <div className="grid grid-cols-2 gap-3 mb-8">
-                {[
-                  "Organisateur d'événements",
-                  "Président d'ASBL",
-                  "Créateur de contenu",
-                  "Ambassadeur de Dour",
-                ].map((r, i) => (
-                  <div key={i} className="flex items-center gap-2 p-3 rounded-xl bg-gray-900 border border-white/5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0" />
-                    <span className="text-white text-sm font-medium">{r}</span>
-                  </div>
-                ))}
-              </div>
-
-              <blockquote className="border-l-2 border-yellow-500 pl-4 italic text-gray-300 text-sm mb-6">
-                "Dour mérite d'être fière d'elle-même. Chaque talent, chaque initiative est une preuve que la culture peut transformer une communauté."
+              <p className="text-sm leading-relaxed mb-4" style={{ color: BRAND.silver, opacity: 0.85 }}>
+                Olivier Trevis consacre son énergie à rassembler, valoriser et faire rayonner Dour à travers ses projets culturels, associatifs et événementiels.
+              </p>
+              <p className="text-sm leading-relaxed mb-8" style={{ color: BRAND.silver, opacity: 0.85 }}>
+                De Miss & Mister Dour au Tour de Dour, chaque initiative reflète sa conviction que chaque ville, quelle que soit sa taille, peut rayonner grâce à ses talents et à sa communauté.
+              </p>
+              <blockquote className="border-l-2 pl-5 mb-8" style={{ borderColor: BRAND.gold }}>
+                <p className="text-base italic" style={{ color: BRAND.silver }}>"Dour mérite d'être fière d'elle-même."</p>
+                <footer className="mt-2 text-xs font-semibold" style={{ color: BRAND.gold }}>— Olivier Trevis</footer>
               </blockquote>
-
               <Link to="/a-propos"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-yellow-500/40 text-yellow-400 hover:bg-yellow-500/10 rounded-full transition-all text-sm font-semibold">
+                className="inline-flex items-center gap-2 text-sm font-semibold transition-all"
+                style={{ color: BRAND.gold }}>
                 En savoir plus <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
@@ -389,208 +323,118 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════
-          PROJETS — CARTES CLIQUABLES
-      ════════════════════════════════════════════════════════ */}
-      <section id="projets" className="py-24 px-4 bg-black">
+      {/* ══════════════════════════════════════════
+          DERNIÈRES VIDÉOS
+      ══════════════════════════════════════════ */}
+      <section className="py-24 px-4" style={{ background: BRAND.black }}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-yellow-400 tracking-[0.3em] text-xs uppercase font-semibold mb-3">Ses engagements</p>
-            <h2 className="text-3xl md:text-5xl font-black text-white">Tous les projets</h2>
-            <p className="text-gray-500 mt-4 text-base max-w-xl mx-auto">Cliquez sur une carte pour accéder au site officiel ou à la page dédiée.</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PROJETS.map((p, i) => {
-              const CardContent = (
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                  className={`group relative rounded-3xl border ${p.border} bg-gradient-to-br ${p.gradient} p-6 flex flex-col h-full transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl cursor-pointer`}
-                  style={{ boxShadow: `0 0 0 0 ${p.accent}00` }}
-                  whileHover={{ boxShadow: `0 8px 40px ${p.accent}25` }}
-                >
-                  {/* Header : logo + badge */}
-                  <div className="flex items-start justify-between mb-5">
-                    <div className="w-16 h-16 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0"
-                      style={{ background: p.logoBg }}>
-                      <img src={p.logo} alt={p.titre} className="w-full h-full object-contain p-2" />
-                    </div>
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${p.badgeColor} bg-black/40`}
-                      style={{ borderColor: p.accent + "40" }}>
-                      {p.tag}
-                    </span>
-                  </div>
-
-                  {/* Titre */}
-                  <h3 className="text-xl font-black text-white mb-1">{p.titre}</h3>
-                  <p className={`text-sm font-medium mb-3 ${p.badgeColor}`}>{p.sousTitre}</p>
-                  <p className="text-gray-400 text-sm leading-relaxed flex-1 mb-5">{p.desc}</p>
-
-                  {/* Stats */}
-                  <div className="flex gap-4 mb-5 py-4 border-t border-b border-white/5">
-                    {p.stats.map((s, j) => (
-                      <div key={j} className="text-center">
-                        <p className="text-white font-black text-lg leading-none">{s.val}</p>
-                        <p className="text-gray-500 text-xs mt-1">{s.label}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Réseaux sociaux */}
-                  <div className="flex items-center gap-2 mb-5">
-                    {p.socials.map((s, j) => (
-                      <a key={j} href={s.href} target="_blank" rel="noopener noreferrer"
-                        title={s.label}
-                        onClick={e => e.stopPropagation()}
-                        className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center text-gray-500 transition-all hover:scale-110"
-                        style={{ '--hover-color': s.color }}
-                        onMouseEnter={e => { e.currentTarget.style.color = s.color; e.currentTarget.style.borderColor = s.color + "50"; e.currentTarget.style.background = s.color + "15"; }}
-                        onMouseLeave={e => { e.currentTarget.style.color = ""; e.currentTarget.style.borderColor = ""; e.currentTarget.style.background = ""; }}>
-                        <s.Icon />
-                      </a>
-                    ))}
-                    {p.site && (
-                      <a href={p.site} target="_blank" rel="noopener noreferrer"
-                        onClick={e => e.stopPropagation()}
-                        className="ml-auto flex items-center gap-1 text-xs font-medium transition-all"
-                        style={{ color: p.accent }}
-                        title={`Visiter ${p.titre}`}>
-                        <ExternalLink className="w-3 h-3" /> Site officiel
-                      </a>
-                    )}
-                  </div>
-
-                  {/* CTA */}
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold transition-colors" style={{ color: p.accent }}>
-                      {p.interne ? "Voir la page →" : p.site ? "Visiter →" : "Découvrir →"}
-                    </span>
-                    <div className="w-8 h-8 rounded-full border flex items-center justify-center transition-all group-hover:scale-110"
-                      style={{ borderColor: p.accent + "40", color: p.accent }}>
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </motion.div>
-              );
-
-              // Carte interne → Link, externe → <a>
-              if (p.interne) {
-                return <Link key={p.id} to={p.interne} className="block h-full">{CardContent}</Link>;
-              }
-              return (
-                <a key={p.id} href={p.site || "#"} target="_blank" rel="noopener noreferrer" className="block h-full">
-                  {CardContent}
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════
-          VALEURS
-      ════════════════════════════════════════════════════════ */}
-      <section className="py-20 px-4 bg-gray-950 border-y border-white/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-red-400 tracking-widest text-xs uppercase mb-3 font-semibold">Ce qui le guide</p>
-            <h2 className="text-3xl md:text-4xl font-black text-white">Ses valeurs</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-            {VALEURS.map((v, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                className="p-6 rounded-2xl bg-gray-900 border border-white/5 hover:border-yellow-500/20 transition-all text-center">
-                <div className="w-11 h-11 rounded-full bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center mx-auto mb-4 text-yellow-400">
-                  {v.icon}
-                </div>
-                <h3 className="text-white font-bold mb-2">{v.titre}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════
-          VIDÉOS À LA UNE
-      ════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 bg-black">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-end justify-between mb-12">
+          <div className="flex items-center justify-between mb-12">
             <div>
-              <p className="text-red-400 tracking-widest text-xs uppercase mb-2 font-semibold">Vidéos</p>
+              <p className="text-xs uppercase font-semibold tracking-[0.3em] mb-2" style={{ color: BRAND.gold }}>Médias</p>
               <h2 className="text-3xl font-black text-white">Dernières vidéos</h2>
             </div>
-            <Link to="/videos" className="text-yellow-400 hover:text-yellow-300 flex items-center gap-2 text-sm font-medium">
-              Toutes les vidéos <ArrowRight className="w-4 h-4" />
+            <Link to="/videos"
+              className="hidden md:flex items-center gap-2 text-sm font-semibold transition-all"
+              style={{ color: BRAND.gold }}>
+              Tout voir <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
 
           {videos.length === 0 ? (
-            <div className="text-center py-16 rounded-2xl bg-gray-900 border border-white/5">
-              <Play className="w-16 h-16 text-red-400/30 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Vidéos à venir</h3>
-              <p className="text-gray-400 text-sm mb-6">Les prochaines vidéos seront ajoutées ici.</p>
+            <div className="text-center py-20 rounded-2xl"
+              style={{ background: BRAND.navyLight, border: `1px solid ${BRAND.gold}15` }}>
+              <Play className="w-12 h-12 mx-auto mb-4 opacity-30" style={{ color: BRAND.gold }} />
+              <p className="font-bold text-white mb-2">Vidéos bientôt disponibles</p>
+              <p className="text-sm mb-6" style={{ color: BRAND.silver, opacity: 0.6 }}>
+                En attendant, retrouvez les vidéos sur Facebook
+              </p>
               <a href={SOCIAL_LINKS.tourDeDour.facebook} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-[#1877f2]/30 text-[#1877f2] hover:bg-[#1877f2]/10 transition-all text-sm">
-                <FbIcon /> Suivre sur Facebook
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all"
+                style={{ background: `${BRAND.gold}15`, color: BRAND.gold, border: `1px solid ${BRAND.gold}30` }}>
+                <FbIcon /> Voir sur Facebook
               </a>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {videos.map((v, i) => (
-                <motion.a key={i} href={v.youtube_url || `https://youtube.com/watch?v=${v.youtube_id}`}
-                  target="_blank" rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                  className="group rounded-2xl bg-gray-900 border border-white/5 hover:border-red-500/30 overflow-hidden transition-all">
-                  <div className="aspect-video bg-gray-800 relative overflow-hidden">
-                    <img src={v.miniature_url || `https://img.youtube.com/vi/${v.youtube_id}/mqdefault.jpg`}
-                      alt={v.titre} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center">
-                        <Play className="w-5 h-5 text-white ml-0.5" />
+            <div className="grid md:grid-cols-3 gap-6">
+              {videos.map((v, i) => {
+                const thumb = v.miniature_url || (v.youtube_id ? `https://img.youtube.com/vi/${v.youtube_id}/mqdefault.jpg` : null);
+                const link  = v.youtube_url || (v.youtube_id ? `https://youtube.com/watch?v=${v.youtube_id}` : "#");
+                return (
+                  <motion.a key={v.id} href={link} target="_blank" rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }} viewport={{ once: true }}
+                    className="group rounded-2xl overflow-hidden block transition-all duration-300 hover:translate-y-[-2px]"
+                    style={{ background: BRAND.navyLight, border: `1px solid ${BRAND.gold}15` }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = BRAND.gold + "40"}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = BRAND.gold + "15"}>
+                    <div className="aspect-video bg-gray-900 relative overflow-hidden">
+                      {thumb ? (
+                        <img src={thumb} alt={v.titre} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Play className="w-10 h-10 opacity-30" style={{ color: BRAND.gold }} />
+                        </div>
+                      )}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        style={{ background: "rgba(0,0,0,0.5)" }}>
+                        <div className="w-14 h-14 rounded-full flex items-center justify-center"
+                          style={{ background: "#ff0000" }}>
+                          <Play className="w-6 h-6 text-white ml-1" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="p-4">
-                    <span className="text-xs text-red-400 font-medium uppercase tracking-wider">{v.categorie}</span>
-                    <h3 className="text-white font-bold mt-1 line-clamp-2 text-sm">{v.titre}</h3>
-                  </div>
-                </motion.a>
-              ))}
+                    <div className="p-4">
+                      <p className="text-xs font-medium mb-1" style={{ color: BRAND.gold }}>{v.categorie}</p>
+                      <h3 className="text-white font-bold text-sm line-clamp-2">{v.titre}</h3>
+                    </div>
+                  </motion.a>
+                );
+              })}
             </div>
           )}
+
+          <div className="text-center mt-8 md:hidden">
+            <Link to="/videos"
+              className="inline-flex items-center gap-2 text-sm font-semibold"
+              style={{ color: BRAND.gold }}>
+              Voir toutes les vidéos <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════
-          ACTUALITÉS
-      ════════════════════════════════════════════════════════ */}
-      {actualites.length > 0 && (
-        <section className="py-20 px-4 bg-gray-950 border-t border-white/5">
+      {/* ══════════════════════════════════════════
+          DERNIÈRES ACTUALITÉS
+      ══════════════════════════════════════════ */}
+      {actus.length > 0 && (
+        <section className="py-24 px-4" style={{ background: `linear-gradient(180deg, ${BRAND.black} 0%, ${BRAND.navy} 100%)` }}>
           <div className="max-w-6xl mx-auto">
-            <div className="flex items-end justify-between mb-12">
+            <div className="flex items-center justify-between mb-12">
               <div>
-                <p className="text-yellow-400 tracking-widest text-xs uppercase mb-2 font-semibold">Actualités</p>
-                <h2 className="text-3xl font-black text-white">À la une</h2>
+                <p className="text-xs uppercase font-semibold tracking-[0.3em] mb-2" style={{ color: BRAND.gold }}>Actualités</p>
+                <h2 className="text-3xl font-black text-white">Dernières nouvelles</h2>
               </div>
-              <Link to="/actualites" className="text-yellow-400 hover:text-yellow-300 flex items-center gap-2 text-sm font-medium">
-                Toutes les actualités <ArrowRight className="w-4 h-4" />
+              <Link to="/actualites"
+                className="hidden md:flex items-center gap-2 text-sm font-semibold"
+                style={{ color: BRAND.gold }}>
+                Tout voir <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
-              {actualites.map((a, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              {actus.map((a, i) => (
+                <motion.div key={a.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                  className="rounded-2xl bg-gray-900 border border-white/5 overflow-hidden hover:border-yellow-500/20 transition-all">
-                  {a.image_url && <img src={a.image_url} alt={a.titre} className="w-full h-44 object-cover" />}
-                  <div className="p-6">
-                    <span className="text-xs text-yellow-400 font-semibold uppercase tracking-wider">{a.categorie}</span>
-                    <h3 className="text-white font-bold mt-2 mb-2">{a.titre}</h3>
-                    <p className="text-gray-400 text-sm line-clamp-2">{a.extrait}</p>
+                  className="rounded-2xl overflow-hidden"
+                  style={{ background: BRAND.navyLight, border: `1px solid ${BRAND.gold}15` }}>
+                  {a.image_url && (
+                    <div className="aspect-video overflow-hidden">
+                      <img src={a.image_url} alt={a.titre} className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  <div className="p-5">
+                    <p className="text-xs font-medium mb-2" style={{ color: BRAND.gold }}>{a.categorie}</p>
+                    <h3 className="text-white font-bold text-sm line-clamp-2 mb-2">{a.titre}</h3>
+                    {a.extrait && <p className="text-xs line-clamp-2" style={{ color: BRAND.silver, opacity: 0.7 }}>{a.extrait}</p>}
                   </div>
                 </motion.div>
               ))}
@@ -599,63 +443,35 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ════════════════════════════════════════════════════════
-          CTA CONTACT
-      ════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 bg-black relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5"
-          style={{ background: "radial-gradient(ellipse at center, #d4af37 0%, transparent 70%)" }} />
-        <div className="relative max-w-3xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="text-yellow-400 tracking-widest text-xs uppercase mb-4 font-semibold">Un projet ? Une question ?</p>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-              Prenons <span style={{ color: "#d4af37" }}>contact</span>
-            </h2>
-            <p className="text-gray-400 text-lg mb-10 leading-relaxed">
-              Partenariat, presse, candidature, bénévolat ou simplement dire bonjour — toutes les portes sont ouvertes.
-            </p>
-
-            {/* Canaux de contact */}
-            <div className="flex flex-wrap gap-4 justify-center mb-10">
-              <a href="mailto:contact@oliviertrevis.be"
-                className="flex items-center gap-2 px-6 py-3 bg-yellow-500 text-black font-bold rounded-full hover:bg-yellow-400 transition-all">
-                <Mail className="w-4 h-4" /> Envoyer un email
-              </a>
-              <a href="https://wa.me/32475426942" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-full hover:bg-green-500 transition-all">
-                <MessageCircle className="w-4 h-4" /> WhatsApp
-              </a>
-              <Link to="/contact"
-                className="flex items-center gap-2 px-6 py-3 border border-white/20 text-gray-300 hover:bg-white/5 rounded-full transition-all font-semibold">
-                Formulaire <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            {/* Tous les réseaux sociaux */}
-            <div className="flex flex-wrap justify-center gap-3">
-              {[
-                { href: SOCIAL_LINKS.olivierTrevis.facebook,  Icon: FbIcon, label: "Olivier Trevis",       color: "#1877f2" },
-                { href: SOCIAL_LINKS.olivierTrevis.instagram, Icon: IgIcon, label: "@oliviertrevis",       color: "#e1306c" },
-                { href: SOCIAL_LINKS.missMisterDour.facebook, Icon: FbIcon, label: "Miss & Mister Dour",   color: "#1877f2" },
-                { href: SOCIAL_LINKS.missMisterDour.instagram,Icon: IgIcon, label: "@miss_et_mister_dour", color: "#e1306c" },
-                { href: SOCIAL_LINKS.missMisterDour.tiktok,   Icon: TkIcon, label: "@miss_mister_dour",    color: "#ffffff" },
-                { href: SOCIAL_LINKS.fashionistArt.facebook,  Icon: FbIcon, label: "Fashionist'ART",       color: "#1877f2" },
-                { href: SOCIAL_LINKS.tourDeDour.facebook,     Icon: FbIcon, label: "Tour de Dour",         color: "#1877f2" },
-                { href: SOCIAL_LINKS.pvAssurances.facebook,   Icon: FbIcon, label: "P&V Assurances Dour",  color: "#1877f2" },
-              ].map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
-                  title={s.label}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-gray-500 text-xs hover:border-white/20 transition-all"
-                  onMouseEnter={e => { e.currentTarget.style.color = s.color; e.currentTarget.style.background = s.color + "12"; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = ""; e.currentTarget.style.background = ""; }}>
-                  <s.Icon className="w-3.5 h-3.5" /> {s.label}
-                </a>
-              ))}
-            </div>
-          </motion.div>
+      {/* ══════════════════════════════════════════
+          CTA FINAL
+      ══════════════════════════════════════════ */}
+      <section className="py-24 px-4" style={{ background: BRAND.navy }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="w-16 h-16 rounded-2xl overflow-hidden mx-auto mb-6"
+            style={{ border: `1.5px solid ${BRAND.gold}50` }}>
+            <img src={LOGO_OT} alt="OT" className="w-full h-full object-cover" />
+          </div>
+          <h2 className="text-4xl font-black text-white mb-4">Agir et Construire Ensemble</h2>
+          <p className="text-sm leading-relaxed mb-10" style={{ color: BRAND.silver, opacity: 0.8, maxWidth: "500px", margin: "0 auto 2.5rem" }}>
+            Vous avez un projet, une idée, une question ? Olivier Trevis est disponible pour échanger et collaborer autour des initiatives locales de Dour.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/contact"
+              className="flex items-center gap-2 px-8 py-4 rounded-full font-black text-sm transition-all hover:scale-105"
+              style={{ background: `linear-gradient(135deg, ${BRAND.gold}, ${BRAND.goldLight})`, color: BRAND.navy }}>
+              Nous contacter <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link to="/a-propos"
+              className="flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all"
+              style={{ border: `1.5px solid ${BRAND.gold}40`, color: BRAND.gold, background: `${BRAND.gold}08` }}
+              onMouseEnter={e => e.currentTarget.style.background = BRAND.gold + "15"}
+              onMouseLeave={e => e.currentTarget.style.background = BRAND.gold + "08"}>
+              En savoir plus
+            </Link>
+          </div>
         </div>
       </section>
-
     </div>
   );
 }
