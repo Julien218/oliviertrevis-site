@@ -12,23 +12,35 @@ const PROJETS = [
   {
     id: "miss-mister",
     titre: "Miss & Mister Dour",
-    soustitre: "Fashionist'ART",
-    description: "Le grand concours de beauté, d'élégance et de créativité de la région de Dour. Un événement qui célèbre la mode locale, la diversité et les talents de la région.",
-    tags: ["Concours", "Mode", "Art", "Beauté", "Inclusion"],
+    soustitre: "Concours de beauté & représentation",
+    description: "Le grand concours de beauté, d'élégance et de représentation locale de la région de Dour. Un événement qui célèbre la diversité, le charisme et les talents de la communauté.",
+    tags: ["Concours", "Beauté", "Représentation", "Dour", "Inclusion"],
     site: "https://missetmisterdour.be",
-    siteFashion: "https://fashionistartdour.be",
     socials: [
       { href: SOCIAL_LINKS.missMisterDour.facebook,  Icon: FbIcon, color: "#1877f2", label: "Facebook" },
       { href: SOCIAL_LINKS.missMisterDour.instagram, Icon: IgIcon, color: "#e1306c", label: "Instagram" },
-      { href: SOCIAL_LINKS.missMisterDour.tiktok,    Icon: TkIcon, color: "#fff",    label: "TikTok" },
-      { href: SOCIAL_LINKS.fashionistArt.facebook,   Icon: FbIcon, color: "#1877f2", label: "Fashionist'ART FB" },
-      { href: SOCIAL_LINKS.fashionistArt.instagram,  Icon: IgIcon, color: "#e1306c", label: "Fashionist'ART IG" },
+      { href: SOCIAL_LINKS.missMisterDour.tiktok,    Icon: TkIcon, color: "#ffffff", label: "TikTok" },
     ],
     accent: BRAND.gold,
     accentBg: `${BRAND.gold}12`,
     accentBorder: `${BRAND.gold}30`,
     emoji: "👑",
-    featured: true,
+  },
+  {
+    id: "fashionist-art",
+    titre: "Fashionist'ART",
+    soustitre: "Mode, art & créativité",
+    description: "Une plateforme dédiée à la mode artistique, au style créatif et à l'expression vestimentaire. Fashionist'ART valorise les créateurs, les stylistes et les passionnés de mode autour de Dour.",
+    tags: ["Mode", "Art", "Créativité", "Stylisme", "Expression"],
+    site: "https://fashionistartdour.be",
+    socials: [
+      { href: SOCIAL_LINKS.fashionistArt.facebook,  Icon: FbIcon, color: "#1877f2", label: "Facebook" },
+      { href: SOCIAL_LINKS.fashionistArt.instagram, Icon: IgIcon, color: "#e1306c", label: "Instagram" },
+    ],
+    accent: "#c084fc",
+    accentBg: "rgba(192,132,252,0.10)",
+    accentBorder: "rgba(192,132,252,0.28)",
+    emoji: "🎨",
   },
   {
     id: "pv-assurances",
@@ -44,7 +56,6 @@ const PROJETS = [
     accentBg: "rgba(74,158,255,0.08)",
     accentBorder: "rgba(74,158,255,0.25)",
     emoji: "🛡️",
-    featured: false,
   },
   {
     id: "synergie-dour",
@@ -60,12 +71,11 @@ const PROJETS = [
     accentBg: "rgba(110,231,183,0.08)",
     accentBorder: "rgba(110,231,183,0.25)",
     emoji: "🤝",
-    featured: false,
   },
   {
     id: "tour-de-dour",
     titre: "Le Tour de Dour",
-    soustitre: "Découvrir Dour autrement",
+    soustitre: "Reportages & vidéos locales",
     description: "Des vidéos, des reportages, des rencontres et des découvertes autour de Dour. Un projet qui met en lumière les lieux, les initiatives et les personnes qui font vivre Dour.",
     tags: ["Vidéos", "Reportages", "Culture", "Dour"],
     site: "/tour-de-dour",
@@ -76,7 +86,6 @@ const PROJETS = [
     accentBg: "rgba(248,113,113,0.08)",
     accentBorder: "rgba(248,113,113,0.25)",
     emoji: "🎬",
-    featured: false,
     internal: true,
   },
 ];
@@ -104,7 +113,7 @@ export default function ProjetsPage() {
             <div className="w-16 h-0.5 rounded-full mx-auto mb-6"
               style={{ background: `linear-gradient(90deg, transparent, ${BRAND.gold}, transparent)` }} />
             <p className="text-base leading-relaxed max-w-2xl mx-auto" style={{ color: BRAND.silver }}>
-              Chaque projet d'Olivier Trevis possède son propre site web officiel. Découvrez-les ici et rejoignez-les directement.
+              5 projets distincts, chacun avec son identité propre. Chaque site est indépendant — retrouvez-les tous ici.
             </p>
           </motion.div>
         </div>
@@ -112,12 +121,12 @@ export default function ProjetsPage() {
 
       {/* ── PROJETS ── */}
       <section className="py-16 px-4">
-        <div className="max-w-5xl mx-auto space-y-8">
+        <div className="max-w-5xl mx-auto space-y-6">
           {PROJETS.map((p, i) => (
             <motion.div key={p.id}
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-              className="group rounded-3xl overflow-hidden transition-all duration-300"
+              transition={{ delay: i * 0.08 }} viewport={{ once: true }}
+              className="rounded-3xl overflow-hidden transition-all duration-300"
               style={{
                 background: `linear-gradient(135deg, ${BRAND.navyLight} 0%, ${BRAND.navy} 100%)`,
                 border: `1px solid ${p.accentBorder}`,
@@ -137,11 +146,11 @@ export default function ProjetsPage() {
                       </div>
                       <div>
                         <h2 className="text-2xl md:text-3xl font-black text-white">{p.titre}</h2>
-                        <p className="text-sm font-medium tracking-wider" style={{ color: p.accent }}>{p.soustitre}</p>
+                        <p className="text-sm font-medium tracking-wide mt-0.5" style={{ color: p.accent }}>{p.soustitre}</p>
                       </div>
                     </div>
 
-                    <p className="text-sm leading-relaxed mb-5" style={{ color: BRAND.silver, maxWidth: "500px" }}>
+                    <p className="text-sm leading-relaxed mb-5" style={{ color: BRAND.silver, opacity: 0.85, maxWidth: "520px" }}>
                       {p.description}
                     </p>
 
@@ -157,13 +166,13 @@ export default function ProjetsPage() {
 
                     {/* Socials */}
                     <div className="flex items-center gap-2">
-                      <span className="text-xs mr-1" style={{ color: BRAND.silver, opacity: 0.5 }}>Suivre :</span>
+                      <span className="text-xs mr-1" style={{ color: BRAND.silver, opacity: 0.45 }}>Suivre :</span>
                       {p.socials.map((s, si) => (
                         <a key={si} href={s.href} target="_blank" rel="noopener noreferrer" title={s.label}
                           className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:scale-110"
                           style={{ border: `1px solid ${BRAND.gold}25`, color: BRAND.silver }}
-                          onMouseEnter={e => { e.currentTarget.style.color = s.color; e.currentTarget.style.borderColor = s.color + "50"; }}
-                          onMouseLeave={e => { e.currentTarget.style.color = BRAND.silver; e.currentTarget.style.borderColor = BRAND.gold + "25"; }}>
+                          onMouseEnter={e => { e.currentTarget.style.color = s.color; e.currentTarget.style.borderColor = s.color + "60"; e.currentTarget.style.background = s.color + "15"; }}
+                          onMouseLeave={e => { e.currentTarget.style.color = BRAND.silver; e.currentTarget.style.borderColor = BRAND.gold + "25"; e.currentTarget.style.background = "transparent"; }}>
                           <s.Icon />
                         </a>
                       ))}
@@ -171,13 +180,13 @@ export default function ProjetsPage() {
                   </div>
 
                   {/* Droite — CTA */}
-                  <div className="flex flex-col gap-3 min-w-[200px]">
+                  <div className="flex flex-col gap-3 min-w-[190px]">
                     {p.internal ? (
                       <Link to={p.site}
                         className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm transition-all"
-                        style={{ background: `linear-gradient(135deg, ${p.accent}22, ${p.accent}10)`, color: p.accent, border: `1.5px solid ${p.accent}40` }}
-                        onMouseEnter={e => e.currentTarget.style.background = `linear-gradient(135deg, ${p.accent}35, ${p.accent}20)`}
-                        onMouseLeave={e => e.currentTarget.style.background = `linear-gradient(135deg, ${p.accent}22, ${p.accent}10)`}>
+                        style={{ background: `${p.accent}18`, color: p.accent, border: `1.5px solid ${p.accent}40` }}
+                        onMouseEnter={e => e.currentTarget.style.background = `${p.accent}30`}
+                        onMouseLeave={e => e.currentTarget.style.background = `${p.accent}18`}>
                         Voir la page <ArrowRight className="w-4 h-4" />
                       </Link>
                     ) : (
@@ -186,16 +195,7 @@ export default function ProjetsPage() {
                         style={{ background: `linear-gradient(135deg, ${BRAND.gold}, ${BRAND.goldLight})`, color: BRAND.navy }}
                         onMouseEnter={e => e.currentTarget.style.opacity = "0.9"}
                         onMouseLeave={e => e.currentTarget.style.opacity = "1"}>
-                        Visiter le site <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
-                    {p.siteFashion && (
-                      <a href={p.siteFashion} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm transition-all"
-                        style={{ background: `${BRAND.gold}10`, color: BRAND.gold, border: `1.5px solid ${BRAND.gold}30` }}
-                        onMouseEnter={e => e.currentTarget.style.background = `${BRAND.gold}20`}
-                        onMouseLeave={e => e.currentTarget.style.background = `${BRAND.gold}10`}>
-                        Fashionist'ART ↗
+                        Site officiel <ExternalLink className="w-4 h-4" />
                       </a>
                     )}
                   </div>
@@ -206,17 +206,17 @@ export default function ProjetsPage() {
         </div>
       </section>
 
-      {/* ── CTA CONTACT ── */}
+      {/* ── CTA ── */}
       <section className="py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="p-10 rounded-3xl"
             style={{ background: `linear-gradient(135deg, ${BRAND.navyLight} 0%, ${BRAND.navy} 100%)`, border: `1px solid ${BRAND.gold}25` }}>
             <p className="text-2xl font-black text-white mb-3">Une question sur un projet ?</p>
-            <p className="text-sm mb-6" style={{ color: BRAND.silver }}>
+            <p className="text-sm mb-6" style={{ color: BRAND.silver, opacity: 0.75 }}>
               Olivier Trevis est disponible pour toute demande d'information, de partenariat ou de collaboration.
             </p>
             <Link to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-black text-sm transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-black text-sm transition-all hover:opacity-90"
               style={{ background: `linear-gradient(135deg, ${BRAND.gold}, ${BRAND.goldLight})`, color: BRAND.navy }}>
               Nous contacter <ArrowRight className="w-4 h-4" />
             </Link>

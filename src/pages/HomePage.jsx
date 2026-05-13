@@ -15,16 +15,27 @@ function TkIcon() { return <svg className="w-4 h-4" fill="currentColor" viewBox=
 const PROJETS = [
   {
     titre: "Miss & Mister Dour",
-    soustitre: "Fashionist'ART",
-    desc: "Le grand concours de beauté, mode et créativité de Dour.",
+    soustitre: "Concours de beauté",
+    desc: "Le grand concours de beauté, d'élégance et de représentation locale de Dour.",
     site: "https://missetmisterdour.be",
-    siteFashion: "https://fashionistartdour.be",
     emoji: "👑",
     accent: BRAND.gold,
     socials: [
       { href: SOCIAL_LINKS.missMisterDour.facebook, Icon: FbIcon },
       { href: SOCIAL_LINKS.missMisterDour.instagram, Icon: IgIcon },
       { href: SOCIAL_LINKS.missMisterDour.tiktok, Icon: TkIcon },
+    ],
+  },
+  {
+    titre: "Fashionist'ART",
+    soustitre: "Mode, art & créativité",
+    desc: "Plateforme dédiée à la mode artistique et à l'expression créative autour de Dour.",
+    site: "https://fashionistartdour.be",
+    emoji: "🎨",
+    accent: "#c084fc",
+    socials: [
+      { href: SOCIAL_LINKS.fashionistArt.facebook, Icon: FbIcon },
+      { href: SOCIAL_LINKS.fashionistArt.instagram, Icon: IgIcon },
     ],
   },
   {
