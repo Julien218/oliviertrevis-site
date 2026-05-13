@@ -1,172 +1,192 @@
-import { motion } from "framer-motion";
-import { Shield, FileText, Eye, Users, Camera } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, Shield, FileText, Eye, Lock, Image, CheckSquare } from "lucide-react";
+import { Link } from "react-router-dom";
+
+const SECTIONS = [
+  {
+    id: "mentions",
+    icon: <FileText className="w-5 h-5" />,
+    titre: "Mentions légales",
+    color: "text-yellow-400",
+    border: "border-yellow-500/30",
+    contenu: (
+      <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
+        <div><p className="text-white font-semibold mb-1">Responsable de publication</p><p>Olivier Trevis<br />Dour, Belgique<br />Email : contact@oliviertrevis.be</p></div>
+        <div><p className="text-white font-semibold mb-1">Développement & hébergement</p><p>Site développé par <strong className="text-yellow-400">JS-Innov.IA</strong><br />Hébergement : Railway (railway.app)</p></div>
+        <div><p className="text-white font-semibold mb-1">Propriété intellectuelle</p><p>L'ensemble du contenu de ce site (textes, images, vidéos, logos) est protégé par le droit d'auteur. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable d'Olivier Trevis.</p></div>
+        <div><p className="text-white font-semibold mb-1">Liens externes</p><p>Le site peut contenir des liens vers des sites tiers. Olivier Trevis n'est pas responsable du contenu de ces sites externes.</p></div>
+      </div>
+    ),
+  },
+  {
+    id: "confidentialite",
+    icon: <Lock className="w-5 h-5" />,
+    titre: "Politique de confidentialité",
+    color: "text-blue-400",
+    border: "border-blue-500/30",
+    contenu: (
+      <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
+        <div><p className="text-white font-semibold mb-1">Données collectées</p><p>Nous collectons uniquement les données nécessaires au traitement de vos demandes : nom, prénom, email, téléphone et message. Ces données sont collectées via les formulaires de contact, de candidature et de partenariat.</p></div>
+        <div><p className="text-white font-semibold mb-1">Finalité du traitement</p><ul className="list-disc pl-5 space-y-1 mt-2"><li>Répondre à vos demandes de contact</li><li>Traiter les candidatures au concours Miss & Mister Dour</li><li>Gérer les demandes de partenariat</li><li>Envoyer des informations sur les événements (avec consentement)</li></ul></div>
+        <div><p className="text-white font-semibold mb-1">Conservation des données</p><p>Vos données sont conservées pendant une durée maximale de 3 ans après votre dernière interaction. Les candidatures sont conservées le temps nécessaire à l'organisation du concours.</p></div>
+        <div><p className="text-white font-semibold mb-1">Partage des données</p><p>Vos données ne sont jamais vendues ni transmises à des tiers à des fins commerciales. Elles peuvent être partagées avec des prestataires techniques dans le cadre strict de la gestion du site.</p></div>
+        <div><p className="text-white font-semibold mb-1">Hébergement des données</p><p>Les données sont hébergées sur des serveurs sécurisés via Railway et Supabase, conformes aux standards européens de protection des données.</p></div>
+      </div>
+    ),
+  },
+  {
+    id: "rgpd",
+    icon: <Shield className="w-5 h-5" />,
+    titre: "Vos droits RGPD",
+    color: "text-green-400",
+    border: "border-green-500/30",
+    contenu: (
+      <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
+        <p>Conformément au Règlement Général sur la Protection des Données (RGPD - UE 2016/679), vous disposez des droits suivants :</p>
+        <div className="grid md:grid-cols-2 gap-4 mt-2">
+          {[
+            { titre: "Droit d'accès", desc: "Vous pouvez demander à consulter les données personnelles que nous détenons vous concernant." },
+            { titre: "Droit de rectification", desc: "Vous pouvez demander la correction de données inexactes ou incomplètes." },
+            { titre: "Droit à l'effacement", desc: "Vous pouvez demander la suppression de vos données (« droit à l'oubli »)." },
+            { titre: "Droit d'opposition", desc: "Vous pouvez vous opposer au traitement de vos données à tout moment." },
+            { titre: "Droit à la portabilité", desc: "Vous pouvez demander à recevoir vos données dans un format structuré et lisible." },
+            { titre: "Droit de retrait", desc: "Vous pouvez retirer votre consentement à tout moment sans affecter les traitements passés." },
+          ].map((d, i) => (
+            <div key={i} className="p-4 rounded-xl bg-gray-800/50 border border-white/5">
+              <p className="text-white font-semibold text-xs mb-1">{d.titre}</p>
+              <p className="text-gray-500 text-xs">{d.desc}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4">Pour exercer ces droits, contactez-nous à : <a href="mailto:contact@oliviertrevis.be" className="text-blue-400 hover:underline">contact@oliviertrevis.be</a>. Vous disposez également du droit d'introduire une réclamation auprès de l'<a href="https://www.autoriteprotectiondonnees.be" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Autorité de Protection des Données belge</a>.</p>
+      </div>
+    ),
+  },
+  {
+    id: "droits-image",
+    icon: <Image className="w-5 h-5" />,
+    titre: "Droits à l'image & vidéos",
+    color: "text-purple-400",
+    border: "border-purple-500/30",
+    contenu: (
+      <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
+        <div><p className="text-white font-semibold mb-1">Prises de vue lors des événements</p><p>Des photos et vidéos sont réalisées lors des événements organisés par Olivier Trevis (Miss & Mister Dour, Tour de Dour, etc.). En participant à ces événements, les participants et le public acceptent que leur image puisse être utilisée à des fins de communication non commerciale.</p></div>
+        <div><p className="text-white font-semibold mb-1">Utilisation des images</p><p>Les photos et vidéos peuvent être publiées sur le site oliviertrevis.be, les réseaux sociaux associés et dans les communications officielles des projets d'Olivier Trevis.</p></div>
+        <div><p className="text-white font-semibold mb-1">Droit d'opposition</p><p>Toute personne photographiée ou filmée peut demander le retrait de son image en contactant : <a href="mailto:contact@oliviertrevis.be" className="text-purple-400 hover:underline">contact@oliviertrevis.be</a>. La demande sera traitée dans les meilleurs délais.</p></div>
+        <div><p className="text-white font-semibold mb-1">Mineurs</p><p>Pour les mineurs, le consentement écrit d'un représentant légal est requis avant toute publication. Le formulaire de candidature pour les concours inclut ce consentement.</p></div>
+      </div>
+    ),
+  },
+  {
+    id: "cookies",
+    icon: <Eye className="w-5 h-5" />,
+    titre: "Cookies & Technologies",
+    color: "text-orange-400",
+    border: "border-orange-500/30",
+    contenu: (
+      <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
+        <div><p className="text-white font-semibold mb-1">Cookies utilisés</p><p>Ce site utilise uniquement des cookies techniques nécessaires à son bon fonctionnement. Aucun cookie de traçage publicitaire n'est utilisé.</p></div>
+        <div><p className="text-white font-semibold mb-1">YouTube</p><p>Les vidéos YouTube intégrées peuvent déposer des cookies de YouTube/Google. En visionnant une vidéo, vous acceptez la politique de confidentialité de Google.</p></div>
+        <div><p className="text-white font-semibold mb-1">Désactivation</p><p>Vous pouvez configurer votre navigateur pour refuser les cookies. Cela peut affecter certaines fonctionnalités du site.</p></div>
+      </div>
+    ),
+  },
+  {
+    id: "conditions",
+    icon: <CheckSquare className="w-5 h-5" />,
+    titre: "Conditions d'utilisation",
+    color: "text-red-400",
+    border: "border-red-500/30",
+    contenu: (
+      <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
+        <div><p className="text-white font-semibold mb-1">Usage du site</p><p>Ce site est destiné à présenter les activités associatives, culturelles et événementielles d'Olivier Trevis. Toute utilisation frauduleuse, abusive ou contraire aux bonnes mœurs est interdite.</p></div>
+        <div><p className="text-white font-semibold mb-1">Formulaires</p><p>Les formulaires de contact et de candidature sont destinés à un usage sincère et personnel. Tout envoi de contenu offensant, diffamatoire ou illégal est strictement interdit.</p></div>
+        <div><p className="text-white font-semibold mb-1">Candidatures au concours</p><p>Les candidatures au concours Miss & Mister Dour Fashionist'ART sont soumises au règlement officiel du concours. En soumettant une candidature, le candidat accepte ce règlement dans son intégralité.</p></div>
+        <div><p className="text-white font-semibold mb-1">Responsabilité</p><p>Olivier Trevis s'efforce de maintenir les informations du site à jour mais ne peut garantir leur exactitude absolue. Il ne saurait être tenu responsable des erreurs ou omissions.</p></div>
+        <div><p className="text-white font-semibold mb-1">Droit applicable</p><p>Le présent site est soumis au droit belge. Tout litige sera soumis à la juridiction compétente de Belgique.</p></div>
+      </div>
+    ),
+  },
+];
+
+function Accordion({ section }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`rounded-2xl bg-gray-900 border ${open ? section.border : "border-white/5"} overflow-hidden transition-all duration-300`}>
+      <button onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between p-6 text-left hover:bg-white/2 transition-colors">
+        <div className="flex items-center gap-4">
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${section.color} bg-white/5`}>
+            {section.icon}
+          </div>
+          <h3 className="text-white font-bold text-lg">{section.titre}</h3>
+        </div>
+        <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3 }}>
+          <ChevronDown className="w-5 h-5 text-gray-400" />
+        </motion.div>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }}>
+            <div className="px-6 pb-6 border-t border-white/5 pt-5">
+              {section.contenu}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function MentionsLegalesPage() {
-  const sections = [
-    {
-      icon: <FileText className="w-5 h-5" />,
-      titre: "Mentions légales",
-      contenu: `
-**Éditeur du site**
-Olivier Trevis
-Dour, Belgique
-Email : contact@oliviertrevis.be
-
-**Hébergeur**
-Base44 — https://base44.com
-
-**Responsable de la publication**
-Olivier Trevis
-
-**Propriété intellectuelle**
-L'ensemble du contenu de ce site (textes, images, vidéos, logos) est protégé par le droit d'auteur. Toute reproduction, même partielle, est interdite sans autorisation préalable.
-      `
-    },
-    {
-      icon: <Shield className="w-5 h-5" />,
-      titre: "Politique de confidentialité",
-      contenu: `
-**Collecte des données**
-Ce site collecte uniquement les données personnelles nécessaires à son fonctionnement : nom, prénom, adresse email, téléphone (via les formulaires de contact, de candidature et de proposition).
-
-**Finalités du traitement**
-Les données collectées sont utilisées pour :
-- Traiter vos demandes de contact
-- Gérer les candidatures aux concours
-- Vous informer des événements (si consentement)
-- Assurer la gestion administrative des projets
-
-**Base légale**
-Le traitement est fondé sur votre consentement exprès, recueilli lors de la soumission des formulaires.
-
-**Conservation des données**
-Vos données sont conservées pendant la durée nécessaire à leur traitement, et au maximum 3 ans après votre dernier contact, sauf obligation légale contraire.
-
-**Vos droits**
-Conformément au RGPD, vous disposez des droits suivants :
-- Droit d'accès à vos données
-- Droit de rectification
-- Droit à l'effacement (droit à l'oubli)
-- Droit à la portabilité
-- Droit d'opposition
-
-Pour exercer ces droits, contactez : contact@oliviertrevis.be
-      `
-    },
-    {
-      icon: <Eye className="w-5 h-5" />,
-      titre: "Cookies",
-      contenu: `
-Ce site utilise des cookies techniques nécessaires à son bon fonctionnement. Aucun cookie publicitaire ou de traçage n'est utilisé sans votre consentement.
-
-**Cookies utilisés**
-- Cookies de session : nécessaires au fonctionnement du site
-- Cookies de préférences : mémorisent vos choix de navigation
-
-Vous pouvez désactiver les cookies dans les paramètres de votre navigateur, mais cela peut affecter votre expérience sur le site.
-      `
-    },
-    {
-      icon: <Camera className="w-5 h-5" />,
-      titre: "Droits à l'image",
-      contenu: `
-**Photos et vidéos des événements**
-Les photos et vidéos prises lors des événements organisés par Olivier Trevis (Miss & Mister Dour, Tour de Dour, etc.) peuvent être utilisées à des fins de communication sur ce site et nos réseaux sociaux.
-
-**Candidats aux concours**
-En soumettant une candidature, les participants acceptent que leurs photos et vidéos soient utilisées à des fins de promotion de l'événement.
-
-**Droit à l'effacement**
-Toute personne peut demander le retrait de son image en envoyant une demande à contact@oliviertrevis.be avec les informations nécessaires à l'identification de la photo ou vidéo concernée.
-      `
-    },
-    {
-      icon: <Users className="w-5 h-5" />,
-      titre: "Conditions d'utilisation",
-      contenu: `
-**Accès au site**
-L'accès à ce site est libre et gratuit. Nous nous réservons le droit de modifier, suspendre ou interrompre l'accès au site à tout moment et sans préavis.
-
-**Responsabilité**
-Olivier Trevis ne saurait être tenu responsable des dommages directs ou indirects résultant de l'utilisation de ce site ou de l'impossibilité d'y accéder.
-
-**Liens externes**
-Ce site peut contenir des liens vers des sites tiers. Nous n'assumons aucune responsabilité quant au contenu de ces sites externes.
-
-**Droit applicable**
-Le présent site est soumis au droit belge. En cas de litige, les tribunaux belges seront seuls compétents.
-      `
-    },
-  ];
-
-  const renderContent = (text) => {
-    return text.trim().split('\n').map((line, i) => {
-      const trimmed = line.trim();
-      if (!trimmed) return <br key={i} />;
-      if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
-        return <p key={i} className="font-bold text-white mt-4 mb-1">{trimmed.slice(2, -2)}</p>;
-      }
-      if (trimmed.startsWith('- ')) {
-        return <li key={i} className="text-gray-400 ml-4">{trimmed.slice(2)}</li>;
-      }
-      return <p key={i} className="text-gray-400">{trimmed}</p>;
-    });
-  };
-
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* HERO */}
-      <section className="relative py-24 px-4 overflow-hidden">
+
+      {/* ── HERO ── */}
+      <section className="relative py-28 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-950 to-black" />
-        <div className="relative max-w-4xl mx-auto text-center">
+        <div className="relative max-w-3xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="text-yellow-400 tracking-[0.3em] text-sm uppercase mb-4">Légal</p>
+            <p className="text-yellow-400 tracking-[0.3em] text-xs uppercase font-semibold mb-4">Informations légales</p>
             <h1 className="text-4xl md:text-5xl font-black mb-4 text-white">Mentions légales & RGPD</h1>
-            <p className="text-gray-400 max-w-xl mx-auto">Politique de confidentialité, droits à l'image et conditions d'utilisation du site oliviertrevis.be</p>
+            <p className="text-gray-400 text-base max-w-xl mx-auto">
+              Transparence totale sur l'utilisation de vos données et les conditions d'utilisation du site oliviertrevis.be.
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* NAVIGATION SECTIONS */}
-      <section className="py-8 px-4 bg-gray-950 sticky top-0 z-10 border-b border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {sections.map((s, i) => (
-              <a key={i} href={`#section-${i}`}
-                className="flex items-center gap-1 px-4 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white hover:border-white/30 text-sm transition-all">
-                {s.icon} {s.titre}
-              </a>
-            ))}
+      {/* ── RÉSUMÉ RAPIDE ── */}
+      <section className="py-8 px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="p-5 rounded-2xl bg-green-500/5 border border-green-500/20 flex items-start gap-4">
+            <Shield className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-white font-bold mb-1">Engagement de protection</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Ce site respecte le RGPD (Règlement Général sur la Protection des Données). Vos données ne sont jamais vendues. Aucune publicité ciblée. Contact : <a href="mailto:contact@oliviertrevis.be" className="text-green-400 hover:underline">contact@oliviertrevis.be</a>
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTIONS */}
-      <section className="py-16 px-4 pb-24">
-        <div className="max-w-3xl mx-auto space-y-12">
-          <div className="text-right text-xs text-gray-500 italic mb-8">
-            Dernière mise à jour : Mai 2026
-          </div>
-          {sections.map((s, i) => (
-            <motion.div key={i} id={`section-${i}`} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} className="scroll-mt-24">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400">
-                  {s.icon}
-                </div>
-                <h2 className="text-xl font-black text-white">{s.titre}</h2>
-              </div>
-              <div className="p-8 rounded-2xl bg-gray-900 border border-white/5 space-y-2 leading-relaxed">
-                {renderContent(s.contenu)}
-              </div>
-            </motion.div>
-          ))}
+      {/* ── ACCORDÉONS ── */}
+      <section className="py-8 px-4 pb-20">
+        <div className="max-w-3xl mx-auto space-y-4">
+          {SECTIONS.map(s => <Accordion key={s.id} section={s} />)}
+        </div>
+      </section>
 
-          <div className="p-6 rounded-2xl bg-yellow-500/5 border border-yellow-500/20 text-center">
-            <p className="text-gray-400 text-sm">
-              Pour toute question concernant vos données personnelles ou l'exercice de vos droits, contactez-nous à{" "}
-              <a href="mailto:contact@oliviertrevis.be" className="text-yellow-400 underline">contact@oliviertrevis.be</a>
-            </p>
+      {/* ── DERNIÈRE MÀJ ── */}
+      <section className="py-10 px-4 border-t border-white/5 bg-gray-950">
+        <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-gray-600 text-xs">Dernière mise à jour : Mai 2026</p>
+          <div className="flex gap-4">
+            <Link to="/contact" className="text-xs text-gray-500 hover:text-yellow-400 transition-colors">Une question ? Contactez-nous</Link>
+            <Link to="/" className="text-xs text-gray-500 hover:text-white transition-colors">Retour à l'accueil</Link>
           </div>
         </div>
       </section>
