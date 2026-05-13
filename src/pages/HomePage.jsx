@@ -362,10 +362,7 @@ export default function HomePage() {
               OLIVIER{" "}
               <span className="gold-text">TREVIS</span>
             </h1>
-            <p className="text-base md:text-lg font-light tracking-[0.3em] uppercase mb-6"
-              style={{ color: BRAND.silver, opacity: 0.7 }}>
-              Acteur · Associatif · Événementiel
-            </p>
+
           </motion.div>
 
           {/* Ligne lumineuse */}
