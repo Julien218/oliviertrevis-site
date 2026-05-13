@@ -20,7 +20,6 @@ const NAV = [
   { label: "Accueil",      href: "/",             internal: true },
   { label: "Projets",      href: "/projets",      internal: true },
   { label: "Tour de Dour", href: "/tour-de-dour", internal: true },
-  { label: "Vidéos",       href: "/videos",       internal: true },
   { label: "Actualités",   href: "/actualites",   internal: true },
   { label: "Contact",      href: "/contact",      internal: true },
 ];
