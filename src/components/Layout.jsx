@@ -22,7 +22,6 @@ const NAV = [
   { label: "Tour de Dour", href: "/tour-de-dour", internal: true },
   { label: "Vidéos",       href: "/videos",       internal: true },
   { label: "Actualités",   href: "/actualites",   internal: true },
-  { label: "Galerie",      href: "/galerie",       internal: true },
   { label: "Contact",      href: "/contact",      internal: true },
 ];
 

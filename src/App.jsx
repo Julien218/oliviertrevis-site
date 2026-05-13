@@ -23,7 +23,6 @@ export default function App() {
               <Route path="/tour-de-dour"     element={<TourDeDourPage />} />
               <Route path="/videos"           element={<VideosPage />} />
               <Route path="/actualites"       element={<ActualitesPage />} />
-              <Route path="/galerie"          element={<GaleriePage />} />
               <Route path="/contact"          element={<ContactPage />} />
               <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
             </Routes>
