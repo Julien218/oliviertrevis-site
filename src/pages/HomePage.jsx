@@ -313,7 +313,7 @@ export default function HomePage() {
                 <p className="text-base italic" style={{ color: BRAND.silver }}>"Dour mérite d'être fière d'elle-même."</p>
                 <footer className="mt-2 text-xs font-semibold" style={{ color: BRAND.gold }}>— Olivier Trevis</footer>
               </blockquote>
-              <Link to="/a-propos"
+              <Link to="/projets"
                 className="inline-flex items-center gap-2 text-sm font-semibold transition-all"
                 style={{ color: BRAND.gold }}>
                 En savoir plus <ArrowRight className="w-4 h-4" />
@@ -462,7 +462,7 @@ export default function HomePage() {
               style={{ background: `linear-gradient(135deg, ${BRAND.gold}, ${BRAND.goldLight})`, color: BRAND.navy }}>
               Nous contacter <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link to="/a-propos"
+            <Link to="/projets"
               className="flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all"
               style={{ border: `1.5px solid ${BRAND.gold}40`, color: BRAND.gold, background: `${BRAND.gold}08` }}
               onMouseEnter={e => e.currentTarget.style.background = BRAND.gold + "15"}

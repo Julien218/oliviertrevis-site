@@ -18,7 +18,6 @@ function TkIcon({ className = "w-4 h-4" }) {
 // ── Navigation principale ────────────────────────────────────────────────────
 const NAV = [
   { label: "Accueil",      href: "/",             internal: true },
-  { label: "À propos",     href: "/a-propos",     internal: true },
   { label: "Projets",      href: "/projets",      internal: true },
   { label: "Tour de Dour", href: "/tour-de-dour", internal: true },
   { label: "Vidéos",       href: "/videos",       internal: true },
