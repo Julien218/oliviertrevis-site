@@ -339,30 +339,26 @@ export default function HomePage() {
             Dour · Belgique · Agir et Construire Ensemble
           </motion.div>
 
-          {/* Logo avec parallax */}
-          <motion.div style={{ y: logoY }} initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.1, ease: [0.23, 1, 0.32, 1] }}
-            className="mb-8">
-            <div className="relative">
-              {/* Halo pulsant */}
-              <motion.div animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 rounded-full pointer-events-none"
-                style={{ background: `radial-gradient(circle, ${BRAND.gold}30 0%, transparent 70%)` }} />
-              <div className="w-44 h-44 md:w-56 md:h-56 rounded-3xl overflow-hidden gold-glow relative"
-                style={{ border: `2px solid ${BRAND.gold}50` }}>
-                <img src={LOGO_OT} alt="Olivier Trevis" className="w-full h-full object-cover" />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Titre principal */}
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}>
-            <h1 className="font-black text-white leading-none mb-2" style={{ fontSize: "clamp(2.8rem, 7vw, 5rem)", letterSpacing: "-0.02em" }}>
-              OLIVIER{" "}
-              <span className="gold-text">TREVIS</span>
-            </h1>
-
+          {/* Signature animée — remplace logo + nom */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 1, ease: [0.23,1,0.32,1] }}
+            className="mb-6 flex flex-col items-center">
+            {/* Motto doré animé */}
+            <motion.p
+              initial={{ opacity: 0, letterSpacing: "0.6em" }}
+              animate={{ opacity: 1, letterSpacing: "0.35em" }}
+              transition={{ delay: 0.5, duration: 1.2, ease: [0.23,1,0.32,1] }}
+              className="text-xs font-bold uppercase mb-2"
+              style={{ color: BRAND.gold, fontFamily: "'Montserrat',sans-serif", opacity: 0.85 }}>
+              Agir et Construire Ensemble
+            </motion.p>
+            {/* Ligne lumineuse décorative */}
+            <motion.div
+              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
+              transition={{ delay: 0.8, duration: 1 }}
+              className="light-line w-24 mb-0" />
           </motion.div>
 
           {/* Ligne lumineuse */}
