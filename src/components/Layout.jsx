@@ -16,6 +16,7 @@ function TkIcon() { return <svg className="w-4 h-4" fill="currentColor" viewBox=
 const NAV = [
   { label: "Accueil",      href: "/" },
   { label: "Tour de Dour", href: "/tour-de-dour" },
+  { label: "Mascotte 🎭",  href: "/mascotte" },
   { label: "Actualités",   href: "/actualites" },
   { label: "Contact",      href: "/contact" },
 ];

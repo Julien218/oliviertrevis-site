@@ -6,12 +6,17 @@ import ActualitesPage from "./pages/ActualitesPage";
 import ContactPage from "./pages/ContactPage";
 import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 import AdminPage from "./pages/AdminPage";
+import MascottePage from "./pages/MascottePage";
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/admin" element={<AdminPage />} />
+        {/* Pages sans layout (fullscreen) */}
+        <Route path="/admin"    element={<AdminPage />} />
+        <Route path="/mascotte" element={<MascottePage />} />
+
+        {/* Pages avec layout normal */}
         <Route path="/*" element={
           <Layout>
             <Routes>
