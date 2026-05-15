@@ -1,16 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { BRAND } from "@/api/supabase";
+import mascotteHtml from "../mascotte-content.html?raw";
 
 export default function MascottePage() {
   const navigate = useNavigate();
+  const iframeRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const [showBack, setShowBack] = useState(true);
   const hideTimer = useRef(null);
 
-  // Masquer le bouton retour après quelques secondes pour ne pas gêner l'expérience
+  // Injecter le HTML via srcdoc — zéro requête HTTP, zéro redirection
   useEffect(() => {
     hideTimer.current = setTimeout(() => setShowBack(false), 5000);
     return () => clearTimeout(hideTimer.current);
@@ -26,15 +28,19 @@ export default function MascottePage() {
     <div
       className="fixed inset-0 z-0 bg-black"
       onMouseMove={handleMouseMove}
-      onTouchStart={() => { setShowBack(true); clearTimeout(hideTimer.current); hideTimer.current = setTimeout(() => setShowBack(false), 4000); }}
+      onTouchStart={() => {
+        setShowBack(true);
+        clearTimeout(hideTimer.current);
+        hideTimer.current = setTimeout(() => setShowBack(false), 4000);
+      }}
     >
-      {/* Loader pendant le chargement de l'iframe */}
+      {/* Loader */}
       {!loaded && (
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black gap-6">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1.4, repeat: Infinity, ease: "linear" }}
-            className="w-12 h-12 rounded-full border-2 border-t-transparent"
+            className="w-12 h-12 rounded-full border-2"
             style={{ borderColor: `${BRAND.gold} transparent transparent transparent` }}
           />
           <p className="text-xs tracking-[0.4em] font-light" style={{ color: BRAND.gold, opacity: 0.6 }}>
@@ -43,9 +49,10 @@ export default function MascottePage() {
         </div>
       )}
 
-      {/* L'expérience immersive en iframe fullscreen */}
+      {/* Iframe avec srcdoc — le HTML est embarqué directement, pas de requête externe */}
       <iframe
-        src="/mascotte.html"
+        ref={iframeRef}
+        srcDoc={mascotteHtml}
         title="Mascotte du Tour de Dour — Expérience Immersive"
         className="absolute inset-0 w-full h-full border-0"
         allow="autoplay"
@@ -53,12 +60,12 @@ export default function MascottePage() {
         style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.6s ease" }}
       />
 
-      {/* Bouton retour flottant — s'efface automatiquement */}
+      {/* Bouton retour flottant */}
       <motion.button
         onClick={() => navigate("/")}
         animate={{ opacity: showBack ? 1 : 0 }}
         transition={{ duration: 0.4 }}
-        className="absolute top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-widest uppercase pointer-events-auto"
+        className="absolute top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-widest uppercase"
         style={{
           background: "rgba(0,0,0,0.65)",
           border: `1px solid ${BRAND.gold}40`,
