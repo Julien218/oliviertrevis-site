@@ -269,8 +269,8 @@ function OrbitalCard({ projet, angle, orbitRadius, isHovered, onHover, onLeave, 
         zIndex: isHovered ? 20 : 10,
       }}
       initial={false}
-      animate={{ opacity: introComplete ? 1 : 0, scale: introComplete ? 1 : 0.4 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      animate={{ opacity: introComplete ? 1 : 0, scale: introComplete ? 1 : 0.5 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       whileHover={{ scale: 1.05 }}
@@ -416,9 +416,9 @@ function OrbitalSystem({ introComplete }) {
       {/* Logo central */}
       <motion.div
         className="relative z-20"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={introComplete ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        initial={false}
+        animate={{ opacity: introComplete ? 1 : 0, scale: introComplete ? 1 : 0.5 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
       >
         {/* Halo doré pulsant */}
         <motion.div
@@ -524,8 +524,8 @@ export default function HomePage() {
 
   const handleIntroComplete = () => {
     sessionStorage.setItem("intro_seen", "1");
-    setIntroComplete(true);
-    setTimeout(() => setShowIntro(false), 900);
+    setIntroComplete(true);          // orbite démarre immédiatement
+    setTimeout(() => setShowIntro(false), 1200); // intro fade-out après
   };
 
   return (
@@ -534,7 +534,7 @@ export default function HomePage() {
       {/* ══ INTRO CINÉMATIQUE ══ */}
       <AnimatePresence>
         {showIntro && (
-          <motion.div key="intro" exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
+          <motion.div key="intro" exit={{ opacity: 0 }} transition={{ duration: 1.0 }}>
             <CinematicIntro onComplete={handleIntroComplete} />
           </motion.div>
         )}
@@ -557,14 +557,9 @@ export default function HomePage() {
         </div>
 
         {/* Système orbital */}
-        <motion.div
-          className="relative z-10"
-          initial={{ opacity: 0 }}
-          animate={introComplete ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="relative z-10" style={{ opacity: introComplete ? 1 : 0, transition: "opacity 0.5s ease" }}>
           <OrbitalSystem introComplete={introComplete} />
-        </motion.div>
+        </div>
 
         {/* Titre sous le système */}
         <motion.div
