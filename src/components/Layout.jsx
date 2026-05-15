@@ -15,7 +15,6 @@ function TkIcon() { return <svg className="w-4 h-4" fill="currentColor" viewBox=
 /* ── Data ──────────────────────────────────────────────────────────────────── */
 const NAV = [
   { label: "Accueil",      href: "/" },
-  { label: "Projets",      href: "/projets" },
   { label: "Tour de Dour", href: "/tour-de-dour" },
   { label: "Actualités",   href: "/actualites" },
   { label: "Contact",      href: "/contact" },

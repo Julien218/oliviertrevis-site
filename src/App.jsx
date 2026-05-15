@@ -1,10 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
-import ProjetsPage from "./pages/ProjetsPage";
 import TourDeDourPage from "./pages/TourDeDourPage";
 import ActualitesPage from "./pages/ActualitesPage";
-import GaleriePage from "./pages/GaleriePage";
 import ContactPage from "./pages/ContactPage";
 import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 import AdminPage from "./pages/AdminPage";
@@ -18,7 +16,6 @@ export default function App() {
           <Layout>
             <Routes>
               <Route path="/"                 element={<HomePage />} />
-              <Route path="/projets"          element={<ProjetsPage />} />
               <Route path="/tour-de-dour"     element={<TourDeDourPage />} />
               <Route path="/actualites"       element={<ActualitesPage />} />
               <Route path="/contact"          element={<ContactPage />} />
