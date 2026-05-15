@@ -29,13 +29,13 @@ const PROJECTS = [
 ];
 
 const SOCIALS = [
-  { href: SOCIAL_LINKS.olivierTrevis.facebook,   Icon: FbIcon, label: "Facebook" },
-  { href: SOCIAL_LINKS.olivierTrevis.instagram,  Icon: IgIcon, label: "Instagram" },
-  { href: SOCIAL_LINKS.missMisterDour.instagram, Icon: IgIcon, label: "M&M IG" },
-  { href: SOCIAL_LINKS.missMisterDour.tiktok,    Icon: TkIcon, label: "TikTok" },
-  { href: SOCIAL_LINKS.fashionistArt.facebook,   Icon: FbIcon, label: "Fashionist'ART" },
-  { href: SOCIAL_LINKS.tourDeDour.facebook,      Icon: FbIcon, label: "Tour de Dour" },
-  { href: SOCIAL_LINKS.pvAssurances.facebook,    Icon: FbIcon, label: "P&V" },
+  { href: SOCIAL_LINKS.olivierTrevis.facebook,   Icon: FbIcon, network: "Facebook",  project: "Olivier Trevis" },
+  { href: SOCIAL_LINKS.olivierTrevis.instagram,  Icon: IgIcon, network: "Instagram", project: "Olivier Trevis" },
+  { href: SOCIAL_LINKS.missMisterDour.instagram, Icon: IgIcon, network: "Instagram", project: "Miss & Mister Dour" },
+  { href: SOCIAL_LINKS.missMisterDour.tiktok,    Icon: TkIcon, network: "TikTok",    project: "Miss & Mister Dour" },
+  { href: SOCIAL_LINKS.fashionistArt.facebook,   Icon: FbIcon, network: "Facebook",  project: "Fashionist'ART" },
+  { href: SOCIAL_LINKS.tourDeDour.facebook,      Icon: FbIcon, network: "Facebook",  project: "Tour de Dour" },
+  { href: SOCIAL_LINKS.pvAssurances.facebook,    Icon: FbIcon, network: "P&V",       project: "P&V Assurances" },
 ];
 
 /* ── CSS global ────────────────────────────────────────────────────────────── */
@@ -231,24 +231,51 @@ function PremiumMenu({ open, onClose, isActive }) {
               </div>
             </nav>
 
-            {/* ── Footer panneau ── */}
+            {/* ── Footer panneau — réseaux sociaux avec labels ── */}
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
               className="px-8 py-6 flex-shrink-0"
               style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-              <div className="flex items-center justify-between">
-                <div className="flex gap-1.5 flex-wrap">
-                  {SOCIALS.map((s, i) => (
-                    <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
-                      className="w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200"
-                      style={{ background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.25)", border: "1px solid rgba(255,255,255,0.06)" }}
-                      onMouseEnter={e => { e.currentTarget.style.background = `${BRAND.gold}15`; e.currentTarget.style.color = BRAND.gold; e.currentTarget.style.borderColor = `${BRAND.gold}35`; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.04)"; e.currentTarget.style.color = "rgba(255,255,255,0.25)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)"; }}>
+
+              <p className="text-[9px] font-bold uppercase tracking-[0.35em] mb-4"
+                style={{ color: "rgba(255,255,255,0.2)" }}>
+                Réseaux sociaux
+              </p>
+
+              <div className="space-y-1.5 mb-5">
+                {SOCIALS.map((s, i) => (
+                  <motion.a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.55 + i * 0.04, duration: 0.35, ease: [0.23,1,0.32,1] }}
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 group"
+                    style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)" }}
+                    onMouseEnter={e => { e.currentTarget.style.background = `${BRAND.gold}10`; e.currentTarget.style.borderColor = `${BRAND.gold}25`; e.currentTarget.style.transform = "translateX(3px)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.02)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.04)"; e.currentTarget.style.transform = ""; }}>
+                    {/* Icône réseau */}
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-200"
+                      style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.35)" }}>
                       <s.Icon />
-                    </a>
-                  ))}
-                </div>
+                    </div>
+                    {/* Texte */}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] font-bold leading-tight truncate"
+                        style={{ color: "rgba(255,255,255,0.6)", fontFamily: "'Montserrat',sans-serif" }}>
+                        {s.project}
+                      </p>
+                      <p className="text-[9px] leading-tight"
+                        style={{ color: "rgba(255,255,255,0.2)" }}>
+                        {s.network}
+                      </p>
+                    </div>
+                    <ArrowUpRight className="w-3 h-3 flex-shrink-0 opacity-0 group-hover:opacity-40 transition-opacity"
+                      style={{ color: BRAND.gold }} />
+                  </motion.a>
+                ))}
+              </div>
+
+              <div className="flex justify-end">
                 <span className="text-[10px] font-light" style={{ color: "rgba(255,255,255,0.15)" }}>
                   <span style={{ color: BRAND.gold, opacity: 0.45 }}>JS-Innov.IA</span>
                 </span>
