@@ -109,10 +109,10 @@ function CinematicIntro({ onComplete }) {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 400),    // logo apparaît
-      setTimeout(() => setPhase(2), 1600),   // cartes arrivent
-      setTimeout(() => setPhase(3), 4200),   // tout en orbite
-      setTimeout(() => onComplete(), 5200),  // fin intro
+      setTimeout(() => setPhase(1), 500),    // logo apparaît
+      setTimeout(() => setPhase(2), 2000),   // cartes arrivent (plus tard)
+      setTimeout(() => setPhase(3), 6000),   // tout en orbite
+      setTimeout(() => onComplete(), 7200),  // fin intro (plus long)
     ];
     return () => timers.forEach(clearTimeout);
   }, [onComplete]);
@@ -222,8 +222,8 @@ function CinematicIntro({ onComplete }) {
               scale: 0.4,
             } : {}}
             transition={{
-              delay: i * 0.22,
-              duration: 0.9,
+              delay: i * 0.45,
+              duration: 1.6,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
@@ -268,9 +268,9 @@ function OrbitalCard({ projet, angle, orbitRadius, isHovered, onHover, onLeave, 
         y: pos.y - (isHovered ? 110 : 44),
         zIndex: isHovered ? 20 : 10,
       }}
-      initial={{ opacity: 0, scale: 0.4 }}
-      animate={introComplete ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      initial={false}
+      animate={{ opacity: introComplete ? 1 : 0, scale: introComplete ? 1 : 0.4 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       whileHover={{ scale: 1.05 }}
