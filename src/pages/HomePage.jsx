@@ -99,154 +99,72 @@ function getOrbitalPos(angle, radius) {
   };
 }
 
-// ── Intro cinématique ──────────────────────────────────────────────────────
-function CinematicIntro({ onComplete }) {
-  const [phase, setPhase] = useState(0);
-  // phase 0: fond noir pur
-  // phase 1: logo OT apparaît
-  // phase 2: cartes arrivent une par une
-  // phase 3: rotation orbitale commence → transition vers page
-
-  useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase(1), 500),    // logo apparaît
-      setTimeout(() => setPhase(2), 2000),   // cartes arrivent (plus tard)
-      setTimeout(() => setPhase(3), 6000),   // tout en orbite
-      setTimeout(() => onComplete(), 7200),  // fin intro (plus long)
-    ];
-    return () => timers.forEach(clearTimeout);
-  }, [onComplete]);
-
+// ── Overlay cinématique — posé AU-DESSUS de l'orbite, se retire proprement
+function DarkOverlay({ visible, introPhase }) {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden pointer-events-none"
       style={{ background: "#000" }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
+      animate={{ opacity: visible ? 1 : 0 }}
+      transition={{ duration: 1.6, ease: "easeInOut" }}
     >
-      {/* Particules de fond */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(30)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-0.5 h-0.5 rounded-full"
-            style={{
-              background: BRAND.gold,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              opacity: 0,
-            }}
-            animate={phase >= 1 ? {
-              opacity: [0, 0.6, 0],
-              scale: [0, 1.5, 0],
-            } : {}}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              delay: Math.random() * 2,
-              repeat: Infinity,
-              repeatDelay: Math.random() * 3,
-            }}
-          />
-        ))}
-      </div>
+      {/* Particules dorées */}
+      {introPhase >= 1 && [...Array(28)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-0.5 h-0.5 rounded-full"
+          style={{
+            background: BRAND.gold,
+            left: `${(i * 37 + 11) % 100}%`,
+            top: `${(i * 53 + 7) % 100}%`,
+          }}
+          animate={{ opacity: [0, 0.5, 0], scale: [0, 1.5, 0] }}
+          transition={{
+            duration: 2.5 + (i % 3),
+            delay: (i * 0.15) % 2,
+            repeat: Infinity,
+            repeatDelay: (i % 4) * 0.5,
+          }}
+        />
+      ))}
 
-      {/* Halo central doré */}
+      {/* Halo doré central */}
       <motion.div
-        className="absolute rounded-full"
-        style={{ width: 400, height: 400, background: `radial-gradient(ellipse, ${BRAND.gold}12 0%, transparent 70%)` }}
-        animate={phase >= 1 ? { scale: [0.5, 1.2, 1], opacity: [0, 0.6, 0.3] } : { scale: 0, opacity: 0 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="absolute rounded-full pointer-events-none"
+        style={{ width: 380, height: 380, background: `radial-gradient(ellipse, ${BRAND.gold}12 0%, transparent 70%)` }}
+        animate={introPhase >= 1 ? { scale: [0.6, 1.2, 1], opacity: [0, 0.7, 0.3] } : { scale: 0.6, opacity: 0 }}
+        transition={{ duration: 1.4, ease: "easeOut" }}
       />
 
-      {/* Logo Olivier Trevis central */}
+      {/* Logo OT — apparaît en phase 1, reste visible jusqu'à fade-out de l'overlay */}
       <motion.div
         className="relative z-10"
         style={{ width: 140, height: 140 }}
-        initial={{ opacity: 0, scale: 0.3 }}
-        animate={phase >= 1 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.3 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        animate={introPhase >= 1 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.3 }}
+        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div
-          className="w-full h-full rounded-2xl overflow-hidden"
-          style={{
-            border: `2px solid ${BRAND.gold}60`,
-            boxShadow: `0 0 60px ${BRAND.gold}40, 0 0 120px ${BRAND.gold}15`,
-          }}
-        >
+        <div className="w-full h-full rounded-2xl overflow-hidden"
+          style={{ border: `2px solid ${BRAND.gold}60`, boxShadow: `0 0 60px ${BRAND.gold}40, 0 0 120px ${BRAND.gold}15` }}>
           <img src={LOGO_OT} alt="Olivier Trevis" className="w-full h-full object-cover" />
         </div>
-        {/* Anneau rotatif */}
-        {phase >= 1 && (
-          <motion.div
-            className="absolute inset-[-12px] rounded-full"
+        {introPhase >= 1 && (
+          <motion.div className="absolute inset-[-12px] rounded-full"
             style={{ border: `1px solid ${BRAND.gold}30` }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          />
+            animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} />
         )}
-        {phase >= 1 && (
-          <motion.div
-            className="absolute inset-[-24px] rounded-full"
+        {introPhase >= 1 && (
+          <motion.div className="absolute inset-[-24px] rounded-full"
             style={{ border: `1px dashed ${BRAND.gold}15` }}
-            animate={{ rotate: -360 }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-          />
+            animate={{ rotate: -360 }} transition={{ duration: 12, repeat: Infinity, ease: "linear" }} />
         )}
       </motion.div>
 
-      {/* Cartes qui arrivent */}
-      {PROJETS.map((p, i) => {
-        const orbitRadius = 210;
-        const finalPos = getOrbitalPos(ORBIT_ANGLES[i], orbitRadius);
-
-        return (
-          <motion.div
-            key={p.id}
-            className="absolute z-10"
-            style={{ width: 90, height: 90 }}
-            initial={{
-              x: p.enterFrom.x * 4,
-              y: p.enterFrom.y * 4,
-              opacity: 0,
-              scale: 0.4,
-            }}
-            animate={phase >= 2 ? {
-              x: finalPos.x,
-              y: finalPos.y,
-              opacity: 1,
-              scale: 1,
-            } : phase >= 1 ? {
-              x: p.enterFrom.x * 4,
-              y: p.enterFrom.y * 4,
-              opacity: 0,
-              scale: 0.4,
-            } : {}}
-            transition={{
-              delay: i * 0.45,
-              duration: 1.6,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-          >
-            <div
-              className="w-full h-full rounded-2xl overflow-hidden"
-              style={{
-                border: `1.5px solid ${p.accent}50`,
-                boxShadow: `0 0 20px ${p.glow}`,
-                background: BRAND.navy,
-              }}
-            >
-              <img src={p.logo} alt={p.titre} className="w-full h-full object-cover" />
-            </div>
-          </motion.div>
-        );
-      })}
-
-      {/* Texte JS-Innov.IA */}
+      {/* Signature JS-Innov.IA */}
       <motion.p
         className="absolute bottom-8 text-xs tracking-[0.3em] font-light"
-        style={{ color: BRAND.gold, opacity: 0 }}
-        animate={phase >= 2 ? { opacity: 0.6 } : {}}
-        transition={{ delay: 1.5, duration: 1 }}
+        style={{ color: BRAND.gold }}
+        animate={introPhase >= 2 ? { opacity: 0.5 } : { opacity: 0 }}
+        transition={{ duration: 1, delay: 0.5 }}
       >
         RÉALISÉ PAR JS-INNOV.IA
       </motion.p>
@@ -255,7 +173,7 @@ function CinematicIntro({ onComplete }) {
 }
 
 // ── Carte projet orbitale (mode page) ─────────────────────────────────────
-function OrbitalCard({ projet, angle, orbitRadius, isHovered, onHover, onLeave, introComplete }) {
+function OrbitalCard({ projet, angle, orbitRadius, isHovered, onHover, onLeave, introPhase, introComplete }) {
   const pos = getOrbitalPos(angle, orbitRadius);
 
   return (
@@ -269,8 +187,8 @@ function OrbitalCard({ projet, angle, orbitRadius, isHovered, onHover, onLeave, 
         zIndex: isHovered ? 20 : 10,
       }}
       initial={false}
-      animate={{ opacity: introComplete ? 1 : 0, scale: introComplete ? 1 : 0.5 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      animate={{ opacity: introPhase >= 2 ? 1 : 0, scale: introPhase >= 2 ? 1 : 0.5 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       whileHover={{ scale: 1.05 }}
@@ -343,7 +261,7 @@ function OrbitalCard({ projet, angle, orbitRadius, isHovered, onHover, onLeave, 
 }
 
 // ── Système orbital principal ──────────────────────────────────────────────
-function OrbitalSystem({ introComplete }) {
+function OrbitalSystem({ introPhase, introComplete }) {
   const [rotation, setRotation] = useState(0);
   const [hoveredId, setHoveredId] = useState(null);
   const [paused, setPaused] = useState(false);
@@ -417,8 +335,8 @@ function OrbitalSystem({ introComplete }) {
       <motion.div
         className="relative z-20"
         initial={false}
-        animate={{ opacity: introComplete ? 1 : 0, scale: introComplete ? 1 : 0.5 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        animate={{ opacity: introPhase >= 3 ? 1 : 0, scale: introPhase >= 3 ? 1 : 0.8 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         {/* Halo doré pulsant */}
         <motion.div
@@ -463,6 +381,7 @@ function OrbitalSystem({ introComplete }) {
             isHovered={hoveredId === p.id}
             onHover={() => { setHoveredId(p.id); setPaused(true); }}
             onLeave={() => { setHoveredId(null); setPaused(false); }}
+            introPhase={introPhase}
             introComplete={introComplete}
           />
         );
@@ -507,38 +426,51 @@ function ActuCard({ actu, i }) {
 }
 
 // ── PAGE PRINCIPALE ────────────────────────────────────────────────────────
+// STRATÉGIE ANTI-COUPURE :
+// - L'OrbitalSystem est rendu IMMÉDIATEMENT, jamais démonté
+// - Un overlay noir (DarkOverlay) est posé AU-DESSUS et se retire progressivement
+// - Les cartes font leur animation d'entrée via introPhase (géré dans OrbitalSystem)
+// - Aucun double rendu, aucune coupure possible
 export default function HomePage() {
-  const [introComplete, setIntroComplete] = useState(false);
-  const [showIntro, setShowIntro] = useState(true);
+  const [overlayVisible, setOverlayVisible] = useState(true);  // overlay noir par-dessus
+  const [introPhase, setIntroPhase] = useState(0);             // phase d'animation
   const [actus, setActus] = useState([]);
 
   useEffect(() => {
     Actualite.filter({ publie: true, a_la_une: true }).then(d => setActus(d.slice(0, 3))).catch(() => {});
-    // Ne montrer l'intro qu'une fois par session
+
     const seen = sessionStorage.getItem("intro_seen");
     if (seen) {
-      setShowIntro(false);
-      setIntroComplete(true);
+      // Déjà vu : pas d'intro, tout visible directement
+      setOverlayVisible(false);
+      setIntroPhase(3);
+      return;
     }
+
+    // Séquence d'intro :
+    // t=0      : overlay noir visible, orbite cachée
+    // t=300ms  : logo OT apparaît (phase 1)
+    // t=1800ms : cartes arrivent une par une depuis leurs directions (phase 2)
+    // t=5000ms : overlay commence à se retirer, orbite prend le relai (phase 3)
+    // t=6500ms : intro terminée, overlay invisible
+    const t1 = setTimeout(() => setIntroPhase(1), 300);
+    const t2 = setTimeout(() => setIntroPhase(2), 1800);
+    const t3 = setTimeout(() => {
+      setIntroPhase(3);
+      setOverlayVisible(false);
+      sessionStorage.setItem("intro_seen", "1");
+    }, 5000);
+
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
 
-  const handleIntroComplete = () => {
-    sessionStorage.setItem("intro_seen", "1");
-    setIntroComplete(true);          // orbite démarre immédiatement
-    setTimeout(() => setShowIntro(false), 1200); // intro fade-out après
-  };
+  const introComplete = introPhase >= 3;
 
   return (
     <div className="min-h-screen text-white" style={{ background: BRAND.black }}>
 
-      {/* ══ INTRO CINÉMATIQUE ══ */}
-      <AnimatePresence>
-        {showIntro && (
-          <motion.div key="intro" exit={{ opacity: 0 }} transition={{ duration: 1.0 }}>
-            <CinematicIntro onComplete={handleIntroComplete} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Overlay noir — se retire progressivement PAR-DESSUS l'orbite */}
+      <DarkOverlay visible={overlayVisible} introPhase={introPhase} />
 
       {/* ══ HERO — SECTION ORBITALE ══ */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4">
@@ -556,9 +488,9 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Système orbital */}
-        <div className="relative z-10" style={{ opacity: introComplete ? 1 : 0, transition: "opacity 0.5s ease" }}>
-          <OrbitalSystem introComplete={introComplete} />
+        {/* Système orbital — toujours monté, jamais démonté */}
+        <div className="relative z-10">
+          <OrbitalSystem introPhase={introPhase} introComplete={introComplete} />
         </div>
 
         {/* Titre sous le système */}
@@ -566,7 +498,7 @@ export default function HomePage() {
           className="relative z-10 text-center mt-8 md:mt-12"
           initial={{ opacity: 0, y: 20 }}
           animate={introComplete ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5, duration: 0.8 }}
+          transition={{ delay: 0.4, duration: 0.9 }}
         >
           <h1 className="font-black text-2xl md:text-4xl tracking-wide text-white mb-2">
             OLIVIER TREVIS
@@ -584,7 +516,7 @@ export default function HomePage() {
           className="absolute bottom-8 flex flex-col items-center gap-1"
           initial={{ opacity: 0 }}
           animate={introComplete ? { opacity: 1 } : {}}
-          transition={{ delay: 1.2, duration: 0.6 }}
+          transition={{ delay: 1.0, duration: 0.6 }}
         >
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
             <ChevronDown className="w-5 h-5" style={{ color: BRAND.gold, opacity: 0.5 }} />
