@@ -1134,80 +1134,40 @@ function playReveal(){
    QUIZ DATA
 ══════════════════════════════════════════ */
 const QS=[
-  {txt:"Pour vous… qu'est-ce qui représente le mieux l'âme de Dour ?",
+  {txt:"Quels mots représentent le mieux Dour ?",
    rev:{id:'b-eolg',icon:'⛏️',title:'Les Éoliennes de Dour'},
    opts:[
-     {t:'⛏️ Son héritage minier',s:{m:3}},
-     {t:'🌿 Ses espaces naturels',s:{n:3}},
-     {t:'🎵 Sa vie festive',s:{f:3}},
-     {t:'🏙️ Son développement moderne',s:{mo:3}}
+     {t:'⛏️ Courageux & travailleur',s:{m:3}},
+     {t:'🌿 Vert & naturel',s:{n:3}},
+     {t:'🎉 Festif & chaleureux',s:{f:3}},
+     {t:'🚀 Moderne & dynamique',s:{mo:3}}
    ]},
-  {txt:"Si Dour était un personnage, il serait…",
-   rev:{id:'b-eglise',icon:'⛪',title:"L'Église de Dour"},
-   opts:[
-     {t:'💪 Un travailleur courageux',s:{m:2,f:1}},
-     {t:'🌱 Un être proche de la nature',s:{n:3}},
-     {t:'🎉 Un animateur festif',s:{f:2,mo:1}},
-     {t:'🚀 Un innovateur visionnaire',s:{mo:3}}
-   ]},
-  {txt:"Quel mot décrit le mieux l'identité de Dour ?",
+  {txt:"Quels lieux ou symboles représentent le mieux Dour ?",
    rev:{id:'b-chev',icon:'⚙️',title:'Le Chevalement Minier'},
    opts:[
-     {t:'⚓ Résilience',s:{m:3}},
-     {t:'🌳 Nature',s:{n:3}},
-     {t:'🎶 Célébration',s:{f:3}},
-     {t:'💡 Innovation',s:{mo:3}}
+     {t:'⛏️ Le chevalement minier',s:{m:3}},
+     {t:'🌳 Les parcs & la nature',s:{n:3}},
+     {t:'🎪 La scène du festival',s:{f:3}},
+     {t:'🏙️ Le nouveau centre-ville',s:{mo:3}}
    ]},
-  {txt:"La mascotte devrait être… plutôt ?",
-   rev:{id:'b-mairie',icon:'🏛️',title:'La Maison Communale'},
-   opts:[
-     {t:'🦅 Imposante & puissante',s:{m:2,f:1}},
-     {t:'🐾 Douce & proche de la nature',s:{n:3}},
-     {t:'🦊 Espiègle & festive',s:{f:3}},
-     {t:'🤖 Futuriste & connectée',s:{mo:3}}
-   ]},
-  {txt:"Si la mascotte vivait à Dour, où serait-elle ?",
-   rev:{id:'b-lettres',icon:'🔤',title:'Les Lettres DOUR'},
-   opts:[
-     {t:'⛏️ Dans les anciennes mines',s:{m:3}},
-     {t:'🌲 Dans les parcs & forêts',s:{n:3}},
-     {t:'🎪 Sur la scène du festival',s:{f:3}},
-     {t:'🏗️ Au cœur du nouveau Dour',s:{mo:3}}
-   ]},
-  {txt:"Quel animal vous inspire le plus pour la mascotte ?",
-   rev:{id:'b-rouge',icon:'🏛️',title:'Le Bâtiment Rouge'},
+  {txt:"Si Dour était une créature ou un symbole, que serait-il ?",
+   rev:{id:'b-eglise',icon:'⛪',title:"L'Église de Dour"},
    opts:[
      {t:'🦅 Un aigle fier & protecteur',s:{m:2,n:1}},
-     {t:'🦝 Un raton-laveur malicieux',s:{n:2,f:1}},
+     {t:'🌳 Un vieux chêne enraciné',s:{n:3}},
      {t:'🦁 Un lion festif & rayonnant',s:{f:2,mo:1}},
      {t:'🦊 Un renard vif & inventif',s:{mo:2,n:1}}
    ]},
-  {txt:"La mascotte doit surtout incarner…",
-   rev:{id:'b-eold',icon:'💨',title:'Les Éoliennes'},
-   opts:[
-     {t:'💪 La force ouvrière',s:{m:3}},
-     {t:'🌿 L\'harmonie avec la nature',s:{n:3}},
-     {t:'🎊 La joie collective',s:{f:3}},
-     {t:'🔮 L\'avenir prometteur',s:{mo:3}}
-   ]},
-  {txt:"Pour les enfants, la mascotte devrait être…",
-   rev:{id:'b-global',icon:'🌟',title:'Dour tout entière'},
-   opts:[
-     {t:'🧠 Intelligente & maligne',s:{mo:2,n:1}},
-     {t:'🎨 Colorée & artiste',s:{f:3}},
-     {t:'🛡️ Courageuse & protectrice',s:{m:3}},
-     {t:'🐾 Douce & attachante',s:{n:3}}
-   ]},
-  {txt:"Quel élément devrait porter la mascotte sur elle ?",
-   rev:{id:'b-global',icon:'🌟',title:'Dour tout entière'},
-   opts:[
-     {t:'⛏️ Un casque de mineur',s:{m:3}},
-     {t:'🍃 Une couronne de feuilles',s:{n:3}},
-     {t:'🎸 Une guitare ou instrument',s:{f:3}},
-     {t:'📱 Un gadget high-tech',s:{mo:3}}
-   ]},
-  {txt:"Un dernier mot… Dour, pour vous c'est surtout …",
+  {txt:"Imaginez librement la mascotte idéale de Dour — elle devrait sembler…",
    rev:{id:'b-global',icon:'🌟',title:'Dour — ensemble !'},
+   opts:[
+     {t:'😄 Drôle & espiègle',s:{f:3}},
+     {t:'🛡️ Protectrice & rassurante',s:{m:3}},
+     {t:'⚡ Énergique & pétillante',s:{mo:2,f:1}},
+     {t:'🌑 Mystérieuse & intrigante',s:{n:2,m:1}}
+   ]},
+  {txt:"Et pour toi, la mascotte idéale de Dour, c'est quoi… en quelques mots libres ?",
+   rev:{id:'b-global',icon:'🌟',title:'Dour — à toi de jouer !'},
    type:'free'},
 ];
 
