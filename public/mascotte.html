@@ -1292,6 +1292,8 @@ function pickOpt(scores,btn){
   btn.classList.add('sel');
   document.querySelectorAll('.opt').forEach(b=>{b.disabled=true;});
   Object.entries(scores||{}).forEach(([k,v])=>sc[k]=(sc[k]||0)+v);
+  // Capturer le label du choix pour la question créature (qi===2)
+  if(qi===2) window._chosenCreature=btn.querySelector('.opt-txt')?btn.querySelector('.opt-txt').textContent:btn.textContent;
   if(QS[qi].rev) revealBldg(QS[qi].rev.id);
   setTimeout(()=>nextQ(),650);
 }
