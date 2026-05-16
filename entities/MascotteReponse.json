@@ -22,6 +22,18 @@
     "profil": {
       "type": "string"
     },
+    "reponse_mots": {
+      "type": "string"
+    },
+    "reponse_lieux": {
+      "type": "string"
+    },
+    "reponse_creature": {
+      "type": "string"
+    },
+    "reponse_mascotte": {
+      "type": "string"
+    },
     "reponse_libre": {
       "type": "string"
     },

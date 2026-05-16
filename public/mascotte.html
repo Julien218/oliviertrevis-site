@@ -429,6 +429,8 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .q-free-input:focus{border-color:rgba(212,175,55,.4);}
 .q-free-btn{align-self:flex-end;background:linear-gradient(135deg,var(--gold-b),var(--gold),var(--gold-d));color:var(--dark);border:none;border-radius:50px;padding:11px 30px;font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;box-shadow:0 0 22px rgba(212,175,55,.4);transition:all .22s;}
 .q-free-btn:active{transform:scale(.97);}
+.q-free-input.shake{animation:shakeInput .5s ease;}
+@keyframes shakeInput{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-6px);}80%{transform:translateX(6px);}}
 
 .skip-btn{
   display:block;margin:clamp(12px,2.5vw,20px) auto 0;
@@ -1136,20 +1138,10 @@ function playReveal(){
 const QS=[
   {txt:"Quels mots représentent le mieux Dour ?",
    rev:{id:'b-eolg',icon:'⛏️',title:'Les Éoliennes de Dour'},
-   opts:[
-     {t:'⛏️ Courageux & travailleur',s:{m:3}},
-     {t:'🌿 Vert & naturel',s:{n:3}},
-     {t:'🎉 Festif & chaleureux',s:{f:3}},
-     {t:'🚀 Moderne & dynamique',s:{mo:3}}
-   ]},
+   type:'free'},
   {txt:"Quels lieux ou symboles représentent le mieux Dour ?",
    rev:{id:'b-chev',icon:'⚙️',title:'Le Chevalement Minier'},
-   opts:[
-     {t:'⛏️ Le chevalement minier',s:{m:3}},
-     {t:'🌳 Les parcs & la nature',s:{n:3}},
-     {t:'🎪 La scène du festival',s:{f:3}},
-     {t:'🏙️ Le nouveau centre-ville',s:{mo:3}}
-   ]},
+   type:'free'},
   {txt:"Si Dour était une créature ou un symbole, que serait-il ?",
    rev:{id:'b-eglise',icon:'⛪',title:"L'Église de Dour"},
    opts:[
@@ -1160,14 +1152,6 @@ const QS=[
    ]},
   {txt:"Imaginez librement la mascotte idéale de Dour — elle devrait sembler…",
    rev:{id:'b-global',icon:'🌟',title:'Dour — ensemble !'},
-   opts:[
-     {t:'😄 Drôle & espiègle',s:{f:3}},
-     {t:'🛡️ Protectrice & rassurante',s:{m:3}},
-     {t:'⚡ Énergique & pétillante',s:{mo:2,f:1}},
-     {t:'🌑 Mystérieuse & intrigante',s:{n:2,m:1}}
-   ]},
-  {txt:"Et pour toi, la mascotte idéale de Dour, c'est quoi… en quelques mots libres ?",
-   rev:{id:'b-global',icon:'🌟',title:'Dour — à toi de jouer !'},
    type:'free'},
 ];
 
@@ -1175,7 +1159,8 @@ const QS=[
    ÉTAT
 ══════════════════════════════════════════ */
 let qi=0,sc={m:0,n:0,f:0,mo:0};
-window._freeAnswer='';
+window._freeAnswers={};// stocke réponse libre par index de question
+window._chosenCreature='';// label de l'option choisie Q3 (créature)
 
 /* ══════════════════════════════════════════
    UTILS
@@ -1225,9 +1210,17 @@ function showOpts(items){
 function showFree(){
   const c=$('opts');c.innerHTML='';c.className='opts';
   const wrap=document.createElement('div');wrap.className='q-free-wrap';
-  const ta=document.createElement('textarea');ta.className='q-free-input';ta.rows=3;ta.placeholder='Écris ton message ici…';
-  const btn=document.createElement('button');btn.className='q-free-btn';btn.textContent='Envoyer →';
-  btn.onclick=()=>{playClick();window._freeAnswer=ta.value.trim();nextQ();};
+  const ta=document.createElement('textarea');ta.className='q-free-input';ta.rows=3;ta.placeholder='Écris ta réponse ici…';
+  // Pré-remplir si déjà répondu
+  if(window._freeAnswers[qi]) ta.value=window._freeAnswers[qi];
+  const btn=document.createElement('button');btn.className='q-free-btn';btn.textContent='Suivant →';
+  btn.onclick=()=>{
+    const val=ta.value.trim();
+    if(!val){ta.classList.add('shake');setTimeout(()=>ta.classList.remove('shake'),600);return;}
+    playClick();
+    window._freeAnswers[qi]=val;
+    nextQ();
+  };
   wrap.append(ta,btn);c.appendChild(wrap);
 }
 
@@ -1524,7 +1517,11 @@ async function submitF() {
         prenom,
         email,
         scores: sc,                         // sc = { m, n, f, mo } défini globalement
-        reponse_libre: window._freeAnswer || '',
+        reponse_mots: window._freeAnswers[0] || '',
+        reponse_lieux: window._freeAnswers[1] || '',
+        reponse_creature: window._chosenCreature || '',
+        reponse_mascotte: window._freeAnswers[3] || '',
+        reponse_libre: window._freeAnswers[3] || '',
         session_id: _sessionId,
       }),
     });
