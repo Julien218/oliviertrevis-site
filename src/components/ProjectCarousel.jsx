@@ -41,7 +41,7 @@ const PROJETS = [
     sous: "Mode, art & créativité",
     desc: "Mode artistique, expression créative et style autour de Dour.",
     logo: LOGO_FASHION,
-    site: "https://www.fashionistartdour.be",
+    site: "https://fashionistartdour.be",
     // Couleurs : magenta/cyan/orange
     c1: "#e91e8c", c2: "#00bcd4", bg: "#0a0008",
     particleColors: ["#e91e8c", "#ff6b6b", "#00bcd4", "#ff9800", "#c084fc"],
