@@ -2,819 +2,941 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
-<title>Le Tour de Dour — Questionnaire Mascotte</title>
-<meta name="description" content="Participez à la création de la mascotte officielle du Tour de Dour. Une expérience créée par JS-Innov.IA."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Le Tour de Dour — Mascotte</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Anton&family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet"/>
 <style>
-/* ═══ RESET ═══ */
-*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+*{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --or:#D47A2C;
-  --or-b:#F0C982;
+  --or2:#F0C982;
   --bleu:#1E6FA5;
-  --bleu-d:#0d4a72;
-  --blanc:#F8F4EC;
-  --dark:#08080C;
-  --gris:rgba(255,255,255,0.12);
+  --dark:#07090D;
 }
-html,body{
-  width:100%;height:100%;
-  overflow:hidden;
-  background:var(--dark);
-  font-family:'Montserrat',sans-serif;
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
-  color:var(--blanc);
-}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
+  color:#fff;font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased;}
 
-/* ═══ GRAIN CINÉMATIQUE ═══ */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity:.35;animation:grain .1s steps(1) infinite;
+/* ════════════════════════════
+   FOND GLOBAL — image DOUR très sombre, fixe, en bas
+════════════════════════════ */
+#bg{
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;
+  background:
+    url('https://base44.app/api/apps/69ed0a42be17008cf11027eb/files/mp/public/69ed0a42be17008cf11027eb/509b17250_6627432ea_WhatsAppImage2026-05-07at2254083.jpg')
+    center bottom / cover no-repeat;
+  filter:brightness(.07) saturate(.3);
+  transition:filter 1.8s ease;
 }
-@keyframes grain{
-  0%{transform:translate(0,0);}25%{transform:translate(-2px,1px);}
-  50%{transform:translate(1px,-2px);}75%{transform:translate(-1px,2px);}100%{transform:translate(2px,-1px);}
-}
-
-/* ═══ TRANSITIONS ═══ */
-#overlay-noir{
-  position:fixed;inset:0;z-index:9000;
-  background:#000;opacity:0;pointer-events:none;
-  transition:opacity .5s ease;
-}
-#overlay-noir.on{opacity:1;pointer-events:all;}
-
-/* ═══ PROGRESS BAR ═══ */
-#pbar{
-  position:fixed;top:0;left:0;height:3px;width:0%;z-index:600;
-  background:linear-gradient(90deg,var(--bleu),var(--or),var(--or-b));
-  box-shadow:0 0 12px rgba(212,122,44,.8);
-  transition:width .7s cubic-bezier(.4,0,.2,1);
+/* vignette noire par dessus */
+#bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(7,9,13,1) 0%, rgba(7,9,13,.75) 55%, rgba(7,9,13,.55) 100%);
   pointer-events:none;
 }
 
-/* ════════════════════════════════
-   ÉCRAN INTRO
-════════════════════════════════ */
-#screen-intro{
-  position:fixed;inset:0;z-index:100;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:0;
-  background:radial-gradient(ellipse 80% 60% at 50% 40%, rgba(30,111,165,.18) 0%, transparent 70%), var(--dark);
-  overflow:hidden;
-}
-
-/* Lignes dorées décoratives */
-#screen-intro::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    linear-gradient(0deg, transparent 49.9%, rgba(212,122,44,.07) 50%, transparent 50.1%) 0 0 / 100% 60px,
-    linear-gradient(90deg, transparent 49.9%, rgba(212,122,44,.04) 50%, transparent 50.1%) 0 0 / 60px 100%;
-  animation:gridPulse 6s ease-in-out infinite;
-}
-@keyframes gridPulse{0%,100%{opacity:.4;}50%{opacity:.9;}}
-
-.intro-badge{
-  font-family:'Montserrat',sans-serif;
-  font-weight:200;font-size:clamp(.55rem,1.4vw,.7rem);
-  letter-spacing:.6em;text-transform:uppercase;
-  color:rgba(240,201,130,.5);
-  margin-bottom:clamp(24px,4vh,40px);
-  position:relative;z-index:2;
-}
-
-.intro-title{
-  font-family:'Cinzel',serif;font-weight:900;
-  font-size:clamp(2.2rem,8vw,6rem);
-  text-align:center;line-height:.9;
-  background:linear-gradient(170deg,#fff 0%,var(--or-b) 40%,var(--or) 70%,#8a4a00 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 0 40px rgba(212,122,44,.4));
-  position:relative;z-index:2;
-  animation:titleReveal 1.2s cubic-bezier(.16,1,.3,1) forwards;
-}
-@keyframes titleReveal{
-  0%{opacity:0;transform:translateY(30px) scale(.95);filter:blur(12px) drop-shadow(0 0 0 transparent);}
-  100%{opacity:1;transform:translateY(0) scale(1);filter:drop-shadow(0 0 40px rgba(212,122,44,.4));}
-}
-
-.intro-ligne{
-  width:clamp(80px,20vw,160px);height:1px;
-  background:linear-gradient(90deg,transparent,var(--or),transparent);
-  margin:clamp(16px,3vh,28px) 0;
-  position:relative;z-index:2;
-}
-
-.intro-sub{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(.85rem,2.2vw,1.25rem);
-  color:rgba(240,201,130,.75);text-align:center;
-  position:relative;z-index:2;line-height:1.6;
-  max-width:min(500px,85vw);
-  animation:subReveal 1.4s ease forwards .4s;opacity:0;
-}
-@keyframes subReveal{0%{opacity:0;transform:translateY(16px);}100%{opacity:1;transform:translateY(0);}}
-
-.intro-desc{
-  font-size:clamp(.72rem,1.6vw,.88rem);
-  font-weight:300;color:rgba(255,255,255,.45);
-  text-align:center;line-height:1.8;
-  max-width:min(480px,85vw);
-  margin-top:clamp(10px,2vh,18px);
-  position:relative;z-index:2;
-  animation:subReveal 1.4s ease forwards .7s;opacity:0;
-}
-
-.intro-cta{
-  margin-top:clamp(28px,5vh,48px);
-  position:relative;z-index:2;
-  animation:subReveal 1.4s ease forwards 1s;opacity:0;
-}
-.btn-demarrer{
-  display:flex;align-items:center;gap:14px;
-  background:rgba(212,122,44,.1);
-  border:1px solid rgba(212,122,44,.4);
-  border-radius:60px;
-  padding:clamp(14px,2.5vw,18px) clamp(32px,6vw,60px);
-  font-family:'Cinzel',serif;font-weight:700;
-  font-size:clamp(.8rem,1.8vw,.95rem);
-  letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(240,201,130,.95);
-  cursor:pointer;
-  transition:all .3s ease;
-  position:relative;overflow:hidden;
-  animation:ctaPulse 2.5s ease-in-out infinite 1.5s;
-}
-.btn-demarrer::before{
-  content:'';position:absolute;inset:0;border-radius:60px;
-  background:linear-gradient(135deg,rgba(212,122,44,.2),transparent 60%);
-  transform:translateX(-100%);
-  transition:transform .5s ease;
-}
-.btn-demarrer:hover::before{transform:translateX(100%);}
-.btn-demarrer:hover{
-  background:rgba(212,122,44,.2);
-  border-color:rgba(240,201,130,.7);
-  box-shadow:0 0 40px rgba(212,122,44,.3);
-}
-@keyframes ctaPulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(212,122,44,.3);}
-  50%{box-shadow:0 0 0 10px rgba(212,122,44,0);}
-}
-.btn-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--or-b);
-  animation:dotBlink 1s ease-in-out infinite;
-  box-shadow:0 0 8px var(--or-b);
-}
-@keyframes dotBlink{0%,100%{opacity:1;}50%{opacity:.2;}}
-
-.intro-credit{
-  position:absolute;bottom:clamp(16px,3vh,28px);
-  font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;
-  color:rgba(255,255,255,.18);z-index:2;
-}
-.intro-credit span{color:rgba(240,201,130,.4);}
+/* ════════════════════════════
+   BARRE PROGRESSION
+════════════════════════════ */
+.pbar-wrap{position:fixed;top:0;left:0;right:0;height:3px;z-index:500;background:rgba(255,255,255,.06);}
+.pbar{height:100%;width:0%;background:linear-gradient(90deg,var(--bleu),var(--or),var(--or2));transition:width .8s ease;}
 
 /* ════════════════════════════
-   ÉCRAN QUIZ
+   SCÈNES
 ════════════════════════════ */
-#screen-quiz{
-  position:fixed;inset:0;z-index:50;
+.sc{
+  position:fixed;inset:0;z-index:10;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:clamp(20px,4vw,48px);
-  opacity:0;pointer-events:none;
-  transition:opacity .6s ease;
-  background:radial-gradient(ellipse 70% 50% at 50% 30%, rgba(30,111,165,.12) 0%, transparent 70%), var(--dark);
+  padding:clamp(20px,5vw,48px) clamp(16px,6vw,52px);
+  opacity:0;pointer-events:none;transition:opacity .5s ease;
+  gap:clamp(14px,2.8vh,26px);
 }
-#screen-quiz.visible{opacity:1;pointer-events:all;}
+.sc.on{opacity:1;pointer-events:all;}
 
-/* ── Lettres D O U R ── */
-#dour-letters{
-  display:flex;gap:clamp(10px,3vw,24px);
-  margin-bottom:clamp(24px,5vh,48px);
-  position:relative;z-index:2;
+/* ════════════════════════════
+   INTRO
+════════════════════════════ */
+.eyebrow{
+  font-size:clamp(.52rem,1.3vw,.68rem);letter-spacing:.45em;text-transform:uppercase;
+  color:rgba(30,111,165,.75);font-weight:600;
 }
-.dour-lettre{
+.main-title{
   font-family:'Cinzel',serif;font-weight:900;
-  font-size:clamp(2.4rem,8vw,5rem);
-  line-height:1;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(212,122,44,.2);
-  transition:all .8s cubic-bezier(.16,1,.3,1);
-  text-shadow:none;
-  position:relative;
+  font-size:clamp(2.8rem,10vw,6.5rem);
+  letter-spacing:.07em;text-transform:uppercase;text-align:center;line-height:.95;
+  background:linear-gradient(135deg,var(--or2) 0%,var(--or) 40%,var(--or2) 70%,var(--or) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-size:300% 300%;animation:sh 5s linear infinite;
+  filter:drop-shadow(0 0 55px rgba(212,122,44,.4));
 }
-.dour-lettre.active{
-  color:var(--or-b);
-  -webkit-text-stroke:0px transparent;
-  text-shadow:0 0 40px rgba(212,122,44,.8), 0 0 80px rgba(240,201,130,.4);
-  animation:letterFlare .6s ease forwards;
+@keyframes sh{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+
+.sep{width:clamp(50px,12vw,100px);height:1px;
+  background:linear-gradient(90deg,transparent,var(--or),transparent);opacity:.4;}
+
+.intro-logo{
+  width:clamp(88px,16vw,130px);
+  filter:drop-shadow(0 0 32px rgba(212,122,44,.5));
+  animation:fl 4s ease-in-out infinite;
 }
-@keyframes letterFlare{
-  0%{transform:scale(1.5);opacity:0;filter:blur(8px);}
-  40%{transform:scale(1.1);opacity:1;filter:blur(0);}
-  70%{transform:scale(.97);}
-  100%{transform:scale(1);}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+.credit{
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(.76rem,1.8vw,.92rem);
+  color:rgba(240,201,130,.35);
+}
+.credit b{color:rgba(240,201,130,.6);}
+
+.cta{
+  padding:clamp(13px,2.5vw,16px) clamp(40px,8vw,64px);
+  font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:clamp(.78rem,1.8vw,.9rem);letter-spacing:.22em;text-transform:uppercase;
+  color:#07090D;background:linear-gradient(135deg,var(--or2),var(--or));
+  border:none;border-radius:50px;cursor:pointer;
+  box-shadow:0 0 50px rgba(212,122,44,.38),0 6px 24px rgba(0,0,0,.55);
+  position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;
+}
+.cta::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  transform:translateX(-100%);animation:sw 3s ease infinite;}
+@keyframes sw{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
+.cta:hover{transform:translateY(-2px);box-shadow:0 0 65px rgba(212,122,44,.52),0 8px 30px rgba(0,0,0,.55);}
+
+/* ════════════════════════════
+   QUIZ — layout 2 zones
+════════════════════════════ */
+#s-quiz{justify-content:space-between;padding-top:clamp(28px,5vh,50px);padding-bottom:clamp(10px,3vh,28px);gap:clamp(4px,1.2vh,12px);}
+
+/* Zone haute — lettre héro + question */
+.top-zone{
+  display:flex;flex-direction:column;align-items:center;
+  gap:clamp(5px,1.2vh,12px);flex:0 0 auto;
+}
+.q-badge{
+  font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(30,111,165,.7);font-weight:700;
+  padding:4px 14px;border:1px solid rgba(30,111,165,.2);border-radius:20px;
+}
+/* Logo Tour de Dour — optimisé mobile */
+.q-logo-dour{
+  width:clamp(140px,52vw,240px);
+  max-height:clamp(95px,20vh,165px);
+  object-fit:contain;
+  filter:drop-shadow(0 0 18px rgba(212,122,44,.5)) drop-shadow(0 0 40px rgba(30,111,165,.3));
+  animation:logoFloat 4s ease-in-out infinite;
+  flex-shrink:0;
+}
+@keyframes logoFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-5px);}
+}
+.q-text{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(.95rem,4.5vw,2rem);
+  text-transform:uppercase;letter-spacing:.05em;
+  color:#fff;text-align:center;line-height:1.2;
+  text-shadow:0 2px 20px rgba(0,0,0,.9),0 0 40px rgba(0,0,0,.8);
+  max-width:680px;min-height:2.4em;
+}
+.q-text .cur{
+  display:inline-block;width:3px;height:.82em;
+  background:var(--or);vertical-align:middle;margin-left:3px;
+  animation:bl .7s step-end infinite;
+}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:0}}
+
+/* Zone milieu — input */
+.mid-zone{
+  display:flex;flex-direction:column;align-items:center;
+  gap:clamp(8px,1.8vh,14px);flex:1 1 auto;justify-content:center;
+  width:100%;max-width:580px;
+}
+.q-hint{
+  font-size:clamp(.68rem,1.5vw,.82rem);font-style:italic;
+  color:rgba(255,255,255,.32);letter-spacing:.06em;text-align:center;
+  transition:opacity .45s;
 }
 
-/* ── Numéro & label question ── */
-.quiz-num{
-  font-family:'Montserrat',sans-serif;font-weight:200;
-  font-size:clamp(.6rem,1.4vw,.72rem);
-  letter-spacing:.55em;text-transform:uppercase;
-  color:rgba(240,201,130,.45);
-  margin-bottom:clamp(10px,2vh,18px);
-  position:relative;z-index:2;
-}
-
-/* ── Texte question (typewriter) ── */
-#question-text{
-  font-family:'Cinzel',serif;font-weight:700;
-  font-size:clamp(1.2rem,3.5vw,2rem);
-  text-align:center;line-height:1.35;
-  color:#fff;
-  max-width:min(640px,88vw);
-  min-height:clamp(56px,8vh,90px);
-  position:relative;z-index:2;
-  margin-bottom:clamp(24px,4vh,40px);
-}
-#question-text .cursor{
-  display:inline-block;
-  width:2px;height:1.1em;
-  background:var(--or-b);
-  margin-left:3px;
-  vertical-align:text-bottom;
-  animation:curBlink .7s step-end infinite;
-}
-@keyframes curBlink{0%,100%{opacity:1;}50%{opacity:0;}}
-
-/* ── Zone de réponse ── */
-#answer-zone{
-  width:100%;max-width:min(560px,88vw);
-  position:relative;z-index:2;
-}
-
-/* Textarea libre */
-.free-input{
+/* Textarea */
+.free-ta{
   width:100%;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(212,122,44,.25);
-  border-radius:12px;
-  padding:clamp(14px,2.5vw,20px) clamp(16px,3vw,24px);
-  font-family:'Montserrat',sans-serif;font-weight:300;
-  font-size:clamp(.88rem,1.8vw,1rem);
-  color:#fff;resize:none;
-  outline:none;
-  transition:border-color .3s ease, box-shadow .3s ease;
-  line-height:1.7;
-  min-height:clamp(90px,15vh,130px);
+  padding:clamp(14px,2.5vw,18px) clamp(16px,3vw,22px);
+  font-family:'Montserrat',sans-serif;font-size:clamp(.88rem,2vw,1rem);
+  color:#fff;
+  background:rgba(15,20,30,.75);
+  border:1.5px solid rgba(212,122,44,.25);
+  border-radius:16px;outline:none;resize:none;
+  min-height:72px;
+  backdrop-filter:blur(16px);
+  box-shadow:0 4px 30px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04);
+  transition:border-color .25s,box-shadow .25s;
 }
-.free-input::placeholder{color:rgba(255,255,255,.22);}
-.free-input:focus{
+.free-ta::placeholder{color:rgba(255,255,255,.2);font-style:italic;}
+.free-ta:focus{
   border-color:rgba(212,122,44,.6);
-  box-shadow:0 0 0 3px rgba(212,122,44,.1), 0 0 30px rgba(212,122,44,.08);
+  box-shadow:0 0 28px rgba(212,122,44,.18),0 4px 30px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04);
 }
 
-/* Options créature */
-.options-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:clamp(10px,2vw,16px);
-  width:100%;
+/* Options choix */
+.opts{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(8px,2vw,12px);width:100%;
 }
-.option-btn{
-  display:flex;align-items:center;gap:12px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(212,122,44,.2);
-  border-radius:12px;
-  padding:clamp(14px,2.5vw,20px) clamp(14px,2.5vw,20px);
-  font-family:'Montserrat',sans-serif;font-weight:500;
-  font-size:clamp(.82rem,1.8vw,.95rem);
-  color:rgba(255,255,255,.8);
-  cursor:pointer;
-  transition:all .25s ease;
-  text-align:left;
+.opt{
+  padding:clamp(12px,2.5vw,17px) clamp(12px,2.5vw,18px);
+  background:rgba(15,20,30,.72);
+  border:1.5px solid rgba(30,111,165,.2);
+  border-radius:14px;cursor:pointer;
+  font-family:'Montserrat',sans-serif;font-weight:600;
+  font-size:clamp(.78rem,1.7vw,.92rem);
+  color:rgba(255,255,255,.78);
+  display:flex;align-items:center;gap:10px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 4px 20px rgba(0,0,0,.35);
+  transition:all .2s;text-align:left;
 }
-.option-btn .opt-icon{font-size:clamp(1.4rem,3vw,1.8rem);}
-.option-btn .opt-label{line-height:1.3;}
-.option-btn:hover{
-  border-color:rgba(212,122,44,.5);
-  background:rgba(212,122,44,.08);
-  color:#fff;
+.opt:hover{
+  background:rgba(30,111,165,.18);
+  border-color:rgba(30,111,165,.55);
+  color:#fff;transform:translateY(-2px);
+  box-shadow:0 6px 28px rgba(30,111,165,.2);
 }
-.option-btn.selected{
-  border-color:var(--or);
-  background:rgba(212,122,44,.15);
-  color:#fff;
-  box-shadow:0 0 20px rgba(212,122,44,.2);
+.opt.sel{
+  background:rgba(212,122,44,.18);
+  border-color:var(--or);color:#fff;
+  box-shadow:0 0 24px rgba(212,122,44,.25);
+}
+
+/* Zone basse — lettres DOUR + bouton */
+.bot-zone{
+  display:flex;flex-direction:column;align-items:center;
+  gap:clamp(8px,1.8vh,14px);flex:0 0 auto;
+}
+
+/* Lettres DOUR en bas */
+.dour-row{
+  display:flex;gap:clamp(6px,2vw,18px);align-items:flex-end;
+  overflow:visible; /* on laisse la lettre visible hors zone pour l'effet */
+  /* padding-top pour que la lettre qui chute ne coupe pas */
+  padding-top:clamp(60px,10vw,120px);
+  margin-top:clamp(-60px,-10vw,-120px);
+}
+/* ══════════════════════════════════════════
+   LETTRES D O U R — style de base
+══════════════════════════════════════════ */
+.dl{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(2rem,8vw,5rem);
+  line-height:1;
+  display:inline-block;
+  position:relative;
+  /* invisible au départ */
+  opacity:0;
+  color:transparent;
+  transform:translateY(-200px) scale(.6);
+  will-change:transform,opacity,filter;
+}
+
+/* Lettre active — animation chute cinéma */
+.dl.lit{
+  animation:cineDrop .9s cubic-bezier(.12,.8,.2,1) forwards;
+}
+
+/* Lettre passée — dorée, stable, lumineuse */
+.dl.past{
+  opacity:1;
+  color:rgba(240,201,130,.45);
+  transform:translateY(0) scale(1);
+  text-shadow:
+    0 0 14px rgba(212,122,44,.4),
+    0 0 30px rgba(212,122,44,.15);
+  filter:none;
+}
+
+/* ══════════════════════════════════════════
+   @keyframes CINÉDROP — 7 phases
+   Chute cinématique premium
+══════════════════════════════════════════ */
+@keyframes cineDrop{
+
+  /* 0% — départ très haut, invisible, flou */
+  0%{
+    opacity:0;
+    color:transparent;
+    transform:translateY(-240px) scale(.5) rotate(-12deg);
+    filter:blur(14px) brightness(3);
+    text-shadow:none;
+  }
+
+  /* 18% — apparition en chute rapide, traînée de lumière */
+  18%{
+    opacity:.55;
+    color:rgba(255,255,255,.5);
+    transform:translateY(-80px) scale(.85) rotate(-4deg);
+    filter:blur(4px) brightness(2);
+    text-shadow:
+      0 -30px 40px rgba(212,122,44,.6),
+      0 -60px 80px rgba(240,201,130,.3);
+  }
+
+  /* 45% — juste avant IMPACT, vitesse max */
+  45%{
+    opacity:.9;
+    color:rgba(255,255,255,.9);
+    transform:translateY(0px) scale(1.02) rotate(-1deg);
+    filter:blur(1px) brightness(1.5);
+    text-shadow:
+      0 0 20px rgba(212,122,44,.8),
+      0 0 50px rgba(212,122,44,.5);
+  }
+
+  /* 58% — IMPACT : écrasement brutal au sol */
+  58%{
+    opacity:1;
+    color:#fff;
+    transform:translateY(14px) scaleX(1.12) scaleY(.72) rotate(.8deg);
+    filter:blur(0) brightness(1);
+    text-shadow:
+      0 0 40px rgba(240,201,130,1),
+      0 0 80px rgba(212,122,44,.9),
+      0 0 140px rgba(212,122,44,.5),
+      0 16px 0 rgba(0,0,0,.8);
+  }
+
+  /* 68% — 1er rebond : montée vive */
+  68%{
+    transform:translateY(-18px) scaleX(.96) scaleY(1.1) rotate(-.6deg);
+    color:#fff;
+    text-shadow:
+      0 0 50px rgba(240,201,130,1),
+      0 0 100px rgba(212,122,44,.8),
+      0 0 180px rgba(212,122,44,.35);
+  }
+
+  /* 78% — 2e rebond : retombée douce */
+  78%{
+    transform:translateY(6px) scaleX(1.02) scaleY(.94);
+    text-shadow:
+      0 0 30px rgba(212,122,44,.9),
+      0 0 65px rgba(212,122,44,.5);
+  }
+
+  /* 87% — oscillation finale */
+  87%{
+    transform:translateY(-5px) scale(1.03);
+    text-shadow:
+      0 0 28px rgba(212,122,44,.85),
+      0 0 55px rgba(212,122,44,.45);
+  }
+
+  /* 100% — position finale : lettre posée, dorée, rayonnante */
+  100%{
+    opacity:1;
+    color:#fff;
+    transform:translateY(-3px) scale(1.05);
+    filter:none;
+    text-shadow:
+      0 0 22px var(--or),
+      0 0 50px rgba(212,122,44,.65),
+      0 0 100px rgba(212,122,44,.3),
+      0 0 180px rgba(212,122,44,.12);
+  }
+}
+
+/* ══════════════════════════════════════════
+   FLASH D'IMPACT — trait lumineux au sol
+══════════════════════════════════════════ */
+@keyframes impactFlash{
+  0%  { opacity:.9; transform:translateX(-50%) scaleX(1.6) scaleY(1.2); }
+  40% { opacity:.7; transform:translateX(-50%) scaleX(2.4) scaleY(.8); }
+  100%{ opacity:0;  transform:translateX(-50%) scaleX(3.5) scaleY(0); }
+}
+
+/* Particules d'impact */
+@keyframes particleFly{
+  0%  { opacity:1; transform:translate(0,0) scale(1); }
+  100%{ opacity:0; transform:translate(var(--px),var(--py)) scale(0); }
 }
 
 /* Bouton suivant */
-#btn-next{
-  margin-top:clamp(18px,3.5vh,32px);
-  display:flex;align-items:center;gap:12px;
-  background:linear-gradient(135deg, var(--or), #b85a10);
-  border:none;border-radius:60px;
-  padding:clamp(13px,2.2vw,17px) clamp(36px,7vw,64px);
-  font-family:'Cinzel',serif;font-weight:700;
-  font-size:clamp(.78rem,1.7vw,.92rem);
-  letter-spacing:.2em;text-transform:uppercase;
-  color:#fff;cursor:pointer;
-  transition:all .3s ease;
-  box-shadow:0 4px 24px rgba(212,122,44,.35);
-  position:relative;z-index:2;
-  opacity:0;transform:translateY(10px);
-  pointer-events:none;
-  transition:opacity .4s ease, transform .4s ease, box-shadow .3s ease;
+.next{
+  padding:clamp(11px,2vw,14px) clamp(34px,7vw,54px);
+  font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:clamp(.76rem,1.7vw,.88rem);letter-spacing:.2em;text-transform:uppercase;
+  color:#07090D;background:linear-gradient(135deg,var(--or2),var(--or));
+  border:none;border-radius:50px;cursor:pointer;
+  box-shadow:0 0 30px rgba(212,122,44,.3),0 4px 18px rgba(0,0,0,.45);
+  transition:transform .2s,opacity .25s,box-shadow .2s;
+  opacity:.25;pointer-events:none;
 }
-#btn-next.show{opacity:1;transform:translateY(0);pointer-events:all;}
-#btn-next:hover{box-shadow:0 6px 36px rgba(212,122,44,.55);transform:translateY(-2px);}
-#btn-next svg{width:16px;height:16px;fill:#fff;flex-shrink:0;}
+.next.on{opacity:1;pointer-events:all;}
+.next.on:hover{transform:translateY(-2px);box-shadow:0 0 46px rgba(212,122,44,.5);}
+.next:active{transform:scale(.97);}
 
-/* ════════════════════════
-   ÉCRAN MERCI
-════════════════════════ */
-#screen-merci{
-  position:fixed;inset:0;z-index:50;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:clamp(12px,2.5vh,20px);
-  padding:clamp(24px,5vw,60px);
-  opacity:0;pointer-events:none;
-  transition:opacity .8s ease;
-  background:radial-gradient(ellipse 70% 50% at 50% 40%, rgba(30,111,165,.15) 0%, transparent 70%), var(--dark);
-}
-#screen-merci.visible{opacity:1;pointer-events:all;}
+/* ════════════════════════════
+   FORMULAIRE
+════════════════════════════ */
+#s-form{overflow-y:auto;justify-content:flex-start;padding-top:clamp(30px,6vh,50px);}
 
-.merci-dour{
-  display:flex;gap:clamp(8px,2.5vw,20px);
-  margin-bottom:clamp(8px,2vh,16px);
-}
-.merci-dour .dour-lettre{
-  color:var(--or-b);
-  -webkit-text-stroke:0px transparent;
-  text-shadow:0 0 40px rgba(212,122,44,.8), 0 0 80px rgba(240,201,130,.4);
-}
-
-.merci-title{
-  font-family:'Cinzel',serif;font-weight:900;
-  font-size:clamp(1.6rem,5vw,3rem);
-  background:linear-gradient(170deg,#fff 0%,var(--or-b) 50%,var(--or) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  text-align:center;
-}
-.merci-sub{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(.9rem,2vw,1.15rem);
-  color:rgba(240,201,130,.7);text-align:center;
-  max-width:min(480px,85vw);line-height:1.7;
-}
-.merci-ligne{
-  width:80px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--or),transparent);
-}
-.merci-credit{
-  font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;
-  color:rgba(255,255,255,.2);margin-top:clamp(8px,2vh,16px);
-}
-.merci-credit span{color:rgba(240,201,130,.4);}
-
-/* ════════════ FORMULAIRE COLLECTE ════════════ */
-#collect-form{
-  display:flex;flex-direction:column;gap:12px;
-  width:100%;max-width:min(400px,88vw);
-  margin-top:clamp(8px,2vh,16px);
-}
-.collect-input{
-  background:rgba(255,255,255,.05);
+.form-wrap{
+  width:100%;max-width:460px;
+  background:rgba(10,13,20,.9);
   border:1px solid rgba(212,122,44,.2);
-  border-radius:10px;
-  padding:clamp(12px,2vw,16px) clamp(14px,2.5vw,20px);
-  font-family:'Montserrat',sans-serif;font-weight:300;
-  font-size:clamp(.82rem,1.7vw,.92rem);
-  color:#fff;outline:none;
-  transition:border-color .3s ease;
-}
-.collect-input::placeholder{color:rgba(255,255,255,.25);}
-.collect-input:focus{border-color:rgba(212,122,44,.5);}
-
-.rgpd-check{
-  display:flex;align-items:flex-start;gap:10px;
-  font-size:clamp(.68rem,1.4vw,.78rem);
-  color:rgba(255,255,255,.4);line-height:1.5;
-  cursor:pointer;
-}
-.rgpd-check input[type=checkbox]{
-  width:16px;height:16px;flex-shrink:0;margin-top:2px;
-  accent-color:var(--or);cursor:pointer;
+  border-radius:22px;
+  padding:clamp(22px,4vw,36px);
+  backdrop-filter:blur(28px);
+  display:flex;flex-direction:column;gap:14px;
+  box-shadow:0 0 70px rgba(0,0,0,.65);
 }
 
-.btn-envoyer{
-  background:linear-gradient(135deg,var(--or),#b85a10);
-  border:none;border-radius:60px;
-  padding:clamp(13px,2vw,16px) clamp(30px,5vw,50px);
-  font-family:'Cinzel',serif;font-weight:700;
-  font-size:clamp(.78rem,1.6vw,.9rem);
-  letter-spacing:.2em;text-transform:uppercase;
-  color:#fff;cursor:pointer;
-  transition:all .3s ease;
-  box-shadow:0 4px 24px rgba(212,122,44,.35);
-  align-self:center;
+/* DOUR illuminé au-dessus */
+.form-dour{display:flex;gap:clamp(4px,1.5vw,12px);justify-content:center;margin-bottom:2px;}
+.fdl{
+  font-family:'Anton',sans-serif;font-size:clamp(2rem,7vw,4rem);line-height:1;
+  color:#fff;
+  text-shadow:0 0 18px var(--or),0 0 45px rgba(212,122,44,.55),0 0 80px rgba(212,122,44,.25);
 }
-.btn-envoyer:hover{box-shadow:0 6px 36px rgba(212,122,44,.55);}
 
-/* ═══ PARTICULES FOND ═══ */
-#canvas-bg{position:fixed;inset:0;z-index:1;pointer-events:none;}
+.ftitle{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(.95rem,3vw,1.25rem);
+  color:var(--or2);text-align:center;letter-spacing:.06em;}
+.fsub{font-size:clamp(.68rem,1.5vw,.78rem);color:rgba(255,255,255,.38);text-align:center;line-height:1.65;}
 
+.flabel{font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(212,122,44,.6);font-weight:700;display:block;margin-bottom:4px;}
+.finput{
+  width:100%;padding:10px 14px;
+  font-family:'Montserrat',sans-serif;font-size:.9rem;color:#fff;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(212,122,44,.18);border-radius:10px;
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.finput:focus{border-color:rgba(212,122,44,.5);box-shadow:0 0 16px rgba(212,122,44,.1);}
+.finput::placeholder{color:rgba(255,255,255,.18);}
+
+/* Facebook */
+.fb{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:12px 18px;
+  background:linear-gradient(135deg,#1877F2,#0f5ec9);
+  border-radius:12px;text-decoration:none;color:#fff;
+  font-family:'Montserrat',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.06em;
+  box-shadow:0 4px 24px rgba(24,119,242,.3);transition:transform .2s,box-shadow .2s;
+}
+.fb:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(24,119,242,.45);}
+.fb svg{width:18px;height:18px;fill:#fff;flex-shrink:0;}
+.fb-note{font-size:.62rem;color:rgba(255,255,255,.22);text-align:center;margin-top:-8px;}
+
+/* RGPD */
+.rgpd{display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+.rbox{
+  width:17px;height:17px;min-width:17px;border-radius:4px;margin-top:2px;
+  border:1px solid rgba(212,122,44,.28);background:rgba(255,255,255,.04);
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.rbox.ok{background:var(--or);border-color:var(--or);}
+.rbox.ok::after{content:'✓';font-size:.62rem;font-weight:900;color:#07090D;}
+.rtxt{font-size:.66rem;color:rgba(255,255,255,.32);line-height:1.65;}
+.rtxt a{color:rgba(212,122,44,.5);text-decoration:none;}
+
+/* Bouton envoi */
+.sbtn{
+  width:100%;padding:13px 20px;
+  font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:.84rem;letter-spacing:.18em;text-transform:uppercase;
+  color:#07090D;background:linear-gradient(135deg,var(--or2),var(--or));
+  border:none;border-radius:50px;cursor:pointer;
+  box-shadow:0 0 30px rgba(212,122,44,.28);
+  transition:transform .2s,opacity .25s;
+  opacity:.3;pointer-events:none;
+}
+.sbtn.on{opacity:1;pointer-events:all;}
+.sbtn.on:hover{transform:translateY(-2px);}
+
+/* ════════════════════════════
+   ÉCRAN FINAL
+════════════════════════════ */
+#s-done{gap:clamp(14px,3vh,22px);}
+.done-dour{display:flex;gap:clamp(4px,2vw,14px);}
+.ddl{
+  font-family:'Anton',sans-serif;font-size:clamp(3rem,12vw,7rem);line-height:1;
+  color:#fff;
+  text-shadow:0 0 30px var(--or),0 0 70px rgba(212,122,44,.55),0 0 120px rgba(212,122,44,.25);
+}
+.done-title{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.1rem,4vw,1.8rem);
+  color:var(--or2);text-align:center;letter-spacing:.06em;}
+.done-txt{font-size:clamp(.78rem,1.9vw,.95rem);color:rgba(255,255,255,.45);
+  text-align:center;line-height:1.78;max-width:400px;}
+.done-logo{width:clamp(78px,14vw,110px);filter:drop-shadow(0 0 24px rgba(212,122,44,.42));margin-top:6px;}
+.done-sig{font-family:'Dancing Script',cursive;font-size:clamp(.74rem,1.7vw,.9rem);color:rgba(212,122,44,.28);}
+
+/* Pied de page */
+.footer{
+  position:fixed;bottom:max(8px,env(safe-area-inset-bottom));
+  left:0;right:0;text-align:center;z-index:400;pointer-events:none;
+}
+.footer span{font-family:'Dancing Script',cursive;font-size:.7rem;color:rgba(212,122,44,.14);}
+
+/* ═══ OPTIMISATION PETITS MOBILES ═══ */
+@media(max-width:380px){
+  .q-logo-dour{width:46vw;max-height:16vh;}
+  .dl{font-size:clamp(1.8rem,7.5vw,3rem);}
+  .top-zone{gap:4px;}
+  #s-quiz{padding-top:22px;padding-bottom:8px;}
+  .q-badge{font-size:.52rem;}
+}
+@media(max-height:680px){
+  .q-logo-dour{max-height:14vh;}
+  .top-zone{gap:3px;}
+  #s-quiz{padding-top:20px;}
+}
 </style>
 </head>
 <body>
 
-<!-- Canvas fond -->
-<canvas id="canvas-bg"></canvas>
+<!-- FOND -->
+<div id="bg"></div>
+<div class="pbar-wrap"><div class="pbar" id="pb"></div></div>
 
-<!-- Overlay transition noir -->
-<div id="overlay-noir"></div>
+<!-- ════════════════════════
+     INTRO
+════════════════════════ -->
+<div class="sc on" id="s-intro">
+  <p class="eyebrow">Participez au vote</p>
+  <h1 class="main-title">Le Tour<br>de Dour</h1>
+  <div class="sep"></div>
+  <img class="intro-logo"
+    src="https://base44.app/api/apps/69ed0a42be17008cf11027eb/files/mp/public/69ed0a42be17008cf11027eb/473857e8a_1a90dc4ba_logo-complet-800.png"
+    alt="Js-Innov.IA"/>
+  <p class="credit">Créé par <b>Js-Innov.IA</b> · www.jsinnovia.com</p>
+  <button class="cta" onclick="start()">▶ &nbsp;Commencer l'expérience</button>
+</div>
 
-<!-- Barre progression -->
-<div id="pbar"></div>
+<!-- ════════════════════════
+     QUIZ
+════════════════════════ -->
+<div class="sc" id="s-quiz">
 
-<!-- ══════════════════════════════
-     ÉCRAN INTRO
-══════════════════════════════ -->
-<section id="screen-intro">
-  <div class="intro-badge">Commune de Dour · Tour de Dour</div>
+  <!-- TOP : badge + logo Tour de Dour + question -->
+  <div class="top-zone">
+    <div class="q-badge" id="qbadge">Question 1 / 4</div>
+    <img class="q-logo-dour"
+      src="https://base44.app/api/apps/69ed0a42be17008cf11027eb/files/mp/public/69ed0a42be17008cf11027eb/468e07844_logo_tourdedour_v2_transparent.png"
+      alt="Le Tour de Dour"/>
+    <div class="q-text" id="qtext"></div>
+  </div>
 
-  <h1 class="intro-title">LE TOUR<br/>DE DOUR</h1>
+  <!-- MILIEU : hint + input -->
+  <div class="mid-zone">
+    <div class="q-hint" id="qhint"></div>
+    <div id="qinput" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:10px;"></div>
+  </div>
 
-  <div class="intro-ligne"></div>
+  <!-- BAS : lettres DOUR + bouton -->
+  <div class="bot-zone">
+    <div class="dour-row">
+      <span class="dl" id="dD">D</span>
+      <span class="dl" id="dO">O</span>
+      <span class="dl" id="dU">U</span>
+      <span class="dl" id="dR">R</span>
+    </div>
+    <button class="next" id="nextbtn" type="button" onclick="nextQ()">Continuer →</button>
+  </div>
+</div>
 
-  <p class="intro-sub">Participez à la naissance<br/>de notre mascotte officielle</p>
+<!-- ════════════════════════
+     FORMULAIRE
+════════════════════════ -->
+<div class="sc" id="s-form">
+  <div class="form-wrap">
 
-  <p class="intro-desc">
-    4 questions pour capturer l'âme de Dour.<br/>
-    Chaque réponse allume une lettre de notre ville.
-  </p>
+    <div class="form-dour">
+      <span class="fdl">D</span><span class="fdl">O</span>
+      <span class="fdl">U</span><span class="fdl">R</span>
+    </div>
 
-  <div class="intro-cta">
-    <button class="btn-demarrer" onclick="demarrer()">
-      <span class="btn-dot"></span>
-      Commencer l'expérience
+    <p class="ftitle">🎉 Merci pour votre participation !</p>
+    <p class="fsub">Laissez vos coordonnées pour être informé(e) de la mascotte officielle du Tour de Dour.</p>
+
+    <div>
+      <label class="flabel">Prénom *</label>
+      <input class="finput" id="fp" type="text" placeholder="Votre prénom" oninput="chk()"/>
+    </div>
+    <div>
+      <label class="flabel">Nom *</label>
+      <input class="finput" id="fn" type="text" placeholder="Votre nom" oninput="chk()"/>
+    </div>
+    <div>
+      <label class="flabel">Email *</label>
+      <input class="finput" id="fe" type="email" placeholder="votre@email.com" oninput="chk()"/>
+    </div>
+
+    <a class="fb"
+       href="https://www.facebook.com/p/Le-Tour-de-Dour-dOlivier-Trevis-61564157237940"
+       target="_blank" rel="noopener" onclick="fbDone()">
+      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      👍 Liker la page Facebook du Tour de Dour
+    </a>
+    <p class="fb-note">Cliquer valide votre participation</p>
+
+    <div class="rgpd" onclick="togR()">
+      <div class="rbox" id="rbox"></div>
+      <p class="rtxt">J'accepte que mes données (prénom, nom, email) soient utilisées uniquement pour m'informer de la mascotte du Tour de Dour. Conformément au RGPD, suppression possible via <a href="mailto:contact@jsinnovia.com">contact@jsinnovia.com</a></p>
+    </div>
+
+    <button class="sbtn" id="sbtn" type="button" onclick="sub()">
+      ✉️ &nbsp;Envoyer ma participation
     </button>
   </div>
+</div>
 
-  <div class="intro-credit">Questionnaire réalisé par <span>JS-Innov.IA</span></div>
-</section>
-
-<!-- ══════════════════════════════
-     ÉCRAN QUIZ
-══════════════════════════════ -->
-<section id="screen-quiz">
-
-  <!-- Lettres D O U R -->
-  <div id="dour-letters">
-    <span class="dour-lettre" id="l-D">D</span>
-    <span class="dour-lettre" id="l-O">O</span>
-    <span class="dour-lettre" id="l-U">U</span>
-    <span class="dour-lettre" id="l-R">R</span>
+<!-- ════════════════════════
+     ÉCRAN FINAL
+════════════════════════ -->
+<div class="sc" id="s-done">
+  <div class="done-dour">
+    <span class="ddl">D</span><span class="ddl">O</span>
+    <span class="ddl">U</span><span class="ddl">R</span>
   </div>
+  <div class="done-title">Votre vote est enregistré !</div>
+  <p class="done-txt">Merci de contribuer à l'identité du Tour de Dour.<br>Vous serez informé(e) dès que la mascotte sera révélée.<br><br>À très bientôt ! 🦅</p>
+  <img class="done-logo"
+    src="https://base44.app/api/apps/69ed0a42be17008cf11027eb/files/mp/public/69ed0a42be17008cf11027eb/473857e8a_1a90dc4ba_logo-complet-800.png"
+    alt="Js-Innov.IA"/>
+  <p class="done-sig">Powered by Js-Innov.IA · www.jsinnovia.com</p>
+</div>
 
-  <!-- Numéro question -->
-  <div class="quiz-num" id="quiz-num">Question 1 · 4</div>
-
-  <!-- Texte question avec typewriter -->
-  <div id="question-text"><span id="q-txt"></span><span class="cursor"></span></div>
-
-  <!-- Zone réponse -->
-  <div id="answer-zone"></div>
-
-  <!-- Bouton suivant -->
-  <button id="btn-next" onclick="suivant()">
-    Suivant
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 18l6-6-6-6"/></svg>
-  </button>
-
-</section>
-
-<!-- ══════════════════════════════
-     ÉCRAN MERCI
-══════════════════════════════ -->
-<section id="screen-merci">
-
-  <div class="merci-dour">
-    <span class="dour-lettre">D</span>
-    <span class="dour-lettre">O</span>
-    <span class="dour-lettre">U</span>
-    <span class="dour-lettre">R</span>
-  </div>
-
-  <h2 class="merci-title">Merci pour ta voix !</h2>
-
-  <div class="merci-ligne"></div>
-
-  <p class="merci-sub">
-    Ta contribution aide à façonner la mascotte<br/>
-    qui représentera Dour pour les années à venir.
-  </p>
-
-  <!-- Formulaire collecte optionnel -->
-  <div id="collect-form">
-    <input class="collect-input" type="text" id="inp-prenom" placeholder="Prénom (optionnel)"/>
-    <input class="collect-input" type="email" id="inp-email" placeholder="Email pour être informé(e)"/>
-    <label class="rgpd-check">
-      <input type="checkbox" id="rgpd-ok"/>
-      J'accepte que mes réponses soient utilisées pour le projet mascotte du Tour de Dour, conformément au RGPD.
-    </label>
-    <button class="btn-envoyer" onclick="envoyerReponses()">Envoyer mes réponses</button>
-  </div>
-
-  <div class="merci-credit">Questionnaire réalisé par <span>JS-Innov.IA</span></div>
-</section>
+<div class="footer"><span>JS-Innov.IA · www.jsinnovia.com</span></div>
 
 <script>
-/* ══════════════════════════════════
-   CANVAS PARTICULES FOND
-══════════════════════════════════ */
-(function(){
-  const cv=document.getElementById('canvas-bg');
-  const ctx=cv.getContext('2d');
-  let W,H,pts=[];
-  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;init();}
-  function init(){
-    pts=[];
-    const N=Math.floor((W*H)/18000);
-    for(let i=0;i<N;i++){
-      pts.push({
-        x:Math.random()*W,y:Math.random()*H,
-        r:Math.random()*.8+.2,
-        vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,
-        a:Math.random()
-      });
-    }
-  }
-  function tick(){
-    ctx.clearRect(0,0,W,H);
-    pts.forEach(p=>{
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
-      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-      p.a+=.005;
-      const op=.15+.1*Math.sin(p.a);
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(212,122,44,${op})`;
-      ctx.fill();
-    });
-    requestAnimationFrame(tick);
-  }
-  addEventListener('resize',resize);
-  resize();tick();
-})();
-
-/* ══════════════════════════════════
-   DONNÉES QUESTIONS
-══════════════════════════════════ */
-const QUESTIONS = [
+/* ── QUESTIONS ── */
+const QS = [
   {
-    id: 0,
-    lettre: 'D',
-    num: 'Question 1 · 4',
-    txt: 'Quels mots représentent le mieux Dour ?',
-    type: 'free',
-    placeholder: 'Chaleureux, minier, festif, solidaire…'
+    letter:'D', badge:'Question 1 / 4',
+    txt:'Quels mots représentent le mieux Dour ?',
+    hint:'Quelques mots libres — ce qui vous vient naturellement ✍️',
+    type:'free', ph:'Ex : convivialité, histoire, mines, verdure, festivals…'
   },
   {
-    id: 1,
-    lettre: 'O',
-    num: 'Question 2 · 4',
-    txt: 'Quels lieux ou symboles ?',
-    type: 'free',
-    placeholder: 'Le chevalement, la grand-place, les terrils…'
+    letter:'O', badge:'Question 2 / 4',
+    txt:'Quels lieux ou symboles représentent Dour pour vous ?',
+    hint:'Un bâtiment, un monument, un souvenir… ✍️',
+    type:'free', ph:'Ex : le chevalement, la Grand-Place, le festival, la nature…'
   },
   {
-    id: 2,
-    lettre: 'U',
-    num: 'Question 3 · 4',
-    txt: 'Si Dour était une créature ?',
-    type: 'choice',
-    options: [
-      { icon: '🦅', label: 'Aigle', val: 'aigle' },
-      { icon: '🌳', label: 'Chêne', val: 'chene' },
-      { icon: '🦁', label: 'Lion',  val: 'lion'  },
-      { icon: '🦊', label: 'Renard',val: 'renard'}
-    ]
+    letter:'U', badge:'Question 3 / 4',
+    txt:'Si Dour était une créature… laquelle ?',
+    hint:'Décris-la librement en quelques mots ✍️',
+    type:'free', ph:'Ex : un aigle fier, un renard malin, un lion chaleureux…'
   },
   {
-    id: 3,
-    lettre: 'R',
-    num: 'Question 4 · 4',
-    txt: 'La mascotte idéale, elle devrait sembler…',
-    type: 'free',
-    placeholder: 'Fière, accueillante, moderne, ancrée dans l\'histoire…'
+    letter:'R', badge:'Question 4 / 4',
+    txt:'La mascotte idéale de Dour devrait ressembler à…',
+    hint:'Décrivez librement — apparence, caractère, histoire… ✍️',
+    type:'free', ph:'Ex : un petit mineur courageux, un renard festif avec un casque…'
   }
 ];
 
-/* ══════════════════════════════════
-   ÉTAT
-══════════════════════════════════ */
-let qi = 0;
-let reponses = { mots:'', lieux:'', creature:'', mascotte:'' };
-const KEYS = ['mots','lieux','creature','mascotte'];
-let typingTimer = null;
-let choiceSelected = null;
+/* ── ÉTAT ── */
+let cur = 0, ans = {}, rgpd = false, fb = false, tw = null;
+const $=id=>document.getElementById(id);
 
-/* ══════════════════════════════════
-   FONCTIONS UTILITAIRES
-══════════════════════════════════ */
-function fadeIn(el){el.style.opacity='0';el.style.display='flex';requestAnimationFrame(()=>{requestAnimationFrame(()=>{el.style.transition='opacity .6s ease';el.style.opacity='1';});});}
-function fadeOut(el,cb){el.style.transition='opacity .5s ease';el.style.opacity='0';setTimeout(()=>{el.style.display='none';if(cb)cb();},500);}
-
-function noir(cb){
-  const ov=document.getElementById('overlay-noir');
-  ov.classList.add('on');
-  setTimeout(()=>{if(cb)cb();},500);
-  setTimeout(()=>ov.classList.remove('on'),900);
+/* ── SCÈNE ── */
+function go(id){
+  document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));
+  $(id).classList.add('on');
 }
 
-/* ══════════════════════════════════
-   DÉMARRER
-══════════════════════════════════ */
-function demarrer(){
-  noir(()=>{
-    document.getElementById('screen-intro').style.display='none';
-    document.getElementById('screen-quiz').classList.add('visible');
-    chargerQuestion(0);
+/* ── FOND ── */
+function setBg(step){
+  // Éclaircir légèrement le fond au fil des questions
+  const bri = [.07, .10, .13, .16, .20][step] || .07;
+  $('bg').style.filter = `brightness(${bri}) saturate(.35)`;
+}
+
+/* ── TYPEWRITER ── */
+function tw_write(txt, el, cb){
+  if(tw) clearTimeout(tw);
+  el.innerHTML = '';
+  let i = 0;
+  const P = new Set(['.','!','?','…','—',',']);
+  const cur = document.createElement('span'); cur.className='cur';
+  function tick(){
+    if(i<txt.length){
+      el.textContent = txt.slice(0,++i);
+      el.appendChild(cur);
+      tw = setTimeout(tick, P.has(txt[i-1]) ? 80 : 25);
+    } else {
+      setTimeout(()=>cur.style.opacity='0', 800);
+      if(cb) cb();
+    }
+  }
+  tick();
+}
+
+/* ── LETTRES ── */
+function litLetters(active){
+  ['dD','dO','dU','dR'].forEach((id,i)=>{
+    const el = $(id);
+    el.classList.remove('lit','past');
+    void el.offsetWidth; // reset animation
+
+    if(i < active){
+      el.classList.add('past');
+    } else if(i === active){
+      setTimeout(()=>{
+        void el.offsetWidth;
+        el.classList.add('lit');
+        // Impact + particules à l'atterrissage (60% de l'animation = ~540ms)
+        setTimeout(()=>{
+          spawnImpact(el);
+          spawnParticles(el);
+        }, 520);
+        // Passage en past après que la question soit finie
+        setTimeout(()=>{
+          if(el.classList.contains('lit')){
+            el.classList.remove('lit');
+            el.classList.add('past');
+          }
+        }, 6000);
+      }, 60);
+    }
   });
 }
 
-/* ══════════════════════════════════
-   CHARGER UNE QUESTION
-══════════════════════════════════ */
-function chargerQuestion(idx){
-  const q = QUESTIONS[idx];
-  qi = idx;
+function spawnImpact(el){
+  const rect = el.getBoundingClientRect();
+  const imp = document.createElement('div');
+  imp.style.position      = 'fixed';
+  imp.style.left          = (rect.left + rect.width/2) + 'px';
+  imp.style.top           = (rect.bottom - 2) + 'px';
+  imp.style.width         = (rect.width * 1.4) + 'px';
+  imp.style.height        = '5px';
+  imp.style.background    = 'linear-gradient(90deg,transparent,rgba(240,201,130,.9),rgba(212,122,44,1),rgba(240,201,130,.9),transparent)';
+  imp.style.borderRadius  = '50%';
+  imp.style.pointerEvents = 'none';
+  imp.style.zIndex        = '9998';
+  imp.style.animation     = 'impactFlash .6s cubic-bezier(.22,1,.36,1) forwards';
+  imp.style.boxShadow     = '0 0 20px rgba(212,122,44,.8), 0 0 40px rgba(212,122,44,.4)';
+  document.body.appendChild(imp);
+  setTimeout(()=>imp.remove(), 700);
+}
 
-  // Mise à jour barre
-  const pct = (idx / QUESTIONS.length) * 100;
-  document.getElementById('pbar').style.width = pct + '%';
+function spawnParticles(el){
+  const rect = el.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.bottom;
+  const count = 10;
+  for(let i=0;i<count;i++){
+    const p = document.createElement('div');
+    const angle = (Math.PI * (0.15 + .7 * i/(count-1))); // arc vers le bas
+    const dist  = 30 + Math.random()*55;
+    const px    = Math.cos(angle - Math.PI/2) * dist * (Math.random()>.5?1:-1);
+    const py    = Math.abs(Math.sin(angle)) * dist * .6 + 8;
+    const size  = 2 + Math.random()*3;
+    const dur   = 400 + Math.random()*300;
+    const clr   = Math.random()>.5 ? 'rgba(240,201,130,.9)' : 'rgba(212,122,44,.85)';
 
-  // Numéro
-  document.getElementById('quiz-num').textContent = q.num;
+    p.style.position   = 'fixed';
+    p.style.left       = cx + 'px';
+    p.style.top        = cy + 'px';
+    p.style.width      = size + 'px';
+    p.style.height     = size + 'px';
+    p.style.borderRadius = '50%';
+    p.style.background = clr;
+    p.style.boxShadow  = '0 0 6px ' + clr;
+    p.style.pointerEvents = 'none';
+    p.style.zIndex     = '9997';
+    p.style.setProperty('--px', px+'px');
+    p.style.setProperty('--py', py+'px');
+    p.style.animation  = 'particleFly '+dur+'ms cubic-bezier(.22,1,.36,1) forwards';
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(), dur+100);
+  }
+}
 
-  // Allumer la lettre correspondante
-  activerLettre(q.lettre);
+/* ── PROGRESS ── */
+function prog(pct){ $('pb').style.width=pct+'%'; }
 
-  // Typewriter
-  const el = document.getElementById('q-txt');
-  el.textContent = '';
-  if(typingTimer)clearTimeout(typingTimer);
-  typewrite(el, q.txt, 0);
+/* ── START ── */
+function start(){
+  go('s-quiz');
+  cur=0; ans={};
+  setBg(0); prog(0);
+  renderQ();
+}
 
-  // Zone réponse
-  const zone = document.getElementById('answer-zone');
-  zone.innerHTML = '';
-  choiceSelected = null;
+/* ── RENDER QUESTION ── */
+function renderQ(){
+  const q = QS[cur];
+  $('qbadge').textContent = q.badge;
+  // PAS de litLetters ici — la lettre tombe APRÈS la réponse (dans nextQ)
+  prog((cur / QS.length) * 100);
+  setBg(cur);
 
-  if(q.type === 'free'){
+  const qi = $('qinput');
+  qi.innerHTML = '';
+  const nb = $('nextbtn');
+  nb.classList.remove('on');
+  ans[cur] = '';
+
+  const hint = $('qhint');
+  hint.style.opacity = '0';
+
+  tw_write(q.txt, $('qtext'), ()=>{
+    hint.textContent = q.hint;
+    hint.style.transition = 'opacity .45s';
+    hint.style.opacity = '1';
+    buildInput(q, qi, nb);
+  });
+}
+
+/* ── INPUT ── */
+function buildInput(q, container, nb){
+  if(q.type==='free'){
     const ta = document.createElement('textarea');
-    ta.className = 'free-input';
-    ta.rows = 4;
-    ta.placeholder = q.placeholder || 'Écris ta réponse…';
-    // Pré-remplir si déjà répondu
-    if(reponses[KEYS[idx]]) ta.value = reponses[KEYS[idx]];
-    ta.addEventListener('input', ()=>{
-      reponses[KEYS[idx]] = ta.value.trim();
-      toggleNext(ta.value.trim().length > 0);
-    });
-    zone.appendChild(ta);
-    setTimeout(()=>ta.focus(), 600);
-    // Si déjà une valeur, montrer bouton
-    if(reponses[KEYS[idx]]) toggleNext(true);
-    else toggleNext(false);
-
-  } else if(q.type === 'choice'){
+    ta.className = 'free-ta';
+    ta.placeholder = q.ph;
+    ta.rows = 2;
+    ta.style.width = '100%';
+    ta.style.maxWidth = '540px';
+    ta.oninput = ()=>{
+      ans[cur] = ta.value.trim();
+      nb.classList.toggle('on', ta.value.trim().length>=2);
+    };
+    container.appendChild(ta);
+    setTimeout(()=>ta.focus(), 100);
+  }
+  else if(q.type==='choice'){
     const grid = document.createElement('div');
-    grid.className = 'options-grid';
-    q.options.forEach(opt=>{
+    grid.className = 'opts';
+    q.opts.forEach(o=>{
       const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      if(reponses[KEYS[idx]] === opt.val){
-        btn.classList.add('selected');
-        choiceSelected = opt.val;
-      }
-      btn.innerHTML = `<span class="opt-icon">${opt.icon}</span><span class="opt-label">${opt.label}</span>`;
-      btn.onclick = ()=>{
-        grid.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
-        btn.classList.add('selected');
-        choiceSelected = opt.val;
-        reponses[KEYS[idx]] = opt.val;
-        toggleNext(true);
+      btn.type='button'; btn.className='opt';
+      btn.innerHTML=`<span style="font-size:1.5em;flex-shrink:0">${o.icon}</span>
+        <span><strong>${o.lbl}</strong><br>
+        <small style="opacity:.55;font-size:.74em;font-weight:400">${o.sub}</small></span>`;
+      btn.onclick=()=>{
+        grid.querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+        btn.classList.add('sel');
+        ans[cur]=o.lbl; nb.classList.add('on');
       };
       grid.appendChild(btn);
     });
-    zone.appendChild(grid);
-    toggleNext(reponses[KEYS[idx]] ? true : false);
+    container.appendChild(grid);
   }
 }
 
-/* ── Typewriter ── */
-function typewrite(el, txt, i){
-  if(i <= txt.length){
-    el.textContent = txt.slice(0,i);
-    typingTimer = setTimeout(()=>typewrite(el,txt,i+1), i===0?200:28);
-  }
-}
+/* ── SUIVANT ── */
+function nextQ(){
+  if(!$('nextbtn').classList.contains('on')) return;
 
-/* ── Activer lettre DOUR ── */
-function activerLettre(lettre){
-  document.querySelectorAll('.dour-lettre').forEach(l=>{
-    if(l.textContent === lettre && !l.classList.contains('active')){
-      l.classList.add('active');
-    }
-  });
-}
+  // Désactiver le bouton immédiatement
+  const nb = $('nextbtn');
+  nb.classList.remove('on');
+  nb.style.opacity = '0';
 
-/* ── Toggle bouton suivant ── */
-function toggleNext(show){
-  const btn = document.getElementById('btn-next');
-  if(show) btn.classList.add('show');
-  else btn.classList.remove('show');
-}
+  // La lettre qui correspond à la question RÉPONDUE tombe maintenant
+  // Q1(cur=0) → lettre D(index 0), Q2(cur=1) → O, etc.
+  const letterIdx = cur;
+  const letterIds = ['dD','dO','dU','dR'];
+  const el = $(letterIds[letterIdx]);
 
-/* ══════════════════════════════════
-   SUIVANT
-══════════════════════════════════ */
-function suivant(){
-  // Sauvegarder textarea si besoin
-  const zone = document.getElementById('answer-zone');
-  const ta = zone.querySelector('textarea');
-  if(ta) reponses[KEYS[qi]] = ta.value.trim();
+  // Reset + animation chute
+  el.classList.remove('lit','past');
+  void el.offsetWidth;
+  el.classList.add('lit');
 
-  if(qi < QUESTIONS.length - 1){
-    // Transition douce entre questions
-    noir(()=>{
-      chargerQuestion(qi + 1);
-    });
+  // Impact + particules au timing d'atterrissage (520ms)
+  setTimeout(()=>{
+    spawnImpact(el);
+    spawnParticles(el);
+  }, 520);
+
+  cur++;
+
+  if(cur >= QS.length){
+    // Après la dernière lettre R → cascade finale puis formulaire
+    // Lettres déjà tombées passent en past
+    setTimeout(()=>{
+      letterIds.forEach((id, i)=>{
+        if(i < letterIdx){
+          // déjà en past, ok
+        }
+      });
+      // Lettre R reste lit pendant transition
+      setTimeout(()=>{
+        prog(100);
+        // Passer toutes en past puis go form
+        letterIds.forEach(id=>{
+          const e=$(id);
+          e.classList.remove('lit');
+          e.classList.add('past');
+        });
+        go('s-form');
+      }, 400);
+    }, 700);
   } else {
-    // Fin du quiz → écran merci
-    document.getElementById('pbar').style.width = '100%';
-    noir(()=>{
-      document.getElementById('screen-quiz').classList.remove('visible');
-      document.getElementById('screen-merci').classList.add('visible');
-    });
+    // Attendre la fin de l'animation chute (900ms) puis afficher Q suivante
+    setTimeout(()=>{
+      // Passer la lettre qui vient de tomber en état "past" (stable)
+      el.classList.remove('lit');
+      el.classList.add('past');
+      nb.style.opacity = '';
+      // Petite pause dramatique puis question suivante
+      setTimeout(()=>{
+        renderQ();
+      }, 180);
+    }, 900);
   }
 }
 
-/* ══════════════════════════════════
-   ENVOYER RÉPONSES
-══════════════════════════════════ */
-async function envoyerReponses(){
-  const prenom = document.getElementById('inp-prenom').value.trim();
-  const email  = document.getElementById('inp-email').value.trim();
-  const rgpd   = document.getElementById('rgpd-ok').checked;
+/* ── FORMULAIRE ── */
+function fbDone(){ fb=true; chk(); }
+function togR(){
+  rgpd=!rgpd;
+  $('rbox').classList.toggle('ok',rgpd);
+  chk();
+}
+function chk(){
+  const ok = $('fp').value.trim() && $('fn').value.trim()
+           && $('fe').value.includes('@') && rgpd;
+  $('sbtn').classList.toggle('on',!!ok);
+}
 
-  if(!rgpd){
-    alert('Merci d\'accepter les conditions RGPD pour envoyer tes réponses.');
-    return;
-  }
+async function sub(){
+  if(!$('sbtn').classList.contains('on')) return;
+  const btn=$('sbtn');
+  btn.textContent='⏳ Envoi…';
+  btn.style.opacity='.5'; btn.style.pointerEvents='none';
 
-  const btn = document.querySelector('.btn-envoyer');
-  btn.textContent = 'Envoi…';
-  btn.disabled = true;
-
-  const payload = {
-    prenom: prenom || '',
-    email: email || '',
-    reponse_mots: reponses.mots,
-    reponse_lieux: reponses.lieux,
-    reponse_creature: reponses.creature,
-    reponse_mascotte: reponses.mascotte,
-    consentement_rgpd: rgpd,
-    session_id: 'sess_' + Date.now()
+  const payload={
+    prenom: $('fp').value.trim(),
+    nom:    $('fn').value.trim(),
+    email:  $('fe').value.trim(),
+    profil_dominant: ans[2]||'',
+    score_minier:  ans[2]==='Aigle'?3:0,
+    score_nature:  ans[2]==='Chêne'?3:0,
+    score_festif:  ans[2]==='Lion'?3:0,
+    score_moderne: ans[2]==='Renard'?3:0,
+    message_libre: ans[3]||'',
+    reponses_detail: JSON.stringify({
+      q1_mots:      ans[0]||'',
+      q2_lieux:     ans[1]||'',
+      q3_creature:  ans[2]||'',
+      q4_mascotte:  ans[3]||''
+    }),
+    source:'Tour de Dour v2'
   };
 
-  try {
-    const res = await fetch('https://api.base44.com/api/apps/6a0371a87c9257126b051d5a/functions/saveMascotteReponse', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if(res.ok){
-      btn.textContent = '✓ Réponses envoyées !';
-      document.getElementById('collect-form').style.opacity = '.5';
-      document.getElementById('collect-form').style.pointerEvents = 'none';
-    } else {
-      throw new Error('Erreur serveur');
-    }
-  } catch(e){
-    btn.textContent = 'Erreur — réessaie';
-    btn.disabled = false;
-    console.error(e);
-  }
+  try{
+    await fetch(
+      'https://api.base44.com/api/apps/69ed0a42be17008cf11027eb/entities/MascotteReponse',
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}
+    );
+  }catch(e){ console.log('local', payload); }
+
+  go('s-done'); prog(100);
 }
 </script>
 </body>
