@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Affiche Questionnaire — Le Tour de Dour</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Raleway:wght@400;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .page-a4 {
+      width: 210mm;
+      height: 297mm;
+      background: #0a0f1e;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18mm 16mm 14mm;
+    }
+
+    /* Fond décoratif */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .bg-circle-1 {
+      width: 300px; height: 300px;
+      background: #D47A2C;
+      top: -80px; right: -60px;
+    }
+    .bg-circle-2 {
+      width: 250px; height: 250px;
+      background: #1E6FA5;
+      bottom: -60px; left: -60px;
+    }
+    .bg-circle-3 {
+      width: 200px; height: 200px;
+      background: #F0C982;
+      top: 50%; left: -80px;
+    }
+
+    /* Bordure dorée */
+    .border-frame {
+      position: absolute;
+      inset: 10mm;
+      border: 2px solid rgba(240, 201, 130, 0.35);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+    .border-frame::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(212, 122, 44, 0.2);
+      border-radius: 6px;
+    }
+
+    /* Coins décoratifs */
+    .corner {
+      position: absolute;
+      width: 24px; height: 24px;
+      border-color: #F0C982;
+      border-style: solid;
+      opacity: 0.7;
+    }
+    .corner-tl { top: 12mm; left: 12mm; border-width: 2px 0 0 2px; border-radius: 4px 0 0 0; }
+    .corner-tr { top: 12mm; right: 12mm; border-width: 2px 2px 0 0; border-radius: 0 4px 0 0; }
+    .corner-bl { bottom: 12mm; left: 12mm; border-width: 0 0 2px 2px; border-radius: 0 0 0 4px; }
+    .corner-br { bottom: 12mm; right: 12mm; border-width: 0 2px 2px 0; border-radius: 0 0 4px 0; }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6mm;
+      z-index: 1;
+    }
+
+    .logo-container img {
+      height: 28mm;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 16px rgba(212,122,44,0.4));
+    }
+
+    .separator-top {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #D47A2C, #F0C982, #D47A2C, transparent);
+      border-radius: 2px;
+    }
+
+    /* TITRE PRINCIPAL */
+    .main-title {
+      z-index: 1;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #D47A2C;
+      margin-bottom: 6px;
+    }
+
+    .title-big {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 42px;
+      line-height: 1.1;
+      color: #ffffff;
+      text-shadow: 0 2px 20px rgba(212,122,44,0.3);
+    }
+
+    .title-big span {
+      background: linear-gradient(135deg, #D47A2C, #F0C982, #D47A2C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(240, 201, 130, 0.85);
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* BLOC CENTRAL QR */
+    .qr-section {
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6mm;
+    }
+
+    .qr-wrapper {
+      position: relative;
+      padding: 6mm;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(240, 201, 130, 0.3);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 40px rgba(212,122,44,0.15), 0 0 0 1px rgba(240,201,130,0.08);
+    }
+
+    .qr-wrapper img {
+      width: 68mm;
+      height: 68mm;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .qr-badge {
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #D47A2C, #F0C982);
+      color: #0a0f1e;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 18px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* INSTRUCTIONS */
+    .instructions {
+      z-index: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 6mm;
+      margin-top: 2mm;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3mm;
+      flex: 1;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1E6FA5, #2a8fd4);
+      border: 1.5px solid rgba(240,201,130,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #F0C982;
+    }
+
+    .step-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .step-icon {
+      font-size: 22px;
+    }
+
+    /* ACCROCHE BAS */
+    .tagline-section {
+      z-index: 1;
+      text-align: center;
+    }
+
+    .separator-bottom {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(240,201,130,0.5), transparent);
+      margin: 0 auto 5mm;
+    }
+
+    .tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: rgba(240, 201, 130, 0.9);
+      margin-bottom: 3mm;
+    }
+
+    .tagline-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 1px;
+    }
+
+    /* FOOTER */
+    .footer {
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2mm;
+    }
+
+    .footer-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(240,201,130,0.25), transparent);
+      margin-bottom: 3mm;
+    }
+
+    .footer-credit {
+      font-size: 9px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .footer-url {
+      font-size: 10px;
+      color: rgba(212,122,44,0.7);
+      letter-spacing: 0.5px;
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: none; margin: 0; padding: 0; }
+      .page-a4 {
+        width: 210mm;
+        height: 297mm;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-a4">
+
+    <!-- Fond décoratif -->
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+    <div class="bg-circle bg-circle-3"></div>
+
+    <!-- Cadre & coins -->
+    <div class="border-frame"></div>
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="logo-container">
+        <img src="https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/d750aeb00_42704af36_NewlogoletourdeDourJs-innovia-julienpagin.png" alt="Le Tour de Dour" />
+      </div>
+      <div class="separator-top"></div>
+    </div>
+
+    <!-- TITRE -->
+    <div class="main-title">
+      <div class="eyebrow">✦ Participez à notre initiative ✦</div>
+      <div class="title-big">
+        Aidez-nous à créer<br>la <span>mascotte</span><br>de Dour
+      </div>
+      <div class="subtitle">Votre avis compte — Scannez & répondez !</div>
+    </div>
+
+    <!-- QR CODE -->
+    <div class="qr-section">
+      <div class="qr-wrapper">
+        <img src="https://media.base44.com/images/public/6a0371a87c9257126b051d5a/1a24c491f_qrcode-phoenix-1024px5.png" alt="QR Code questionnaire" />
+        <div class="qr-badge">📱 Scanner avec votre téléphone</div>
+      </div>
+    </div>
+
+    <!-- ÉTAPES -->
+    <div class="instructions">
+      <div class="step">
+        <div class="step-icon">📱</div>
+        <div class="step-number">1</div>
+        <div class="step-text">Ouvrez votre<br>appareil photo</div>
+      </div>
+      <div class="step">
+        <div class="step-icon">🔍</div>
+        <div class="step-number">2</div>
+        <div class="step-text">Pointez vers<br>le QR Code</div>
+      </div>
+      <div class="step">
+        <div class="step-icon">✍️</div>
+        <div class="step-number">3</div>
+        <div class="step-text">Répondez aux<br>4 questions</div>
+      </div>
+    </div>
+
+    <!-- ACCROCHE -->
+    <div class="tagline-section">
+      <div class="separator-bottom"></div>
+      <div class="tagline">"Ensemble, donnons un visage à notre ville."</div>
+      <div class="tagline-sub">Questionnaire anonyme · 2 minutes · 4 questions</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-line"></div>
+      <div class="footer-url">www.oliviertrevis.be/mascotte</div>
+      <div class="footer-credit">Une initiative de JS-Innov.IA · www.jsinnovia.com</div>
+    </div>
+
+  </div>
+</body>
+</html>
