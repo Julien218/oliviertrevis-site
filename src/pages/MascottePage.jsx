@@ -916,15 +916,14 @@ async function sub(){
   btn.style.opacity='.5'; btn.style.pointerEvents='none';
 
   const payload={
-    prenom: $('fp').value.trim(),
-    nom:    $('fn').value.trim(),
-    email:  $('fe').value.trim(),
-    profil_dominant: ans[2]||'',
-    score_minier:  0,
-    score_nature:  0,
-    score_festif:  0,
-    score_moderne: 0,
-    message_libre: ans[3]||'',
+    prenom:           ($('fp') && $('fp').value.trim()) || '',
+    email:            ($('fe') && $('fe').value.trim()) || '',
+    reponse_mots:     ans[0]||'',
+    reponse_lieux:    ans[1]||'',
+    reponse_creature: ans[2]||'',
+    reponse_mascotte: ans[3]||'',
+    profil_dominant:  'Tour de Dour',
+    consentement_rgpd: true,
     reponses_detail: JSON.stringify({
       q1_mots:      ans[0]||'',
       q2_lieux:     ans[1]||'',
@@ -935,11 +934,13 @@ async function sub(){
   };
 
   try{
-    await fetch(
-      'https://api.base44.com/api/apps/6a0371a87c9257126b051d5a/functions/saveMascotteReponse',
+    const resp = await fetch(
+      'https://site-olivier-6b051d5a.base44.app/functions/saveMascotteReponse',
       {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}
     );
-  }catch(e){ console.log('local', payload); }
+    const result = await resp.json();
+    console.log('Saved:', result);
+  }catch(e){ console.error('Erreur envoi:', e); }
 
   go('s-done'); prog(100);
 }
