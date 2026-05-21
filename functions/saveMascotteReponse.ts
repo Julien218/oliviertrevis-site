@@ -15,37 +15,54 @@ Deno.serve(async (req) => {
 
   try {
     const base44 = createClientFromRequest(req);
-
     const body = await req.json().catch(() => ({}));
-    const { prenom, email, scores, reponse_libre, session_id } = body;
 
-    const sc = scores || { m: 0, n: 0, f: 0, mo: 0 };
-    const profilMap = {
-      m: "Esprit Minier — Force et Héritage",
-      n: "Âme Nature — Douceur et Harmonie",
-      f: "Coeur Festif — Joie et Célébration",
-      mo: "Vision Moderne — Innovation et Avenir",
-    };
+    // Champs envoyés par le frontend (dour_v2)
+    const {
+      prenom,
+      nom,
+      email,
+      profil_dominant,
+      score_minier,
+      score_nature,
+      score_festif,
+      score_moderne,
+      message_libre,
+      reponses_detail, // JSON stringifié : {q1_mots, q2_lieux, q3_creature, q4_mascotte}
+      source,
+      session_id,
+      consentement_rgpd,
+    } = body;
 
-    const entries = Object.entries(sc);
-    entries.sort((a, b) => (b[1] as number) - (a[1] as number));
-    const dominant = entries[0][0];
-    const profil = profilMap[dominant] || "Profil Dour";
+    // Parser les réponses détaillées
+    let detail: Record<string, string> = {};
+    try {
+      detail = typeof reponses_detail === 'string'
+        ? JSON.parse(reponses_detail)
+        : (reponses_detail || {});
+    } catch (_) {
+      detail = {};
+    }
 
     const record = await base44.asServiceRole.entities.MascotteReponse.create({
-      prenom: prenom || "",
-      email: email || "",
-      score_minier: sc.m || 0,
-      score_nature: sc.n || 0,
-      score_festif: sc.f || 0,
-      score_moderne: sc.mo || 0,
-      profil,
-      reponse_libre: reponse_libre || "",
-      session_id: session_id || crypto.randomUUID(),
+      prenom:           prenom || "",
+      email:            email || "",
+      score_minier:     score_minier || 0,
+      score_nature:     score_nature || 0,
+      score_festif:     score_festif || 0,
+      score_moderne:    score_moderne || 0,
+      profil:           profil_dominant || "Tour de Dour",
+      reponse_mots:     detail.q1_mots     || "",
+      reponse_lieux:    detail.q2_lieux    || "",
+      reponse_creature: detail.q3_creature || "",
+      reponse_mascotte: detail.q4_mascotte || "",
+      reponse_libre:    message_libre      || "",
+      session_id:       session_id         || crypto.randomUUID(),
+      consentement_rgpd: consentement_rgpd === true || consentement_rgpd === "true",
     });
 
     return Response.json(
-      { success: true, id: record.id, profil },
+      { success: true, id: record.id, profil: profil_dominant || "Tour de Dour" },
       { headers: { "Access-Control-Allow-Origin": "*" } }
     );
   } catch (error) {
