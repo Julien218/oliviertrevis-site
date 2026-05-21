@@ -495,6 +495,36 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
   .top-zone{gap:3px;}
   #s-quiz{padding-top:20px;}
 }
+
+/* ── AUDIO PLAYER ── */
+.audio-ctrl{
+  position:fixed;bottom:18px;right:18px;z-index:9999;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(7,9,13,.75);backdrop-filter:blur(12px);
+  border:1px solid rgba(212,122,44,.35);border-radius:50px;
+  padding:7px 14px 7px 10px;cursor:pointer;
+  transition:all .3s;box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+.audio-ctrl:hover{border-color:rgba(212,122,44,.7);background:rgba(7,9,13,.9);}
+.audio-btn{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--or);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform .2s;
+}
+.audio-btn:hover{transform:scale(1.1);}
+.audio-btn svg{width:13px;height:13px;fill:#07090D;}
+.audio-label{font-size:.6rem;color:rgba(255,255,255,.55);line-height:1.3;max-width:90px;}
+.audio-label strong{display:block;color:rgba(240,201,130,.85);font-size:.62rem;}
+.audio-vol{
+  -webkit-appearance:none;appearance:none;
+  width:55px;height:3px;border-radius:2px;
+  background:rgba(255,255,255,.2);outline:none;cursor:pointer;
+}
+.audio-vol::-webkit-slider-thumb{
+  -webkit-appearance:none;width:12px;height:12px;
+  border-radius:50%;background:var(--or);cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -614,6 +644,24 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
   <p class="done-sig">Powered by Js-Innov.IA · www.jsinnovia.com</p>
 </div>
 
+
+<!-- ── AUDIO PLAYER ── -->
+<audio id="bg-audio" loop preload="auto">
+  <source src="/tour-de-dour-theme.mp3" type="audio/mpeg" />
+</audio>
+<div class="audio-ctrl" onclick="toggleAudio()" title="Musique Le Tour de Dour">
+  <button class="audio-btn" id="audio-btn" aria-label="Play/Pause musique">
+    <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="icon-pause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
+  <div class="audio-label">
+    <strong>🎵 Le Tour de Dour</strong>
+    Thème officiel
+  </div>
+  <input class="audio-vol" type="range" min="0" max="1" step="0.05" value="0.35"
+         onclick="event.stopPropagation()"
+         oninput="document.getElementById('bg-audio').volume=this.value" />
+</div>
 <div class="footer"><span>JS-Innov.IA · www.jsinnovia.com</span></div>
 
 <script>
@@ -942,6 +990,38 @@ async function sub(){
 
   go('s-done'); prog(100);
 }
+
+/* ── AUDIO ── */
+const aud = document.getElementById('bg-audio');
+aud.volume = 0.35;
+let audioStarted = false;
+
+function startAudio(){
+  if(audioStarted) return;
+  aud.play().then(()=>{
+    audioStarted = true;
+    document.getElementById('icon-play').style.display='none';
+    document.getElementById('icon-pause').style.display='block';
+  }).catch(()=>{});
+}
+
+function toggleAudio(){
+  if(aud.paused){
+    aud.play();
+    document.getElementById('icon-play').style.display='none';
+    document.getElementById('icon-pause').style.display='block';
+    audioStarted = true;
+  } else {
+    aud.pause();
+    document.getElementById('icon-play').style.display='block';
+    document.getElementById('icon-pause').style.display='none';
+  }
+}
+
+// Démarrer au premier clic utilisateur (autoplay policy)
+document.addEventListener('click', startAudio, {once:true});
+document.addEventListener('touchstart', startAudio, {once:true});
+
 </script>
 </body>
 </html>
