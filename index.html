@@ -1,35 +1,220 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" prefix="og: https://ogp.me/ns#">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- SEO -->
+
+    <!-- ═══════════════════════════════════════════
+         FAVICON & THEME
+    ═══════════════════════════════════════════ -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#D47A2C" />
+    <meta name="msapplication-TileColor" content="#07090D" />
+
+    <!-- ═══════════════════════════════════════════
+         SEO — BALISES PRIMAIRES
+    ═══════════════════════════════════════════ -->
     <title>Olivier Trevis — Dour · ASBL · Miss & Mister Dour · Tour de Dour</title>
-    <meta name="description" content="Olivier Trevis — Acteur local, associatif et événementiel à Dour. Découvrez les projets : Miss & Mister Dour Fashionist'ART, Le Tour de Dour, ASBL et initiatives culturelles." />
-    <meta name="keywords" content="Olivier Trevis, Dour, ASBL Dour, Miss Mister Dour, Tour de Dour, Fashionist'ART, événements Dour, culture Belgique, concours Dour" />
+    <meta name="description" content="Olivier Trevis, acteur associatif et événementiel à Dour (Belgique). Organisateur du Tour de Dour, Miss & Mister Dour Fashionist'ART, ASBL culturelles et initiatives locales en Région wallonne." />
+    <meta name="keywords" content="Olivier Trevis, Dour, Tour de Dour, Miss Dour, Mister Dour, Fashionist ART, ASBL Dour, événements Dour, mascotte Dour, culture Dour, Région wallonne, Hainaut, concours beauté Belgique, association culturelle Dour, JS-Innov.IA, Julien Pagin" />
     <meta name="author" content="Olivier Trevis" />
-    
-    <!-- Open Graph (site général) -->
-    <meta property="og:title" content="Olivier Trevis — Dour · ASBL · Événements" />
-    <meta property="og:description" content="Acteur local, associatif et événementiel à Dour. Miss & Mister Dour Fashionist'ART, Le Tour de Dour, et bien plus." />
+    <meta name="copyright" content="Olivier Trevis — JS-Innov.IA" />
+    <meta name="language" content="fr-BE" />
+    <meta name="geo.region" content="BE-WHT" />
+    <meta name="geo.placename" content="Dour, Belgique" />
+    <meta name="geo.position" content="50.3960;3.7800" />
+    <meta name="ICBM" content="50.3960, 3.7800" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="revisit-after" content="7 days" />
+    <link rel="canonical" href="https://www.oliviertrevis.be" />
+
+    <!-- ═══════════════════════════════════════════
+         OPEN GRAPH — FACEBOOK / WHATSAPP / LINKEDIN
+    ═══════════════════════════════════════════ -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.oliviertrevis.be" />
+    <meta property="og:site_name" content="Olivier Trevis" />
     <meta property="og:locale" content="fr_BE" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:url" content="https://www.oliviertrevis.be" />
+    <meta property="og:title" content="Olivier Trevis — Tour de Dour · Miss & Mister Dour · ASBL" />
+    <meta property="og:description" content="Acteur associatif et événementiel à Dour. Organisateur du Tour de Dour, Miss & Mister Dour Fashionist'ART et ASBL culturelles. Rejoignez la communauté !" />
     <meta property="og:image" content="https://www.oliviertrevis.be/mascotte-preview.jpg" />
+    <meta property="og:image:secure_url" content="https://www.oliviertrevis.be/mascotte-preview.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1080" />
     <meta property="og:image:height" content="1620" />
-    <meta property="og:image:alt" content="Mascotte officielle de Dour — participez au questionnaire !" />
-    <meta property="og:site_name" content="Olivier Trevis" />
+    <meta property="og:image:alt" content="Le Tour de Dour — Et si la prochaine mascotte officielle venait de vous ?" />
 
-    <!-- Twitter Card -->
+    <!-- ═══════════════════════════════════════════
+         TWITTER / X CARD
+    ═══════════════════════════════════════════ -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@letourdedour" />
+    <meta name="twitter:creator" content="@letourdedour" />
     <meta name="twitter:title" content="Et si la prochaine mascotte officielle de Dour venait de vous ?" />
-    <meta name="twitter:description" content="Participez au grand questionnaire et aidez à créer la mascotte qui représente Dour et ses habitants !" />
+    <meta name="twitter:description" content="Participez au grand questionnaire du Tour de Dour et aidez à créer la mascotte qui représente Dour et ses habitants !" />
     <meta name="twitter:image" content="https://www.oliviertrevis.be/mascotte-preview.jpg" />
-    
-    <!-- Fonts -->
+    <meta name="twitter:image:alt" content="Mascotte officielle de Dour — Tour de Dour" />
+
+    <!-- ═══════════════════════════════════════════
+         SCHEMA.ORG — JSON-LD (GOOGLE / IA)
+    ═══════════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.oliviertrevis.be/#person",
+          "name": "Olivier Trevis",
+          "url": "https://www.oliviertrevis.be",
+          "description": "Acteur associatif et événementiel à Dour, Belgique. Organisateur du Tour de Dour, Miss & Mister Dour Fashionist'ART, et fondateur d'ASBL culturelles locales.",
+          "image": "https://www.oliviertrevis.be/mascotte-preview.jpg",
+          "jobTitle": "Organisateur événementiel & Acteur associatif",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Tour de Dour — Olivier Trevis"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Dour",
+            "addressRegion": "Hainaut",
+            "addressCountry": "BE"
+          },
+          "sameAs": [
+            "https://www.facebook.com/p/Le-Tour-de-Dour-dOlivier-Trevis-61564157237940"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.oliviertrevis.be/#website",
+          "url": "https://www.oliviertrevis.be",
+          "name": "Olivier Trevis",
+          "description": "Site officiel d'Olivier Trevis — Tour de Dour, Miss & Mister Dour, ASBL et événements culturels à Dour (Belgique).",
+          "publisher": {
+            "@id": "https://www.oliviertrevis.be/#person"
+          },
+          "inLanguage": "fr-BE",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://www.oliviertrevis.be/?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://www.oliviertrevis.be/#organization",
+          "name": "Tour de Dour — Olivier Trevis",
+          "url": "https://www.oliviertrevis.be",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.oliviertrevis.be/mascotte-preview.jpg"
+          },
+          "description": "Organisation culturelle et événementielle à Dour, Belgique. Projets : Tour de Dour, Miss & Mister Dour Fashionist'ART, ASBL culturelles.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Dour",
+            "addressRegion": "Hainaut",
+            "postalCode": "7370",
+            "addressCountry": "BE"
+          },
+          "areaServed": {
+            "@type": "Place",
+            "name": "Dour, Hainaut, Belgique"
+          },
+          "sameAs": [
+            "https://www.facebook.com/p/Le-Tour-de-Dour-dOlivier-Trevis-61564157237940"
+          ],
+          "founder": {
+            "@id": "https://www.oliviertrevis.be/#person"
+          },
+          "knowsAbout": [
+            "Événements culturels",
+            "Concours de beauté",
+            "Associations locales",
+            "Dour Belgique",
+            "Mascotte officielle de Dour"
+          ]
+        },
+        {
+          "@type": "Event",
+          "@id": "https://www.oliviertrevis.be/mascotte#event",
+          "name": "Questionnaire Mascotte officielle de Dour",
+          "description": "Participez à la création de la mascotte officielle du Tour de Dour ! Répondez au questionnaire et donnez votre vision de l'identité de Dour.",
+          "url": "https://www.oliviertrevis.be/mascotte",
+          "image": "https://www.oliviertrevis.be/mascotte-preview.jpg",
+          "organizer": {
+            "@id": "https://www.oliviertrevis.be/#person"
+          },
+          "location": {
+            "@type": "VirtualLocation",
+            "url": "https://www.oliviertrevis.be/mascotte"
+          },
+          "eventStatus": "https://schema.org/EventScheduled",
+          "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+          "inLanguage": "fr-BE"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Accueil",
+              "item": "https://www.oliviertrevis.be"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Tour de Dour",
+              "item": "https://www.oliviertrevis.be/tour-de-dour"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Miss & Mister Dour",
+              "item": "https://www.oliviertrevis.be/miss-mister-dour"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Mascotte",
+              "item": "https://www.oliviertrevis.be/mascotte"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Actualités",
+              "item": "https://www.oliviertrevis.be/actualites"
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "name": "Contact",
+              "item": "https://www.oliviertrevis.be/contact"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- ═══════════════════════════════════════════
+         BALISES POUR IA — CHATGPT / PERPLEXITY / CLAUDE
+    ═══════════════════════════════════════════ -->
+    <meta name="ai:summary" content="Olivier Trevis est un acteur associatif et événementiel basé à Dour, Belgique (Hainaut). Il organise le Tour de Dour, le concours Miss & Mister Dour Fashionist'ART, et gère plusieurs ASBL culturelles locales. Son site présente ses projets, vidéos, actualités, galerie photo et un questionnaire participatif pour créer la mascotte officielle de Dour." />
+    <meta name="ai:entity" content="Person: Olivier Trevis | Location: Dour, Belgique | Domain: culture, événementiel, associatif" />
+    <meta name="ai:topics" content="Tour de Dour, Miss Dour, Mister Dour, Fashionist ART, mascotte Dour, ASBL Dour, événements Hainaut, culture wallonne" />
+    <meta name="citation_author" content="Olivier Trevis" />
+    <meta name="citation_language" content="fr" />
+
+    <!-- ═══════════════════════════════════════════
+         FONTS
+    ═══════════════════════════════════════════ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
