@@ -5,7 +5,7 @@ import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 // Comptes autorisés (hashés côté client — suffisant pour un accès admin simple)
 const ACCOUNTS = [
   {
-    email: "pagin.julien.pv@gmail.com",
+    email: "julien.pagin.pv@gmail.com",
     password: "1012823840PaginJulien",
     role: "superadmin",
     nom: "Julien Pagin",
