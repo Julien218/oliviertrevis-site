@@ -433,16 +433,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
 .fb-note{font-size:.62rem;color:rgba(255,255,255,.22);text-align:center;margin-top:-8px;}
 
 /* RGPD */
-.rgpd{display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+.rgpd{display:flex;align-items:flex-start;gap:10px;cursor:pointer;background:rgba(212,122,44,.08);border:1px solid rgba(212,122,44,.35);border-radius:10px;padding:10px 12px;}
 .rbox{
-  width:17px;height:17px;min-width:17px;border-radius:4px;margin-top:2px;
-  border:1px solid rgba(212,122,44,.28);background:rgba(255,255,255,.04);
+  width:20px;height:20px;min-width:20px;border-radius:5px;margin-top:1px;
+  border:2px solid rgba(212,122,44,.7);background:rgba(255,255,255,.08);
   display:flex;align-items:center;justify-content:center;transition:all .2s;
 }
 .rbox.ok{background:var(--or);border-color:var(--or);}
 .rbox.ok::after{content:'✓';font-size:.62rem;font-weight:900;color:#07090D;}
-.rtxt{font-size:.66rem;color:rgba(255,255,255,.32);line-height:1.65;}
-.rtxt a{color:rgba(212,122,44,.5);text-decoration:none;}
+.rtxt{font-size:.68rem;color:rgba(255,255,255,.72);line-height:1.7;}
+.rtxt a{color:rgba(240,201,130,.85);text-decoration:underline;}
 
 /* Bouton envoi */
 .sbtn{
