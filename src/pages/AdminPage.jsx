@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Film, Newspaper, Users, Handshake, Trophy, Mail, Calendar, Crown, Trash2, Check, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
+import { Film, Newspaper, Users, Handshake, Trophy, Mail, Calendar, Crown, Trash2, Check, Sparkles, ChevronDown, ChevronUp, LogOut, ShieldCheck, Shield } from "lucide-react";
+import LoginPage from "./LoginPage";
 
 const API = "https://site-olivier-6b051d5a.base44.app/functions/adminData";
 
@@ -34,6 +35,9 @@ const SECTIONS = [
   { id: "Evenement",       label: "Événements",          icon: <Calendar className="w-4 h-4" />, color: "text-pink-400" },
 ];
 
+// Sections réservées au superadmin
+const SUPERADMIN_ONLY = ["Actualite", "Video", "Asbl", "Partenaire", "Laureat", "Evenement"];
+
 const profilColor = (profil = "") => {
   if (profil.includes("Minier")) return "bg-amber-500/20 text-amber-400 border-amber-500/30";
   if (profil.includes("Nature")) return "bg-green-500/20 text-green-400 border-green-500/30";
@@ -43,11 +47,37 @@ const profilColor = (profil = "") => {
 };
 
 export default function AdminPage() {
-  const [section, setSection] = useState("MascotteReponse");
-  const [data, setData]       = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser]           = useState(null);
+  const [section, setSection]     = useState("MascotteReponse");
+  const [data, setData]           = useState([]);
+  const [loading, setLoading]     = useState(true);
   const [expandedId, setExpandedId] = useState(null);
 
+  // Vérifier session au démarrage
+  useEffect(() => {
+    const raw = sessionStorage.getItem("ot_admin_session");
+    if (raw) {
+      try {
+        const session = JSON.parse(raw);
+        // Session valide 8h
+        if (Date.now() - session.ts < 8 * 60 * 60 * 1000) {
+          setUser(session);
+        } else {
+          sessionStorage.removeItem("ot_admin_session");
+        }
+      } catch {}
+    }
+    setLoading(false);
+  }, []);
+
+  const handleLogin = (account) => setUser(account);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("ot_admin_session");
+    setUser(null);
+  };
+
+  // Charger les données
   const load = async () => {
     setLoading(true);
     setData([]);
@@ -55,13 +85,11 @@ export default function AdminPage() {
       const records = await fetchEntity(section);
       const sorted = [...records].sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
       setData(sorted);
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) { console.error(e); }
     setLoading(false);
   };
 
-  useEffect(() => { load(); }, [section]);
+  useEffect(() => { if (user) load(); }, [section, user]);
 
   const handleDelete = async (id) => {
     if (!confirm("Supprimer cet élément ?")) return;
@@ -79,10 +107,18 @@ export default function AdminPage() {
     load();
   };
 
+  // Sections visibles selon le rôle
+  const visibleSections = user?.role === "superadmin"
+    ? SECTIONS
+    : SECTIONS.filter(s => !SUPERADMIN_ONLY.includes(s.id));
+
+  // Afficher login si pas connecté
+  if (!user && !loading) return <LoginPage onLogin={handleLogin} />;
+  if (!user) return null;
+
   /* ── MASCOTTE ── */
   const renderMascotte = () => (
     <div className="space-y-6">
-      {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
           { label: "Total réponses",  value: data.length,                                                  color: "text-white",     bg: "bg-white/5" },
@@ -97,7 +133,6 @@ export default function AdminPage() {
         ))}
       </div>
 
-      {/* Liste */}
       {data.length === 0 && !loading && (
         <div className="text-center py-16 text-gray-500">
           <Sparkles className="w-12 h-12 mx-auto mb-3 opacity-20" />
@@ -119,36 +154,26 @@ export default function AdminPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-semibold text-white text-sm">{r.prenom || "Anonyme"}</span>
                     {r.email && <span className="text-gray-500 text-xs">{r.email}</span>}
-                    {r.profil && (
-                      <span className={`text-xs px-2 py-0.5 rounded-full border ${profilColor(r.profil)}`}>{r.profil}</span>
-                    )}
+                    {r.profil && <span className={`text-xs px-2 py-0.5 rounded-full border ${profilColor(r.profil)}`}>{r.profil}</span>}
                   </div>
-                  <div className="text-gray-600 text-xs mt-0.5">
-                    {r.created_date ? new Date(r.created_date).toLocaleString("fr-BE") : "—"}
-                  </div>
+                  <div className="text-gray-600 text-xs mt-0.5">{r.created_date ? new Date(r.created_date).toLocaleString("fr-BE") : "—"}</div>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                {expandedId === r.id
-                  ? <ChevronUp className="w-4 h-4 text-gray-500" />
-                  : <ChevronDown className="w-4 h-4 text-gray-500" />}
-                <button
-                  onClick={e => { e.stopPropagation(); handleDelete(r.id); }}
-                  className="p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
-                >
+                {expandedId === r.id ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
+                <button onClick={e => { e.stopPropagation(); handleDelete(r.id); }} className="p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors">
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
-
             {expandedId === r.id && (
               <div className="px-4 pb-4 grid grid-cols-1 md:grid-cols-2 gap-3 border-t border-white/5 pt-4">
                 {[
-                  { label: "Mots qui décrivent Dour",   value: r.reponse_mots },
-                  { label: "Lieux incontournables",      value: r.reponse_lieux },
-                  { label: "Créature symbolique",        value: r.reponse_creature },
-                  { label: "Vision mascotte",            value: r.reponse_mascotte },
-                  { label: "Message libre",              value: r.reponse_libre },
+                  { label: "Mots qui décrivent Dour", value: r.reponse_mots },
+                  { label: "Lieux incontournables",   value: r.reponse_lieux },
+                  { label: "Créature symbolique",     value: r.reponse_creature },
+                  { label: "Vision mascotte",         value: r.reponse_mascotte },
+                  { label: "Message libre",           value: r.reponse_libre },
                 ].filter(f => f.value).map(f => (
                   <div key={f.label} className="bg-black/30 rounded-lg p-3">
                     <div className="text-xs text-gray-500 mb-1">{f.label}</div>
@@ -191,16 +216,10 @@ export default function AdminPage() {
             </div>
             <div className="flex gap-2 flex-shrink-0">
               {!m.lu && (
-                <button onClick={() => handleMarkRead(m.id)} className="p-2 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20">
-                  <Check className="w-4 h-4" />
-                </button>
+                <button onClick={() => handleMarkRead(m.id)} className="p-2 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20"><Check className="w-4 h-4" /></button>
               )}
-              <a href={`mailto:${m.email}`} className="p-2 rounded-lg bg-green-500/10 text-green-400 hover:bg-green-500/20">
-                <Mail className="w-4 h-4" />
-              </a>
-              <button onClick={() => handleDelete(m.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20">
-                <Trash2 className="w-4 h-4" />
-              </button>
+              <a href={`mailto:${m.email}`} className="p-2 rounded-lg bg-green-500/10 text-green-400 hover:bg-green-500/20"><Mail className="w-4 h-4" /></a>
+              <button onClick={() => handleDelete(m.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20"><Trash2 className="w-4 h-4" /></button>
             </div>
           </div>
         </div>
@@ -227,9 +246,7 @@ export default function AdminPage() {
             <div className="flex gap-2 flex-shrink-0">
               <button onClick={() => handleStatus(c.id, "Acceptée")} className="px-3 py-1.5 rounded-lg bg-green-500/10 text-green-400 hover:bg-green-500/20 text-xs font-medium">Accepter</button>
               <button onClick={() => handleStatus(c.id, "Refusée")} className="px-3 py-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 text-xs font-medium">Refuser</button>
-              <button onClick={() => handleDelete(c.id)} className="p-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600">
-                <Trash2 className="w-3 h-3" />
-              </button>
+              <button onClick={() => handleDelete(c.id)} className="p-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600"><Trash2 className="w-3 h-3" /></button>
             </div>
           </div>
         </div>
@@ -247,9 +264,7 @@ export default function AdminPage() {
             <p className="text-white font-medium truncate">{item.titre || item.nom || item.prenom_nom || item.id}</p>
             <p className="text-gray-500 text-xs mt-0.5">{item.created_date ? new Date(item.created_date).toLocaleString("fr-BE") : ""}</p>
           </div>
-          <button onClick={() => handleDelete(item.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 flex-shrink-0">
-            <Trash2 className="w-4 h-4" />
-          </button>
+          <button onClick={() => handleDelete(item.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 flex-shrink-0"><Trash2 className="w-4 h-4" /></button>
         </div>
       ))}
     </div>
@@ -273,19 +288,35 @@ export default function AdminPage() {
     <div className="min-h-screen bg-[#070d14] text-white flex">
       {/* Sidebar */}
       <aside className="w-64 flex-shrink-0 bg-black/40 border-r border-white/5 flex flex-col">
-        <div className="p-6 border-b border-white/5">
+        <div className="p-5 border-b border-white/5">
           <h1 className="text-lg font-bold text-white">Admin</h1>
-          <p className="text-xs text-gray-500 mt-1">oliviertrevis.be</p>
+          <p className="text-xs text-gray-500 mt-0.5">oliviertrevis.be</p>
         </div>
+
+        {/* Profil connecté */}
+        <div className="p-4 border-b border-white/5">
+          <div className="flex items-center gap-2">
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${user.role === "superadmin" ? "bg-[#c9a84c]/20" : "bg-blue-500/20"}`}>
+              {user.role === "superadmin"
+                ? <ShieldCheck className="w-3.5 h-3.5 text-[#c9a84c]" />
+                : <Shield className="w-3.5 h-3.5 text-blue-400" />}
+            </div>
+            <div className="min-w-0">
+              <p className="text-white text-xs font-medium truncate">{user.nom}</p>
+              <p className={`text-xs ${user.role === "superadmin" ? "text-[#c9a84c]" : "text-blue-400"}`}>
+                {user.role === "superadmin" ? "Super Admin" : "Admin"}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-          {SECTIONS.map(s => (
+          {visibleSections.map(s => (
             <button
               key={s.id}
               onClick={() => setSection(s.id)}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
-                section === s.id
-                  ? "bg-white/10 text-white font-medium"
-                  : "text-gray-400 hover:text-white hover:bg-white/5"
+                section === s.id ? "bg-white/10 text-white font-medium" : "text-gray-400 hover:text-white hover:bg-white/5"
               }`}
             >
               <span className={section === s.id ? s.color : ""}>{s.icon}</span>
@@ -293,8 +324,16 @@ export default function AdminPage() {
             </button>
           ))}
         </nav>
-        <div className="p-4 border-t border-white/5">
-          <p className="text-xs text-gray-600 text-center">JS-Innov.IA © 2026</p>
+
+        <div className="p-3 border-t border-white/5">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-red-400 hover:bg-red-500/5 transition-all"
+          >
+            <LogOut className="w-4 h-4" />
+            Déconnexion
+          </button>
+          <p className="text-xs text-gray-700 text-center mt-2">JS-Innov.IA © 2026</p>
         </div>
       </aside>
 
