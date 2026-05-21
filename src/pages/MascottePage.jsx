@@ -917,6 +917,7 @@ async function sub(){
 
   const payload={
     prenom:           ($('fp') && $('fp').value.trim()) || '',
+    nom:              ($('fn') && $('fn').value.trim()) || '',
     email:            ($('fe') && $('fe').value.trim()) || '',
     reponse_mots:     ans[0]||'',
     reponse_lieux:    ans[1]||'',
@@ -924,12 +925,6 @@ async function sub(){
     reponse_mascotte: ans[3]||'',
     profil_dominant:  'Tour de Dour',
     consentement_rgpd: true,
-    reponses_detail: JSON.stringify({
-      q1_mots:      ans[0]||'',
-      q2_lieux:     ans[1]||'',
-      q3_creature:  ans[2]||'',
-      q4_mascotte:  ans[3]||''
-    }),
     source:'Tour de Dour v2'
   };
 

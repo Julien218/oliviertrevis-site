@@ -119,12 +119,13 @@ export default function AdminPage() {
   /* ── MASCOTTE ── */
   const renderMascotte = () => (
     <div className="space-y-6">
+      {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: "Total réponses",  value: data.length,                                                  color: "text-white",     bg: "bg-white/5" },
-          { label: "Esprit Minier",   value: data.filter(r => (r.profil||"").includes("Minier")).length,   color: "text-amber-400", bg: "bg-amber-500/10" },
-          { label: "Coeur Festif",    value: data.filter(r => (r.profil||"").includes("Festif")).length,   color: "text-pink-400",  bg: "bg-pink-500/10" },
-          { label: "Vision Moderne",  value: data.filter(r => (r.profil||"").includes("Moderne")).length,  color: "text-blue-400",  bg: "bg-blue-500/10" },
+          { label: "Total réponses", value: data.length,                                                 color: "text-white",     bg: "bg-white/5" },
+          { label: "Esprit Minier",  value: data.filter(r => (r.profil||"").includes("Minier")).length,  color: "text-amber-400", bg: "bg-amber-500/10" },
+          { label: "Cœur Festif",   value: data.filter(r => (r.profil||"").includes("Festif")).length,   color: "text-pink-400",  bg: "bg-pink-500/10" },
+          { label: "Vision Moderne", value: data.filter(r => (r.profil||"").includes("Moderne")).length, color: "text-blue-400",  bg: "bg-blue-500/10" },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-xl p-4 border border-white/5 text-center`}>
             <div className={`text-3xl font-black ${s.color}`}>{s.value}</div>
@@ -139,55 +140,95 @@ export default function AdminPage() {
           <p>Aucune réponse reçue pour le moment.</p>
         </div>
       )}
+
+      {/* Liste des réponses */}
       <div className="space-y-3">
         {data.map(r => (
           <div key={r.id} className="rounded-xl bg-gray-900/80 border border-white/5 overflow-hidden">
+            {/* En-tête — toujours visible */}
             <div
-              className="flex items-center justify-between p-4 cursor-pointer hover:bg-white/3 transition-colors"
+              className="flex items-center justify-between p-4 cursor-pointer hover:bg-white/[0.03] transition-colors"
               onClick={() => setExpandedId(expandedId === r.id ? null : r.id)}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
                 <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#D47A2C] to-[#F0C982] flex items-center justify-center text-black font-bold text-sm flex-shrink-0">
                   {(r.prenom || "?")[0].toUpperCase()}
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-semibold text-white text-sm">{r.prenom || "Anonyme"}</span>
-                    {r.email && <span className="text-gray-500 text-xs">{r.email}</span>}
-                    {r.profil && <span className={`text-xs px-2 py-0.5 rounded-full border ${profilColor(r.profil)}`}>{r.profil}</span>}
+                    <span className="font-semibold text-white text-sm">
+                      {r.prenom || "—"} {r.nom || ""}
+                    </span>
+                    {r.email && (
+                      <a href={`mailto:${r.email}`} onClick={e => e.stopPropagation()}
+                        className="text-[#1E6FA5] text-xs hover:underline truncate max-w-[180px]">
+                        {r.email}
+                      </a>
+                    )}
                   </div>
-                  <div className="text-gray-600 text-xs mt-0.5">{r.created_date ? new Date(r.created_date).toLocaleString("fr-BE") : "—"}</div>
+                  <div className="text-gray-500 text-xs mt-0.5">
+                    🕐 {r.created_date ? new Date(r.created_date).toLocaleString("fr-BE", {
+                      day: "2-digit", month: "2-digit", year: "numeric",
+                      hour: "2-digit", minute: "2-digit"
+                    }) : "—"}
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                {expandedId === r.id ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
-                <button onClick={e => { e.stopPropagation(); handleDelete(r.id); }} className="p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors">
+              <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+                {expandedId === r.id
+                  ? <ChevronUp className="w-4 h-4 text-gray-500" />
+                  : <ChevronDown className="w-4 h-4 text-gray-500" />}
+                <button
+                  onClick={e => { e.stopPropagation(); handleDelete(r.id); }}
+                  className="p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors">
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
+
+            {/* Détail dépliable */}
             {expandedId === r.id && (
-              <div className="px-4 pb-4 grid grid-cols-1 md:grid-cols-2 gap-3 border-t border-white/5 pt-4">
-                {[
-                  { label: "Mots qui décrivent Dour", value: r.reponse_mots },
-                  { label: "Lieux incontournables",   value: r.reponse_lieux },
-                  { label: "Créature symbolique",     value: r.reponse_creature },
-                  { label: "Vision mascotte",         value: r.reponse_mascotte },
-                  { label: "Message libre",           value: r.reponse_libre },
-                ].filter(f => f.value).map(f => (
-                  <div key={f.label} className="bg-black/30 rounded-lg p-3">
-                    <div className="text-xs text-gray-500 mb-1">{f.label}</div>
-                    <div className="text-sm text-gray-200">{f.value}</div>
+              <div className="border-t border-white/5 p-4 space-y-3">
+                {/* Identité complète */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div className="bg-black/30 rounded-lg p-3">
+                    <div className="text-xs text-gray-500 mb-1">👤 Prénom</div>
+                    <div className="text-sm text-white font-medium">{r.prenom || "—"}</div>
                   </div>
-                ))}
+                  <div className="bg-black/30 rounded-lg p-3">
+                    <div className="text-xs text-gray-500 mb-1">👤 Nom</div>
+                    <div className="text-sm text-white font-medium">{r.nom || "—"}</div>
+                  </div>
+                  <div className="bg-black/30 rounded-lg p-3">
+                    <div className="text-xs text-gray-500 mb-1">✉️ Email</div>
+                    <a href={`mailto:${r.email}`} className="text-sm text-[#1E6FA5] hover:underline">{r.email || "—"}</a>
+                  </div>
+                </div>
+
+                {/* Date/heure */}
                 <div className="bg-black/30 rounded-lg p-3">
-                  <div className="text-xs text-gray-500 mb-2">Scores</div>
-                  <div className="grid grid-cols-2 gap-1 text-xs">
-                    <span className="text-amber-400">⛏ Minier: {r.score_minier || 0}</span>
-                    <span className="text-green-400">🌿 Nature: {r.score_nature || 0}</span>
-                    <span className="text-pink-400">🎉 Festif: {r.score_festif || 0}</span>
-                    <span className="text-blue-400">⚡ Moderne: {r.score_moderne || 0}</span>
+                  <div className="text-xs text-gray-500 mb-1">🕐 Date & heure de soumission</div>
+                  <div className="text-sm text-gray-200">
+                    {r.created_date ? new Date(r.created_date).toLocaleString("fr-BE", {
+                      weekday: "long", day: "2-digit", month: "long", year: "numeric",
+                      hour: "2-digit", minute: "2-digit", second: "2-digit"
+                    }) : "—"}
                   </div>
+                </div>
+
+                {/* 4 réponses */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {[
+                    { q: "Q1 — Mots qui décrivent Dour",   v: r.reponse_mots,     emoji: "💬" },
+                    { q: "Q2 — Lieux incontournables",      v: r.reponse_lieux,    emoji: "📍" },
+                    { q: "Q3 — Créature symbolique",        v: r.reponse_creature, emoji: "🦅" },
+                    { q: "Q4 — Vision de la mascotte",      v: r.reponse_mascotte, emoji: "🎭" },
+                  ].map(f => (
+                    <div key={f.q} className="bg-black/40 border border-white/5 rounded-lg p-3">
+                      <div className="text-xs text-gray-500 mb-1">{f.emoji} {f.q}</div>
+                      <div className="text-sm text-gray-100 leading-relaxed">{f.v || <span className="italic text-gray-600">Sans réponse</span>}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
