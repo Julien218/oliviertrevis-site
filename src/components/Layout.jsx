@@ -471,13 +471,20 @@ export default function Layout({ children }) {
             </div>
           </div>
 
-          <div className="mt-6 text-center">
+          <div className="mt-6 flex items-center justify-center gap-6">
             <Link to="/mentions-legales"
               className="text-xs transition-colors duration-200"
               style={{ color: "rgba(255,255,255,0.12)" }}
               onMouseEnter={e => e.currentTarget.style.color = BRAND.gold}
               onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.12)"}>
               Mentions légales & Politique de confidentialité
+            </Link>
+            <Link to="/admin"
+              className="text-xs transition-colors duration-200"
+              style={{ color: "rgba(255,255,255,0.07)" }}
+              onMouseEnter={e => e.currentTarget.style.color = "rgba(255,255,255,0.3)"}
+              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.07)"}>
+              ⚙
             </Link>
           </div>
         </div>
