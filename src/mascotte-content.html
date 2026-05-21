@@ -348,7 +348,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 /* Carte question */
 .qcard{
   position:absolute;bottom:0;left:0;right:0;z-index:10;
-  padding:clamp(16px,4vw,36px) clamp(16px,5vw,52px) calc(clamp(20px,4vw,36px) + env(safe-area-inset-bottom,0px));
+  padding:clamp(16px,4vw,36px) clamp(16px,5vw,52px) calc(clamp(100px,14vw,120px) + env(safe-area-inset-bottom,0px));
 }
 .qglass{
   background:transparent;
@@ -481,7 +481,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   .ph2-logo{width:clamp(180px,72vw,290px);}
 }
 @supports(padding:max(0px)){
-  .qcard{padding-bottom:max(clamp(14px,3vw,28px),calc(clamp(14px,3vw,28px) + env(safe-area-inset-bottom)));}
+  .qcard{padding-bottom:max(clamp(100px,14vw,120px),calc(clamp(100px,14vw,120px) + env(safe-area-inset-bottom)));}
   #merci{padding-bottom:max(clamp(20px,5vw,60px),calc(clamp(20px,5vw,60px) + env(safe-area-inset-bottom)));}
 }
 
