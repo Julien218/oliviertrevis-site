@@ -576,14 +576,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
       <input class="finput" id="fe" type="email" placeholder="votre@email.com" oninput="chk()"/>
     </div>
 
-    <a class="fb"
-       href="https://www.facebook.com/p/Le-Tour-de-Dour-dOlivier-Trevis-61564157237940"
-       target="_blank" rel="noopener noreferrer"
-       onclick="fbDone()">
-      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-      👍 Liker la page Facebook du Tour de Dour
-    </a>
-    <p class="fb-note">Cliquer valide votre participation</p>
+
 
     <div class="rgpd" onclick="togR()">
       <div class="rbox" id="rbox"></div>
@@ -606,6 +599,15 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
   </div>
   <div class="done-title">Votre vote est enregistré !</div>
   <p class="done-txt">Merci de contribuer à l'identité du Tour de Dour.<br>Vous serez informé(e) dès que la mascotte sera révélée.<br><br>À très bientôt ! 🦅</p>
+
+  <p style="font-size:.75rem;color:rgba(255,255,255,.45);text-align:center;margin-bottom:8px;">Suivez-nous pour être informé(e) de la révélation !</p>
+  <a class="fb"
+     href="https://www.facebook.com/p/Le-Tour-de-Dour-dOlivier-Trevis-61564157237940"
+     target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    👍 Liker la page Facebook du Tour de Dour
+  </a>
+
   <img class="done-logo"
     src="https://base44.app/api/apps/69ed0a42be17008cf11027eb/files/mp/public/69ed0a42be17008cf11027eb/473857e8a_1a90dc4ba_logo-complet-800.png"
     alt="Js-Innov.IA"/>
@@ -644,7 +646,7 @@ const QS = [
 ];
 
 /* ── ÉTAT ── */
-let cur = 0, ans = {}, rgpd = false, fb = false, tw = null;
+let cur = 0, ans = {}, rgpd = false, tw = null;
 const $=id=>document.getElementById(id);
 
 /* ── SCÈNE ── */
@@ -898,7 +900,7 @@ function nextQ(){
 }
 
 /* ── FORMULAIRE ── */
-function fbDone(){ fb=true; chk(); }
+
 function togR(){
   rgpd=!rgpd;
   $('rbox').classList.toggle('ok',rgpd);
