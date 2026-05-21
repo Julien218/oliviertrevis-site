@@ -169,7 +169,8 @@ export default function AdminPage() {
                   <div className="text-gray-500 text-xs mt-0.5">
                     🕐 {r.created_date ? new Date(r.created_date).toLocaleString("fr-BE", {
                       day: "2-digit", month: "2-digit", year: "numeric",
-                      hour: "2-digit", minute: "2-digit"
+                      hour: "2-digit", minute: "2-digit",
+                      timeZone: "Europe/Brussels"
                     }) : "—"}
                   </div>
                 </div>
@@ -211,7 +212,8 @@ export default function AdminPage() {
                   <div className="text-sm text-gray-200">
                     {r.created_date ? new Date(r.created_date).toLocaleString("fr-BE", {
                       weekday: "long", day: "2-digit", month: "long", year: "numeric",
-                      hour: "2-digit", minute: "2-digit", second: "2-digit"
+                      hour: "2-digit", minute: "2-digit", second: "2-digit",
+                      timeZone: "Europe/Brussels"
                     }) : "—"}
                   </div>
                 </div>
