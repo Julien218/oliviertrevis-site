@@ -10,6 +10,9 @@
     "email": {
       "type": "string"
     },
+    "code_postal": {
+      "type": "string"
+    },
     "session_id": {
       "type": "string"
     },

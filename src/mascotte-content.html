@@ -1001,6 +1001,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
     <div class="coll-fields">
       <input class="coll-input" id="fn" type="text" placeholder="Ton prénom" autocomplete="given-name"/>
       <input class="coll-input" id="fe" type="email" placeholder="Ton adresse email" autocomplete="email"/>
+      <input class="coll-input" id="fcp" type="text" inputmode="numeric" pattern="[0-9]{4,5}" placeholder="Code postal (ex: 7370)" autocomplete="postal-code" maxlength="5"/>
       <input class="coll-input" id="fv" type="text" placeholder="Ta ville" autocomplete="address-level2"/>
     </div>
     <button class="coll-btn" onclick="submitF()">🎯 Je veux être notifié</button>
@@ -1542,8 +1543,9 @@ const _sessionId = 'dour_' + Date.now() + '_' + Math.random().toString(36).slice
 const API_URL = 'https://site-olivier-6b051d5a.base44.app/functions/saveMascotteReponse';
 
 async function submitF() {
-  const prenom = ($('fn') && $('fn').value.trim()) || '';
-  const email  = ($('fe') && $('fe').value.trim()) || '';
+  const prenom      = ($('fn')  && $('fn').value.trim())  || '';
+  const email       = ($('fe')  && $('fe').value.trim())  || '';
+  const code_postal = ($('fcp') && $('fcp').value.trim()) || '';
 
   // Validation email basique
   if (email && !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
@@ -1563,6 +1565,7 @@ async function submitF() {
       body: JSON.stringify({
         prenom,
         email,
+        code_postal,
         scores: sc,                         // sc = { m, n, f, mo } défini globalement
         reponse_libre: window._freeAnswer || '',
         session_id: _sessionId,
