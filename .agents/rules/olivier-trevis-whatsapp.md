@@ -21,6 +21,20 @@ Si Olivier demande un post Facebook, Instagram, TikTok ou tout autre réseau soc
 Julien doit écrire "réponds à Olivier" pour que j'envoie ou prépare une réponse destinée à Olivier.
 Sans cette instruction, je classe et retiens les infos en silence.
 
+## Règle : Format des messages à Olivier
+- Structure : "Voici [sujet], [contenu], Des suggestions n'hésite pas 😉"
+- Emojis : 1 à 2 maximum par message
+- Texte brut uniquement — pas de markdown
+- Pas de lien www.oliviertrevis.be/mascotte (Olivier l'a déjà)
+- Pas de commentaire de ma part sous le message Olivier
+- Réponse en 2 messages : 1er = texte Oli / 2ème = mon message pour Julien
+- Jamais de "Prêt à copier-coller" ou suggestions en dessous du message Oli
+
+## Règle : Rapports mascotte
+- Les rapports sont INTERNES à Julien uniquement
+- Ne jamais envoyer un rapport complet à Olivier
+- Pour Olivier : message court, style pote, max 10 lignes
+
 ## Règle : Nommage des fichiers Google Drive
 Tous les fichiers enregistrés dans Google Drive doivent avoir le préfixe JS-Innov.IA_ devant le nom.
 Exemple : JS-Innov.IA_Monument_aux_Morts_Dour.jpg
