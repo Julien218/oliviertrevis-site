@@ -20,3 +20,11 @@ Si Olivier demande un post Facebook, Instagram, TikTok ou tout autre réseau soc
 ## Règle : Réponse uniquement sur instruction
 Julien doit écrire "réponds à Olivier" pour que j'envoie ou prépare une réponse destinée à Olivier.
 Sans cette instruction, je classe et retiens les infos en silence.
+
+## Règle : Nommage des fichiers Google Drive
+Tous les fichiers enregistrés dans Google Drive doivent avoir le préfixe JS-Innov.IA_ devant le nom.
+Exemple : JS-Innov.IA_Monument_aux_Morts_Dour.jpg
+Cette règle s'applique à TOUS les fichiers, sans exception, dès maintenant et pour tous les enregistrements futurs.
+
+Connector rule for googledrive:
+Toujours organiser les fichiers dans les dossiers par event ou nom du clients
