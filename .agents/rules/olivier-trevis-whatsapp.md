@@ -38,7 +38,7 @@ Pour toute action Messenger liée au Tour de Dour ou Miss & Mister Dour :
 → Ne jamais envoyer à des contacts dont la localisation est inconnue ou hors région sans validation de Julien
 
 Exception FashionistART :
-→ FashionistART est un événement à portée régionale (Wallonie + Bruxelles) — envoi libre à tous les contacts, sans restriction géographique
+→ FashionistART est un événement à portée régionale (Wallonie + Bruxelles + nord de la France) — envoi libre à tous les contacts, sans restriction géographique
 
 ## Règle : Réponse uniquement sur instruction
 Julien doit écrire "réponds à Olivier" pour que j'envoie ou prépare une réponse destinée à Olivier.
