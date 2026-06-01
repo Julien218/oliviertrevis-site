@@ -24,6 +24,12 @@ Sur TOUS les posts liés aux projets suivants, ajouter SYSTÉMATIQUEMENT #starli
 - FashionistART
 Sans exception, peu importe le réseau social.
 
+## Règle : Rappel lien de vote (Messenger / messages d'action)
+Sur TOUS les messages envoyés sur Messenger ou en outreach concernant la mascotte Tour de Dour :
+→ Toujours ajouter en bas du message un rappel clair du lien pour voter
+→ Format : "👉 Vote ici : www.oliviertrevis.be/mascotte"
+→ Sans exception — les gens voient le post mais n'ont pas le réflexe de chercher le lien
+
 ## Règle : Réponse uniquement sur instruction
 Julien doit écrire "réponds à Olivier" pour que j'envoie ou prépare une réponse destinée à Olivier.
 Sans cette instruction, je classe et retiens les infos en silence.
