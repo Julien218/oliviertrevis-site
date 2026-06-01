@@ -31,11 +31,14 @@ Sur TOUS les messages envoyés sur Messenger ou en outreach concernant la mascot
 → Sans exception — les gens voient le post mais n'ont pas le réflexe de chercher le lien
 
 ## Règle : Ciblage géographique Messenger — STRICT
-Pour toute action Messenger liée au Tour de Dour, Miss & Mister Dour, FashionistART ou tout projet local :
+Pour toute action Messenger liée au Tour de Dour ou Miss & Mister Dour :
 → Envoyer UNIQUEMENT aux contacts dont la ville actuelle est Dour ou la région immédiate (Borinage : Boussu, Quiévrain, Saint-Ghislain, Hensies, Thulin, Élouges...)
 → Si la ville du contact n'est pas clairement identifiée comme Dour ou Borinage → NE PAS envoyer
 → Avant chaque liste d'outreach, filtrer et signaler les contacts hors zone à Julien
 → Ne jamais envoyer à des contacts dont la localisation est inconnue ou hors région sans validation de Julien
+
+Exception FashionistART :
+→ FashionistART est un événement à portée régionale (Wallonie + Bruxelles) — envoi libre à tous les contacts, sans restriction géographique
 
 ## Règle : Réponse uniquement sur instruction
 Julien doit écrire "réponds à Olivier" pour que j'envoie ou prépare une réponse destinée à Olivier.
@@ -59,6 +62,9 @@ Sans cette instruction, je classe et retiens les infos en silence.
 Tous les fichiers enregistrés dans Google Drive doivent avoir le préfixe JS-Innov.IA_ devant le nom.
 Exemple : JS-Innov.IA_Monument_aux_Morts_Dour.jpg
 Cette règle s'applique à TOUS les fichiers, sans exception, dès maintenant et pour tous les enregistrements futurs.
+
+Connector rule for googledrive:
+Toujours organiser les fichiers dans les dossiers par event ou nom du clients
 
 Connector rule for googledrive:
 Toujours organiser les fichiers dans les dossiers par event ou nom du clients
