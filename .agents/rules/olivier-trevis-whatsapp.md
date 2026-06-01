@@ -17,6 +17,13 @@ Si Olivier demande un post Facebook, Instagram, TikTok ou tout autre réseau soc
 → Toujours créditer JS-Innov.IA en bas si pertinent
 → Proposer 2 versions si pertinent (courte pour stories, longue pour post)
 
+## Règle : Hashtag obligatoire
+Sur TOUS les posts liés aux projets suivants, ajouter SYSTÉMATIQUEMENT #starlightdour dans les hashtags :
+- Tour de Dour
+- Miss & Mister Dour
+- FashionistART
+Sans exception, peu importe le réseau social.
+
 ## Règle : Réponse uniquement sur instruction
 Julien doit écrire "réponds à Olivier" pour que j'envoie ou prépare une réponse destinée à Olivier.
 Sans cette instruction, je classe et retiens les infos en silence.
