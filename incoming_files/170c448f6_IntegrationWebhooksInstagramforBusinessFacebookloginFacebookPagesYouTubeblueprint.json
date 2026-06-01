@@ -1,0 +1,243 @@
+{
+    "name": "Integration Webhooks, Instagram for Business (Facebook login), Facebook Pages, YouTube",
+    "flow": [
+        {
+            "id": 1,
+            "module": "whatsapp-business-cloud:watchEvents2",
+            "version": 1,
+            "metadata": {
+                "designer": {
+                    "x": -683,
+                    "y": 1,
+                    "messages": [
+                        {
+                            "category": "setup",
+                            "severity": "error",
+                            "message": "Webhook: Value must not be empty."
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "id": 13,
+            "module": "openai-gpt-3:askAnything",
+            "version": 1,
+            "filter": null,
+            "metadata": {
+                "designer": {
+                    "x": -427,
+                    "y": 8
+                }
+            }
+        },
+        {
+            "id": 14,
+            "module": "xai:makeAnApiCall",
+            "version": 1,
+            "filter": null,
+            "metadata": {
+                "designer": {
+                    "x": -127,
+                    "y": 4,
+                    "messages": [
+                        {
+                            "category": "setup",
+                            "severity": "error",
+                            "message": "Connection: Value must not be empty."
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "id": 12,
+            "module": "google-drive:getAFile",
+            "version": 4,
+            "metadata": {
+                "designer": {
+                    "x": 165,
+                    "y": 6,
+                    "messages": [
+                        {
+                            "category": "setup",
+                            "severity": "error",
+                            "message": "Connection: Value must not be empty."
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "id": 11,
+            "module": "openai-gpt-3:askAnything",
+            "version": 1,
+            "metadata": {
+                "designer": {
+                    "x": 494,
+                    "y": 6,
+                    "messages": [
+                        {
+                            "category": "setup",
+                            "severity": "error",
+                            "message": "Model: Value must not be empty."
+                        },
+                        {
+                            "category": "setup",
+                            "severity": "error",
+                            "message": "Text prompt: Value must not be empty."
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "id": 10,
+            "module": "placeholder:Placeholder",
+            "filter": null,
+            "metadata": {
+                "designer": {
+                    "x": 878,
+                    "y": 7
+                }
+            }
+        },
+        {
+            "id": 3,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 1387,
+                    "y": 10
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 2,
+                            "module": "instagram-business:CreatePostPhoto",
+                            "version": 1,
+                            "metadata": {
+                                "designer": {
+                                    "x": 1687,
+                                    "y": -740
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 4,
+                            "module": "facebook-pages:CreatePost",
+                            "version": 6,
+                            "metadata": {
+                                "designer": {
+                                    "x": 1687,
+                                    "y": -440
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 6,
+                            "module": "facebook-pages:CreatePostWithPhotos",
+                            "version": 6,
+                            "metadata": {
+                                "designer": {
+                                    "x": 1687,
+                                    "y": -140,
+                                    "messages": [
+                                        {
+                                            "category": "setup",
+                                            "severity": "error",
+                                            "message": "Photos: Array has less than 1 items."
+                                        },
+                                        {
+                                            "category": "setup",
+                                            "severity": "error",
+                                            "message": "Photos: Field must not be empty."
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 8,
+                            "module": "facebook-pages:UploadVideo",
+                            "version": 6,
+                            "metadata": {
+                                "designer": {
+                                    "x": 1687,
+                                    "y": 160
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 9,
+                            "module": "youtube:uploadVideo",
+                            "version": 4,
+                            "metadata": {
+                                "designer": {
+                                    "x": 1687,
+                                    "y": 460
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 15,
+                            "module": "placeholder:Placeholder",
+                            "filter": null,
+                            "metadata": {
+                                "designer": {
+                                    "x": 1687,
+                                    "y": 760
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
