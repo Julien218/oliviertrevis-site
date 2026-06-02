@@ -7,223 +7,79 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #1a1a2e; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Montserrat', sans-serif; }
-
-  .card {
-    width: 856px; height: 540px;
-    background: linear-gradient(135deg, #0A1628 0%, #0D1F3C 60%, #0A1628 100%);
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-    border: 1px solid rgba(212,168,67,0.3);
-  }
-
-  /* Bande dorée gauche */
-  .card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 6px;
-    background: linear-gradient(180deg, #A67C20, #D4A843, #F0C064, #D4A843, #A67C20);
-  }
-
-  /* Motif décoratif */
-  .deco-circle {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(212,168,67,0.08);
-  }
-
-  .left-panel {
-    width: 340px;
-    padding: 50px 40px 50px 55px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    z-index: 2;
-  }
-
-  .logo-area { display: flex; flex-direction: column; gap: 14px; }
-
-  .phoenix {
-    width: 70px; height: 70px;
-    background: linear-gradient(135deg, #A67C20, #D4A843);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 2rem;
-    box-shadow: 0 0 30px rgba(212,168,67,0.4);
-  }
-
-  .brand-name {
-    font-size: 2rem; font-weight: 900; color: #D4A843;
-    text-transform: uppercase; letter-spacing: 0.05em; line-height: 1;
-  }
-
-  .brand-sub {
-    font-size: 0.55rem; font-weight: 700; color: rgba(255,255,255,0.4);
-    text-transform: uppercase; letter-spacing: 0.25em; margin-top: 4px;
-  }
-
-  .tagline {
-    font-size: 0.78rem; color: rgba(255,255,255,0.55);
-    line-height: 1.6; max-width: 220px;
-    font-style: italic;
-  }
-
-  .contact-info { display: flex; flex-direction: column; gap: 10px; }
-  .contact-line {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.8rem; color: rgba(255,255,255,0.75);
-  }
-  .contact-icon {
-    width: 26px; height: 26px;
-    background: rgba(212,168,67,0.12);
-    border: 1px solid rgba(212,168,67,0.25);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem; flex-shrink: 0;
-  }
-
-  .divider {
-    position: absolute; left: 340px; top: 50px; bottom: 50px;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(212,168,67,0.3), transparent);
-  }
-
-  .right-panel {
-    flex: 1;
-    padding: 50px 50px 50px 45px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    z-index: 2;
-  }
-
-  .right-top { display: flex; flex-direction: column; gap: 8px; }
-
-  .person-name {
-    font-size: 1.5rem; font-weight: 900;
-    color: #fff; text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .person-role {
-    font-size: 0.72rem; font-weight: 700;
-    color: #D4A843; text-transform: uppercase; letter-spacing: 0.2em;
-  }
-
-  .services-list { display: flex; flex-direction: column; gap: 8px; }
-  .service-item {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.75rem; color: rgba(255,255,255,0.6);
-  }
-  .service-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: #D4A843; flex-shrink: 0;
-  }
-
-  .qr-section {
-    display: flex; align-items: flex-end; justify-content: space-between;
-  }
-
-  .qr-box {
-    width: 110px; height: 110px;
-    background: #fff;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    padding: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-  .qr-box img { width: 100%; height: 100%; }
-
-  .qr-label {
-    font-size: 0.62rem; color: rgba(255,255,255,0.4);
-    text-transform: uppercase; letter-spacing: 0.1em;
-    text-align: right; max-width: 140px;
-    line-height: 1.5;
-  }
-  .qr-label strong { color: #D4A843; display: block; font-size: 0.68rem; }
-
-  .footer-strip {
-    position: absolute;
-    bottom: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, #A67C20, #D4A843, #F0C064, #D4A843, #A67C20);
-  }
+  body { background: #1a1a2e; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Montserrat', sans-serif; padding: 20px; }
+  .card { width: 856px; height: 540px; background: linear-gradient(135deg, #0A1628 0%, #0D1F3C 60%, #0A1628 100%); border-radius: 20px; position: relative; overflow: hidden; display: flex; box-shadow: 0 30px 80px rgba(0,0,0,0.6); border: 1px solid rgba(212,168,67,0.3); }
+  .card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, #A67C20, #D4A843, #F0C064, #D4A843, #A67C20); }
+  .deco { position: absolute; border-radius: 50%; border: 1px solid rgba(212,168,67,0.07); }
+  .left { width: 340px; padding: 50px 40px 50px 55px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 2; }
+  .logo-wrap { display: flex; flex-direction: column; gap: 14px; }
+  .phoenix { width: 70px; height: 70px; background: linear-gradient(135deg, #A67C20, #D4A843); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 0 30px rgba(212,168,67,0.4); }
+  .brand { font-size: 2rem; font-weight: 900; color: #D4A843; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1; }
+  .sub { font-size: 0.55rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.25em; margin-top: 4px; }
+  .tagline { font-size: 0.78rem; color: rgba(255,255,255,0.55); line-height: 1.6; max-width: 220px; font-style: italic; }
+  .contacts { display: flex; flex-direction: column; gap: 10px; }
+  .cline { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: rgba(255,255,255,0.75); }
+  .cicon { width: 26px; height: 26px; background: rgba(212,168,67,0.12); border: 1px solid rgba(212,168,67,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
+  .divider { position: absolute; left: 340px; top: 50px; bottom: 50px; width: 1px; background: linear-gradient(180deg, transparent, rgba(212,168,67,0.3), transparent); }
+  .right { flex: 1; padding: 50px 50px 50px 45px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 2; }
+  .pname { font-size: 1.5rem; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; }
+  .prole { font-size: 0.72rem; font-weight: 700; color: #D4A843; text-transform: uppercase; letter-spacing: 0.2em; margin-top: 6px; }
+  .slist { display: flex; flex-direction: column; gap: 8px; }
+  .sitem { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+  .sdot { width: 5px; height: 5px; border-radius: 50%; background: #D4A843; flex-shrink: 0; }
+  .qrsec { display: flex; align-items: flex-end; justify-content: space-between; }
+  .qrbox { width: 110px; height: 110px; background: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+  .qrbox img { width: 100%; height: 100%; }
+  .qrlabel { font-size: 0.62rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: right; max-width: 140px; line-height: 1.5; }
+  .qrlabel strong { color: #D4A843; display: block; font-size: 0.68rem; }
+  .strip { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #A67C20, #D4A843, #F0C064, #D4A843, #A67C20); }
 </style>
 </head>
 <body>
 <div class="card">
-  <!-- Cercles décoratifs -->
-  <div class="deco-circle" style="width:300px;height:300px;top:-100px;right:-80px;"></div>
-  <div class="deco-circle" style="width:150px;height:150px;bottom:-40px;right:160px;"></div>
-
-  <!-- Panel gauche -->
-  <div class="left-panel">
-    <div class="logo-area">
+  <div class="deco" style="width:300px;height:300px;top:-100px;right:-80px;"></div>
+  <div class="deco" style="width:150px;height:150px;bottom:-40px;right:160px;"></div>
+  <div class="left">
+    <div class="logo-wrap">
       <div class="phoenix">🦅</div>
       <div>
-        <div class="brand-name">JS-Innov.IA</div>
-        <div class="brand-sub">Intelligence Artificielle</div>
-        <div class="brand-sub" style="margin-top:2px;">Amplifiée par l'Humain</div>
+        <div class="brand">JS-Innov.IA</div>
+        <div class="sub">Intelligence Artificielle</div>
+        <div class="sub" style="margin-top:2px;">Amplifiée par l'Humain</div>
       </div>
     </div>
-
-    <div class="tagline">
-      "Automatisez votre activité.<br>Libérez votre potentiel."
-    </div>
-
-    <div class="contact-info">
-      <div class="contact-line">
-        <div class="contact-icon">📧</div>
-        <span>contact@jsinnovia.com</span>
-      </div>
-      <div class="contact-line">
-        <div class="contact-icon">📞</div>
-        <span>+32 494 11 90 90</span>
-      </div>
-      <div class="contact-line">
-        <div class="contact-icon">🌐</div>
-        <span>www.jsinnovia.com</span>
-      </div>
-      <div class="contact-line">
-        <div class="contact-icon">📍</div>
-        <span>Dour, Belgique</span>
-      </div>
+    <div class="tagline">"Automatisez votre activité.<br>Libérez votre potentiel."</div>
+    <div class="contacts">
+      <div class="cline"><div class="cicon">📧</div><span>contact@jsinnovia.com</span></div>
+      <div class="cline"><div class="cicon">📞</div><span>+32 494 11 90 90</span></div>
+      <div class="cline"><div class="cicon">🌐</div><span>www.jsinnovia.com</span></div>
+      <div class="cline"><div class="cicon">📍</div><span>Dour, Belgique</span></div>
     </div>
   </div>
-
   <div class="divider"></div>
-
-  <!-- Panel droit -->
-  <div class="right-panel">
-    <div class="right-top">
-      <div class="person-name">Julien Pagin</div>
-      <div class="person-role">Fondateur & Directeur IA</div>
+  <div class="right">
+    <div>
+      <div class="pname">Julien Pagin</div>
+      <div class="prole">Fondateur &amp; Directeur IA</div>
     </div>
-
-    <div class="services-list">
-      <div class="service-item"><div class="service-dot"></div>Automatisation de processus métier</div>
-      <div class="service-item"><div class="service-dot"></div>Agents IA personnalisés</div>
-      <div class="service-item"><div class="service-dot"></div>Sites web & présence digitale</div>
-      <div class="service-item"><div class="service-dot"></div>Analyse de données & dashboards</div>
-      <div class="service-item"><div class="service-dot"></div>Marketing digital IA</div>
+    <div class="slist">
+      <div class="sitem"><div class="sdot"></div>Automatisation de processus métier</div>
+      <div class="sitem"><div class="sdot"></div>Agents IA personnalisés</div>
+      <div class="sitem"><div class="sdot"></div>Sites web &amp; présence digitale</div>
+      <div class="sitem"><div class="sdot"></div>Analyse de données &amp; dashboards</div>
+      <div class="sitem"><div class="sdot"></div>Marketing digital IA</div>
     </div>
-
-    <div class="qr-section">
-      <div class="qr-label">
+    <div class="qrsec">
+      <div class="qrlabel">
         <strong>Scannez pour en savoir plus</strong>
-        www.oliviertrevis.be/jsinnovia<br>
-        Souscription en ligne disponible
+        www.oliviertrevis.be/jsinnovia<br>Souscription en ligne disponible
       </div>
-      <div class="qr-box">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.oliviertrevis.be/jsinnovia&color=000000&bgcolor=ffffff" alt="QR JS-Innov.IA" />
+      <div class="qrbox">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.oliviertrevis.be/jsinnovia" alt="QR JS-Innov.IA"/>
       </div>
     </div>
   </div>
-
-  <div class="footer-strip"></div>
+  <div class="strip"></div>
 </div>
 </body>
 </html>
