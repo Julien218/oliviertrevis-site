@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Carte JY-Trix.Ai</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f0a1e; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Montserrat', sans-serif; }
+
+  .card {
+    width: 856px; height: 540px;
+    background: linear-gradient(135deg, #050813 0%, #0A0F1E 60%, #050813 100%);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(124,58,237,0.3);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, #5B21B6, #7C3AED, #A78BFA, #06B6D4, #7C3AED, #5B21B6);
+  }
+
+  .deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(124,58,237,0.1);
+  }
+
+  .left-panel {
+    width: 340px;
+    padding: 50px 40px 50px 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo-area { display: flex; flex-direction: column; gap: 14px; }
+
+  .lightning {
+    width: 70px; height: 70px;
+    background: linear-gradient(135deg, #5B21B6, #7C3AED, #06B6D4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 0 30px rgba(124,58,237,0.5);
+  }
+
+  .brand-name {
+    font-size: 2rem; font-weight: 900; color: #A78BFA;
+    text-transform: uppercase; letter-spacing: 0.05em; line-height: 1;
+  }
+  .brand-sub {
+    font-size: 0.55rem; font-weight: 700; color: rgba(255,255,255,0.35);
+    text-transform: uppercase; letter-spacing: 0.25em; margin-top: 4px;
+  }
+
+  .tagline {
+    font-size: 0.78rem; color: rgba(255,255,255,0.5);
+    line-height: 1.6; max-width: 220px;
+    font-style: italic;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 10px; }
+  .contact-line {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.8rem; color: rgba(255,255,255,0.7);
+  }
+  .contact-icon {
+    width: 26px; height: 26px;
+    background: rgba(124,58,237,0.15);
+    border: 1px solid rgba(124,58,237,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; flex-shrink: 0;
+  }
+
+  .divider {
+    position: absolute; left: 340px; top: 50px; bottom: 50px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(124,58,237,0.35), rgba(6,182,212,0.35), transparent);
+  }
+
+  .right-panel {
+    flex: 1;
+    padding: 50px 50px 50px 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+
+  .right-top { display: flex; flex-direction: column; gap: 8px; }
+
+  .person-name {
+    font-size: 1.5rem; font-weight: 900;
+    color: #fff; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .person-role {
+    font-size: 0.72rem; font-weight: 700;
+    color: #A78BFA; text-transform: uppercase; letter-spacing: 0.2em;
+  }
+
+  .services-list { display: flex; flex-direction: column; gap: 8px; }
+  .service-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.75rem; color: rgba(255,255,255,0.6);
+  }
+  .service-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: linear-gradient(135deg, #7C3AED, #06B6D4); flex-shrink: 0;
+  }
+
+  .qr-section {
+    display: flex; align-items: flex-end; justify-content: space-between;
+  }
+
+  .qr-box {
+    width: 110px; height: 110px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 8px;
+    box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+  }
+  .qr-box img { width: 100%; height: 100%; }
+
+  .qr-label {
+    font-size: 0.62rem; color: rgba(255,255,255,0.35);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    text-align: right; max-width: 140px;
+    line-height: 1.5;
+  }
+  .qr-label strong { color: #A78BFA; display: block; font-size: 0.68rem; }
+
+  .footer-strip {
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #5B21B6, #7C3AED, #06B6D4, #A78BFA, #7C3AED, #5B21B6);
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="deco-circle" style="width:300px;height:300px;top:-100px;right:-80px;"></div>
+  <div class="deco-circle" style="width:150px;height:150px;bottom:-40px;right:160px;"></div>
+
+  <div class="left-panel">
+    <div class="logo-area">
+      <div class="lightning">⚡</div>
+      <div>
+        <div class="brand-name">JY-Trix.Ai</div>
+        <div class="brand-sub">Innovation · Technologie</div>
+        <div class="brand-sub" style="margin-top:2px;">Performance · IA</div>
+      </div>
+    </div>
+
+    <div class="tagline">
+      "Propulsez votre business.<br>L'IA au service de votre croissance."
+    </div>
+
+    <div class="contact-info">
+      <div class="contact-line">
+        <div class="contact-icon">📞</div>
+        <span>+32 489 75 69 27</span>
+      </div>
+      <div class="contact-line">
+        <div class="contact-icon">🌐</div>
+        <span>www.jytrixai.com</span>
+      </div>
+      <div class="contact-line">
+        <div class="contact-icon">📍</div>
+        <span>Saint-Ghislain, Belgique</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="right-panel">
+    <div class="right-top">
+      <div class="person-name">Yanis Coronado-Romero</div>
+      <div class="person-role">Fondateur & Expert IA</div>
+    </div>
+
+    <div class="services-list">
+      <div class="service-item"><div class="service-dot"></div>Automatisation de workflows pro</div>
+      <div class="service-item"><div class="service-dot"></div>Marketing IA & croissance digitale</div>
+      <div class="service-item"><div class="service-dot"></div>Intégrations systèmes sur mesure</div>
+      <div class="service-item"><div class="service-dot"></div>Stratégie data-driven</div>
+      <div class="service-item"><div class="service-dot"></div>Solutions IA pour PME & indépendants</div>
+    </div>
+
+    <div class="qr-section">
+      <div class="qr-label">
+        <strong>Scannez pour en savoir plus</strong>
+        www.oliviertrevis.be/jytrixai<br>
+        Souscription en ligne disponible
+      </div>
+      <div class="qr-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.oliviertrevis.be/jytrixai&color=000000&bgcolor=ffffff" alt="QR JY-Trix.Ai" />
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-strip"></div>
+</div>
+</body>
+</html>

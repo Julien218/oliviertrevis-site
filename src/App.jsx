@@ -9,15 +9,19 @@ import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 import AdminPage from "./pages/AdminPage";
 import MascottePage from "./pages/MascottePage";
 import FabianoPage from "./pages/FabianoPage";
+import JsInnoviaPage from "./pages/JsInnoviaPage";
+import JyTrixAiPage from "./pages/JyTrixAiPage";
 
 export default function App() {
   return (
     <Router>
       <Routes>
         {/* Pages sans layout (fullscreen) */}
-        <Route path="/admin"    element={<AdminPage />} />
-        <Route path="/mascotte" element={<MascottePage />} />
-        <Route path="/fabiano"  element={<FabianoPage />} />
+        <Route path="/admin"     element={<AdminPage />} />
+        <Route path="/mascotte"  element={<MascottePage />} />
+        <Route path="/fabiano"   element={<FabianoPage />} />
+        <Route path="/jsinnovia" element={<JsInnoviaPage />} />
+        <Route path="/jytrixai"  element={<JyTrixAiPage />} />
 
         {/* Pages avec layout normal */}
         <Route path="/*" element={
@@ -37,4 +41,4 @@ export default function App() {
   );
 }
 
-// rebuild-fabiano-2026
+// rebuild-jsinnovia-jytrixai-2026
