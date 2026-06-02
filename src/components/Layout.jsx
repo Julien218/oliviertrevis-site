@@ -41,7 +41,7 @@ const SOCIALS = [
 
 /* ── CSS global ────────────────────────────────────────────────────────────── */
 const GLOBAL_CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600;700;800;900&display=swap');
 
   .light-line {
     background: linear-gradient(90deg, transparent, ${BRAND.gold}80, transparent);
@@ -396,97 +396,179 @@ export default function Layout({ children }) {
       <main className="flex-1 pt-[84px]">{children}</main>
 
       {/* ══════════════════════════
-          FOOTER
+          FOOTER PREMIUM JS-INNOV.IA
       ══════════════════════════ */}
-      <footer style={{ background: BRAND.navy, borderTop: `1px solid ${BRAND.gold}10` }}>
-        <div className="max-w-7xl mx-auto px-5 py-14">
+      <footer style={{ background: "#0B0B0F", position: "relative", overflow: "hidden" }}>
 
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-10">
-            <Link to="/">
-              <div className="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0"
-                style={{ border: `1.5px solid ${BRAND.gold}40` }}>
-                <img src={LOGO_OT} alt="Olivier Trevis" className="w-full h-full object-cover" />
-              </div>
-            </Link>
-            <nav className="flex flex-wrap gap-x-6 gap-y-2">
-              {NAV.map(n => (
-                <Link key={n.href} to={n.href}
-                  className="text-xs font-semibold uppercase tracking-wider transition-colors duration-200"
-                  style={{ color: "rgba(255,255,255,0.3)" }}
-                  onMouseEnter={e => e.currentTarget.style.color = BRAND.gold}
-                  onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.3)"}>
-                  {n.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+        {/* Ligne dorée top */}
+        <div style={{ height: 1, background: "linear-gradient(90deg, transparent, #D4AF37, #F0C040, #D4AF37, transparent)" }} />
 
-          <div className="h-px mb-8" style={{ background: `linear-gradient(90deg, transparent, ${BRAND.gold}28, transparent)` }} />
+        {/* Halos lumineux décoratifs */}
+        <div style={{ position: "absolute", top: 0, left: "10%", width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, rgba(212,175,55,0.055) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: 0, right: "8%", width: 260, height: 260, borderRadius: "50%", background: "radial-gradient(circle, rgba(107,70,255,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: 600, height: 120, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(212,175,55,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
 
-          {/* Logos projets */}
-          <div className="flex flex-wrap items-center gap-3 mb-8">
-            {PROJECTS.map((p, i) => (
-              <div key={i}>
-                {p.external
-                  ? <a href={p.site} target="_blank" rel="noopener noreferrer">
-                      <div className="w-10 h-10 rounded-xl overflow-hidden transition-all duration-200"
-                        style={{ border: `1px solid ${p.c}28`, opacity: 0.55 }}
-                        onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "scale(1.1)"; }}
-                        onMouseLeave={e => { e.currentTarget.style.opacity = "0.55"; e.currentTarget.style.transform = ""; }}>
-                        <img src={p.logo} alt={p.titre} className="w-full h-full object-cover" />
-                      </div>
-                    </a>
-                  : <Link to={p.site}>
-                      <div className="w-10 h-10 rounded-xl overflow-hidden transition-all duration-200"
-                        style={{ border: `1px solid ${p.c}28`, opacity: 0.55 }}
-                        onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "scale(1.1)"; }}
-                        onMouseLeave={e => { e.currentTarget.style.opacity = "0.55"; e.currentTarget.style.transform = ""; }}>
-                        <img src={p.logo} alt={p.titre} className="w-full h-full object-cover" />
-                      </div>
-                    </Link>
-                }
-              </div>
-            ))}
-          </div>
+        <div className="max-w-7xl mx-auto px-6 pt-14 pb-8">
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              {SOCIALS.map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200"
-                  style={{ background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.28)", border: "1px solid rgba(255,255,255,0.07)" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = `${BRAND.gold}15`; e.currentTarget.style.color = BRAND.gold; e.currentTarget.style.borderColor = `${BRAND.gold}32`; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.04)"; e.currentTarget.style.color = "rgba(255,255,255,0.28)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; }}>
-                  <s.Icon />
-                </a>
-              ))}
+          {/* ── Bloc central — logo + tagline ── */}
+          <div className="flex flex-col items-center text-center mb-12">
+            {/* Logo OT avec halo */}
+            <div style={{ position: "relative", marginBottom: 20 }}>
+              <div style={{ position: "absolute", inset: -8, borderRadius: "50%", background: "radial-gradient(circle, rgba(212,175,55,0.2) 0%, transparent 70%)", filter: "blur(8px)" }} />
+              <Link to="/">
+                <div className="w-16 h-16 rounded-2xl overflow-hidden relative z-10"
+                  style={{ border: "1.5px solid rgba(212,175,55,0.45)", boxShadow: "0 0 24px rgba(212,175,55,0.15)" }}>
+                  <img src={LOGO_OT} alt="Olivier Trevis" className="w-full h-full object-cover" />
+                </div>
+              </Link>
             </div>
-            <div className="text-right">
-              <p className="text-xs" style={{ color: "rgba(255,255,255,0.18)" }}>
-                © {new Date().getFullYear()} Olivier Trevis · Dour, Belgique
+
+            {/* Nom */}
+            <h3 style={{
+              fontFamily: "'Cinzel', 'Playfair Display', serif",
+              fontSize: "1.3rem", fontWeight: 700, letterSpacing: "0.18em",
+              background: "linear-gradient(135deg, #D4AF37 0%, #F0C040 45%, #C8922A 100%)",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+              marginBottom: 6,
+            }}>
+              OLIVIER TREVIS
+            </h3>
+            <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: 4 }}>
+              Dour · Belgique
+            </p>
+            <p style={{ fontSize: "0.65rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(212,175,55,0.35)" }}>
+              Automatisation Intelligente · Amplifiée par l'Humain
+            </p>
+          </div>
+
+          {/* Ligne séparatrice dorée */}
+          <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent)", marginBottom: 40 }} />
+
+          {/* ── Grille 3 colonnes ── */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+
+            {/* Col 1 — Navigation */}
+            <div>
+              <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: "#D4AF37", marginBottom: 16, opacity: 0.7 }}>
+                Navigation
               </p>
-              <p className="text-xs mt-0.5">
-                Conçu par <span style={{ color: BRAND.gold, opacity: 0.5 }}>JS-Innov.IA</span>
+              <div className="flex flex-col gap-2.5">
+                {NAV.map(n => (
+                  <Link key={n.href} to={n.href}
+                    className="text-xs font-medium transition-all duration-200 w-fit"
+                    style={{ color: "rgba(255,255,255,0.28)", letterSpacing: "0.05em" }}
+                    onMouseEnter={e => { e.currentTarget.style.color = "#D4AF37"; e.currentTarget.style.paddingLeft = "6px"; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.28)"; e.currentTarget.style.paddingLeft = "0"; }}>
+                    {n.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Col 2 — Projets */}
+            <div>
+              <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: "#D4AF37", marginBottom: 16, opacity: 0.7 }}>
+                Projets
               </p>
+              <div className="flex flex-wrap gap-2.5">
+                {PROJECTS.map((p, i) => (
+                  <div key={i}>
+                    {p.external
+                      ? <a href={p.site} target="_blank" rel="noopener noreferrer" title={p.titre}>
+                          <div className="w-9 h-9 rounded-xl overflow-hidden transition-all duration-300"
+                            style={{ border: `1px solid ${p.c}35`, opacity: 0.5, boxShadow: `0 0 0 0 ${p.c}00` }}
+                            onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "scale(1.12) translateY(-2px)"; e.currentTarget.style.boxShadow = `0 4px 16px ${p.c}40`; e.currentTarget.style.borderColor = `${p.c}70`; }}
+                            onMouseLeave={e => { e.currentTarget.style.opacity = "0.5"; e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = `0 0 0 0 ${p.c}00`; e.currentTarget.style.borderColor = `${p.c}35`; }}>
+                            <img src={p.logo} alt={p.titre} className="w-full h-full object-cover" />
+                          </div>
+                        </a>
+                      : <Link to={p.site} title={p.titre}>
+                          <div className="w-9 h-9 rounded-xl overflow-hidden transition-all duration-300"
+                            style={{ border: `1px solid ${p.c}35`, opacity: 0.5 }}
+                            onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "scale(1.12) translateY(-2px)"; e.currentTarget.style.boxShadow = `0 4px 16px ${p.c}40`; }}
+                            onMouseLeave={e => { e.currentTarget.style.opacity = "0.5"; e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = ""; }}>
+                            <img src={p.logo} alt={p.titre} className="w-full h-full object-cover" />
+                          </div>
+                        </Link>
+                    }
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Col 3 — Réseaux sociaux */}
+            <div>
+              <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: "#D4AF37", marginBottom: 16, opacity: 0.7 }}>
+                Réseaux sociaux
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {SOCIALS.map((s, i) => (
+                  <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
+                    title={`${s.network} — ${s.project}`}
+                    className="w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200"
+                    style={{ background: "rgba(212,175,55,0.05)", color: "rgba(255,255,255,0.22)", border: "1px solid rgba(212,175,55,0.12)" }}
+                    onMouseEnter={e => { e.currentTarget.style.background = "rgba(212,175,55,0.15)"; e.currentTarget.style.color = "#D4AF37"; e.currentTarget.style.borderColor = "rgba(212,175,55,0.4)"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 4px 12px rgba(212,175,55,0.2)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "rgba(212,175,55,0.05)"; e.currentTarget.style.color = "rgba(255,255,255,0.22)"; e.currentTarget.style.borderColor = "rgba(212,175,55,0.12)"; e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = ""; }}>
+                    <s.Icon />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-6">
-            <Link to="/mentions-legales"
-              className="text-xs transition-colors duration-200"
-              style={{ color: "rgba(255,255,255,0.12)" }}
-              onMouseEnter={e => e.currentTarget.style.color = BRAND.gold}
-              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.12)"}>
-              Mentions légales & Politique de confidentialité
-            </Link>
-            <Link to="/admin"
-              className="text-xs transition-colors duration-200"
-              style={{ color: "rgba(255,255,255,0.07)" }}
-              onMouseEnter={e => e.currentTarget.style.color = "rgba(255,255,255,0.3)"}
-              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.07)"}>
-              ⚙
-            </Link>
+          {/* Ligne séparatrice */}
+          <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.15), transparent)", marginBottom: 20 }} />
+
+          {/* ── Barre bas — copyright + JS-Innov.IA + liens légaux ── */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+
+            {/* Gauche : copyright */}
+            <p style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.15)", letterSpacing: "0.08em" }}>
+              © {new Date().getFullYear()} Olivier Trevis · Dour, Belgique
+            </p>
+
+            {/* Centre : badge JS-Innov.IA */}
+            <a href="https://www.jsinnovia.com" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-all duration-200"
+              style={{ textDecoration: "none" }}
+              onMouseEnter={e => e.currentTarget.style.opacity = "0.8"}
+              onMouseLeave={e => e.currentTarget.style.opacity = "1"}>
+              <svg width="22" height="22" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="fgft" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#c8922a"/><stop offset="50%" stopColor="#f0c040"/><stop offset="100%" stopColor="#e8a820"/></linearGradient></defs>
+                <ellipse cx="100" cy="120" rx="22" ry="30" fill="url(#fgft)"/>
+                <path d="M100 110 Q55 70 30 40 Q50 55 65 75 Q45 50 50 25 Q70 50 75 80 Q60 55 65 35 Q82 65 85 95 Z" fill="url(#fgft)" opacity="0.9"/>
+                <path d="M100 110 Q145 70 170 40 Q150 55 135 75 Q155 50 150 25 Q130 50 125 80 Q140 55 135 35 Q118 65 115 95 Z" fill="url(#fgft)" opacity="0.9"/>
+                <circle cx="100" cy="90" r="14" fill="url(#fgft)"/>
+              </svg>
+              <div>
+                <span style={{ fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.1em", background: "linear-gradient(90deg, #D4AF37, #F0C040)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  JS-Innov.IA
+                </span>
+                <span style={{ fontSize: "0.55rem", display: "block", color: "rgba(255,255,255,0.2)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                  Conçu par JS-Innov.IA
+                </span>
+              </div>
+            </a>
+
+            {/* Droite : mentions légales + admin */}
+            <div className="flex items-center gap-4">
+              <Link to="/mentions-legales"
+                className="text-xs transition-colors duration-200"
+                style={{ color: "rgba(255,255,255,0.12)", letterSpacing: "0.05em" }}
+                onMouseEnter={e => e.currentTarget.style.color = "#D4AF37"}
+                onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.12)"}>
+                Mentions légales
+              </Link>
+              <Link to="/admin"
+                className="text-xs transition-colors duration-200"
+                style={{ color: "rgba(255,255,255,0.06)" }}
+                onMouseEnter={e => e.currentTarget.style.color = "rgba(255,255,255,0.25)"}
+                onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.06)"}>
+                ⚙
+              </Link>
+            </div>
           </div>
+
         </div>
       </footer>
     </div>
