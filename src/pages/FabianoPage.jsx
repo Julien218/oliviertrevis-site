@@ -5,6 +5,7 @@ const VIDEO_URL    = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files
 const HERO_BG      = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/0a96d15c5_espace_c_panneau.png";   // photo panneau au rond-point
 const AERIAL_URL   = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/c1cf179ef_fabiano_flyer.png";        // flyer complet
 
+const LOGO_JSINNOVIA = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/9f10f06fc_logo_jsinnovia_officiel.jpg";
 const gold     = "#f0c040";
 const goldDark = "#c8922a";
 const navy     = "#0a1628";
@@ -227,31 +228,26 @@ export default function FabianoPage() {
       </section>
 
       {/* ══ FOOTER ══ */}
-      <footer style={{ background: navy, borderTop: `1px solid rgba(200,146,42,0.2)`, padding: "26px 6%", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="fg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#c8922a"/><stop offset="50%" stopColor="#f0c040"/><stop offset="100%" stopColor="#e8a820"/></linearGradient></defs>
-            <ellipse cx="100" cy="120" rx="22" ry="30" fill="url(#fg3)"/>
-            <path d="M100 110 Q55 70 30 40 Q50 55 65 75 Q45 50 50 25 Q70 50 75 80 Q60 55 65 35 Q82 65 85 95 Z" fill="url(#fg3)" opacity="0.9"/>
-            <path d="M100 110 Q145 70 170 40 Q150 55 135 75 Q155 50 150 25 Q130 50 125 80 Q140 55 135 35 Q118 65 115 95 Z" fill="url(#fg3)" opacity="0.9"/>
-            <path d="M90 145 Q80 170 70 185 Q88 165 95 150 Z" fill="url(#fg3)" opacity="0.8"/>
-            <path d="M100 148 Q100 175 100 190 Q100 168 100 152 Z" fill="url(#fg3)"/>
-            <path d="M110 145 Q120 170 130 185 Q112 165 105 150 Z" fill="url(#fg3)" opacity="0.8"/>
-            <circle cx="100" cy="90" r="14" fill="url(#fg3)"/>
-            <path d="M100 84 L108 88 L100 92 Z" fill="#c8922a"/>
-            <circle cx="96" cy="87" r="3" fill="#1a1a2e"/>
-            <circle cx="97" cy="86" r="1" fill="#f0c040"/>
-            <path d="M92 78 Q88 65 85 55 Q93 68 95 78 Z" fill="url(#fg3)"/>
-            <path d="M100 76 Q100 62 100 52 Q102 66 102 76 Z" fill="url(#fg3)"/>
-            <path d="M108 78 Q112 65 115 55 Q107 68 105 78 Z" fill="url(#fg3)"/>
-          </svg>
-          <div>
-            <div style={{ fontSize: "1rem", fontWeight: 900, color: gold, letterSpacing: "0.05em" }}>JS-Innov.IA</div>
-            <div style={{ fontSize: "0.58rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.35)" }}>Intelligence Artificielle · Amplifiée par l'Humain</div>
+      <footer style={{ background: "#050d1a", borderTop: `1px solid rgba(200,146,42,0.15)`, padding: "60px 6% 40px", textAlign: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0 }}>
+          <div style={{ position: "relative", marginBottom: 20 }}>
+            <div style={{ position: "absolute", inset: -8, borderRadius: "50%", background: `radial-gradient(circle, rgba(240,192,64,0.25) 0%, transparent 70%)` }} />
+            <img src={LOGO_JSINNOVIA} alt="JS-Innov.IA"
+              style={{ width: 110, height: 110, borderRadius: "50%", objectFit: "cover", border: `2px solid rgba(240,192,64,0.4)`, boxShadow: `0 0 40px rgba(240,192,64,0.3), 0 0 80px rgba(200,146,42,0.15)`, display: "block", position: "relative", zIndex: 1 }} />
           </div>
-        </div>
-        <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }}>
-          🌐 <a href="https://www.jsinnovia.com" target="_blank" rel="noreferrer" style={{ color: gold, textDecoration: "none" }}>www.jsinnovia.com</a>
+          <div style={{ fontFamily: "'Cinzel', serif", fontSize: "1.6rem", fontWeight: 900, letterSpacing: "0.08em", background: `linear-gradient(135deg, ${goldDark}, ${gold}, ${goldDark})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: 4 }}>JS-Innov.IA®</div>
+          <div style={{ fontStyle: "italic", fontSize: "0.95rem", color: "rgba(240,192,64,0.6)", letterSpacing: "0.05em", marginBottom: 16 }}>Julien Pagin</div>
+          <div style={{ width: 120, height: 1, background: `linear-gradient(90deg, transparent, ${gold}, transparent)`, marginBottom: 16 }} />
+          <div style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.22em", color: "rgba(255,255,255,0.35)", marginBottom: 12 }}>
+            Automatisation intelligente · Amplifiée par l'Humain
+          </div>
+          <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.3)", lineHeight: 1.8 }}>
+            contact@jsinnovia.com · +32 494 11 90 90 · www.jsinnovia.com
+          </div>
+          <div style={{ width: 60, height: 1, background: `linear-gradient(90deg, transparent, rgba(200,146,42,0.3), transparent)`, margin: "20px auto 14px" }} />
+          <div style={{ fontSize: "0.62rem", color: "rgba(255,255,255,0.18)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+            © 2026 JS-Innov.IA — Tous droits réservés
+          </div>
         </div>
       </footer>
     </div>
