@@ -175,25 +175,24 @@ export default function JyTrixAiPage() {
         </motion.div>
       </section>
 
-      <footer style={{ background: "#020509", borderTop: `1px solid rgba(124,58,237,0.2)`, padding: "60px 6% 40px", textAlign: "center" }}>
+      <footer style={{ background: "#020509", borderTop: `1px solid rgba(0,120,255,0.25)`, padding: "60px 6% 40px", textAlign: "center" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0 }}>
-          <div style={{ position: "relative", marginBottom: 20 }}>
-            <div style={{ position: "absolute", inset: -8, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,120,255,0.2) 0%, transparent 70%)` }} />
-            <img src={LOGO_JYTRIXAI} alt="JY-Trix.AI"
-              style={{ width: 110, height: 110, borderRadius: "16px", objectFit: "cover", border: `2px solid rgba(0,120,255,0.4)`, boxShadow: `0 0 40px rgba(0,120,255,0.3), 0 0 80px rgba(0,120,255,0.1)`, display: "block", position: "relative", zIndex: 1 }} />
+          <div style={{ position: "relative", marginBottom: 24, width: "100%", maxWidth: 480 }}>
+            <div style={{ position: "absolute", inset: -4, borderRadius: 18, background: `linear-gradient(135deg, rgba(0,120,255,0.25), rgba(0,180,255,0.1))`, filter: "blur(12px)" }} />
+            <img src="https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/f21cea67b_logo_jytrixai_banner.jpg" alt="JY-Trix.AI"
+              style={{ width: "100%", maxWidth: 480, borderRadius: 14, objectFit: "cover", border: `1px solid rgba(0,120,255,0.35)`, boxShadow: `0 0 40px rgba(0,120,255,0.25), 0 8px 40px rgba(0,0,0,0.5)`, display: "block", position: "relative", zIndex: 1, margin: "0 auto" }} />
           </div>
-          <div style={{ fontFamily: "'Cinzel', serif", fontSize: "1.6rem", fontWeight: 900, letterSpacing: "0.08em", background: `linear-gradient(135deg, #1a1a2e, #0070ff, #1a1a2e)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: 4 }}>JY-Trix.AI</div>
-          <div style={{ fontStyle: "italic", fontSize: "0.95rem", color: "rgba(0,120,255,0.7)", letterSpacing: "0.05em", marginBottom: 16 }}>Yanis Coronado-Romero</div>
+          <div style={{ fontStyle: "italic", fontSize: "0.95rem", color: "rgba(0,150,255,0.7)", letterSpacing: "0.05em", marginBottom: 16 }}>Yanis Coronado-Romero</div>
           <div style={{ width: 120, height: 1, background: `linear-gradient(90deg, transparent, #0070ff, transparent)`, marginBottom: 16 }} />
           <div style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.22em", color: "rgba(255,255,255,0.35)", marginBottom: 12 }}>
-            Innovation · Technologie · Intelligence Artificielle
+            Création · Automatisation · Intelligence Artificielle
           </div>
           <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.3)", lineHeight: 1.8 }}>
             +32 489 75 69 27 · Saint-Ghislain, Belgique · www.jytrixai.com
           </div>
           <div style={{ width: 60, height: 1, background: `linear-gradient(90deg, transparent, rgba(0,120,255,0.3), transparent)`, margin: "20px auto 14px" }} />
           <div style={{ fontSize: "0.62rem", color: "rgba(255,255,255,0.18)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-            © 2026 JY-Trix.Ai — Tous droits réservés
+            © 2026 JY-Trix.AI — Tous droits réservés
           </div>
         </div>
       </footer>
