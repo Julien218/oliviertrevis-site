@@ -178,19 +178,20 @@ export default function JyTrixAiPage() {
       <footer style={{ background: "#020509", borderTop: `1px solid rgba(124,58,237,0.2)`, padding: "60px 6% 40px", textAlign: "center" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0 }}>
           <div style={{ position: "relative", marginBottom: 20 }}>
-            <div style={{ position: "absolute", inset: -8, borderRadius: "50%", background: `radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%)` }} />
-            <div style={{ width: 110, height: 110, borderRadius: "50%", background: `linear-gradient(135deg, ${purpleDark}, ${purple}, ${cyan})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "3.2rem", border: `2px solid rgba(124,58,237,0.5)`, boxShadow: `0 0 40px rgba(124,58,237,0.4), 0 0 80px rgba(6,182,212,0.15)`, position: "relative", zIndex: 1 }}>⚡</div>
+            <div style={{ position: "absolute", inset: -8, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,120,255,0.2) 0%, transparent 70%)` }} />
+            <img src={LOGO_JYTRIXAI} alt="JY-Trix.AI"
+              style={{ width: 110, height: 110, borderRadius: "16px", objectFit: "cover", border: `2px solid rgba(0,120,255,0.4)`, boxShadow: `0 0 40px rgba(0,120,255,0.3), 0 0 80px rgba(0,120,255,0.1)`, display: "block", position: "relative", zIndex: 1 }} />
           </div>
-          <div style={{ fontFamily: "'Cinzel', serif", fontSize: "1.6rem", fontWeight: 900, letterSpacing: "0.08em", background: `linear-gradient(135deg, ${purpleDark}, ${purpleLight}, ${cyan})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: 4 }}>JY-Trix.Ai</div>
-          <div style={{ fontStyle: "italic", fontSize: "0.95rem", color: "rgba(167,139,250,0.6)", letterSpacing: "0.05em", marginBottom: 16 }}>Yanis Coronado-Romero</div>
-          <div style={{ width: 120, height: 1, background: `linear-gradient(90deg, transparent, ${purpleLight}, transparent)`, marginBottom: 16 }} />
+          <div style={{ fontFamily: "'Cinzel', serif", fontSize: "1.6rem", fontWeight: 900, letterSpacing: "0.08em", background: `linear-gradient(135deg, #1a1a2e, #0070ff, #1a1a2e)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: 4 }}>JY-Trix.AI</div>
+          <div style={{ fontStyle: "italic", fontSize: "0.95rem", color: "rgba(0,120,255,0.7)", letterSpacing: "0.05em", marginBottom: 16 }}>Yanis Coronado-Romero</div>
+          <div style={{ width: 120, height: 1, background: `linear-gradient(90deg, transparent, #0070ff, transparent)`, marginBottom: 16 }} />
           <div style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.22em", color: "rgba(255,255,255,0.35)", marginBottom: 12 }}>
             Innovation · Technologie · Intelligence Artificielle
           </div>
           <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.3)", lineHeight: 1.8 }}>
             +32 489 75 69 27 · Saint-Ghislain, Belgique · www.jytrixai.com
           </div>
-          <div style={{ width: 60, height: 1, background: `linear-gradient(90deg, transparent, rgba(124,58,237,0.3), transparent)`, margin: "20px auto 14px" }} />
+          <div style={{ width: 60, height: 1, background: `linear-gradient(90deg, transparent, rgba(0,120,255,0.3), transparent)`, margin: "20px auto 14px" }} />
           <div style={{ fontSize: "0.62rem", color: "rgba(255,255,255,0.18)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
             © 2026 JY-Trix.Ai — Tous droits réservés
           </div>
