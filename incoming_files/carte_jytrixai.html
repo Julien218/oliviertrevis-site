@@ -3,81 +3,90 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Carte JY-Trix.Ai</title>
+<title>Carte Apporteur d'Affaires — JY-Trix.Ai</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #0f0a1e; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Montserrat', sans-serif; padding: 20px; }
-  .card { width: 856px; height: 540px; background: linear-gradient(135deg, #050813 0%, #0A0F1E 60%, #050813 100%); border-radius: 20px; position: relative; overflow: hidden; display: flex; box-shadow: 0 30px 80px rgba(0,0,0,0.7); border: 1px solid rgba(124,58,237,0.3); }
+  body { background: #0a0010; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Montserrat', sans-serif; padding: 20px; }
+  .card { width: 856px; height: 540px; background: linear-gradient(135deg, #050813 0%, #0A0F1E 60%, #050813 100%); border-radius: 20px; position: relative; overflow: hidden; display: flex; box-shadow: 0 30px 80px rgba(0,0,0,0.7); border: 1px solid rgba(124,58,237,0.35); }
   .card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, #5B21B6, #7C3AED, #A78BFA, #06B6D4, #7C3AED, #5B21B6); }
   .deco { position: absolute; border-radius: 50%; border: 1px solid rgba(124,58,237,0.1); }
-  .left { width: 340px; padding: 50px 40px 50px 55px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 2; }
-  .logo-wrap { display: flex; flex-direction: column; gap: 14px; }
-  .bolt { width: 70px; height: 70px; background: linear-gradient(135deg, #5B21B6, #7C3AED, #06B6D4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 0 30px rgba(124,58,237,0.5); }
-  .brand { font-size: 2rem; font-weight: 900; color: #A78BFA; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1; }
-  .sub { font-size: 0.55rem; font-weight: 700; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.25em; margin-top: 4px; }
-  .tagline { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 220px; font-style: italic; }
-  .contacts { display: flex; flex-direction: column; gap: 10px; }
+  .left { width: 360px; padding: 48px 40px 48px 55px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 2; }
+  .logo-wrap { display: flex; flex-direction: column; gap: 12px; }
+  .icon { width: 72px; height: 72px; background: linear-gradient(135deg, #5B21B6, #7C3AED, #06B6D4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; box-shadow: 0 0 30px rgba(124,58,237,0.5); }
+  .brand { font-size: 1.7rem; font-weight: 900; color: #A78BFA; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1; }
+  .sub { font-size: 0.52rem; font-weight: 700; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.22em; margin-top: 4px; }
+  .role-badge { display: inline-block; background: rgba(124,58,237,0.18); border: 1px solid rgba(124,58,237,0.45); border-radius: 20px; padding: 6px 16px; font-size: 0.68rem; font-weight: 700; color: #A78BFA; text-transform: uppercase; letter-spacing: 0.15em; }
+  .contacts { display: flex; flex-direction: column; gap: 9px; }
   .cline { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: rgba(255,255,255,0.7); }
   .cicon { width: 26px; height: 26px; background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
-  .divider { position: absolute; left: 340px; top: 50px; bottom: 50px; width: 1px; background: linear-gradient(180deg, transparent, rgba(124,58,237,0.35), rgba(6,182,212,0.35), transparent); }
-  .right { flex: 1; padding: 50px 50px 50px 45px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 2; }
-  .pname { font-size: 1.5rem; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; }
-  .prole { font-size: 0.72rem; font-weight: 700; color: #A78BFA; text-transform: uppercase; letter-spacing: 0.2em; margin-top: 6px; }
-  .slist { display: flex; flex-direction: column; gap: 8px; }
-  .sitem { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; color: rgba(255,255,255,0.6); }
-  .sdot { width: 5px; height: 5px; border-radius: 50%; background: linear-gradient(135deg, #7C3AED, #06B6D4); flex-shrink: 0; }
+  .divider { position: absolute; left: 360px; top: 50px; bottom: 50px; width: 1px; background: linear-gradient(180deg, transparent, rgba(124,58,237,0.4), rgba(6,182,212,0.3), transparent); }
+  .right { flex: 1; padding: 48px 46px 48px 42px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 2; }
+  .offer-box { background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.25); border-radius: 14px; padding: 18px 20px; }
+  .offer-title { font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 10px; }
+  .offer-main { font-size: 1.1rem; font-weight: 900; color: #fff; text-transform: uppercase; line-height: 1.2; }
+  .offer-main span { color: #A78BFA; }
+  .offer-sub { font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 6px; line-height: 1.5; }
   .qrsec { display: flex; align-items: flex-end; justify-content: space-between; }
-  .qrbox { width: 110px; height: 110px; background: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 8px; box-shadow: 0 4px 20px rgba(124,58,237,0.3); }
-  .qrbox img { width: 100%; height: 100%; }
-  .qrlabel { font-size: 0.62rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; text-align: right; max-width: 140px; line-height: 1.5; }
-  .qrlabel strong { color: #A78BFA; display: block; font-size: 0.68rem; }
+  .qrbox { width: 105px; height: 105px; background: #fff; border-radius: 10px; padding: 7px; box-shadow: 0 4px 20px rgba(124,58,237,0.3); }
+  .qrbox img { width: 100%; height: 100%; display: block; }
+  .qrlabel { font-size: 0.6rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; text-align: right; max-width: 130px; line-height: 1.5; }
+  .qrlabel strong { color: #A78BFA; display: block; font-size: 0.65rem; margin-bottom: 3px; }
   .strip { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #5B21B6, #7C3AED, #06B6D4, #A78BFA, #7C3AED, #5B21B6); }
 </style>
 </head>
 <body>
 <div class="card">
-  <div class="deco" style="width:300px;height:300px;top:-100px;right:-80px;"></div>
-  <div class="deco" style="width:150px;height:150px;bottom:-40px;right:160px;"></div>
+  <div class="deco" style="width:320px;height:320px;top:-110px;right:-90px;"></div>
+  <div class="deco" style="width:140px;height:140px;bottom:-40px;right:150px;"></div>
+
   <div class="left">
     <div class="logo-wrap">
-      <div class="bolt">⚡</div>
+      <div class="icon">⚡</div>
       <div>
         <div class="brand">JY-Trix.Ai</div>
-        <div class="sub">Innovation · Technologie</div>
-        <div class="sub" style="margin-top:2px;">Performance · IA</div>
+        <div class="sub">Innovation · Technologie · IA</div>
       </div>
     </div>
-    <div class="tagline">"Propulsez votre business.<br>L'IA au service de votre croissance."</div>
+    <div class="role-badge">✦ Apporteur d'affaires</div>
     <div class="contacts">
+      <div class="cline"><div class="cicon">👤</div><span><strong>Yanis Coronado-Romero</strong></span></div>
       <div class="cline"><div class="cicon">📞</div><span>+32 489 75 69 27</span></div>
-      <div class="cline"><div class="cicon">🌐</div><span>www.jytrixai.com</span></div>
       <div class="cline"><div class="cicon">📍</div><span>Saint-Ghislain, Belgique</span></div>
+      <div class="cline"><div class="cicon">🌐</div><span>www.jytrixai.com</span></div>
     </div>
   </div>
+
   <div class="divider"></div>
+
   <div class="right">
     <div>
-      <div class="pname">Yanis Coronado-Romero</div>
-      <div class="prole">Fondateur &amp; Expert IA</div>
+      <div style="font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.2em;margin-bottom:4px;">Partenaire officiel</div>
+      <div style="font-size:1.1rem;font-weight:900;color:#fff;text-transform:uppercase;">Espace C — Dour</div>
+      <div style="font-size:0.7rem;color:#A78BFA;font-weight:700;margin-top:2px;">www.oliviertrevis.be/fabiano</div>
     </div>
-    <div class="slist">
-      <div class="sitem"><div class="sdot"></div>Automatisation de workflows pro</div>
-      <div class="sitem"><div class="sdot"></div>Marketing IA &amp; croissance digitale</div>
-      <div class="sitem"><div class="sdot"></div>Intégrations systèmes sur mesure</div>
-      <div class="sitem"><div class="sdot"></div>Stratégie data-driven</div>
-      <div class="sitem"><div class="sdot"></div>Solutions IA pour PME &amp; indépendants</div>
+
+    <div class="offer-box">
+      <div class="offer-title">📺 Notre offre publicitaire</div>
+      <div class="offer-main">Écran géant <span>au cœur de Dour</span></div>
+      <div class="offer-sub">
+        +300 diffusions/jour · Emplacement stratégique<br>
+        Visibilité maximale pour votre entreprise locale
+      </div>
     </div>
+
     <div class="qrsec">
       <div class="qrlabel">
-        <strong>Scannez pour en savoir plus</strong>
-        www.oliviertrevis.be/jytrixai<br>Souscription en ligne disponible
+        <strong>Scannez pour voir l'offre</strong>
+        www.oliviertrevis.be/fabiano<br>
+        Réservez votre espace pub en ligne
       </div>
       <div class="qrbox">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.oliviertrevis.be/jytrixai" alt="QR JY-Trix.Ai"/>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.oliviertrevis.be/fabiano&color=050813&bgcolor=ffffff" alt="QR Espace C"/>
       </div>
     </div>
   </div>
+
   <div class="strip"></div>
 </div>
 </body>
