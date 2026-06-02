@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JS-Innov.IA — Automatisation intelligente</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Raleway', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ====== STARS BACKGROUND ====== */
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* ====== GRADIENT BG ====== */
+    .bg-gradient {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at 30% 40%, rgba(10,20,60,0.9) 0%, rgba(0,0,0,0.97) 70%);
+      z-index: 1;
+    }
+
+    /* ====== MAIN CONTENT ====== */
+    .container {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    /* ====== LOGO / PHOENIX ====== */
+    .phoenix-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .phoenix-glow {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phoenix-glow::before {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(212,160,44,0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+    .phoenix-svg {
+      width: 130px;
+      height: 130px;
+      filter: drop-shadow(0 0 20px rgba(212,160,44,0.8));
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ====== BRAND NAME ====== */
+    .brand {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, #c8922a 0%, #f0c040 40%, #e8a820 60%, #d4a028 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      margin-bottom: 8px;
+      line-height: 1;
+      filter: drop-shadow(0 0 30px rgba(212,160,44,0.5));
+    }
+
+    .brand-dot {
+      background: linear-gradient(135deg, #fff 0%, #d4a028 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ====== SEPARATOR ====== */
+    .separator {
+      width: 180px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #c8922a, #f0c040, #c8922a, transparent);
+      margin: 16px auto;
+      position: relative;
+    }
+    .separator::before {
+      content: '✦';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #f0c040;
+      font-size: 14px;
+    }
+
+    /* ====== TAGLINE ====== */
+    .tagline {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 3vw, 1.6rem);
+      font-weight: 400;
+      color: #e8d8b0;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+      max-width: 600px;
+      margin-bottom: 10px;
+    }
+    .tagline em {
+      color: #f0c040;
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* ====== SUBTITLE ====== */
+    .subtitle {
+      font-size: clamp(0.75rem, 2vw, 0.95rem);
+      color: rgba(200,180,120,0.7);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .subtitle span {
+      margin: 0 8px;
+      color: #c8922a;
+    }
+
+    /* ====== SERVICES GRID ====== */
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      max-width: 700px;
+      margin-bottom: 50px;
+    }
+    .service-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(200,146,42,0.25);
+      border-radius: 12px;
+      padding: 20px 28px;
+      flex: 1 1 150px;
+      max-width: 180px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, #f0c040, transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover {
+      background: rgba(200,146,42,0.08);
+      border-color: rgba(200,146,42,0.5);
+      transform: translateY(-4px);
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .service-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      color: #f0c040;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ====== CTA ====== */
+    .cta-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 40px;
+      background: linear-gradient(135deg, #c8922a, #f0c040, #c8922a);
+      background-size: 200% 200%;
+      color: #000;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      animation: shimmer 3s ease infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .cta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(240,192,64,0.5);
+    }
+
+    .website-url {
+      font-size: 0.85rem;
+      color: rgba(200,180,120,0.6);
+      letter-spacing: 0.15em;
+    }
+    .website-url strong {
+      color: #f0c040;
+    }
+
+    /* ====== FOOTER ====== */
+    .footer {
+      position: relative;
+      z-index: 10;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.7rem;
+      color: rgba(200,180,120,0.3);
+      letter-spacing: 0.1em;
+    }
+
+    /* ====== PARTICLES ====== */
+    .particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #f0c040;
+      border-radius: 50%;
+      opacity: 0;
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.4; }
+      100% { transform: translateY(-100px) scale(1); opacity: 0; }
+    }
+
+    /* ====== MOBILE ====== */
+    @media (max-width: 480px) {
+      .service-card { max-width: 140px; padding: 16px 20px; }
+      .phoenix-svg { width: 100px; height: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- BG -->
+<div class="bg-gradient"></div>
+
+<!-- Gold particles -->
+<div class="particles" id="particles"></div>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- Phoenix logo -->
+  <div class="phoenix-wrap">
+    <div class="phoenix-glow">
+      <svg class="phoenix-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#c8922a"/>
+            <stop offset="40%" style="stop-color:#f0c040"/>
+            <stop offset="100%" style="stop-color:#e8a820"/>
+          </linearGradient>
+          <linearGradient id="blue" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#1a3a6e"/>
+            <stop offset="100%" style="stop-color:#2255a0"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <!-- Body -->
+        <ellipse cx="100" cy="120" rx="22" ry="30" fill="url(#gold)" filter="url(#glow)"/>
+        <!-- Left wing -->
+        <path d="M100 110 Q55 70 30 40 Q50 55 65 75 Q45 50 50 25 Q70 50 75 80 Q60 55 65 35 Q82 65 85 95 Z"
+              fill="url(#gold)" filter="url(#glow)" opacity="0.9"/>
+        <!-- Right wing -->
+        <path d="M100 110 Q145 70 170 40 Q150 55 135 75 Q155 50 150 25 Q130 50 125 80 Q140 55 135 35 Q118 65 115 95 Z"
+              fill="url(#gold)" filter="url(#glow)" opacity="0.9"/>
+        <!-- Tail feathers -->
+        <path d="M90 145 Q80 170 70 185 Q88 165 95 150 Z" fill="url(#gold)" opacity="0.8"/>
+        <path d="M100 148 Q100 175 100 190 Q100 168 100 152 Z" fill="url(#gold)" opacity="0.9"/>
+        <path d="M110 145 Q120 170 130 185 Q112 165 105 150 Z" fill="url(#gold)" opacity="0.8"/>
+        <!-- Head -->
+        <circle cx="100" cy="90" r="14" fill="url(#gold)" filter="url(#glow)"/>
+        <!-- Beak -->
+        <path d="M100 84 L108 88 L100 92 Z" fill="#c8922a"/>
+        <!-- Eye -->
+        <circle cx="96" cy="87" r="3" fill="#1a1a2e"/>
+        <circle cx="97" cy="86" r="1" fill="#f0c040"/>
+        <!-- Crown feathers -->
+        <path d="M92 78 Q88 65 85 55 Q93 68 95 78 Z" fill="url(#gold)" opacity="0.9"/>
+        <path d="M100 76 Q100 62 100 52 Q102 66 102 76 Z" fill="url(#gold)"/>
+        <path d="M108 78 Q112 65 115 55 Q107 68 105 78 Z" fill="url(#gold)" opacity="0.9"/>
+        <!-- Blue accent circles -->
+        <circle cx="60" cy="80" r="4" fill="url(#blue)" opacity="0.7"/>
+        <circle cx="140" cy="80" r="4" fill="url(#blue)" opacity="0.7"/>
+        <circle cx="75" cy="55" r="3" fill="url(#blue)" opacity="0.5"/>
+        <circle cx="125" cy="55" r="3" fill="url(#blue)" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Brand -->
+  <div class="brand">JS-Innov<span class="brand-dot">.</span>IA</div>
+
+  <!-- Separator -->
+  <div class="separator"></div>
+
+  <!-- Tagline -->
+  <p class="tagline">Automatisation <em>intelligente</em>,<br>amplifiée par l'<em>Humain</em>.</p>
+
+  <!-- Subtitle pills -->
+  <p class="subtitle">
+    Développement Web <span>·</span> Intelligence Artificielle <span>·</span> Automatisation <span>·</span> Création Digitale
+  </p>
+
+  <!-- Services -->
+  <div class="services">
+    <div class="service-card">
+      <span class="service-icon">🌐</span>
+      <div class="service-title">Web & Apps</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🤖</span>
+      <div class="service-title">Intelligence IA</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">⚡</span>
+      <div class="service-title">Automatisation</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🎨</span>
+      <div class="service-title">Création Digitale</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <a href="https://www.jsinnovia.com" target="_blank" class="cta-btn">Découvrir JS-Innov.IA</a>
+    <p class="website-url"><strong>www.jsinnovia.com</strong></p>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  © 2026 JS-Innov.IA — Julien Pagin · Tous droits réservés
+</div>
+
+<script>
+  // Generate stars
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      top: ${Math.random() * 100}%;
+      left: ${Math.random() * 100}%;
+      animation-delay: ${Math.random() * 3}s;
+      animation-duration: ${2 + Math.random() * 3}s;
+    `;
+    starsContainer.appendChild(star);
+  }
+
+  // Generate gold particles
+  const particlesContainer = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      animation-delay: ${Math.random() * 8}s;
+      animation-duration: ${6 + Math.random() * 6}s;
+      width: ${Math.random() * 3 + 1}px;
+      height: ${Math.random() * 3 + 1}px;
+    `;
+    particlesContainer.appendChild(p);
+  }
+</script>
+</body>
+</html>
