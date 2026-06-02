@@ -7,6 +7,7 @@ import ContactPage from "./pages/ContactPage";
 import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 import AdminPage from "./pages/AdminPage";
 import MascottePage from "./pages/MascottePage";
+import FabianoPage from "./pages/FabianoPage";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         {/* Pages sans layout (fullscreen) */}
         <Route path="/admin"    element={<AdminPage />} />
         <Route path="/mascotte" element={<MascottePage />} />
+        <Route path="/fabiano"  element={<FabianoPage />} />
 
         {/* Pages avec layout normal */}
         <Route path="/*" element={
@@ -33,4 +35,4 @@ export default function App() {
   );
 }
 
-// rebuild-1779312575
+// rebuild-fabiano-2026
