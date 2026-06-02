@@ -4,7 +4,16 @@
     "prenom": {
       "type": "string"
     },
+    "nom": {
+      "type": "string"
+    },
     "email": {
+      "type": "string"
+    },
+    "code_postal": {
+      "type": "string"
+    },
+    "session_id": {
       "type": "string"
     },
     "score_minier": {
@@ -37,8 +46,8 @@
     "reponse_libre": {
       "type": "string"
     },
-    "session_id": {
-      "type": "string"
+    "consentement_rgpd": {
+      "type": "boolean"
     }
   },
   "required": [],

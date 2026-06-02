@@ -17,3 +17,4 @@ export const Partenaire = makeEntity('Partenaire');
 export const Candidature = makeEntity('Candidature');
 export const MessageContact = makeEntity('MessageContact');
 export const Laureat = makeEntity('Laureat');
+export const MascotteReponse = makeEntity('MascotteReponse');

@@ -433,16 +433,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
 .fb-note{font-size:.62rem;color:rgba(255,255,255,.22);text-align:center;margin-top:-8px;}
 
 /* RGPD */
-.rgpd{display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+.rgpd{display:flex;align-items:flex-start;gap:10px;cursor:pointer;background:rgba(212,122,44,.08);border:1px solid rgba(212,122,44,.35);border-radius:10px;padding:10px 12px;}
 .rbox{
-  width:17px;height:17px;min-width:17px;border-radius:4px;margin-top:2px;
-  border:1px solid rgba(212,122,44,.28);background:rgba(255,255,255,.04);
+  width:20px;height:20px;min-width:20px;border-radius:5px;margin-top:1px;
+  border:2px solid rgba(212,122,44,.7);background:rgba(255,255,255,.08);
   display:flex;align-items:center;justify-content:center;transition:all .2s;
 }
 .rbox.ok{background:var(--or);border-color:var(--or);}
 .rbox.ok::after{content:'✓';font-size:.62rem;font-weight:900;color:#07090D;}
-.rtxt{font-size:.66rem;color:rgba(255,255,255,.32);line-height:1.65;}
-.rtxt a{color:rgba(212,122,44,.5);text-decoration:none;}
+.rtxt{font-size:.68rem;color:rgba(255,255,255,.72);line-height:1.7;}
+.rtxt a{color:rgba(240,201,130,.85);text-decoration:underline;}
 
 /* Bouton envoi */
 .sbtn{
@@ -494,6 +494,36 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
   .q-logo-dour{max-height:14vh;}
   .top-zone{gap:3px;}
   #s-quiz{padding-top:20px;}
+}
+
+/* ── AUDIO PLAYER ── */
+.audio-ctrl{
+  position:fixed;bottom:18px;right:18px;z-index:9999;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(7,9,13,.75);backdrop-filter:blur(12px);
+  border:1px solid rgba(212,122,44,.35);border-radius:50px;
+  padding:7px 14px 7px 10px;cursor:pointer;
+  transition:all .3s;box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+.audio-ctrl:hover{border-color:rgba(212,122,44,.7);background:rgba(7,9,13,.9);}
+.audio-btn{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--or);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform .2s;
+}
+.audio-btn:hover{transform:scale(1.1);}
+.audio-btn svg{width:13px;height:13px;fill:#07090D;}
+.audio-label{font-size:.6rem;color:rgba(255,255,255,.55);line-height:1.3;max-width:90px;}
+.audio-label strong{display:block;color:rgba(240,201,130,.85);font-size:.62rem;}
+.audio-vol{
+  -webkit-appearance:none;appearance:none;
+  width:55px;height:3px;border-radius:2px;
+  background:rgba(255,255,255,.2);outline:none;cursor:pointer;
+}
+.audio-vol::-webkit-slider-thumb{
+  -webkit-appearance:none;width:12px;height:12px;
+  border-radius:50%;background:var(--or);cursor:pointer;
 }
 </style>
 </head>
@@ -576,13 +606,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
       <input class="finput" id="fe" type="email" placeholder="votre@email.com" oninput="chk()"/>
     </div>
 
-    <a class="fb"
-       href="https://www.facebook.com/p/Le-Tour-de-Dour-dOlivier-Trevis-61564157237940"
-       target="_blank" rel="noopener" onclick="fbDone()">
-      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-      👍 Liker la page Facebook du Tour de Dour
-    </a>
-    <p class="fb-note">Cliquer valide votre participation</p>
+
 
     <div class="rgpd" onclick="togR()">
       <div class="rbox" id="rbox"></div>
@@ -605,12 +629,39 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
   </div>
   <div class="done-title">Votre vote est enregistré !</div>
   <p class="done-txt">Merci de contribuer à l'identité du Tour de Dour.<br>Vous serez informé(e) dès que la mascotte sera révélée.<br><br>À très bientôt ! 🦅</p>
+
+  <p style="font-size:.75rem;color:rgba(255,255,255,.45);text-align:center;margin-bottom:8px;">Suivez-nous pour être informé(e) de la révélation !</p>
+  <a class="fb"
+     href="https://www.facebook.com/p/Le-Tour-de-Dour-dOlivier-Trevis-61564157237940"
+     target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    👍 Liker la page Facebook du Tour de Dour
+  </a>
+
   <img class="done-logo"
     src="https://base44.app/api/apps/69ed0a42be17008cf11027eb/files/mp/public/69ed0a42be17008cf11027eb/473857e8a_1a90dc4ba_logo-complet-800.png"
     alt="Js-Innov.IA"/>
   <p class="done-sig">Powered by Js-Innov.IA · www.jsinnovia.com</p>
 </div>
 
+
+<!-- ── AUDIO PLAYER ── -->
+<audio id="bg-audio" loop preload="auto">
+  <source src="/tour-de-dour-theme.mp3" type="audio/mpeg" />
+</audio>
+<div class="audio-ctrl" onclick="toggleAudio()" title="Musique Le Tour de Dour">
+  <button class="audio-btn" id="audio-btn" aria-label="Play/Pause musique">
+    <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="icon-pause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
+  <div class="audio-label">
+    <strong>🎵 Le Tour de Dour</strong>
+    Thème officiel
+  </div>
+  <input class="audio-vol" type="range" min="0" max="1" step="0.05" value="0.35"
+         onclick="event.stopPropagation()"
+         oninput="document.getElementById('bg-audio').volume=this.value" />
+</div>
 <div class="footer"><span>JS-Innov.IA · www.jsinnovia.com</span></div>
 
 <script>
@@ -643,7 +694,7 @@ const QS = [
 ];
 
 /* ── ÉTAT ── */
-let cur = 0, ans = {}, rgpd = false, fb = false, tw = null;
+let cur = 0, ans = {}, rgpd = false, tw = null;
 const $=id=>document.getElementById(id);
 
 /* ── SCÈNE ── */
@@ -897,7 +948,7 @@ function nextQ(){
 }
 
 /* ── FORMULAIRE ── */
-function fbDone(){ fb=true; chk(); }
+
 function togR(){
   rgpd=!rgpd;
   $('rbox').classList.toggle('ok',rgpd);
@@ -916,33 +967,61 @@ async function sub(){
   btn.style.opacity='.5'; btn.style.pointerEvents='none';
 
   const payload={
-    prenom: $('fp').value.trim(),
-    nom:    $('fn').value.trim(),
-    email:  $('fe').value.trim(),
-    profil_dominant: ans[2]||'',
-    score_minier:  0,
-    score_nature:  0,
-    score_festif:  0,
-    score_moderne: 0,
-    message_libre: ans[3]||'',
-    reponses_detail: JSON.stringify({
-      q1_mots:      ans[0]||'',
-      q2_lieux:     ans[1]||'',
-      q3_creature:  ans[2]||'',
-      q4_mascotte:  ans[3]||''
-    }),
+    prenom:           ($('fp') && $('fp').value.trim()) || '',
+    nom:              ($('fn') && $('fn').value.trim()) || '',
+    email:            ($('fe') && $('fe').value.trim()) || '',
+    reponse_mots:     ans[0]||'',
+    reponse_lieux:    ans[1]||'',
+    reponse_creature: ans[2]||'',
+    reponse_mascotte: ans[3]||'',
+    profil_dominant:  'Tour de Dour',
+    consentement_rgpd: true,
     source:'Tour de Dour v2'
   };
 
   try{
-    await fetch(
-      'https://api.base44.com/api/apps/6a0371a87c9257126b051d5a/functions/saveMascotteReponse',
+    const resp = await fetch(
+      'https://site-olivier-6b051d5a.base44.app/functions/saveMascotteReponse',
       {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}
     );
-  }catch(e){ console.log('local', payload); }
+    const result = await resp.json();
+    console.log('Saved:', result);
+  }catch(e){ console.error('Erreur envoi:', e); }
 
   go('s-done'); prog(100);
 }
+
+/* ── AUDIO ── */
+const aud = document.getElementById('bg-audio');
+aud.volume = 0.35;
+let audioStarted = false;
+
+function startAudio(){
+  if(audioStarted) return;
+  aud.play().then(()=>{
+    audioStarted = true;
+    document.getElementById('icon-play').style.display='none';
+    document.getElementById('icon-pause').style.display='block';
+  }).catch(()=>{});
+}
+
+function toggleAudio(){
+  if(aud.paused){
+    aud.play();
+    document.getElementById('icon-play').style.display='none';
+    document.getElementById('icon-pause').style.display='block';
+    audioStarted = true;
+  } else {
+    aud.pause();
+    document.getElementById('icon-play').style.display='block';
+    document.getElementById('icon-pause').style.display='none';
+  }
+}
+
+// Démarrer au premier clic utilisateur (autoplay policy)
+document.addEventListener('click', startAudio, {once:true});
+document.addEventListener('touchstart', startAudio, {once:true});
+
 </script>
 </body>
 </html>
@@ -975,7 +1054,7 @@ export default function MascottePage() {
         title="Questionnaire Mascotte — Tour de Dour"
         className="absolute inset-0 w-full h-full border-0"
         allow="autoplay"
-        sandbox="allow-scripts allow-forms allow-same-origin"
+        sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox"
       />
 
       <motion.button
