@@ -157,11 +157,11 @@ export default function FabianoPage() {
               textAlign: "center",
             }}
           >
-            <div style={{ fontSize: "2rem", marginBottom: 10 }}>🚗</div>
+            <div style={{ fontSize: "2rem", marginBottom: 10 }}>📺</div>
             <div style={{ fontSize: "clamp(3rem, 8vw, 4.5rem)", fontWeight: 900, color: gold, lineHeight: 1 }}>+300</div>
-            <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "rgba(255,255,255,0.6)", marginTop: 8 }}>Passages par jour</div>
+            <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "rgba(255,255,255,0.6)", marginTop: 8 }}>Diffusions par jour</div>
             <div style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)", marginTop: 6 }}>
-              Une visibilité exceptionnelle pour <span style={{ color: gold, fontWeight: 700 }}>développer votre activité !</span>
+              Votre pub diffusée en boucle pour <span style={{ color: gold, fontWeight: 700 }}>développer votre activité !</span>
             </div>
           </motion.div>
 
