@@ -5,6 +5,7 @@ const VIDEO_URL  = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/m
 const HERO_BG    = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/0a96d15c5_espace_c_panneau.png";
 const FLYER_URL  = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/c1cf179ef_fabiano_flyer.png";
 
+const LOGO_JSINNOVIA = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/9f10f06fc_logo_jsinnovia_officiel.jpg";
 const gold     = "#f0c040";
 const goldDark = "#c8922a";
 const navy     = "#0a1628";
@@ -59,7 +60,7 @@ export default function JsInnoviaPage() {
               <span>📍</span><span style={{ fontSize: "0.9rem", fontWeight: 700, color: gold }}>Au cœur de Dour — Espace C</span>
             </div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(200,146,42,0.1)", border: `1px solid rgba(200,146,42,0.3)`, borderRadius: 30, padding: "9px 20px" }}>
-              <span>🦅</span><span style={{ fontSize: "0.85rem", fontWeight: 700, color: "rgba(255,255,255,0.8)" }}>Via JS-Innov.IA</span>
+              <img src={LOGO_JSINNOVIA} alt="JS-Innov.IA" style={{ width: 22, height: 22, borderRadius: "50%", objectFit: "cover" }} /><span style={{ fontSize: "0.85rem", fontWeight: 700, color: "rgba(255,255,255,0.8)" }}>Via JS-Innov.IA</span>
             </div>
           </div>
           <div style={{ marginTop: 28 }}>
@@ -75,7 +76,7 @@ export default function JsInnoviaPage() {
       <section style={{ background: navy2, padding: "50px 6%", borderTop: `1px solid rgba(200,146,42,0.15)` }}>
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
           style={{ maxWidth: 800, margin: "0 auto", display: "flex", alignItems: "center", gap: 32, flexWrap: "wrap" }}>
-          <div style={{ width: 90, height: 90, borderRadius: "50%", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2.8rem", flexShrink: 0, boxShadow: `0 0 40px rgba(240,192,64,0.35)` }}>🦅</div>
+          <div style={{ width: 90, height: 90, borderRadius: "50%", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2.8rem", flexShrink: 0, boxShadow: `0 0 40px rgba(240,192,64,0.35)`, overflow: "hidden", padding: 0 }}><img src={LOGO_JSINNOVIA} alt="JS-Innov.IA" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} /></div>
           <div>
             <div style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: gold, marginBottom: 6 }}>Présenté par</div>
             <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em" }}>JS-Innov<span style={{ color: gold }}>.IA</span></div>
@@ -175,7 +176,7 @@ export default function JsInnoviaPage() {
 
       <footer style={{ background: "#050d1a", borderTop: `1px solid rgba(200,146,42,0.1)`, padding: "26px 6%", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ width: 32, height: 32, borderRadius: "50%", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>🦅</div>
+          <div style={{ width: 32, height: 32, borderRadius: "50%", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", overflow: "hidden", padding: 0 }}><img src={LOGO_JSINNOVIA} alt="JS-Innov.IA" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} /></div>
           <div>
             <div style={{ fontWeight: 800, fontSize: "0.9rem", color: gold }}>JS-Innov.IA</div>
             <div style={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Apporteur d'affaires officiel — Espace C Dour</div>
