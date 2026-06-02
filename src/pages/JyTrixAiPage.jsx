@@ -1,135 +1,194 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-const purple      = "#7C3AED";
-const purpleLight = "#A78BFA";
-const purpleDark  = "#5B21B6";
-const cyan        = "#06B6D4";
-const dark        = "#050813";
-const dark2       = "#0A0F1E";
+const VIDEO_URL  = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/6ce59e8d5_edde88ced_video_2210493929742265.mp4";
+const HERO_BG    = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/0a96d15c5_espace_c_panneau.png";
+const FLYER_URL  = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/c1cf179ef_fabiano_flyer.png";
 
-const SERVICES = [
-  { icon: "⚡", titre: "Automatisation Pro", desc: "Workflows intelligents qui travaillent à votre place 24h/24, 7j/7." },
-  { icon: "🎯", titre: "Marketing IA", desc: "Campagnes ciblées et personnalisées grâce à l'intelligence artificielle." },
-  { icon: "🔗", titre: "Intégrations sur mesure", desc: "Connectez tous vos outils métier en un écosystème cohérent et puissant." },
-  { icon: "🚀", titre: "Croissance accélérée", desc: "Stratégies data-driven pour propulser votre business au niveau supérieur." },
-];
+const gold     = "#f0c040";
+const goldDark = "#c8922a";
+const navy     = "#0a1628";
+const navy2    = "#0d1f3c";
 
 export default function JyTrixAiPage() {
+  const videoRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
   const [form, setForm] = useState({ prenom: "", nom: "", email: "", telephone: "", message: "" });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
-  const [error, setError] = useState("");
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) { videoRef.current.play(); setPlaying(true); }
+    else { videoRef.current.pause(); setPlaying(false); }
+  };
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
-    setError("");
     try {
-      const res = await fetch("/api/functions/saveMascotteReponse", {
+      await fetch("/api/functions/saveMascotteReponse", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          _type: "jytrixai_lead",
-          prenom: form.prenom, nom: form.nom,
-          email: form.email, telephone: form.telephone,
-          reponse_libre: form.message,
-          consentement_rgpd: true, profil: "lead_jytrixai",
-        }),
+        body: JSON.stringify({ ...form, profil: "lead_jytrixai_ecran", consentement_rgpd: true }),
       });
-      if (res.ok) setSent(true);
-      else setError("Une erreur est survenue. Veuillez réessayer.");
-    } catch { setError("Connexion impossible. Veuillez réessayer."); }
+      setSent(true);
+    } catch {}
     setSending(false);
   };
 
   return (
-    <div style={{ fontFamily: "'Montserrat', sans-serif", background: dark, color: "#fff", minHeight: "100vh", overflowX: "hidden" }}>
-      <section style={{ minHeight: "85vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", padding: "80px 6% 60px", background: `radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.2) 0%, transparent 70%), ${dark}` }}>
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} style={{ marginBottom: 32 }}>
-          <div style={{ width: 100, height: 100, borderRadius: "50%", background: `linear-gradient(135deg, ${purpleDark}, ${purple}, ${cyan})`, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 0 60px rgba(124,58,237,0.5)`, margin: "0 auto", fontSize: "3rem" }}>⚡</div>
+    <div style={{ fontFamily: "'Montserrat', sans-serif", background: navy, color: "#fff", minHeight: "100vh", overflowX: "hidden" }}>
+
+      {/* ══ HERO ══ */}
+      <section style={{ position: "relative", minHeight: "92vh", display: "flex", flexDirection: "column", justifyContent: "flex-end", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${HERO_BG})`, backgroundSize: "cover", backgroundPosition: "center 40%", filter: "brightness(0.65)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(10,22,40,0.05) 0%, rgba(10,22,40,0.4) 55%, rgba(10,22,40,0.98) 100%)" }} />
+        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.16,1,0.3,1] }}
+          style={{ position: "relative", zIndex: 10, padding: "40px 6% 60px", maxWidth: 760 }}>
+          <p style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: 14 }}>
+            JY-Trix.Ai · Apporteur d'affaires · Espace C Dour
+          </p>
+          <h1 style={{ fontSize: "clamp(2.2rem, 7vw, 5rem)", fontWeight: 900, textTransform: "uppercase", lineHeight: 1.05 }}>Votre entreprise</h1>
+          <h1 style={{ fontSize: "clamp(2rem, 6vw, 4.2rem)", fontWeight: 900, textTransform: "uppercase", color: gold, lineHeight: 1.05 }}>mérite d'être</h1>
+          <h1 style={{ fontSize: "clamp(4rem, 13vw, 9rem)", fontWeight: 900, textTransform: "uppercase", color: gold, lineHeight: 0.88, marginBottom: 28, textShadow: `0 0 70px rgba(240,192,64,0.45)` }}>VUE !</h1>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(200,146,42,0.18)", border: `1px solid rgba(200,146,42,0.45)`, borderRadius: 30, padding: "9px 20px" }}>
+              <span>📍</span>
+              <span style={{ fontSize: "0.9rem", fontWeight: 700, color: gold }}>Au cœur de Dour — Espace C</span>
+            </div>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(200,146,42,0.1)", border: `1px solid rgba(200,146,42,0.3)`, borderRadius: 30, padding: "9px 20px" }}>
+              <span>⚡</span>
+              <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "rgba(255,255,255,0.8)" }}>Via JY-Trix.Ai</span>
+            </div>
+          </div>
+          <div style={{ marginTop: 28 }}>
+            <a href="#contact" style={{ display: "inline-block", padding: "14px 36px", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, color: "#000", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "0.85rem", borderRadius: 50, textDecoration: "none", boxShadow: `0 6px 30px rgba(240,192,64,0.4)` }}>
+              Réserver mon espace pub →
+            </a>
+          </div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
-          <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.3em", textTransform: "uppercase", color: purpleLight, marginBottom: 14 }}>Innovation · Technologie · Performance</p>
-          <h1 style={{ fontSize: "clamp(2.5rem, 8vw, 5rem)", fontWeight: 900, textTransform: "uppercase", lineHeight: 1.05, marginBottom: 10 }}>JY-Trix<span style={{ color: purpleLight }}>.Ai</span></h1>
-          <p style={{ fontSize: "clamp(1rem, 2.5vw, 1.35rem)", color: "rgba(255,255,255,0.6)", maxWidth: 560, margin: "0 auto 36px", lineHeight: 1.7 }}>Solutions IA innovantes pour propulser votre entreprise. Automatisation, marketing et croissance digitale à Saint-Ghislain et en Belgique.</p>
-          <a href="#contact" style={{ display: "inline-block", padding: "15px 38px", background: `linear-gradient(135deg, ${purpleDark}, ${purple})`, color: "#fff", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "0.85rem", borderRadius: 50, textDecoration: "none", boxShadow: `0 6px 30px rgba(124,58,237,0.45)` }}>Démarrer mon projet →</a>
+        <motion.div style={{ position: "absolute", bottom: 22, left: "50%", transform: "translateX(-50%)", zIndex: 10 }} animate={{ y: [0,8,0] }} transition={{ duration: 1.8, repeat: Infinity }}>
+          <div style={{ width: 22, height: 22, borderRight: `2px solid ${gold}`, borderBottom: `2px solid ${gold}`, transform: "rotate(45deg)", opacity: 0.55 }} />
         </motion.div>
       </section>
 
-      <section style={{ padding: "70px 6%", background: dark2, borderTop: `1px solid rgba(124,58,237,0.2)` }}>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: purpleLight, marginBottom: 10 }}>Nos services</p>
-          <h2 style={{ fontSize: "clamp(1.4rem, 3.5vw, 2.2rem)", fontWeight: 800, textTransform: "uppercase" }}>Ce que <span style={{ color: purpleLight }}>JY-Trix.Ai</span> fait pour vous</h2>
-          <div style={{ width: 55, height: 3, background: `linear-gradient(90deg, ${purpleDark}, ${cyan})`, margin: "14px auto 0", borderRadius: 2 }} />
+      {/* ══ FLYER ══ */}
+      <section style={{ background: navy2, padding: "60px 6%", borderTop: `1px solid rgba(200,146,42,0.15)` }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
+          style={{ maxWidth: 680, margin: "0 auto", textAlign: "center" }}>
+          <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: gold, marginBottom: 10 }}>Découvrez l'offre</p>
+          <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 2rem)", fontWeight: 800, textTransform: "uppercase", marginBottom: 28 }}>
+            Diffusez votre publicité<br /><span style={{ color: gold }}>sur notre écran géant</span>
+          </h2>
+          <img src={FLYER_URL} alt="Flyer écran géant Espace C" style={{ width: "100%", borderRadius: 16, border: `1px solid rgba(200,146,42,0.3)`, boxShadow: `0 0 50px rgba(200,146,42,0.12), 0 20px 50px rgba(0,0,0,0.5)` }} />
         </motion.div>
-        <div style={{ maxWidth: 960, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 22 }}>
-          {SERVICES.map((s, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: i * 0.1 }} viewport={{ once: true }}
-              style={{ background: "rgba(124,58,237,0.08)", border: `1px solid rgba(124,58,237,0.25)`, borderRadius: 16, padding: "30px 24px", textAlign: "center" }}>
-              <div style={{ fontSize: "2.2rem", marginBottom: 14 }}>{s.icon}</div>
-              <h3 style={{ fontSize: "1rem", fontWeight: 800, textTransform: "uppercase", color: purpleLight, marginBottom: 10 }}>{s.titre}</h3>
-              <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>{s.desc}</p>
+      </section>
+
+      {/* ══ VIDÉO ══ */}
+      <section style={{ background: `linear-gradient(135deg, ${navy} 0%, ${navy2} 100%)`, padding: "70px 6%" }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }} style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 36 }}>
+            <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: gold, marginBottom: 10 }}>▶ Vidéo promotionnelle</p>
+            <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 2rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 1.2 }}>
+              Voyez votre pub<br /><span style={{ color: gold }}>en action sur l'écran</span>
+            </h2>
+            <div style={{ width: 55, height: 3, background: `linear-gradient(90deg, ${goldDark}, ${gold})`, margin: "14px auto 0", borderRadius: 2 }} />
+          </div>
+          <div onClick={togglePlay} style={{ position: "relative", borderRadius: 16, overflow: "hidden", border: `1px solid rgba(200,146,42,0.3)`, boxShadow: `0 0 60px rgba(200,146,42,0.15), 0 20px 60px rgba(0,0,0,0.5)`, cursor: "pointer", background: "#000" }}>
+            <video ref={videoRef} src={VIDEO_URL} style={{ width: "100%", display: "block", maxHeight: "70vh", objectFit: "contain" }} onEnded={() => setPlaying(false)} playsInline />
+            {!playing && (
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.35)" }}>
+                <motion.div whileHover={{ scale: 1.1 }} style={{ width: 72, height: 72, borderRadius: "50%", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 0 30px rgba(240,192,64,0.5)` }}>
+                  <div style={{ width: 0, height: 0, borderStyle: "solid", borderWidth: "14px 0 14px 26px", borderColor: `transparent transparent transparent #000`, marginLeft: 4 }} />
+                </motion.div>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ══ STATS ══ */}
+      <section style={{ background: navy2, padding: "60px 6%", borderTop: `1px solid rgba(200,146,42,0.12)` }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 22 }}>
+          {[
+            { icon: "📺", stat: "+300", label: "Diffusions par jour", sub: "Votre pub diffusée en boucle pour développer votre activité !" },
+            { icon: "📍", title: "Au cœur de Dour", label: "ESPACE C", sub: "Emplacement stratégique n°1 dans la ville" },
+            { icon: "⚡", title: "Votre contact", label: "JY-Trix.Ai", sub: "Yanis Coronado-Romero · +32 489 75 69 27" },
+          ].map((s, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: i*0.1 }} viewport={{ once: true }}
+              style={{ background: "rgba(200,146,42,0.08)", border: `1px solid ${goldDark}`, borderRadius: 16, padding: "34px 26px", textAlign: "center" }}>
+              <div style={{ fontSize: "2rem", marginBottom: 10 }}>{s.icon}</div>
+              {s.stat ? <div style={{ fontSize: "clamp(2.5rem,8vw,4.5rem)", fontWeight: 900, color: gold, lineHeight: 1 }}>{s.stat}</div>
+                : <div style={{ fontSize: "1.6rem", fontWeight: 900, color: "#fff", lineHeight: 1.1 }}>{s.title}</div>}
+              <div style={{ fontSize: "0.73rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: gold, marginTop: 8 }}>{s.label}</div>
+              <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.45)", marginTop: 6 }}>{s.sub}</div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      <section id="contact" style={{ padding: "70px 6%", background: dark }}>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} style={{ maxWidth: 620, margin: "0 auto" }}>
+      {/* ══ CONTACT ══ */}
+      <section id="contact" style={{ background: navy, padding: "70px 6%", borderTop: `1px solid rgba(200,146,42,0.12)` }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }} style={{ maxWidth: 640, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 44 }}>
-            <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: purpleLight, marginBottom: 10 }}>Contact</p>
-            <h2 style={{ fontSize: "clamp(1.4rem, 3.5vw, 2.2rem)", fontWeight: 800, textTransform: "uppercase" }}>Parlons de votre <span style={{ color: purpleLight }}>projet</span></h2>
-            <div style={{ width: 55, height: 3, background: `linear-gradient(90deg, ${purpleDark}, ${cyan})`, margin: "14px auto 0", borderRadius: 2 }} />
+            <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: gold, marginBottom: 10 }}>Passez à l'action</p>
+            <h2 style={{ fontSize: "clamp(1.4rem, 3.5vw, 2.2rem)", fontWeight: 800, textTransform: "uppercase" }}>
+              Réservez votre <span style={{ color: gold }}>espace publicitaire</span>
+            </h2>
+            <div style={{ width: 55, height: 3, background: `linear-gradient(90deg, ${goldDark}, ${gold})`, margin: "14px auto 0", borderRadius: 2 }} />
+            <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)", marginTop: 14 }}>Yanis Coronado-Romero · +32 489 75 69 27</p>
           </div>
           {sent ? (
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "50px 30px", background: "rgba(124,58,237,0.08)", border: `1px solid ${purple}`, borderRadius: 20 }}>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+              style={{ textAlign: "center", padding: "50px 30px", background: "rgba(200,146,42,0.08)", border: `1px solid ${gold}`, borderRadius: 20 }}>
               <div style={{ fontSize: "3rem", marginBottom: 16 }}>✅</div>
-              <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: purpleLight, marginBottom: 10 }}>Demande envoyée !</h3>
-              <p style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>Merci ! Yanis vous contactera très prochainement.<br /><strong style={{ color: purpleLight }}>+32 489 75 69 27</strong></p>
+              <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: gold, marginBottom: 10 }}>Demande envoyée !</h3>
+              <p style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>Yanis vous recontacte dans les 24h pour finaliser votre espace pub sur l'écran géant Espace C.</p>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 18 }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
-                {[["prenom", "Prénom *"], ["nom", "Nom *"]].map(([name, label]) => (
-                  <div key={name}>
-                    <label style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>{label}</label>
-                    <input name={name} value={form[name]} onChange={handleChange} required style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.05)", border: `1px solid rgba(124,58,237,0.3)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", boxSizing: "border-box" }} />
+                {[["prenom","Prénom *"],["nom","Nom *"]].map(([n,l]) => (
+                  <div key={n}>
+                    <label style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>{l}</label>
+                    <input name={n} value={form[n]} onChange={handleChange} required style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.06)", border: `1px solid rgba(200,146,42,0.25)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", boxSizing: "border-box" }} />
                   </div>
                 ))}
               </div>
-              {[["email", "Email *", "email"], ["telephone", "Téléphone", "tel"]].map(([name, label, type]) => (
-                <div key={name}>
-                  <label style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>{label}</label>
-                  <input name={name} type={type} value={form[name]} onChange={handleChange} required={name === "email"} style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.05)", border: `1px solid rgba(124,58,237,0.3)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", boxSizing: "border-box" }} />
+              {[["email","Email *","email"],["telephone","Téléphone","tel"]].map(([n,l,t]) => (
+                <div key={n}>
+                  <label style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>{l}</label>
+                  <input name={n} type={t} value={form[n]} onChange={handleChange} required={n==="email"} style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.06)", border: `1px solid rgba(200,146,42,0.25)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", boxSizing: "border-box" }} />
                 </div>
               ))}
               <div>
-                <label style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>Votre projet *</label>
-                <textarea name="message" value={form.message} onChange={handleChange} required rows={4} placeholder="Décrivez votre besoin..." style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.05)", border: `1px solid rgba(124,58,237,0.3)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", resize: "vertical", boxSizing: "border-box" }} />
+                <label style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>Nom de votre entreprise / message</label>
+                <textarea name="message" value={form.message} onChange={handleChange} rows={3} placeholder="Ex: Garage Martin — je veux savoir les tarifs..." style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.06)", border: `1px solid rgba(200,146,42,0.25)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", resize: "vertical", boxSizing: "border-box" }} />
               </div>
-              {error && <p style={{ color: "#ff6b6b", fontSize: "0.85rem" }}>{error}</p>}
               <motion.button type="submit" disabled={sending} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                style={{ padding: "16px 36px", background: sending ? "rgba(124,58,237,0.4)" : `linear-gradient(135deg, ${purpleDark}, ${purple})`, color: "#fff", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "0.9rem", border: "none", borderRadius: 50, cursor: sending ? "not-allowed" : "pointer", boxShadow: `0 6px 30px rgba(124,58,237,0.4)` }}>
-                {sending ? "Envoi en cours..." : "Envoyer ma demande →"}
+                style={{ padding: "16px 36px", background: sending ? "rgba(200,146,42,0.4)" : `linear-gradient(135deg, ${goldDark}, ${gold})`, color: "#000", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "0.9rem", border: "none", borderRadius: 50, cursor: sending ? "not-allowed" : "pointer", boxShadow: `0 6px 30px rgba(200,146,42,0.35)` }}>
+                {sending ? "Envoi en cours..." : "Je veux être visible ! →"}
               </motion.button>
-              <p style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)", textAlign: "center" }}>Vos données sont utilisées uniquement pour vous recontacter. Aucun spam.</p>
             </form>
           )}
         </motion.div>
       </section>
 
-      <footer style={{ background: "#020509", borderTop: `1px solid rgba(124,58,237,0.15)`, padding: "28px 6%", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14 }}>
+      {/* ══ FOOTER ══ */}
+      <footer style={{ background: "#050d1a", borderTop: `1px solid rgba(200,146,42,0.1)`, padding: "26px 6%", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ width: 32, height: 32, borderRadius: "50%", background: `linear-gradient(135deg, ${purpleDark}, ${cyan})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>⚡</div>
+          <div style={{ width: 32, height: 32, borderRadius: "50%", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>⚡</div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: "0.95rem", color: purpleLight }}>JY-Trix.Ai</div>
-            <div style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Innovation · Technologie · Performance</div>
+            <div style={{ fontWeight: 800, fontSize: "0.9rem", color: gold }}>JY-Trix.Ai</div>
+            <div style={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Apporteur d'affaires — Écran géant Espace C</div>
           </div>
         </div>
-        <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.3)" }}>+32 489 75 69 27 · Saint-Ghislain · <a href="https://www.jytrixai.com" style={{ color: purpleLight, textDecoration: "none" }}>www.jytrixai.com</a></div>
+        <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.3)" }}>
+          +32 489 75 69 27 · Saint-Ghislain · <a href="https://www.oliviertrevis.be/fabiano" style={{ color: gold, textDecoration: "none" }}>www.oliviertrevis.be/fabiano</a>
+        </div>
       </footer>
     </div>
   );
