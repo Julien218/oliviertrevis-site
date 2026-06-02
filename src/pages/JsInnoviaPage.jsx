@@ -56,18 +56,14 @@ export default function JsInnoviaPage() {
           <h1 style={{ fontSize: "clamp(4rem, 13vw, 9rem)", fontWeight: 900, textTransform: "uppercase", color: gold, lineHeight: 0.88, marginBottom: 28, textShadow: `0 0 70px rgba(240,192,64,0.45)` }}>VUE !</h1>
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(200,146,42,0.18)", border: `1px solid rgba(200,146,42,0.45)`, borderRadius: 30, padding: "9px 20px" }}>
-              <span>📍</span>
-              <span style={{ fontSize: "0.9rem", fontWeight: 700, color: gold }}>Au cœur de Dour — Espace C</span>
+              <span>📍</span><span style={{ fontSize: "0.9rem", fontWeight: 700, color: gold }}>Au cœur de Dour — Espace C</span>
             </div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(200,146,42,0.1)", border: `1px solid rgba(200,146,42,0.3)`, borderRadius: 30, padding: "9px 20px" }}>
-              <span>🦅</span>
-              <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "rgba(255,255,255,0.8)" }}>Via JS-Innov.IA</span>
+              <span>🦅</span><span style={{ fontSize: "0.85rem", fontWeight: 700, color: "rgba(255,255,255,0.8)" }}>Via JS-Innov.IA</span>
             </div>
           </div>
           <div style={{ marginTop: 28 }}>
-            <a href="#contact" style={{ display: "inline-block", padding: "14px 36px", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, color: "#000", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "0.85rem", borderRadius: 50, textDecoration: "none", boxShadow: `0 6px 30px rgba(240,192,64,0.4)` }}>
-              Réserver mon espace pub →
-            </a>
+            <a href="#contact" style={{ display: "inline-block", padding: "14px 36px", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, color: "#000", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "0.85rem", borderRadius: 50, textDecoration: "none", boxShadow: `0 6px 30px rgba(240,192,64,0.4)` }}>Réserver mon espace pub →</a>
           </div>
         </motion.div>
         <motion.div style={{ position: "absolute", bottom: 22, left: "50%", transform: "translateX(-50%)", zIndex: 10 }} animate={{ y: [0,8,0] }} transition={{ duration: 1.8, repeat: Infinity }}>
@@ -75,14 +71,25 @@ export default function JsInnoviaPage() {
         </motion.div>
       </section>
 
+      {/* ══ LOGO + INTRO JS-Innov.IA ══ */}
+      <section style={{ background: navy2, padding: "50px 6%", borderTop: `1px solid rgba(200,146,42,0.15)` }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
+          style={{ maxWidth: 800, margin: "0 auto", display: "flex", alignItems: "center", gap: 32, flexWrap: "wrap" }}>
+          <div style={{ width: 90, height: 90, borderRadius: "50%", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2.8rem", flexShrink: 0, boxShadow: `0 0 40px rgba(240,192,64,0.35)` }}>🦅</div>
+          <div>
+            <div style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: gold, marginBottom: 6 }}>Présenté par</div>
+            <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em" }}>JS-Innov<span style={{ color: gold }}>.IA</span></div>
+            <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)", marginTop: 4 }}>Intelligence Artificielle · Amplifiée par l'Humain · Dour, Belgique</div>
+            <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.7)", marginTop: 8 }}>📞 +32 494 11 90 90 · 📧 contact@jsinnovia.com</div>
+          </div>
+        </motion.div>
+      </section>
+
       {/* ══ FLYER ══ */}
-      <section style={{ background: navy2, padding: "60px 6%", borderTop: `1px solid rgba(200,146,42,0.15)` }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
-          style={{ maxWidth: 680, margin: "0 auto", textAlign: "center" }}>
+      <section style={{ background: navy, padding: "60px 6%" }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }} style={{ maxWidth: 680, margin: "0 auto", textAlign: "center" }}>
           <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: gold, marginBottom: 10 }}>Découvrez l'offre</p>
-          <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 2rem)", fontWeight: 800, textTransform: "uppercase", marginBottom: 28 }}>
-            Diffusez votre publicité<br /><span style={{ color: gold }}>sur notre écran géant</span>
-          </h2>
+          <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 2rem)", fontWeight: 800, textTransform: "uppercase", marginBottom: 28 }}>Diffusez votre publicité<br /><span style={{ color: gold }}>sur notre écran géant</span></h2>
           <img src={FLYER_URL} alt="Flyer écran géant Espace C" style={{ width: "100%", borderRadius: 16, border: `1px solid rgba(200,146,42,0.3)`, boxShadow: `0 0 50px rgba(200,146,42,0.12), 0 20px 50px rgba(0,0,0,0.5)` }} />
         </motion.div>
       </section>
@@ -92,9 +99,7 @@ export default function JsInnoviaPage() {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }} style={{ maxWidth: 900, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 36 }}>
             <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: gold, marginBottom: 10 }}>▶ Vidéo promotionnelle</p>
-            <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 2rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 1.2 }}>
-              Voyez votre pub<br /><span style={{ color: gold }}>en action sur l'écran</span>
-            </h2>
+            <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 2rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 1.2 }}>Voyez votre pub<br /><span style={{ color: gold }}>en action sur l'écran</span></h2>
             <div style={{ width: 55, height: 3, background: `linear-gradient(90deg, ${goldDark}, ${gold})`, margin: "14px auto 0", borderRadius: 2 }} />
           </div>
           <div onClick={togglePlay} style={{ position: "relative", borderRadius: 16, overflow: "hidden", border: `1px solid rgba(200,146,42,0.3)`, boxShadow: `0 0 60px rgba(200,146,42,0.15), 0 20px 60px rgba(0,0,0,0.5)`, cursor: "pointer", background: "#000" }}>
@@ -114,15 +119,15 @@ export default function JsInnoviaPage() {
       <section style={{ background: navy2, padding: "60px 6%", borderTop: `1px solid rgba(200,146,42,0.12)` }}>
         <div style={{ maxWidth: 900, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 22 }}>
           {[
-            { icon: "📺", stat: "+300", label: "Diffusions par jour", sub: "Votre pub diffusée en boucle pour développer votre activité !" },
-            { icon: "📍", stat: null, label: "ESPACE C", sub: "Emplacement stratégique n°1 au cœur de Dour", title: "Au cœur de Dour" },
-            { icon: "🦅", stat: null, label: "JS-Innov.IA", sub: "Votre apporteur d'affaires local — contact@jsinnovia.com", title: "Votre contact" },
+            { icon: "📺", stat: "+300", label: "Diffusions par jour", sub: "Votre pub diffusée en boucle non-stop !" },
+            { icon: "📍", title: "Au cœur de Dour", label: "ESPACE C", sub: "Emplacement stratégique n°1 dans la ville" },
+            { icon: "💰", title: "Tarifs accessibles", label: "PME & Indépendants", sub: "Contactez-nous pour un devis personnalisé" },
           ].map((s, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: i*0.1 }} viewport={{ once: true }}
               style={{ background: "rgba(200,146,42,0.08)", border: `1px solid ${goldDark}`, borderRadius: 16, padding: "34px 26px", textAlign: "center" }}>
               <div style={{ fontSize: "2rem", marginBottom: 10 }}>{s.icon}</div>
               {s.stat ? <div style={{ fontSize: "clamp(2.5rem,8vw,4.5rem)", fontWeight: 900, color: gold, lineHeight: 1 }}>{s.stat}</div>
-                : <div style={{ fontSize: "1.6rem", fontWeight: 900, color: "#fff", lineHeight: 1.1 }}>{s.title}</div>}
+                : <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "#fff", lineHeight: 1.2 }}>{s.title}</div>}
               <div style={{ fontSize: "0.73rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: gold, marginTop: 8 }}>{s.label}</div>
               <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.45)", marginTop: 6 }}>{s.sub}</div>
             </motion.div>
@@ -135,15 +140,12 @@ export default function JsInnoviaPage() {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }} style={{ maxWidth: 640, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 44 }}>
             <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: gold, marginBottom: 10 }}>Passez à l'action</p>
-            <h2 style={{ fontSize: "clamp(1.4rem, 3.5vw, 2.2rem)", fontWeight: 800, textTransform: "uppercase" }}>
-              Réservez votre <span style={{ color: gold }}>espace publicitaire</span>
-            </h2>
+            <h2 style={{ fontSize: "clamp(1.4rem, 3.5vw, 2.2rem)", fontWeight: 800, textTransform: "uppercase" }}>Réservez votre <span style={{ color: gold }}>espace publicitaire</span></h2>
             <div style={{ width: 55, height: 3, background: `linear-gradient(90deg, ${goldDark}, ${gold})`, margin: "14px auto 0", borderRadius: 2 }} />
-            <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)", marginTop: 14 }}>Julien Pagin · contact@jsinnovia.com · +32 494 11 90 90</p>
+            <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)", marginTop: 14 }}>Julien Pagin · JS-Innov.IA · contact@jsinnovia.com · +32 494 11 90 90</p>
           </div>
           {sent ? (
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-              style={{ textAlign: "center", padding: "50px 30px", background: "rgba(200,146,42,0.08)", border: `1px solid ${gold}`, borderRadius: 20 }}>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "50px 30px", background: "rgba(200,146,42,0.08)", border: `1px solid ${gold}`, borderRadius: 20 }}>
               <div style={{ fontSize: "3rem", marginBottom: 16 }}>✅</div>
               <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: gold, marginBottom: 10 }}>Demande envoyée !</h3>
               <p style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>Julien vous recontacte dans les 24h pour finaliser votre espace pub sur l'écran géant Espace C.</p>
@@ -152,22 +154,16 @@ export default function JsInnoviaPage() {
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 18 }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
                 {[["prenom","Prénom *"],["nom","Nom *"]].map(([n,l]) => (
-                  <div key={n}>
-                    <label style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>{l}</label>
-                    <input name={n} value={form[n]} onChange={handleChange} required style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.06)", border: `1px solid rgba(200,146,42,0.25)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", boxSizing: "border-box" }} />
-                  </div>
+                  <div key={n}><label style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>{l}</label>
+                  <input name={n} value={form[n]} onChange={handleChange} required style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.06)", border: `1px solid rgba(200,146,42,0.25)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", boxSizing: "border-box" }} /></div>
                 ))}
               </div>
               {[["email","Email *","email"],["telephone","Téléphone","tel"]].map(([n,l,t]) => (
-                <div key={n}>
-                  <label style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>{l}</label>
-                  <input name={n} type={t} value={form[n]} onChange={handleChange} required={n==="email"} style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.06)", border: `1px solid rgba(200,146,42,0.25)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", boxSizing: "border-box" }} />
-                </div>
+                <div key={n}><label style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>{l}</label>
+                <input name={n} type={t} value={form[n]} onChange={handleChange} required={n==="email"} style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.06)", border: `1px solid rgba(200,146,42,0.25)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", boxSizing: "border-box" }} /></div>
               ))}
-              <div>
-                <label style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>Nom de votre entreprise / message</label>
-                <textarea name="message" value={form.message} onChange={handleChange} rows={3} placeholder="Ex: Boucherie Dupont — je veux savoir les tarifs..." style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.06)", border: `1px solid rgba(200,146,42,0.25)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", resize: "vertical", boxSizing: "border-box" }} />
-              </div>
+              <div><label style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.45)", display: "block", marginBottom: 7 }}>Nom de votre entreprise / message</label>
+              <textarea name="message" value={form.message} onChange={handleChange} rows={3} placeholder="Ex: Boucherie Dupont — je veux connaître les tarifs..." style={{ width: "100%", padding: "13px 16px", background: "rgba(255,255,255,0.06)", border: `1px solid rgba(200,146,42,0.25)`, borderRadius: 10, color: "#fff", fontSize: "0.95rem", resize: "vertical", boxSizing: "border-box" }} /></div>
               <motion.button type="submit" disabled={sending} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 style={{ padding: "16px 36px", background: sending ? "rgba(200,146,42,0.4)" : `linear-gradient(135deg, ${goldDark}, ${gold})`, color: "#000", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "0.9rem", border: "none", borderRadius: 50, cursor: sending ? "not-allowed" : "pointer", boxShadow: `0 6px 30px rgba(200,146,42,0.35)` }}>
                 {sending ? "Envoi en cours..." : "Je veux être visible ! →"}
@@ -177,18 +173,15 @@ export default function JsInnoviaPage() {
         </motion.div>
       </section>
 
-      {/* ══ FOOTER ══ */}
       <footer style={{ background: "#050d1a", borderTop: `1px solid rgba(200,146,42,0.1)`, padding: "26px 6%", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{ width: 32, height: 32, borderRadius: "50%", background: `linear-gradient(135deg, ${goldDark}, ${gold})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>🦅</div>
           <div>
             <div style={{ fontWeight: 800, fontSize: "0.9rem", color: gold }}>JS-Innov.IA</div>
-            <div style={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Apporteur d'affaires — Écran géant Espace C</div>
+            <div style={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Apporteur d'affaires officiel — Espace C Dour</div>
           </div>
         </div>
-        <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.3)" }}>
-          contact@jsinnovia.com · +32 494 11 90 90 · <a href="https://www.oliviertrevis.be/fabiano" style={{ color: gold, textDecoration: "none" }}>www.oliviertrevis.be/fabiano</a>
-        </div>
+        <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.3)" }}>contact@jsinnovia.com · +32 494 11 90 90 · www.jsinnovia.com</div>
       </footer>
     </div>
   );
