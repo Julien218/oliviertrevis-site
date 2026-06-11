@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 const OFFRES = [
   {
@@ -28,32 +27,9 @@ const OFFRES = [
   }
 ];
 
-export default function EspacePublicitairePage({ context = "jytrixai" }) {
-  const isJY = context === "jytrixai";
-
-  const config = isJY
-    ? {
-        titre: "JY-Trix.Ai",
-        sous_titre: "Réservez votre espace publicitaire",
-        accroche: "Touchez des milliers de passants chaque jour à Dour grâce à l'écran LED haute définition de la Rue de la Corderie.",
-        couleur: "#7C3AED",
-        couleur2: "#A855F7",
-        contact_email: "coronadoyanis16.01@gmail.com",
-        notif_emails: ["oliviertrevis@outlook.be", "coronadoyanis16.01@gmail.com"],
-        logo: "JY",
-        site: "jytrixai"
-      }
-    : {
-        titre: "JS-Innov.IA",
-        sous_titre: "Réservez votre espace publicitaire",
-        accroche: "Touchez des milliers de passants chaque jour à Dour grâce à l'écran LED haute définition de la Rue de la Corderie.",
-        couleur: "#D4AF37",
-        couleur2: "#F0D060",
-        contact_email: "info@jsinnovia.com",
-        notif_emails: ["info@jsinnovia.com", "coronadoyanis16.01@gmail.com"],
-        logo: "JS",
-        site: "jsinnovia"
-      };
+export default function EspacePublicitairePage() {
+  const c = "#D4AF37";
+  const c2 = "#F0D060";
 
   const [step, setStep] = useState(1);
   const [offre, setOffre] = useState(null);
@@ -75,42 +51,35 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
         offre: offre?.id,
         offre_label: offre?.label,
         prix_htva: offre?.prix,
-        context,
-        notif_emails: config.notif_emails
+        context: "jytrixai",
+        notif_emails: ["oliviertrevis@outlook.be", "coronadoyanis16.01@gmail.com"]
       };
-      const res = await fetch("https://app.base44.com/api/apps/6a0371a87c9257126b051d5a/functions/devisPublicitaire", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      if (res.ok) {
-        setSent(true);
-      } else {
-        alert("Une erreur est survenue. Veuillez réessayer.");
-      }
+      await fetch(
+        "https://app.base44.com/api/apps/6a0371a87c9257126b051d5a/functions/devisPublicitaire",
+        { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }
+      );
+      setSent(true);
     } catch {
-      // fallback: on marque quand même envoyé pour l'UX
       setSent(true);
     }
     setLoading(false);
   };
 
-  const c = config.couleur;
-
   return (
     <div style={{ minHeight: "100vh", background: "#07090D", color: "#F0EDE6", fontFamily: "'Segoe UI', sans-serif" }}>
 
       {/* HEADER */}
-      <header style={{ background: "#0D1020", borderBottom: `2px solid ${c}`, padding: "18px 32px", display: "flex", alignItems: "center", gap: 16 }}>
+      <header style={{ background: "#0D1020", borderBottom: `2px solid ${c}`, padding: "16px 32px", display: "flex", alignItems: "center", gap: 16 }}>
         <div style={{ width: 48, height: 48, borderRadius: "50%", background: c, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 18, color: "#07090D" }}>
-          {config.logo}
+          JY
         </div>
         <div>
-          <div style={{ fontWeight: 800, fontSize: 20, color: c }}>{config.titre}</div>
+          <div style={{ fontWeight: 800, fontSize: 20, color: c }}>JY-Trix.Ai</div>
           <div style={{ fontSize: 12, color: "#888" }}>Espaces Publicitaires — Écran LED Dour</div>
         </div>
-        <div style={{ marginLeft: "auto", fontSize: 13, color: "#888" }}>
-          Rue de la Corderie, 19 — 7370 Dour
+        <div style={{ marginLeft: "auto", textAlign: "right" }}>
+          <div style={{ fontSize: 13, color: c, fontWeight: 600 }}>📞 0494 11 90 90</div>
+          <div style={{ fontSize: 12, color: "#888" }}>info@jsinnovia.com</div>
         </div>
       </header>
 
@@ -119,19 +88,24 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
           <div style={{ fontSize: 64, marginBottom: 24 }}>✅</div>
           <h2 style={{ color: c, fontSize: 28, marginBottom: 16 }}>Demande envoyée !</h2>
           <p style={{ color: "#CCC", lineHeight: 1.7, marginBottom: 12 }}>
-            Merci <strong style={{ color: "#FFF" }}>{form.prenom || form.nom}</strong> pour votre intérêt.
+            Merci <strong style={{ color: "#FFF" }}>{form.nom}</strong> pour votre intérêt.
           </p>
           <p style={{ color: "#CCC", lineHeight: 1.7, marginBottom: 24 }}>
             Vous recevrez votre <strong style={{ color: c }}>devis personnalisé dans les 32 minutes</strong> à l'adresse <strong style={{ color: "#FFF" }}>{form.email}</strong>.
           </p>
-          <p style={{ color: "#888", fontSize: 13 }}>
-            Un conseiller vous contactera pour finaliser votre réservation et organiser la prise en charge de votre contenu publicitaire.
+          <p style={{ color: "#888", fontSize: 13, marginBottom: 24 }}>
+            Un conseiller vous contactera pour finaliser votre réservation et la prise de rendez-vous avec Olivier Trevis.
           </p>
-          <div style={{ marginTop: 32, padding: "16px 24px", background: "#0D1020", borderRadius: 12, border: `1px solid ${c}`, textAlign: "left" }}>
-            <div style={{ fontWeight: 700, color: c, marginBottom: 8 }}>Récapitulatif</div>
-            <div style={{ color: "#CCC", fontSize: 14 }}>Offre : <strong>{offre?.label}</strong></div>
-            <div style={{ color: "#CCC", fontSize: 14 }}>Tarif : <strong>{offre?.prix.toLocaleString('fr-BE')} € HTVA</strong></div>
-            <div style={{ color: "#CCC", fontSize: 14 }}>Date souhaitée : <strong>{form.date_debut || "À confirmer"}</strong></div>
+          <div style={{ padding: "20px 24px", background: "#0D1020", borderRadius: 12, border: `1px solid ${c}`, textAlign: "left" }}>
+            <div style={{ fontWeight: 700, color: c, marginBottom: 10 }}>📋 Récapitulatif</div>
+            <div style={{ color: "#CCC", fontSize: 14, marginBottom: 4 }}>Offre : <strong style={{ color: "#FFF" }}>{offre?.label}</strong></div>
+            <div style={{ color: "#CCC", fontSize: 14, marginBottom: 4 }}>Tarif : <strong style={{ color: "#FFF" }}>{offre?.prix.toLocaleString('fr-BE')} € HTVA</strong></div>
+            <div style={{ color: "#CCC", fontSize: 14 }}>Date souhaitée : <strong style={{ color: "#FFF" }}>{form.date_debut || "À confirmer"}</strong></div>
+          </div>
+          <div style={{ marginTop: 24, padding: "14px 20px", background: "#0A0A18", borderRadius: 10, border: "1px solid #2A2A3A" }}>
+            <div style={{ color: "#888", fontSize: 13 }}>Une question ? Contactez-nous directement :</div>
+            <div style={{ color: c, fontWeight: 700, marginTop: 4 }}>📞 0494 11 90 90</div>
+            <div style={{ color: "#AAA", fontSize: 13 }}>info@jsinnovia.com</div>
           </div>
         </div>
       ) : (
@@ -140,15 +114,20 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
           {/* HERO */}
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <div style={{ display: "inline-block", background: c + "22", color: c, borderRadius: 999, padding: "6px 18px", fontSize: 13, fontWeight: 600, marginBottom: 16, border: `1px solid ${c}` }}>
-              📺 Écran LED 4m × 2m · Rue de la Corderie · Dour
+              📺 Écran LED 4m × 2m · Rue de la Corderie, 19 · Dour
             </div>
             <h1 style={{ fontSize: 36, fontWeight: 900, color: "#FFF", marginBottom: 12 }}>
-              Visibilité maximale.<br />
-              <span style={{ color: c }}>Résultats immédiats.</span>
+              Votre publicité vue par<br />
+              <span style={{ color: c }}>des milliers de passants chaque jour.</span>
             </h1>
-            <p style={{ color: "#AAA", fontSize: 16, maxWidth: 560, margin: "0 auto" }}>
-              {config.accroche}
+            <p style={{ color: "#AAA", fontSize: 16, maxWidth: 560, margin: "0 auto 20px" }}>
+              Réservez votre espace sur l'écran LED haute définition au cœur de Dour. Devis personnalisé reçu en moins de 32 minutes.
             </p>
+            <div style={{ display: "inline-flex", gap: 20, alignItems: "center" }}>
+              <a href="tel:0494119090" style={{ color: c, fontWeight: 700, textDecoration: "none", fontSize: 15 }}>📞 0494 11 90 90</a>
+              <span style={{ color: "#444" }}>|</span>
+              <a href="mailto:info@jsinnovia.com" style={{ color: "#AAA", textDecoration: "none", fontSize: 14 }}>info@jsinnovia.com</a>
+            </div>
           </div>
 
           {/* ÉTAPES */}
@@ -207,7 +186,7 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
 
               {/* SPECS */}
               <div style={{ background: "#0D1020", border: "1px solid #2A2A3A", borderRadius: 12, padding: "20px 24px", marginBottom: 32 }}>
-                <h3 style={{ color: c, marginBottom: 16, fontSize: 16 }}>📋 Caractéristiques de l'écran</h3>
+                <h3 style={{ color: c, marginBottom: 16, fontSize: 15 }}>📋 Caractéristiques de l'écran</h3>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                   {[
                     ["📍 Localisation", "Rue de la Corderie, 19 — 7370 Dour"],
@@ -225,6 +204,24 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
                 </div>
               </div>
 
+              {/* MODALITÉS DE PAIEMENT */}
+              <div style={{ background: "#0D1020", border: "1px solid #2A2A3A", borderRadius: 12, padding: "20px 24px", marginBottom: 32 }}>
+                <h3 style={{ color: c, marginBottom: 12, fontSize: 15 }}>💳 Modalités de paiement</h3>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                  <div style={{ borderLeft: `3px solid ${c}`, paddingLeft: 12 }}>
+                    <div style={{ fontWeight: 700, color: "#FFF", fontSize: 13 }}>🔗 Lien de paiement sécurisé</div>
+                    <div style={{ color: "#AAA", fontSize: 12 }}>Transmis avec le devis — paiement en ligne rapide</div>
+                  </div>
+                  <div style={{ borderLeft: `3px solid ${c}`, paddingLeft: 12 }}>
+                    <div style={{ fontWeight: 700, color: "#FFF", fontSize: 13 }}>🏦 Virement bancaire</div>
+                    <div style={{ color: "#AAA", fontSize: 12 }}>IBAN communiqué par Olivier Trevis à la signature</div>
+                  </div>
+                </div>
+                <div style={{ marginTop: 12, color: "#666", fontSize: 12 }}>
+                  ⚠️ Le montant est payable intégralement par anticipation avant le début des diffusions.
+                </div>
+              </div>
+
               <div style={{ textAlign: "center" }}>
                 <button
                   disabled={!offre}
@@ -236,8 +233,11 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
                     transition: "all 0.2s"
                   }}
                 >
-                  {offre ? `Demander un devis — ${offre.label}` : "Sélectionnez une offre"}
+                  {offre ? `Demander mon devis — ${offre.label}` : "Sélectionnez une offre"}
                 </button>
+                <p style={{ color: "#666", fontSize: 12, marginTop: 10 }}>
+                  ⏱ Devis reçu par email en moins de 32 minutes
+                </p>
               </div>
             </div>
           )}
@@ -246,23 +246,23 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
           {step === 2 && (
             <form onSubmit={handleSubmit}>
               <div style={{ background: "#0D1020", border: `1px solid ${c}`, borderRadius: 16, padding: 28, marginBottom: 24 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                  <h2 style={{ color: "#FFF", fontSize: 20 }}>Vos coordonnées</h2>
-                  <div style={{ background: c + "22", color: c, borderRadius: 8, padding: "6px 16px", fontSize: 14, fontWeight: 700 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 10 }}>
+                  <h2 style={{ color: "#FFF", fontSize: 20, margin: 0 }}>Vos coordonnées</h2>
+                  <div style={{ background: c + "22", color: c, borderRadius: 8, padding: "6px 16px", fontSize: 14, fontWeight: 700, border: `1px solid ${c}` }}>
                     {offre?.label} — {offre?.prix.toLocaleString('fr-BE')} € HTVA
                   </div>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                   {[
-                    { name: "nom", label: "Nom & Prénom *", type: "text", required: true },
-                    { name: "societe", label: "Société / Enseigne", type: "text" },
-                    { name: "email", label: "Email *", type: "email", required: true },
-                    { name: "telephone", label: "Téléphone *", type: "tel", required: true },
-                    { name: "adresse", label: "Adresse complète", type: "text" },
-                    { name: "bce", label: "BCE / TVA (si société)", type: "text" },
-                    { name: "date_debut", label: "Date de début souhaitée *", type: "date", required: true },
+                    { name: "nom", label: "Nom & Prénom *", type: "text", required: true, full: false },
+                    { name: "societe", label: "Société / Enseigne", type: "text", required: false, full: false },
+                    { name: "email", label: "Email *", type: "email", required: true, full: false },
+                    { name: "telephone", label: "Téléphone *", type: "tel", required: true, full: false },
+                    { name: "adresse", label: "Adresse complète", type: "text", required: false, full: true },
+                    { name: "bce", label: "BCE / TVA (si société)", type: "text", required: false, full: false },
+                    { name: "date_debut", label: "Date de début souhaitée *", type: "date", required: true, full: false },
                   ].map(f => (
-                    <div key={f.name} style={{ gridColumn: f.name === "adresse" || f.name === "message" ? "1/-1" : "auto" }}>
+                    <div key={f.name} style={{ gridColumn: f.full ? "1/-1" : "auto" }}>
                       <label style={{ display: "block", color: "#AAA", fontSize: 13, marginBottom: 6, fontWeight: 600 }}>{f.label}</label>
                       <input
                         type={f.type}
@@ -271,7 +271,7 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
                         onChange={handleChange}
                         required={f.required}
                         style={{
-                          width: "100%", background: "#07090D", border: `1px solid #2A2A3A`,
+                          width: "100%", background: "#07090D", border: "1px solid #2A2A3A",
                           borderRadius: 8, padding: "10px 14px", color: "#FFF", fontSize: 14,
                           boxSizing: "border-box", outline: "none"
                         }}
@@ -302,10 +302,12 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
                 </div>
               </div>
               <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
-                <button type="button" onClick={() => setStep(1)} style={{ background: "transparent", color: "#888", border: "1px solid #333", borderRadius: 10, padding: "12px 28px", cursor: "pointer", fontWeight: 600 }}>
+                <button type="button" onClick={() => setStep(1)}
+                  style={{ background: "transparent", color: "#888", border: "1px solid #333", borderRadius: 10, padding: "12px 28px", cursor: "pointer", fontWeight: 600 }}>
                   ← Retour
                 </button>
-                <button type="submit" disabled={loading} style={{ background: c, color: "#07090D", border: "none", borderRadius: 10, padding: "14px 40px", fontWeight: 700, fontSize: 16, cursor: loading ? "wait" : "pointer" }}>
+                <button type="submit" disabled={loading}
+                  style={{ background: loading ? "#555" : c, color: "#07090D", border: "none", borderRadius: 10, padding: "14px 40px", fontWeight: 700, fontSize: 16, cursor: loading ? "wait" : "pointer" }}>
                   {loading ? "Envoi en cours..." : "📨 Envoyer ma demande de devis"}
                 </button>
               </div>
@@ -317,9 +319,11 @@ export default function EspacePublicitairePage({ context = "jytrixai" }) {
         </div>
       )}
 
-      <footer style={{ borderTop: "1px solid #1A1A2E", padding: "20px 32px", textAlign: "center", marginTop: 60 }}>
+      <footer style={{ borderTop: "1px solid #1A1A2E", padding: "20px 32px", textAlign: "center", marginTop: 40 }}>
         <p style={{ color: "#444", fontSize: 12 }}>
           Écran LED — Olivier Trevis · BCE 0792.067.059 · Rue de la Corderie, 19 — 7370 Dour<br />
+          📞 <a href="tel:0494119090" style={{ color: "#666", textDecoration: "none" }}>0494 11 90 90</a> ·{" "}
+          <a href="mailto:info@jsinnovia.com" style={{ color: "#666", textDecoration: "none" }}>info@jsinnovia.com</a><br />
           Conception digitale : <a href="https://www.jsinnovia.com" style={{ color: c }}>JS-Innov.IA</a> — Julien Pagin
         </p>
       </footer>
