@@ -9,9 +9,7 @@ import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 import AdminPage from "./pages/AdminPage";
 import MascottePage from "./pages/MascottePage";
 import FabianoPage from "./pages/FabianoPage";
-import JsInnoviaPage from "./pages/JsInnoviaPage";
 import JyTrixAiPage from "./pages/JyTrixAiPage";
-import JsInnoviaPage2 from "./pages/JsInnoviaPage2";
 
 export default function App() {
   return (
@@ -22,7 +20,6 @@ export default function App() {
         <Route path="/mascotte"  element={<MascottePage />} />
         <Route path="/fabiano"   element={<FabianoPage />} />
         <Route path="/jytrixai"  element={<JyTrixAiPage />} />
-        <Route path="/jsinnovia" element={<JsInnoviaPage2 />} />
         <Route path="/*" element={
           <Layout>
             <Routes>
