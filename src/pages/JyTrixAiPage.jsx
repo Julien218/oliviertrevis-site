@@ -27,7 +27,7 @@ const OFFRES = [
   }
 ];
 
-// Palette extraite du flyer JY-Trix.AI
+// Palette extraite du flyer JY-Trix.AI — build v2 2026-06-11
 const NAVY    = "#0A1628";
 const NAVY2   = "#0D1E38";
 const NAVY3   = "#1A2F4A";
