@@ -4,18 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO -->
   <title>Fashionist'ART Dour — Dossier UNESCO 2027 | oliviertrevis.be</title>
   <meta name="description" content="Dossier de candidature UNESCO 2027 — Fashionist'ART Dour. Art, Mode & Patrimoine Vivant. ASBL Starlight Dour, Dour, Belgique." />
   <link rel="canonical" href="https://www.oliviertrevis.be/unesco" />
 
-  <!-- OPEN GRAPH — Facebook / WhatsApp / LinkedIn -->
+  <!-- OPEN GRAPH -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Olivier Trevis" />
   <meta property="og:locale" content="fr_BE" />
   <meta property="og:url" content="https://www.oliviertrevis.be/unesco" />
   <meta property="og:title" content="Fashionist'ART Dour — Dossier UNESCO 2027" />
-  <meta property="og:description" content="Art, Mode & Patrimoine Vivant — Dour, Belgique. Candidature UNESCO Patrimoine Culturel Immatériel 2027. ASBL Starlight Dour." />
+  <meta property="og:description" content="Art, Mode & Patrimoine Vivant — Dour, Belgique. Candidature UNESCO Patrimoine Culturel Immatériel 2027." />
   <meta property="og:image" content="https://www.oliviertrevis.be/fashionistart-banner.jpg" />
   <meta property="og:image:secure_url" content="https://www.oliviertrevis.be/fashionistart-banner.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -26,21 +25,234 @@
   <!-- TWITTER CARD -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Fashionist'ART Dour — Dossier UNESCO 2027" />
-  <meta name="twitter:description" content="Art, Mode & Patrimoine Vivant — Candidature UNESCO 2027. ASBL Starlight Dour, Dour, Belgique." />
+  <meta name="twitter:description" content="Art, Mode & Patrimoine Vivant — Candidature UNESCO 2027." />
   <meta name="twitter:image" content="https://www.oliviertrevis.be/fashionistart-banner.jpg" />
-  <meta name="twitter:image:alt" content="Fashionist'ART Dour — Dossier UNESCO 2027" />
 
-  <!-- Redirect SPA après crawl -->
-  <script>
-    // Rediriger vers la SPA React après que les crawlers aient lu les meta tags
-    if (!navigator.userAgent.match(/(facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|TelegramBot|Slackbot|Applebot|bingbot|Googlebot)/i)) {
-      window.location.replace('/');
-      // La SPA gère ensuite /unesco via React Router
-      setTimeout(() => { window.history.pushState({}, '', '/unesco'); window.dispatchEvent(new PopStateEvent('popstate')); }, 100);
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0A0010;
+      color: #F0E8FF;
+      min-height: 100vh;
     }
-  </script>
+
+    /* BANNIÈRE */
+    .banner-wrap {
+      width: 100%;
+      background: #000;
+      line-height: 0;
+    }
+    .banner-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* BADGE */
+    .badge-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 28px 20px 10px;
+    }
+    .badge {
+      background: transparent;
+      border: 1.5px solid #C8960A;
+      color: #C8960A;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 9px 22px;
+      border-radius: 30px;
+      text-align: center;
+    }
+
+    /* HERO TEXT */
+    .hero {
+      text-align: center;
+      padding: 20px 24px 24px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 8vw, 52px);
+      font-weight: 900;
+      color: #C8960A;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .hero .subtitle {
+      font-size: clamp(14px, 4vw, 18px);
+      color: #D0C0FF;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .hero .meta {
+      font-size: 13px;
+      color: #9988BB;
+      line-height: 1.8;
+      margin-bottom: 6px;
+    }
+    .hero .dates {
+      font-size: 15px;
+      font-weight: 700;
+      color: #C8960A;
+    }
+
+    /* BOUTON TÉLÉCHARGER */
+    .btn-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 24px 20px 10px;
+    }
+    .btn-download {
+      display: inline-block;
+      background: #C8960A;
+      color: #0A0010;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 18px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+      box-shadow: 0 4px 24px rgba(200,150,10,0.35);
+    }
+    .btn-download:hover { background: #E0AA20; }
+
+    /* BOUTON SECONDAIRE */
+    .btn-secondary-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 10px 20px 0;
+    }
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: #C8960A;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      text-align: center;
+      border: 1.5px solid #C8960A;
+    }
+
+    /* KPIs */
+    .kpis {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      padding: 32px 20px 24px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .kpi {
+      background: rgba(200,150,10,0.08);
+      border: 1px solid rgba(200,150,10,0.3);
+      border-radius: 14px;
+      padding: 16px 22px;
+      text-align: center;
+      min-width: 100px;
+    }
+    .kpi-num {
+      font-size: 26px;
+      font-weight: 900;
+      color: #C8960A;
+      display: block;
+    }
+    .kpi-lbl {
+      font-size: 11px;
+      color: #9988BB;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 28px 20px 40px;
+      font-size: 11.5px;
+      color: #665577;
+      line-height: 2;
+      border-top: 1px solid rgba(200,150,10,0.15);
+      margin-top: 10px;
+    }
+    footer a { color: #C8960A; text-decoration: none; }
+
+    /* BARRE TRICOLORE BAS */
+    .tricolor {
+      display: flex;
+      height: 5px;
+      width: 100%;
+    }
+    .tricolor span:nth-child(1) { background: #D00050; flex: 1; }
+    .tricolor span:nth-child(2) { background: #501090; flex: 1; }
+    .tricolor span:nth-child(3) { background: #0090C0; flex: 1; }
+  </style>
 </head>
 <body>
-  <p>Redirection en cours...</p>
+
+  <!-- BANNIÈRE PRINCIPALE -->
+  <div class="banner-wrap">
+    <img src="/fashionistart-banner.jpg"
+         alt="Fashionist'ART Dour — Art, Mode & Patrimoine"
+         width="1881" height="836"
+         loading="eager" />
+  </div>
+
+  <!-- BADGE -->
+  <div class="badge-wrap">
+    <div class="badge">Journée Mondiale de l'Art — UNESCO / IAA-AIAP</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Fashionist'ART<br>Dour</h1>
+    <p class="subtitle">Dossier Officiel de Demande de<br>Reconnaissance</p>
+    <p class="meta">ASBL Starlight Dour · BCE 1012.267.056 · Centre Sportif d'Élouges, Dour</p>
+    <p class="dates">15 – 18 Avril 2027</p>
+    <p class="meta">Province de Hainaut, Belgique</p>
+  </div>
+
+  <!-- BOUTON PRINCIPAL -->
+  <div class="btn-wrap">
+    <a class="btn-download"
+       href="https://base44.app/api/apps/6a035427dca907aa03b71398/files/mp/public/6a035427dca907aa03b71398/41b77c9ad_Dossier_UNESCO_FashionistART_2027_FINAL.pdf"
+       target="_blank" rel="noopener">
+      ⬇️ Télécharger le Dossier PDF Officiel
+    </a>
+  </div>
+
+  <!-- BOUTON SECONDAIRE -->
+  <div class="btn-secondary-wrap">
+    <a class="btn-secondary"
+       href="https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/09a5448ed_Dossier_UNESCO_FashionistART_2027_v6.pdf"
+       target="_blank" rel="noopener">
+      📄 Version mise en page v6
+    </a>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi"><span class="kpi-num">4</span><div class="kpi-lbl">Jours</div></div>
+    <div class="kpi"><span class="kpi-num">500+</span><div class="kpi-lbl">Visiteurs</div></div>
+    <div class="kpi"><span class="kpi-num">30+</span><div class="kpi-lbl">Artistes</div></div>
+    <div class="kpi"><span class="kpi-num">2027</span><div class="kpi-lbl">UNESCO</div></div>
+  </div>
+
+  <!-- BARRE TRICOLORE -->
+  <div class="tricolor"><span></span><span></span><span></span></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="https://www.fashionistartdour.be">www.fashionistartdour.be</a> ·
+    <a href="https://www.oliviertrevis.be">www.oliviertrevis.be</a><br>
+    ASBL Starlight Dour — BCE 1012.267.056<br>
+    Conception digitale : <a href="https://www.jsinnovia.com">JS-Innov.IA</a> — Julien Pagin
+  </footer>
+
 </body>
 </html>
