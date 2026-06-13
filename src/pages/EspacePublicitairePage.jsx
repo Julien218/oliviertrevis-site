@@ -91,7 +91,7 @@ export default function EspacePublicitairePage() {
             Merci <strong style={{ color: "#FFF" }}>{form.nom}</strong> pour votre intérêt.
           </p>
           <p style={{ color: "#CCC", lineHeight: 1.7, marginBottom: 24 }}>
-            Vous recevrez votre <strong style={{ color: c }}>devis personnalisé dans les 32 minutes</strong> à l'adresse <strong style={{ color: "#FFF" }}>{form.email}</strong>.
+            Vous recevrez votre <strong style={{ color: c }}>devis personnalisé dans les plus brefs délais</strong> à l'adresse <strong style={{ color: "#FFF" }}>{form.email}</strong>.
           </p>
           <p style={{ color: "#888", fontSize: 13, marginBottom: 24 }}>
             Un conseiller vous contactera pour finaliser votre réservation et la prise de rendez-vous avec Olivier Trevis.
@@ -121,7 +121,7 @@ export default function EspacePublicitairePage() {
               <span style={{ color: c }}>des milliers de passants chaque jour.</span>
             </h1>
             <p style={{ color: "#AAA", fontSize: 16, maxWidth: 560, margin: "0 auto 20px" }}>
-              Réservez votre espace sur l'écran LED haute définition au cœur de Dour. Devis personnalisé reçu en moins de 32 minutes.
+              Réservez votre espace sur l'écran LED haute définition au cœur de Dour. Devis personnalisé reçu rapidement.
             </p>
             <div style={{ display: "inline-flex", gap: 20, alignItems: "center" }}>
               <a href="tel:0494119090" style={{ color: c, fontWeight: 700, textDecoration: "none", fontSize: 15 }}>📞 0494 11 90 90</a>
@@ -236,7 +236,7 @@ export default function EspacePublicitairePage() {
                   {offre ? `Demander mon devis — ${offre.label}` : "Sélectionnez une offre"}
                 </button>
                 <p style={{ color: "#666", fontSize: 12, marginTop: 10 }}>
-                  ⏱ Devis reçu par email en moins de 32 minutes
+                  ✉️ Devis reçu par email sous peu
                 </p>
               </div>
             </div>
@@ -312,7 +312,7 @@ export default function EspacePublicitairePage() {
                 </button>
               </div>
               <p style={{ textAlign: "center", color: "#666", fontSize: 12, marginTop: 12 }}>
-                ⏱ Vous recevrez votre devis personnalisé dans les 32 minutes
+                ⏱ Vous recevrez votre devis personnalisé dans les plus brefs délais
               </p>
             </form>
           )}
