@@ -123,7 +123,7 @@ export default function JyTrixAiPage() {
             Merci <strong style={{ color: WHITE }}>{form.nom}</strong> pour votre intérêt.
           </p>
           <p style={{ color: "#C0D4E8", lineHeight: 1.7, marginBottom: 22 }}>
-            Vous recevrez votre <strong style={{ color: CYAN }}>devis personnalisé dans les 32 minutes</strong>{" "}
+            Vous recevrez votre <strong style={{ color: CYAN }}>devis personnalisé dans les plus brefs délais</strong>{" "}
             à <strong style={{ color: WHITE }}>{form.email}</strong>.
           </p>
           <div style={{ padding: "18px 22px", background: NAVY2, borderRadius: 12, border: `1px solid ${CYAN}`, textAlign: "left", marginBottom: 20 }}>
@@ -164,7 +164,7 @@ export default function JyTrixAiPage() {
               <span style={{ color: CYAN }}>Votre pub vue par toute la ville.</span>
             </h1>
             <p style={{ color: GRAY, fontSize: 15, maxWidth: 540, margin: "0 auto 18px" }}>
-              Commerçants, indépendants, entreprises, associations — réservez votre espace et recevez votre devis en moins de 32 minutes.
+              Commerçants, indépendants, entreprises, associations — réservez votre espace et recevez votre devis rapidement.
             </p>
             <div style={{ display: "inline-flex", gap: 24, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
               <a href="tel:0494119090" style={{ color: CYAN, fontWeight: 700, textDecoration: "none", fontSize: 15 }}>📞 0494 11 90 90</a>
@@ -306,7 +306,7 @@ export default function JyTrixAiPage() {
                   {offre ? `Demander mon devis — ${offre.label}` : "Sélectionnez une offre"}
                 </button>
                 <p style={{ color: "#4A6A7A", fontSize: 12, marginTop: 10 }}>
-                  ⏱ Devis reçu par email en moins de 32 minutes
+                  ✉️ Devis reçu par email sous peu
                 </p>
               </div>
             </>
@@ -373,7 +373,7 @@ export default function JyTrixAiPage() {
                 </button>
               </div>
               <p style={{ textAlign: "center", color: "#4A6A7A", fontSize: 12, marginTop: 10 }}>
-                ⏱ Devis personnalisé reçu par email en moins de 32 minutes
+                ✉️ Devis personnalisé reçu par email
               </p>
             </form>
           )}
