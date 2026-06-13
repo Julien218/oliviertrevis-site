@@ -68,7 +68,7 @@ export default function ContactPage() {
             {
               Icon: () => <Mail className="w-5 h-5" />,
               label: "Email", sub: "contact@oliviertrevis.be",
-              href: "mailto:contact@oliviertrevis.be", color: "hover:border-yellow-500/30", iconBg: "bg-yellow-500/10 text-yellow-400",
+              href: "#contact-form", scroll: true, color: "hover:border-yellow-500/30", iconBg: "bg-yellow-500/10 text-yellow-400",
             },
             {
               Icon: () => (
@@ -83,9 +83,13 @@ export default function ContactPage() {
               href: "https://maps.google.com/?q=Dour,Belgique", color: "hover:border-blue-500/30", iconBg: "bg-blue-500/10 text-blue-400",
             },
           ].map((c, i) => (
-            <motion.a key={i} href={c.href} target="_blank" rel="noopener noreferrer"
+            <motion.a key={i}
+              href={c.href}
+              target={c.scroll ? "_self" : "_blank"}
+              rel={c.scroll ? undefined : "noopener noreferrer"}
+              onClick={c.scroll ? (e) => { e.preventDefault(); document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" }); } : undefined}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-              className={`flex items-center gap-4 p-5 rounded-2xl bg-gray-900 border border-white/5 ${c.color} transition-all group`}>
+              className={`flex items-center gap-4 p-5 rounded-2xl bg-gray-900 border border-white/5 ${c.color} transition-all group cursor-pointer`}>
               <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${c.iconBg}`}>
                 <c.Icon />
               </div>
@@ -93,7 +97,8 @@ export default function ContactPage() {
                 <p className="text-white font-bold">{c.label}</p>
                 <p className="text-gray-400 text-sm">{c.sub}</p>
               </div>
-              <ExternalLink className="w-4 h-4 text-gray-600 ml-auto group-hover:text-gray-400 transition-colors" />
+              {!c.scroll && <ExternalLink className="w-4 h-4 text-gray-600 ml-auto group-hover:text-gray-400 transition-colors" />}
+              {c.scroll && <svg className="w-4 h-4 text-gray-600 ml-auto group-hover:text-yellow-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>}
             </motion.a>
           ))}
         </div>
@@ -104,7 +109,7 @@ export default function ContactPage() {
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-12">
 
           {/* Formulaire */}
-          <div className="md:col-span-2">
+          <div id="contact-form" className="md:col-span-2">
             <h2 className="text-2xl font-black text-white mb-6">Envoyer un message</h2>
             {sent ? (
               <div className="text-center py-16 rounded-2xl bg-gray-900 border border-green-500/20">
