@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["nodejs_20", "nginx"]
+nixPkgs = ["nodejs_20", "nginx", "gettext"]
 
 [phases.install]
 cmds = ["npm install"]
@@ -8,4 +8,4 @@ cmds = ["npm install"]
 cmds = ["npm run build"]
 
 [start]
-cmd = "nginx -g 'daemon off;'"
+cmd = "sh /app/start.sh"
