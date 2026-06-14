@@ -340,7 +340,7 @@ export default function JyTrixAiPage() {
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
               <div style={{ width: "clamp(56px,10vw,72px)", height: "clamp(56px,10vw,72px)", borderRadius: 18, overflow: "hidden",
                 border: "1px solid rgba(0,180,216,0.30)", boxShadow: "0 0 0 4px rgba(0,180,216,0.07), 0 8px 28px rgba(0,180,216,0.18)" }}>
-                <img src="/logo_jytrixai.jpg" alt="JY-Trix.AI" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img src="/logo_jytrixai_footer.jpg" alt="JY-Trix.AI" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
               <div style={{ textAlign: "center" }}>
                 <div style={{ fontSize: "clamp(0.85rem,2.5vw,1rem)", fontWeight: 900, letterSpacing: "0.04em", lineHeight: 1 }}>
