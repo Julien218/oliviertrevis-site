@@ -1,14 +1,12 @@
-name: 🚀 CI/CD — Olivier Trevis
+name: 🚀 CI/CD — Olivier Trevis (Railway)
 
 on:
   push:
     branches: [main, master]
-  pull_request:
-    branches: [main, master]
 
 jobs:
-  build-and-deploy:
-    name: 🏗️ Build & Deploy FTP
+  deploy:
+    name: 🚀 Deploy to Railway
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout
@@ -28,15 +26,13 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: 🚀 Deploy via FTP to one.com
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: /public_html/
-          dangerous-clean-slate: false
+      - name: 🚀 Install Railway CLI
+        run: npm install -g @railway/cli
 
-      - name: ✅ Deployed
-        run: echo "✨ Olivier Trevis déployé sur one.com — Js-Innov.IA"
+      - name: 🚀 Deploy to Railway
+        run: railway up --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROJECT_TOKEN }}
+
+      - name: ✅ Done
+        run: echo "✨ oliviertrevis.be déployé via Railway — JS-Innov.IA"
