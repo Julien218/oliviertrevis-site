@@ -338,7 +338,7 @@ export default function JyTrixAiPage() {
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(24px,5vw,40px)", marginBottom: "clamp(22px,4vw,32px)", flexWrap: "wrap" }}>
 
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-              <div style={{ width: "clamp(56px,10vw,72px)", height: "clamp(56px,10vw,72px)", borderRadius: 18, overflow: "hidden",
+              <div style={{ width: "clamp(76px,14vw,96px)", height: "clamp(76px,14vw,96px)", borderRadius: 18, overflow: "hidden",
                 border: "1px solid rgba(0,180,216,0.30)", boxShadow: "0 0 0 4px rgba(0,180,216,0.07), 0 8px 28px rgba(0,180,216,0.18)" }}>
                 <img src="/logo_jytrixai_footer.jpg" alt="JY-Trix.AI" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
@@ -352,7 +352,7 @@ export default function JyTrixAiPage() {
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-              <div style={{ width: "clamp(56px,10vw,72px)", height: "clamp(56px,10vw,72px)", borderRadius: 18, overflow: "hidden",
+              <div style={{ width: "clamp(76px,14vw,96px)", height: "clamp(76px,14vw,96px)", borderRadius: 18, overflow: "hidden",
                 border: "1px solid rgba(212,175,55,0.28)", boxShadow: "0 0 0 4px rgba(212,175,55,0.06), 0 8px 28px rgba(212,175,55,0.14)" }}>
                 <img src="/logo_jsinnovia.jpg" alt="JS-Innov.IA" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
