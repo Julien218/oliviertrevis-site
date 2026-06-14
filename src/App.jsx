@@ -28,6 +28,8 @@ export default function App() {
         <Route path="/ours"      element={<MascotteDetailPage />} />
         <Route path="/fabiano"   element={<FabianoPage />} />
         <Route path="/jytrixai"  element={<JyTrixAiPage />} />
+        <Route path="/fashionistart" element={<FashionistArtPage />} />
+        <Route path="/unesco"       element={<FashionistArtPage />} />
         <Route path="/*" element={
           <Layout>
             <Routes>
