@@ -342,11 +342,7 @@ export default function JyTrixAiPage() {
                 border: "1px solid rgba(0,180,216,0.30)", boxShadow: "0 0 0 4px rgba(0,180,216,0.07), 0 8px 28px rgba(0,180,216,0.18)" }}>
                 <img src="/logo_jytrixai_footer.jpg" alt="JY-Trix.AI" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
-              <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "clamp(0.85rem,2.5vw,1rem)", fontWeight: 900, letterSpacing: "0.04em", lineHeight: 1 }}>
-                  <span style={{ color: "#00B4D8" }}>JY-Trix</span><span style={{ color: "#D4AF37" }}>.AI</span>
-                </div>
-              </div>
+
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
@@ -360,11 +356,7 @@ export default function JyTrixAiPage() {
                 border: "1px solid rgba(212,175,55,0.28)", boxShadow: "0 0 0 4px rgba(212,175,55,0.06), 0 8px 28px rgba(212,175,55,0.14)" }}>
                 <img src="/logo_jsinnovia.jpg" alt="JS-Innov.IA" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
-              <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "clamp(0.85rem,2.5vw,1rem)", fontWeight: 900, letterSpacing: "0.04em", color: "#D4AF37", lineHeight: 1 }}>
-                  JS-Innov.IA<span style={{ fontSize: "0.65em" }}>®</span>
-                </div>
-              </div>
+
             </div>
           </div>
 
