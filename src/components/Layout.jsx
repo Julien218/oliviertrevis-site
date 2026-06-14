@@ -313,6 +313,9 @@ export default function Layout({ children }) {
 
   const isActive = (href) => href === "/" ? location.pathname === "/" : location.pathname.startsWith(href);
 
+  // Pages qui n'affichent PAS la navbar globale (elles ont leur propre layout)
+  const hideHeader = ["/jytrixai"].includes(location.pathname);
+
   return (
     <div className="min-h-screen text-white flex flex-col" style={{ background: BRAND.black, fontFamily: "'Montserrat',sans-serif" }}>
       <style>{GLOBAL_CSS}</style>
@@ -320,7 +323,7 @@ export default function Layout({ children }) {
       {/* ══════════════════════════════
           NAVBAR — pill flottant épuré
       ══════════════════════════════ */}
-      <header className="fixed top-0 left-0 right-0 z-[55]" style={{ padding: "12px 16px" }}>
+      {!hideHeader && <header className="fixed top-0 left-0 right-0 z-[55]" style={{ padding: "12px 16px" }}>
         <div className="max-w-7xl mx-auto">
           <motion.div
             animate={{
@@ -387,13 +390,13 @@ export default function Layout({ children }) {
             </div>
           </motion.div>
         </div>
-      </header>
+      </header>}
 
       {/* Menu */}
-      <PremiumMenu open={menuOpen} onClose={() => setMenuOpen(false)} isActive={isActive} />
+      {!hideHeader && <PremiumMenu open={menuOpen} onClose={() => setMenuOpen(false)} isActive={isActive} />}
 
       {/* Contenu */}
-      <main className="flex-1 pt-[84px]">{children}</main>
+      <main className={`flex-1 ${hideHeader ? "" : "pt-[84px]"}`}>{children}</main>
 
       {/* ══════════════════════════
           FOOTER PREMIUM JS-INNOV.IA
