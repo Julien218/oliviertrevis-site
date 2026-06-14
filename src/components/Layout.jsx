@@ -17,6 +17,7 @@ const NAV = [
   { label: "Accueil",      href: "/" },
   { label: "Tour de Dour", href: "/tour-de-dour" },
   { label: "Mascotte 🎭",  href: "/mascotte" },
+  { label: "Mascottes 🐾", href: "/mascottes" },
   { label: "Actualités",   href: "/actualites" },
   { label: "Contact",      href: "/contact" },
 ];

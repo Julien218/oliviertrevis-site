@@ -8,6 +8,8 @@ import ContactPage from "./pages/ContactPage";
 import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 import AdminPage from "./pages/AdminPage";
 import MascottePage from "./pages/MascottePage";
+import MascottesListPage from "./pages/MascottesListPage";
+import MascotteDetailPage from "./pages/MascotteDetailPage";
 import FabianoPage from "./pages/FabianoPage";
 import JyTrixAiPage from "./pages/JyTrixAiPage";
 
@@ -18,6 +20,12 @@ export default function App() {
       <Routes>
         <Route path="/admin"     element={<AdminPage />} />
         <Route path="/mascotte"  element={<MascottePage />} />
+        <Route path="/mascottes" element={<MascottesListPage />} />
+        <Route path="/lion"      element={<MascotteDetailPage />} />
+        <Route path="/canari"    element={<MascotteDetailPage />} />
+        <Route path="/biche"     element={<MascotteDetailPage />} />
+        <Route path="/renard"    element={<MascotteDetailPage />} />
+        <Route path="/ours"      element={<MascotteDetailPage />} />
         <Route path="/fabiano"   element={<FabianoPage />} />
         <Route path="/jytrixai"  element={<JyTrixAiPage />} />
         <Route path="/*" element={

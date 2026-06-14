@@ -1,0 +1,99 @@
+{
+  "name": "Mascotte",
+  "type": "object",
+  "properties": {
+    "nom": {
+      "type": "string",
+      "description": "Nom de la mascotte"
+    },
+    "slug": {
+      "type": "string",
+      "description": "Slug URL (lion, canari, biche, renard, ours)"
+    },
+    "espece": {
+      "type": "string",
+      "description": "Esp\u00e8ce animale"
+    },
+    "surnom": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "personnalite": {
+      "type": "string"
+    },
+    "particularites": {
+      "type": "string"
+    },
+    "lieu_associe": {
+      "type": "string",
+      "description": "Lieu associ\u00e9 \u00e0 Dour"
+    },
+    "origines": {
+      "type": "string"
+    },
+    "legende": {
+      "type": "string"
+    },
+    "anecdotes": {
+      "type": "string"
+    },
+    "evolution": {
+      "type": "string"
+    },
+    "image_principale": {
+      "type": "string",
+      "description": "URL image principale"
+    },
+    "image_og": {
+      "type": "string",
+      "description": "Image Open Graph 1200x630"
+    },
+    "galerie_photos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs des photos"
+    },
+    "galerie_illustrations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs des illustrations"
+    },
+    "galerie_ia": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs des images IA"
+    },
+    "videos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs des vid\u00e9os"
+    },
+    "seo_titre": {
+      "type": "string"
+    },
+    "seo_description": {
+      "type": "string"
+    },
+    "seo_mots_cles": {
+      "type": "string"
+    },
+    "ordre": {
+      "type": "number",
+      "description": "Ordre d'affichage"
+    }
+  },
+  "required": [
+    "nom",
+    "slug"
+  ]
+}

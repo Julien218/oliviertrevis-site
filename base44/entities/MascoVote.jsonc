@@ -1,0 +1,25 @@
+{
+  "name": "MascoVote",
+  "type": "object",
+  "properties": {
+    "mascotte_slug": {
+      "type": "string",
+      "description": "Slug de la mascotte vot\u00e9e (lion, canari, biche, renard, ours)"
+    },
+    "mascotte_nom": {
+      "type": "string",
+      "description": "Nom de la mascotte"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Identifiant de session pour \u00e9viter les doublons"
+    },
+    "source": {
+      "type": "string",
+      "description": "Source du vote (web, whatsapp, etc.)"
+    }
+  },
+  "required": [
+    "mascotte_slug"
+  ]
+}
