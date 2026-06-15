@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Fashionist'ART Dour — Dossier UNESCO 2027 | oliviertrevis.be</title>
   <meta name="description" content="Dossier de candidature UNESCO 2027 — Fashionist'ART Dour. Art, Mode & Patrimoine Vivant. ASBL Starlight Dour, Dour, Belgique." />
   <link rel="canonical" href="https://www.oliviertrevis.be/unesco" />
@@ -16,243 +15,731 @@
   <meta property="og:title" content="Fashionist'ART Dour — Dossier UNESCO 2027" />
   <meta property="og:description" content="Art, Mode & Patrimoine Vivant — Dour, Belgique. Candidature UNESCO Patrimoine Culturel Immatériel 2027." />
   <meta property="og:image" content="https://www.oliviertrevis.be/fashionistart-banner.jpg" />
-  <meta property="og:image:secure_url" content="https://www.oliviertrevis.be/fashionistart-banner.jpg" />
-  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1881" />
   <meta property="og:image:height" content="836" />
-  <meta property="og:image:alt" content="Fashionist'ART Dour — Dossier UNESCO 2027" />
-
-  <!-- TWITTER CARD -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Fashionist'ART Dour — Dossier UNESCO 2027" />
-  <meta name="twitter:description" content="Art, Mode & Patrimoine Vivant — Candidature UNESCO 2027." />
   <meta name="twitter:image" content="https://www.oliviertrevis.be/fashionistart-banner.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #0A0010;
+
+    :root {
+      --magenta: #D00050;
+      --violet: #501090;
+      --blue: #0090C0;
+      --gold: #C8960A;
+      --gold-light: #E8B030;
+      --dark: #07020E;
+      --dark2: #0A0010;
+    }
+
+    html, body {
+      background: var(--dark);
       color: #F0E8FF;
-      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
     }
 
-    /* BANNIÈRE */
-    .banner-wrap {
+    /* ══════════════════════════════════════
+       HERO — VIDÉO EN FOND
+    ══════════════════════════════════════ */
+    .hero-video {
+      position: relative;
       width: 100%;
-      background: #000;
-      line-height: 0;
-    }
-    .banner-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* BADGE */
-    .badge-wrap {
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
       display: flex;
+      align-items: center;
       justify-content: center;
-      padding: 28px 20px 10px;
-    }
-    .badge {
-      background: transparent;
-      border: 1.5px solid #C8960A;
-      color: #C8960A;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      padding: 9px 22px;
-      border-radius: 30px;
-      text-align: center;
     }
 
-    /* HERO TEXT */
-    .hero {
+    .hero-video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-video .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(7,2,14,0.35) 0%,
+        rgba(80,16,144,0.25) 40%,
+        rgba(7,2,14,0.85) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
       text-align: center;
-      padding: 20px 24px 24px;
+      padding: 0 24px;
+      max-width: 800px;
     }
-    .hero h1 {
-      font-size: clamp(32px, 8vw, 52px);
-      font-weight: 900;
-      color: #C8960A;
-      line-height: 1.1;
-      margin-bottom: 14px;
+
+    .hero-logo {
+      width: clamp(120px, 30vw, 220px);
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 30px rgba(208,0,80,0.5));
     }
-    .hero .subtitle {
-      font-size: clamp(14px, 4vw, 18px);
-      color: #D0C0FF;
-      line-height: 1.5;
+
+    .hero-badge {
+      display: inline-block;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 30px;
       margin-bottom: 20px;
     }
-    .hero .meta {
-      font-size: 13px;
-      color: #9988BB;
-      line-height: 1.8;
-      margin-bottom: 6px;
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(38px, 9vw, 80px);
+      font-weight: 900;
+      line-height: 1.0;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(208,0,80,0.6), 0 2px 8px rgba(0,0,0,0.8);
+      margin-bottom: 16px;
     }
-    .hero .dates {
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--magenta), var(--violet), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(14px, 3vw, 20px);
+      font-weight: 300;
+      color: rgba(240,232,255,0.85);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .hero-dates {
+      font-size: clamp(13px, 2.5vw, 17px);
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--magenta), var(--violet));
+      color: #fff;
       font-size: 15px;
       font-weight: 700;
-      color: #C8960A;
-    }
-
-    /* BOUTON TÉLÉCHARGER */
-    .btn-wrap {
-      display: flex;
-      justify-content: center;
-      padding: 24px 20px 10px;
-    }
-    .btn-download {
-      display: inline-block;
-      background: #C8960A;
-      color: #0A0010;
-      font-size: 16px;
-      font-weight: 800;
-      padding: 18px 36px;
+      padding: 16px 36px;
       border-radius: 50px;
       text-decoration: none;
-      text-align: center;
-      transition: background 0.2s;
-      box-shadow: 0 4px 24px rgba(200,150,10,0.35);
+      box-shadow: 0 4px 30px rgba(208,0,80,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .btn-download:hover { background: #E0AA20; }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(208,0,80,0.6); }
 
-    /* BOUTON SECONDAIRE */
-    .btn-secondary-wrap {
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+      color: rgba(255,255,255,0.5);
+      font-size: 24px;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ══════════════════════════════════════
+       BARRE TRICOLORE
+    ══════════════════════════════════════ */
+    .tricolor {
       display: flex;
-      justify-content: center;
-      padding: 10px 20px 0;
+      height: 5px;
     }
-    .btn-secondary {
-      display: inline-block;
-      background: transparent;
-      color: #C8960A;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 13px 28px;
-      border-radius: 50px;
-      text-decoration: none;
-      text-align: center;
-      border: 1.5px solid #C8960A;
-    }
+    .tricolor span:nth-child(1) { background: var(--magenta); flex: 1; }
+    .tricolor span:nth-child(2) { background: var(--violet); flex: 1; }
+    .tricolor span:nth-child(3) { background: var(--blue); flex: 1; }
 
-    /* KPIs */
+    /* ══════════════════════════════════════
+       KPIs
+    ══════════════════════════════════════ */
+    .kpis-section {
+      background: rgba(80,16,144,0.12);
+      border-bottom: 1px solid rgba(80,16,144,0.3);
+      padding: 40px 20px;
+    }
     .kpis {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 14px;
-      padding: 32px 20px 24px;
-      max-width: 600px;
+      gap: 20px;
+      max-width: 900px;
       margin: 0 auto;
     }
     .kpi {
-      background: rgba(200,150,10,0.08);
-      border: 1px solid rgba(200,150,10,0.3);
-      border-radius: 14px;
-      padding: 16px 22px;
       text-align: center;
-      min-width: 100px;
+      min-width: 120px;
+      flex: 1;
     }
     .kpi-num {
-      font-size: 26px;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(32px, 6vw, 52px);
       font-weight: 900;
-      color: #C8960A;
+      background: linear-gradient(135deg, var(--magenta), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       display: block;
     }
     .kpi-lbl {
       font-size: 11px;
       color: #9988BB;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 4px;
+      letter-spacing: 2px;
+      margin-top: 6px;
     }
 
-    /* FOOTER */
+    /* ══════════════════════════════════════
+       SECTION TITRE GÉNÉRIQUE
+    ══════════════════════════════════════ */
+    .section-label {
+      text-align: center;
+      padding: 60px 24px 10px;
+    }
+    .section-label .eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-label h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(24px, 5vw, 40px);
+      font-weight: 700;
+      color: #fff;
+    }
+    .section-label p {
+      margin-top: 12px;
+      font-size: 15px;
+      color: #9988BB;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════
+       TIMELINE
+    ══════════════════════════════════════ */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 50px auto 20px;
+      padding: 0 24px 40px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--magenta), var(--violet), var(--blue));
+      transform: translateX(-50%);
+    }
+
+    .tl-item {
+      position: relative;
+      width: 45%;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(10px);
+    }
+
+    .tl-item:nth-child(odd) {
+      margin-left: 0;
+      margin-right: auto;
+    }
+
+    .tl-item:nth-child(even) {
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    .tl-item::after {
+      content: '';
+      position: absolute;
+      top: 22px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 12px var(--gold);
+    }
+
+    .tl-item:nth-child(odd)::after {
+      right: -7.5%;
+    }
+
+    .tl-item:nth-child(even)::after {
+      left: -7.5%;
+    }
+
+    .tl-year {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .tl-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .tl-text {
+      font-size: 12px;
+      color: #9988BB;
+      line-height: 1.6;
+    }
+
+    .tl-dot-label {
+      position: absolute;
+      top: 22px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    /* Mobile timeline */
+    @media (max-width: 600px) {
+      .timeline::before { left: 16px; }
+      .tl-item { width: 85%; margin-left: 40px !important; margin-right: 0 !important; }
+      .tl-item::after { left: -28px !important; right: auto !important; }
+    }
+
+    /* ══════════════════════════════════════
+       GALERIE PHOTOS
+    ══════════════════════════════════════ */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      filter: brightness(0.85);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(1);
+    }
+
+    .gallery-item .overlay-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(7,2,14,0.8));
+      padding: 20px 12px 10px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .overlay-caption { opacity: 1; }
+
+    @media (max-width: 600px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ══════════════════════════════════════
+       SECTION TÉLÉCHARGEMENT
+    ══════════════════════════════════════ */
+    .download-section {
+      background: linear-gradient(135deg, rgba(208,0,80,0.08), rgba(80,16,144,0.12), rgba(0,144,192,0.08));
+      border-top: 1px solid rgba(80,16,144,0.3);
+      border-bottom: 1px solid rgba(80,16,144,0.3);
+      padding: 50px 24px;
+      text-align: center;
+    }
+
+    .download-section h3 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(20px, 4vw, 32px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .download-section p {
+      font-size: 14px;
+      color: #9988BB;
+      margin-bottom: 30px;
+    }
+
+    .download-btns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .btn-dl-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--magenta), var(--violet));
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 18px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 30px rgba(208,0,80,0.4);
+      transition: transform 0.2s;
+    }
+    .btn-dl-main:hover { transform: translateY(-2px); }
+
+    .btn-dl-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--gold);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 18px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: 1.5px solid var(--gold);
+      transition: background 0.2s;
+    }
+    .btn-dl-secondary:hover { background: rgba(200,150,10,0.1); }
+
+    /* ══════════════════════════════════════
+       SECTION INFO / ASBL
+    ══════════════════════════════════════ */
+    .info-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .info-card .ic-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .info-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      font-size: 12px;
+      color: #9988BB;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 600px) {
+      .info-section { grid-template-columns: 1fr; }
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
     footer {
       text-align: center;
-      padding: 28px 20px 40px;
+      padding: 30px 20px 50px;
       font-size: 11.5px;
-      color: #665577;
-      line-height: 2;
-      border-top: 1px solid rgba(200,150,10,0.15);
-      margin-top: 10px;
+      color: #443355;
+      line-height: 2.2;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
-    footer a { color: #C8960A; text-decoration: none; }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { color: var(--gold-light); }
 
-    /* BARRE TRICOLORE BAS */
-    .tricolor {
-      display: flex;
-      height: 5px;
-      width: 100%;
+    /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
     }
-    .tricolor span:nth-child(1) { background: #D00050; flex: 1; }
-    .tricolor span:nth-child(2) { background: #501090; flex: 1; }
-    .tricolor span:nth-child(3) { background: #0090C0; flex: 1; }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 32px;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+    .lightbox-close:hover { opacity: 1; }
   </style>
 </head>
 <body>
 
-  <!-- BANNIÈRE PRINCIPALE -->
-  <div class="banner-wrap">
-    <img src="/fashionistart-banner.jpg"
-         alt="Fashionist'ART Dour — Art, Mode & Patrimoine"
-         width="1881" height="836"
-         loading="eager" />
+  <!-- ══ HERO VIDÉO ══ -->
+  <section class="hero-video">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="/fashionistart-bg.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <img src="/logo-fashionistart.png" alt="Fashionist'ART Logo" class="hero-logo" />
+      <div class="hero-badge">Journée Mondiale de l'Art · UNESCO / IAA-AIAP</div>
+      <h1 class="hero-title">
+        <span>Fashionist'ART</span><br>Dour
+      </h1>
+      <p class="hero-subtitle">Dossier Officiel de Demande de Reconnaissance</p>
+      <p class="hero-dates">15 – 18 Avril 2027 · Province de Hainaut, Belgique</p>
+      <a class="hero-cta" href="#telecharger">⬇️ Télécharger le Dossier</a>
+    </div>
+    <div class="scroll-hint">↓</div>
+  </section>
+
+  <!-- BARRE TRICOLORE -->
+  <div class="tricolor"><span></span><span></span><span></span></div>
+
+  <!-- ══ KPIs ══ -->
+  <section class="kpis-section">
+    <div class="kpis">
+      <div class="kpi"><span class="kpi-num">4</span><div class="kpi-lbl">Jours d'événement</div></div>
+      <div class="kpi"><span class="kpi-num">500+</span><div class="kpi-lbl">Visiteurs attendus</div></div>
+      <div class="kpi"><span class="kpi-num">30+</span><div class="kpi-lbl">Artistes & Créateurs</div></div>
+      <div class="kpi"><span class="kpi-num">2027</span><div class="kpi-lbl">Candidature UNESCO</div></div>
+    </div>
+  </section>
+
+  <!-- ══ TIMELINE ══ -->
+  <div class="section-label">
+    <p class="eyebrow">Histoire</p>
+    <h2>Ligne du Temps</h2>
+    <p>De la première édition à la candidature UNESCO — l'évolution de Fashionist'ART Dour.</p>
   </div>
 
-  <!-- BADGE -->
-  <div class="badge-wrap">
-    <div class="badge">Journée Mondiale de l'Art — UNESCO / IAA-AIAP</div>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <span class="tl-year">2018</span>
+      <div class="tl-title">Naissance de Fashionist'ART</div>
+      <p class="tl-text">Première édition du festival à Dour. Un rassemblement unique mêlant mode, art vivant et culture locale dans la Province de Hainaut.</p>
+    </div>
+
+    <div class="tl-item">
+      <span class="tl-year">2020</span>
+      <div class="tl-title">Reconnaissance Régionale</div>
+      <p class="tl-text">Fashionist'ART s'impose comme événement culturel majeur en Wallonie. Soutien de la Province de Hainaut et partenariats institutionnels.</p>
+    </div>
+
+    <div class="tl-item">
+      <span class="tl-year">2022</span>
+      <div class="tl-title">Création ASBL Starlight Dour</div>
+      <p class="tl-text">Structuration juridique de l'événement via l'ASBL Starlight Dour (BCE 1012.267.056). Organisation pérenne et transparence associative.</p>
+    </div>
+
+    <div class="tl-item">
+      <span class="tl-year">2024</span>
+      <div class="tl-title">Partenariat JS-Innov.IA</div>
+      <p class="tl-text">Collaboration avec JS-Innov.IA pour la digitalisation et la valorisation de l'événement. Identité visuelle, stratégie digitale et dossier de candidature.</p>
+    </div>
+
+    <div class="tl-item">
+      <span class="tl-year">2026</span>
+      <div class="tl-title">Dépôt Candidature UNESCO</div>
+      <p class="tl-text">Rédaction et dépôt officiel du dossier de candidature au Patrimoine Culturel Immatériel de l'UNESCO. Journée Mondiale de l'Art en partenariat avec IAA-AIAP.</p>
+    </div>
+
+    <div class="tl-item">
+      <span class="tl-year">2027</span>
+      <div class="tl-title">Édition UNESCO — 15-18 Avril</div>
+      <p class="tl-text">Grande édition anniversaire au Centre Sportif d'Élouges, Dour. 4 jours de mode, d'art et de patrimoine vivant sous l'égide de la reconnaissance internationale.</p>
+    </div>
+
   </div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>Fashionist'ART<br>Dour</h1>
-    <p class="subtitle">Dossier Officiel de Demande de<br>Reconnaissance</p>
-    <p class="meta">ASBL Starlight Dour · BCE 1012.267.056 · Centre Sportif d'Élouges, Dour</p>
-    <p class="dates">15 – 18 Avril 2027</p>
-    <p class="meta">Province de Hainaut, Belgique</p>
+  <!-- ══ GALERIE PHOTOS ══ -->
+  <div class="section-label">
+    <p class="eyebrow">Événement</p>
+    <h2>Galerie Photos</h2>
+    <p>Les moments forts de Fashionist'ART Dour — mode, art et patrimoine vivant.</p>
   </div>
 
-  <!-- BOUTON PRINCIPAL -->
-  <div class="btn-wrap">
-    <a class="btn-download"
-       href="https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/2403779cf_Dossier_UNESCO_FashionistART_2027_v7.pdf"
-       target="_blank" rel="noopener">
-      ⬇️ Télécharger le Dossier PDF Officiel (v7)
-    </a>
+  <div class="gallery">
+    <div class="gallery-item" onclick="openLightbox('/fashionistart-photo-01.png')">
+      <img src="/fashionistart-photo-01.png" alt="Fashionist'ART - Photo 1" loading="lazy" />
+      <div class="overlay-caption">Défilé Mode · Fashionist'ART</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('/fashionistart-photo-02.png')">
+      <img src="/fashionistart-photo-02.png" alt="Fashionist'ART - Photo 2" loading="lazy" />
+      <div class="overlay-caption">Scène Artistique · Fashionist'ART</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('/fashionistart-photo-03.png')">
+      <img src="/fashionistart-photo-03.png" alt="Fashionist'ART - Photo 3" loading="lazy" />
+      <div class="overlay-caption">Exposition Art · Fashionist'ART</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('/fashionistart-photo-04.png')">
+      <img src="/fashionistart-photo-04.png" alt="Fashionist'ART - Photo 4" loading="lazy" />
+      <div class="overlay-caption">Créateurs Locaux · Fashionist'ART</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('/fashionistart-photo-05.png')">
+      <img src="/fashionistart-photo-05.png" alt="Fashionist'ART - Photo 5" loading="lazy" />
+      <div class="overlay-caption">Public & Ambiance · Fashionist'ART</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('/fashionistart-photo-06.png')">
+      <img src="/fashionistart-photo-06.png" alt="Fashionist'ART - Photo 6" loading="lazy" />
+      <div class="overlay-caption">Patrimoine Vivant · Fashionist'ART</div>
+    </div>
   </div>
 
-  <!-- BOUTON SECONDAIRE -->
-  <div class="btn-secondary-wrap">
-    <a class="btn-secondary"
-       href="https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/f34b110ee_Dossier_UNESCO_FashionistART_2027_v7_photos.pdf"
-       target="_blank" rel="noopener">
-      📄 Version avec Photos (v7)
-    </a>
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+    <img id="lightbox-img" src="" alt="" />
   </div>
 
-  <!-- KPIs -->
-  <div class="kpis">
-    <div class="kpi"><span class="kpi-num">4</span><div class="kpi-lbl">Jours</div></div>
-    <div class="kpi"><span class="kpi-num">500+</span><div class="kpi-lbl">Visiteurs</div></div>
-    <div class="kpi"><span class="kpi-num">30+</span><div class="kpi-lbl">Artistes</div></div>
-    <div class="kpi"><span class="kpi-num">2027</span><div class="kpi-lbl">UNESCO</div></div>
+  <!-- ══ TÉLÉCHARGEMENT ══ -->
+  <section class="download-section" id="telecharger">
+    <h3>Dossier Officiel de Candidature</h3>
+    <p>Téléchargez le dossier complet de demande de reconnaissance UNESCO 2027 — Patrimoine Culturel Immatériel.</p>
+    <div class="download-btns">
+      <a class="btn-dl-main"
+         href="/JS-Innov.IA_Dossier_UNESCO_FashionistART_2027_v7.pdf"
+         target="_blank" rel="noopener">
+        ⬇️ Dossier PDF Officiel (v7)
+      </a>
+      <a class="btn-dl-secondary"
+         href="/JS-Innov.IA_Dossier_UNESCO_FashionistART_2027_v7_photos.pdf"
+         target="_blank" rel="noopener">
+        📸 Version avec Photos
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ INFOS ══ -->
+  <div class="info-section">
+    <div class="info-card">
+      <div class="ic-icon">🏛️</div>
+      <h4>ASBL Starlight Dour</h4>
+      <p>Organisation officielle de Fashionist'ART. BCE 1012.267.056. Centre Sportif d'Élouges, Dour, Province de Hainaut, Belgique.</p>
+    </div>
+    <div class="info-card">
+      <div class="ic-icon">🌍</div>
+      <h4>Candidature UNESCO</h4>
+      <p>Patrimoine Culturel Immatériel de l'Humanité — IAA/AIAP. Journée Mondiale de l'Art. Édition 2027 candidate à la reconnaissance internationale.</p>
+    </div>
+    <div class="info-card">
+      <div class="ic-icon">🎨</div>
+      <h4>Mode & Art Vivant</h4>
+      <p>Défilés de mode, expositions artistiques, performances live et ateliers créatifs. Un événement unique mêlant patrimoine et innovation.</p>
+    </div>
+    <div class="info-card">
+      <div class="ic-icon">📅</div>
+      <h4>15 – 18 Avril 2027</h4>
+      <p>Quatre jours d'immersion culturelle au cœur de Dour. 500+ visiteurs attendus, 30+ artistes et créateurs participants.</p>
+    </div>
   </div>
 
   <!-- BARRE TRICOLORE -->
   <div class="tricolor"><span></span><span></span><span></span></div>
 
-  <!-- FOOTER -->
+  <!-- ══ FOOTER ══ -->
   <footer>
-    <a href="https://www.fashionistartdour.be">www.fashionistartdour.be</a> ·
-    <a href="https://www.oliviertrevis.be">www.oliviertrevis.be</a><br>
+    <a href="https://www.fashionistartdour.be" target="_blank">www.fashionistartdour.be</a> ·
+    <a href="https://www.oliviertrevis.be" target="_blank">www.oliviertrevis.be</a><br>
     ASBL Starlight Dour — BCE 1012.267.056<br>
-    Conception digitale : <a href="https://www.jsinnovia.com">JS-Innov.IA</a> — Julien Pagin
+    Centre Sportif d'Élouges · Dour · Province de Hainaut · Belgique<br>
+    Conception digitale : <a href="https://www.jsinnovia.com" target="_blank">JS-Innov.IA</a> — Julien Pagin
   </footer>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.getElementById('lightbox-img').src = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
 
 </body>
 </html>
