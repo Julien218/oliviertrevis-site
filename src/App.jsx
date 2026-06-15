@@ -12,6 +12,7 @@ import MascottesListPage from "./pages/MascottesListPage";
 import MascotteDetailPage from "./pages/MascotteDetailPage";
 import FabianoPage from "./pages/FabianoPage";
 import JyTrixAiPage from "./pages/JyTrixAiPage";
+import FashionistArtPage from "./pages/FashionistArtPage";
 
 export default function App() {
   return (
