@@ -8,6 +8,7 @@
 export const MASCOTTE_CONTENT = {
   canari: {
     nom_affiche: "Le Canari Mineur de Dour",
+    legende_titre: "La légende du Canari Mineur de Dour",
     slogan: "La voix joyeuse de notre patrimoine",
     origine: "les mines de Dour",
     lieu_prefere: "les terrils et le Parc du Centre",
@@ -42,6 +43,7 @@ Aujourd'hui, il revient avec son casque, sa guitare et son grand sourire pour ra
 
   renard: {
     nom_affiche: "Le Renard de Dour",
+    legende_titre: "La légende du Renard de Dour",
     slogan: "Le malin qui connaît tous les coins de Dour",
     origine: "les rues et les hauteurs de Dour",
     lieu_prefere: "le Belvédère",
@@ -74,6 +76,7 @@ Il représente l'intelligence locale, l'humour, la débrouillardise et l'énergi
 
   lion: {
     nom_affiche: "Le Lion de Dour",
+    legende_titre: "La légende du Lion de Dour",
     slogan: "La force tranquille de notre commune",
     origine: "le cœur de la commune",
     lieu_prefere: "la maison communale et les grands événements",
@@ -106,6 +109,7 @@ Il est la mascotte idéale pour les événements officiels, les moments forts et
 
   biche: {
     nom_affiche: "La Biche de Dour",
+    legende_titre: "La légende de la Biche de Dour",
     slogan: "L'élégance au cœur de Dour",
     origine: "la nature et les espaces verts de Dour",
     lieu_prefere: "le Parc du Centre",
@@ -138,6 +142,7 @@ Elle est idéale pour parler aux enfants, aux familles et à tous ceux qui voien
 
   ours: {
     nom_affiche: "L'Ours de Dour",
+    legende_titre: "La légende de l'Ours de Dour",
     slogan: "Le protecteur chaleureux de la commune",
     origine: "les lieux de rencontre et les moments conviviaux",
     lieu_prefere: "les fêtes locales",
@@ -171,6 +176,7 @@ C'est une mascotte familiale, rassurante et populaire.`,
 
   licorne: {
     nom_affiche: "La Licorne de Dour",
+    legende_titre: "La légende de la Licorne de Dour",
     slogan: "L'imagination qui fait rayonner Dour",
     origine: "les rêves et les idées nouvelles",
     lieu_prefere: "les événements festifs",
