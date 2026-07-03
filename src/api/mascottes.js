@@ -15,7 +15,7 @@ export const BUTTON_IMAGES = {
   ours:   "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/7ed10a34a_ours_bouton.png",
   canari: "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/efe40cd2c_canari_bouton.png",
   biche:  "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/bd1a95306_biche_bouton.png",
-  licorne: "https://media.base44.com/images/public/6a24286d838202b06e2597aa/b338cdd5e_generated_image.png",
+  licorne: "https://media.base44.com/images/public/6a24286d838202b06e2597aa/d627d4ba4_generated_image.png",
 };
 
 const API_BASE = window.location.origin.includes("localhost")
