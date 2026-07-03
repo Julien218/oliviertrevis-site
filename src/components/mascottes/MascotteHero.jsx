@@ -1,18 +1,25 @@
 import { motion } from "framer-motion";
 import { SPIRIT_COLORS } from "@/api/mascottes";
+import { QUESTIONNAIRE_URL } from "@/data/mascotteContent";
 
-export default function MascotteHero({ mascotte }) {
+export default function MascotteHero({ mascotte, nomAffiche, slogan }) {
   const slug = mascotte?.slug || "lion";
   const spirit = SPIRIT_COLORS[slug] || SPIRIT_COLORS.lion;
+  const displayName = nomAffiche || mascotte?.nom || "Mascotte";
+
+  const scrollToHistoire = () => {
+    const el = document.getElementById("legende");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden">
       {/* Background image */}
       {mascotte?.image_principale && (
         <div className="absolute inset-0 z-0">
           <img
             src={mascotte.image_principale}
-            alt={mascotte.nom}
+            alt={displayName}
             className="w-full h-full object-cover"
             style={{ filter: "brightness(0.15) saturate(0.5)" }}
           />
@@ -36,7 +43,7 @@ export default function MascotteHero({ mascotte }) {
           className="text-xs font-bold uppercase tracking-[0.4em] mb-6"
           style={{ color: spirit.primary, opacity: 0.7 }}
         >
-          {mascotte?.espece || "Mascotte"}
+          {mascotte?.espece || "Mascotte"} · Le Tour de Dour
         </motion.p>
 
         {/* Name - massive typography */}
@@ -47,25 +54,25 @@ export default function MascotteHero({ mascotte }) {
           className="font-black uppercase leading-none mb-4"
           style={{
             fontFamily: "'Cinzel', serif",
-            fontSize: "clamp(3.5rem, 14vw, 9rem)",
-            letterSpacing: "0.05em",
+            fontSize: "clamp(2.6rem, 11vw, 7rem)",
+            letterSpacing: "0.03em",
             color: spirit.primary,
             textShadow: `0 0 60px ${spirit.glow}, 0 0 120px ${spirit.glow}`,
           }}
         >
-          {mascotte?.nom || "Mascotte"}
+          {displayName}
         </motion.h1>
 
-        {/* Surnom */}
-        {mascotte?.surnom && (
+        {/* Slogan */}
+        {slogan && (
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="text-lg md:text-xl italic mb-8"
-            style={{ color: "rgba(255,255,255,0.4)", fontFamily: "'Montserrat', sans-serif" }}
+            transition={{ delay: 0.55 }}
+            className="text-lg md:text-2xl italic mb-10 max-w-2xl"
+            style={{ color: "rgba(255,255,255,0.55)", fontFamily: "'Montserrat', sans-serif" }}
           >
-            « {mascotte.surnom} »
+            « {slogan} »
           </motion.p>
         )}
 
@@ -75,7 +82,7 @@ export default function MascotteHero({ mascotte }) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, duration: 1, ease: [0.23, 1, 0.32, 1] }}
-            className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden relative"
+            className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden relative mb-10"
             style={{
               border: `3px solid ${spirit.primary}40`,
               boxShadow: `0 0 80px ${spirit.glow}, 0 0 160px ${spirit.bg}`,
@@ -83,11 +90,43 @@ export default function MascotteHero({ mascotte }) {
           >
             <img
               src={mascotte.image_principale}
-              alt={mascotte.nom}
+              alt={displayName}
               className="w-full h-full object-cover"
             />
           </motion.div>
         )}
+
+        {/* CTA buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.75 }}
+          className="flex flex-col sm:flex-row items-center gap-4"
+        >
+          <a
+            href={QUESTIONNAIRE_URL}
+            className="px-8 py-4 rounded-full font-black text-sm md:text-base uppercase tracking-[0.15em] cursor-pointer"
+            style={{
+              fontFamily: "'Cinzel', serif",
+              background: `linear-gradient(135deg, ${spirit.primary}, ${spirit.primary}cc)`,
+              color: "#0A0A0B",
+              boxShadow: `0 0 50px ${spirit.glow}, 0 8px 32px rgba(0,0,0,0.5)`,
+            }}
+          >
+            Je vote pour cette mascotte
+          </a>
+          <button
+            onClick={scrollToHistoire}
+            className="px-8 py-4 rounded-full font-bold text-sm uppercase tracking-[0.15em]"
+            style={{
+              background: "rgba(255,255,255,0.06)",
+              border: `1px solid ${spirit.primary}45`,
+              color: spirit.primary,
+            }}
+          >
+            Découvrir son histoire
+          </button>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
