@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { fetchMascottes, SPIRIT_COLORS } from "@/api/mascottes";
+import OfficialVoteSection from "@/components/mascottes/OfficialVoteSection";
 
 function MascotteColumn({ mascotte, index, active, onHover }) {
   const slug = mascotte?.slug || "lion";
@@ -253,6 +254,9 @@ export default function MascottesListPage() {
           );
         })}
       </div>
+
+      {/* Vote officiel final */}
+      {mascottes.length > 0 && <OfficialVoteSection mascottes={mascottes} />}
 
       {/* Footer */}
       <div className="py-16 text-center" style={{ background: "#0A0A0B" }}>
