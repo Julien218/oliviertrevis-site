@@ -216,7 +216,7 @@ export const LOCAL_FALLBACK = {
     nom: "La Licorne de Dour",
     espece: "Licorne lumineuse",
     surnom: "L'Éclat Inattendu",
-    image_principale: "https://media.base44.com/images/public/6a24286d838202b06e2597aa/b338cdd5e_generated_image.png",
+    image_principale: "https://media.base44.com/images/public/6a24286d838202b06e2597aa/d627d4ba4_generated_image.png",
   },
 };
 
