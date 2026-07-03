@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SPIRIT_COLORS, submitOfficialVote } from "@/api/mascottes";
+import { SPIRIT_COLORS, BUTTON_IMAGES, submitOfficialVote } from "@/api/mascottes";
 import EnergyMascotteButton from "@/components/mascottes/EnergyMascotteButton";
 
 export default function OfficialVoteSection({ mascottes }) {
@@ -89,7 +89,7 @@ export default function OfficialVoteSection({ mascottes }) {
                   return (
                     <EnergyMascotteButton
                       key={m.slug}
-                      imageUrl={m.image_principale}
+                      imageUrl={BUTTON_IMAGES[m.slug] || m.image_principale}
                       label={m.espece}
                       subLabel={m.surnom}
                       color={sp.primary}
