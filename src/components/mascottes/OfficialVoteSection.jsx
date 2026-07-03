@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SPIRIT_COLORS, submitOfficialVote } from "@/api/mascottes";
+import EnergyMascotteButton from "@/components/mascottes/EnergyMascotteButton";
 
 export default function OfficialVoteSection({ mascottes }) {
   const [selected, setSelected] = useState(null);
@@ -32,10 +33,20 @@ export default function OfficialVoteSection({ mascottes }) {
 
   return (
     <section
-      className="relative py-24 px-6"
+      className="relative py-24 px-6 overflow-hidden"
       style={{ background: "#0A0A0B", borderTop: "1px solid rgba(255,255,255,0.06)" }}
     >
-      <div className="max-w-2xl mx-auto text-center">
+      {/* Grille HUD en fond, très subtile */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,184,0,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,184,0,0.5) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+
+      <div className="relative max-w-2xl mx-auto text-center">
         <p
           className="text-[10px] font-bold uppercase tracking-[0.5em] mb-4"
           style={{ color: "rgba(255,184,0,0.5)" }}
@@ -53,7 +64,7 @@ export default function OfficialVoteSection({ mascottes }) {
         >
           Le Vote Officiel
         </h2>
-        <p className="text-sm mb-12" style={{ color: "rgba(255,255,255,0.4)" }}>
+        <p className="text-sm mb-14" style={{ color: "rgba(255,255,255,0.4)" }}>
           Choisissez la mascotte qui représentera le Tour de Dour. Un vote par personne.
         </p>
 
@@ -64,44 +75,23 @@ export default function OfficialVoteSection({ mascottes }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex flex-col items-center gap-8"
+              className="flex flex-col items-center gap-10"
             >
-              {/* Sélection mascotte */}
-              <div className="flex flex-wrap justify-center gap-4">
+              {/* Sélection mascotte — boutons énergie */}
+              <div className="flex flex-wrap justify-center gap-6">
                 {mascottes.map((m) => {
                   const sp = SPIRIT_COLORS[m.slug] || SPIRIT_COLORS.lion;
-                  const isActive = selected?.slug === m.slug;
                   return (
-                    <button
+                    <EnergyMascotteButton
                       key={m.slug}
+                      imageUrl={m.image_principale}
+                      name={m.nom?.split(" ")[0]}
+                      color={sp.primary}
+                      glow={sp.glow}
+                      active={selected?.slug === m.slug}
+                      size={84}
                       onClick={() => setSelected(m)}
-                      className="flex flex-col items-center gap-2 px-4 py-3 rounded-2xl transition-all duration-300"
-                      style={{
-                        background: isActive ? `${sp.primary}18` : "rgba(255,255,255,0.03)",
-                        border: `1px solid ${isActive ? sp.primary + "60" : "rgba(255,255,255,0.08)"}`,
-                        boxShadow: isActive ? `0 0 30px ${sp.glow}` : "none",
-                      }}
-                    >
-                      {m.image_principale ? (
-                        <img
-                          src={m.image_principale}
-                          alt={m.nom}
-                          className="w-14 h-14 rounded-full object-cover"
-                          style={{ border: `2px solid ${sp.primary}40` }}
-                        />
-                      ) : (
-                        <div
-                          className="w-14 h-14 rounded-full"
-                          style={{ background: `${sp.primary}20`, border: `2px solid ${sp.primary}40` }}
-                        />
-                      )}
-                      <span
-                        className="text-[10px] font-bold uppercase tracking-wider"
-                        style={{ color: isActive ? sp.primary : "rgba(255,255,255,0.4)" }}
-                      >
-                        {m.nom?.split(" ")[0]}
-                      </span>
-                    </button>
+                    />
                   );
                 })}
               </div>
@@ -130,7 +120,7 @@ export default function OfficialVoteSection({ mascottes }) {
                     disabled={status === "loading"}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="px-10 py-4 rounded-full font-black text-sm uppercase tracking-[0.2em]"
+                    className="relative px-10 py-4 rounded-full font-black text-sm uppercase tracking-[0.2em] overflow-hidden"
                     style={{
                       fontFamily: "'Cinzel', serif",
                       background: `linear-gradient(135deg, ${spirit.primary}, ${spirit.primary}cc)`,
@@ -138,7 +128,16 @@ export default function OfficialVoteSection({ mascottes }) {
                       boxShadow: `0 0 40px ${spirit.glow}`,
                     }}
                   >
-                    {status === "loading" ? "..." : `Voter pour ${selected.nom?.split(" ")[0]}`}
+                    <motion.span
+                      className="absolute inset-0"
+                      style={{ background: "linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent)" }}
+                      initial={{ x: "-120%" }}
+                      animate={{ x: ["-120%", "120%"] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+                    />
+                    <span className="relative">
+                      {status === "loading" ? "..." : `Voter pour ${selected.nom?.split(" ")[0]}`}
+                    </span>
                   </motion.button>
                 </motion.div>
               )}
@@ -152,12 +151,14 @@ export default function OfficialVoteSection({ mascottes }) {
               animate={{ opacity: 1, scale: 1 }}
               className="flex flex-col items-center gap-4"
             >
-              <div
+              <motion.div
                 className="w-16 h-16 rounded-full flex items-center justify-center text-2xl"
                 style={{ background: `${spirit.primary}20`, border: `2px solid ${spirit.primary}50` }}
+                animate={{ boxShadow: [`0 0 0px ${spirit.glow}`, `0 0 40px ${spirit.glow}`, `0 0 0px ${spirit.glow}`] }}
+                transition={{ duration: 2, repeat: Infinity }}
               >
                 ✓
-              </div>
+              </motion.div>
               <h3
                 className="text-xl font-black uppercase"
                 style={{ fontFamily: "'Cinzel', serif", color: spirit.primary }}
