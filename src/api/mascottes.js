@@ -7,6 +7,15 @@ export const SPIRIT_COLORS = {
   ours:   { primary: "#00CCFF", glow: "rgba(0,204,255,0.4)", bg: "rgba(0,204,255,0.08)" },
 };
 
+// Illustrations "bouton transparent" officielles par espèce (pack Js-Innov.IA)
+export const BUTTON_IMAGES = {
+  lion:   "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/c4b3df071_lion_bouton.png",
+  renard: "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/d943a8f0d_renard_bouton.png",
+  ours:   "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/7ed10a34a_ours_bouton.png",
+  canari: "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/efe40cd2c_canari_bouton.png",
+  biche:  "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/bd1a95306_biche_bouton.png",
+};
+
 const API_BASE = window.location.origin.includes("localhost")
   ? "https://site-olivier-6b051d5a.base44.app"
   : window.location.origin;
