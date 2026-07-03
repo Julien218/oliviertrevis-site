@@ -5,6 +5,28 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { fetchMascottes, SPIRIT_COLORS } from "@/api/mascottes";
 import OfficialVoteSection from "@/components/mascottes/OfficialVoteSection";
 
+function ShimmerCTA({ children, color, glow }) {
+  return (
+    <div
+      className="relative flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-[0.2em] overflow-hidden"
+      style={{
+        background: `${color}15`,
+        border: `1px solid ${color}35`,
+        color: color,
+      }}
+    >
+      <motion.span
+        className="absolute inset-0"
+        style={{ background: `linear-gradient(120deg, transparent, ${color}30, transparent)` }}
+        initial={{ x: "-120%" }}
+        animate={{ x: ["-120%", "120%"] }}
+        transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 0.8, ease: "easeInOut" }}
+      />
+      <span className="relative flex items-center gap-2">{children}</span>
+    </div>
+  );
+}
+
 function MascotteColumn({ mascotte, index, active, onHover }) {
   const slug = mascotte?.slug || "lion";
   const spirit = SPIRIT_COLORS[slug] || SPIRIT_COLORS.lion;
@@ -49,21 +71,55 @@ function MascotteColumn({ mascotte, index, active, onHover }) {
         />
       )}
 
+      {/* Grille HUD subtile en fond quand actif */}
+      {active && (
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.05]"
+          style={{
+            backgroundImage: `linear-gradient(${spirit.primary} 1px, transparent 1px), linear-gradient(90deg, ${spirit.primary} 1px, transparent 1px)`,
+            backgroundSize: "40px 40px",
+          }}
+        />
+      )}
+
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-end pb-12 px-4">
-        {/* Portrait */}
+        {/* Portrait avec anneau énergie rotatif */}
         {active && mascotte?.image_principale && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden"
-            style={{
-              border: `2px solid ${spirit.primary}40`,
-              boxShadow: `0 0 60px ${spirit.glow}`,
-            }}
+            className="relative mb-8 w-32 h-32 md:w-48 md:h-48"
           >
-            <img src={mascotte.image_principale} alt={mascotte.nom} className="w-full h-full object-cover" />
+            {/* Anneau conique rotatif */}
+            <motion.div
+              className="absolute -inset-3 rounded-full pointer-events-none"
+              style={{
+                background: `conic-gradient(from 0deg, transparent 0%, ${spirit.primary} 12%, transparent 28%, transparent 72%, ${spirit.primary} 88%, transparent 100%)`,
+                WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
+                mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            />
+            <div
+              className="relative w-full h-full rounded-full overflow-hidden"
+              style={{
+                border: `2px solid ${spirit.primary}40`,
+                boxShadow: `0 0 60px ${spirit.glow}`,
+              }}
+            >
+              <img src={mascotte.image_principale} alt={mascotte.nom} className="w-full h-full object-cover" />
+              {/* Scanline */}
+              <motion.div
+                className="absolute left-0 right-0 h-1/3 pointer-events-none"
+                style={{ background: `linear-gradient(180deg, transparent, ${spirit.primary}40, transparent)` }}
+                initial={{ top: "-40%" }}
+                animate={{ top: ["-40%", "120%"] }}
+                transition={{ duration: 2.2, repeat: Infinity, ease: "linear", repeatDelay: 0.6 }}
+              />
+            </div>
           </motion.div>
         )}
 
@@ -89,15 +145,12 @@ function MascotteColumn({ mascotte, index, active, onHover }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-6 flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-[0.2em]"
-            style={{
-              background: `${spirit.primary}15`,
-              border: `1px solid ${spirit.primary}35`,
-              color: spirit.primary,
-            }}
+            className="mt-6"
           >
-            Découvrir
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ShimmerCTA color={spirit.primary} glow={spirit.glow}>
+              Découvrir
+              <ArrowRight className="w-3.5 h-3.5" />
+            </ShimmerCTA>
           </motion.div>
         )}
       </div>
@@ -240,15 +293,10 @@ export default function MascottesListPage() {
                   }}>
                   {m.nom}
                 </h3>
-                <div className="flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider"
-                  style={{
-                    background: `${spirit.primary}15`,
-                    border: `1px solid ${spirit.primary}35`,
-                    color: spirit.primary,
-                  }}>
+                <ShimmerCTA color={spirit.primary} glow={spirit.glow}>
                   Découvrir
                   <ArrowRight className="w-3 h-3" />
-                </div>
+                </ShimmerCTA>
               </div>
             </motion.div>
           );
