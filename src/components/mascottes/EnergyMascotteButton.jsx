@@ -6,10 +6,15 @@ import { motion } from "framer-motion";
  * - Balayage scanline au survol
  * - Reticule HUD (coins ciblage) qui apparaît au hover/actif
  * - Pulse de glow quand sélectionné/actif
+ *
+ * IMPORTANT: n'affiche jamais le prénom définitif de la mascotte (nom).
+ * On affiche l'espèce (label) + le surnom (subLabel) — le prénom reste
+ * à choisir par le public via le vote.
  */
 export default function EnergyMascotteButton({
   imageUrl,
-  name,
+  label, // ex: "Lion"
+  subLabel, // ex: "Le Capitaine"
   color,
   glow,
   active = false,
@@ -24,7 +29,7 @@ export default function EnergyMascotteButton({
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.95 }}
       className="relative flex flex-col items-center justify-center outline-none group"
-      style={{ width: ringSize, height: ringSize }}
+      style={{ width: ringSize, height: ringSize + 14 }}
     >
       {/* Anneau conique rotatif — toujours présent, plus visible si actif */}
       <motion.div
@@ -90,7 +95,7 @@ export default function EnergyMascotteButton({
         }}
       >
         {imageUrl ? (
-          <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
+          <img src={imageUrl} alt={label} className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full" style={{ background: `${color}20` }} />
         )}
@@ -107,15 +112,25 @@ export default function EnergyMascotteButton({
         />
       </div>
 
-      {/* Nom */}
+      {/* Espèce (jamais le prénom) */}
       <motion.span
-        className="mt-2 text-[10px] font-bold uppercase tracking-[0.15em] relative z-10"
-        style={{ color: active ? color : "rgba(255,255,255,0.4)" }}
+        className="mt-2 text-[11px] font-bold uppercase tracking-[0.15em] relative z-10 leading-tight"
+        style={{ color: active ? color : "rgba(255,255,255,0.45)" }}
         animate={active ? { textShadow: [`0 0 0px ${glow}`, `0 0 12px ${glow}`, `0 0 0px ${glow}`] } : {}}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        {name}
+        {label}
       </motion.span>
+
+      {/* Surnom (flavor text, pas un prénom) */}
+      {subLabel && (
+        <span
+          className="text-[9px] uppercase tracking-[0.1em] relative z-10 leading-tight"
+          style={{ color: "rgba(255,255,255,0.3)" }}
+        >
+          {subLabel}
+        </span>
+      )}
     </motion.button>
   );
 }
