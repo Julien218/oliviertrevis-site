@@ -5,6 +5,7 @@ export const SPIRIT_COLORS = {
   biche:  { primary: "#00FFA3", glow: "rgba(0,255,163,0.4)", bg: "rgba(0,255,163,0.08)" },
   renard: { primary: "#FF4D00", glow: "rgba(255,77,0,0.4)",  bg: "rgba(255,77,0,0.08)"  },
   ours:   { primary: "#00CCFF", glow: "rgba(0,204,255,0.4)", bg: "rgba(0,204,255,0.08)" },
+  licorne: { primary: "#C77DFF", glow: "rgba(199,125,255,0.4)", bg: "rgba(199,125,255,0.08)" },
 };
 
 // Illustrations "bouton transparent" officielles par espèce (pack Js-Innov.IA)
@@ -14,6 +15,7 @@ export const BUTTON_IMAGES = {
   ours:   "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/7ed10a34a_ours_bouton.png",
   canari: "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/efe40cd2c_canari_bouton.png",
   biche:  "https://base44.app/api/apps/6a24286d838202b06e2597aa/files/mp/public/6a24286d838202b06e2597aa/bd1a95306_biche_bouton.png",
+  licorne: "https://media.base44.com/images/public/6a24286d838202b06e2597aa/b338cdd5e_generated_image.png",
 };
 
 const API_BASE = window.location.origin.includes("localhost")
