@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { SPIRIT_COLORS } from "@/api/mascottes";
 
-export default function LegendScroll({ mascotte, nomAffiche, histoire }) {
+export default function LegendScroll({ mascotte, nomAffiche, histoire, legendeTitre }) {
   const spirit = SPIRIT_COLORS[mascotte?.slug] || SPIRIT_COLORS.lion;
   const displayName = nomAffiche || mascotte?.nom || "cette mascotte";
   if (!histoire) return null;
@@ -24,7 +24,7 @@ export default function LegendScroll({ mascotte, nomAffiche, histoire }) {
           </p>
           <h2 className="text-3xl md:text-5xl font-black uppercase tracking-wide"
             style={{ fontFamily: "'Cinzel', serif", color: "#F5F5F7" }}>
-            La légende de {displayName.replace(/^(Le |La |L')/i, "")}
+            {legendeTitre || `La légende de ${displayName}`}
           </h2>
           <div className="mt-4 h-px w-24"
             style={{ background: `linear-gradient(90deg, ${spirit.primary}, transparent)` }} />
