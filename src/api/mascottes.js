@@ -44,3 +44,43 @@ export async function submitVote(mascotte_slug, mascotte_nom) {
     session_id,
   });
 }
+
+// ============================================================
+// VOTE OFFICIEL FINAL — page /mascottes, table Supabase dédiée
+// ============================================================
+async function getFingerprint() {
+  const stored = localStorage.getItem("masco_fp_officiel");
+  if (stored) return stored;
+  const raw = [
+    navigator.userAgent,
+    navigator.language,
+    screen.width + "x" + screen.height,
+    Intl.DateTimeFormat().resolvedOptions().timeZone,
+  ].join("|");
+  const enc = new TextEncoder().encode(raw);
+  const buf = await crypto.subtle.digest("SHA-256", enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+  localStorage.setItem("masco_fp_officiel", hash);
+  return hash;
+}
+
+export async function submitOfficialVote(mascotte, { nom_propose = "", facebook = "", facebook_url = "" } = {}) {
+  const fingerprint = await getFingerprint();
+  const already = localStorage.getItem("masco_vote_officiel_done");
+  if (already) {
+    return { success: false, already_voted: true, message: "Vous avez déjà voté depuis cet appareil." };
+  }
+  const result = await callFunction("submitOfficialVote", {
+    mascotte_id: mascotte?.id,
+    mascotte_nom: mascotte?.nom,
+    nom_propose,
+    facebook,
+    facebook_url,
+    fingerprint,
+    user_agent: navigator.userAgent,
+  });
+  if (result?.success) {
+    localStorage.setItem("masco_vote_officiel_done", mascotte?.slug || "1");
+  }
+  return result;
+}
