@@ -108,7 +108,7 @@ export default function MascotteDetailPage() {
 
       <MascotteHero mascotte={mascotte} nomAffiche={nomAffiche} slogan={content.slogan} />
       <IdentityPassport slug={slug} nom={nomAffiche} espece={mascotte?.espece} content={content} />
-      <LegendScroll mascotte={mascotte} nomAffiche={nomAffiche} histoire={content.histoire} />
+      <LegendScroll mascotte={mascotte} nomAffiche={nomAffiche} histoire={content.histoire} legendeTitre={content.legende_titre} />
       <DnaValues slug={slug} adn={content.adn} />
       <ScoreBars slug={slug} scores={content.scores} />
       <WhyVote slug={slug} nom={nomAffiche} pourquoi={content.pourquoi} />
