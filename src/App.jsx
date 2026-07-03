@@ -27,6 +27,7 @@ export default function App() {
         <Route path="/biche"     element={<MascotteDetailPage />} />
         <Route path="/renard"    element={<MascotteDetailPage />} />
         <Route path="/ours"      element={<MascotteDetailPage />} />
+        <Route path="/licorne"   element={<MascotteDetailPage />} />
         <Route path="/fabiano"   element={<FabianoPage />} />
         <Route path="/jytrixai"  element={<JyTrixAiPage />} />
         <Route path="/fashionistart" element={<FashionistArtPage />} />
