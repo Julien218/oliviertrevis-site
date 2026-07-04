@@ -7,7 +7,6 @@ import ActualitesPage from "./pages/ActualitesPage";
 import ContactPage from "./pages/ContactPage";
 import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 import AdminPage from "./pages/AdminPage";
-import MascottePage from "./pages/MascottePage";
 import MascottesListPage from "./pages/MascottesListPage";
 import MascotteDetailPage from "./pages/MascotteDetailPage";
 import FabianoPage from "./pages/FabianoPage";
@@ -20,7 +19,7 @@ export default function App() {
       <CookieBanner />
       <Routes>
         <Route path="/admin"     element={<AdminPage />} />
-        <Route path="/mascotte"  element={<MascottePage />} />
+        <Route path="/mascotte"  element={<MascottesListPage />} />
         <Route path="/mascottes" element={<MascottesListPage />} />
         <Route path="/lion"      element={<MascotteDetailPage />} />
         <Route path="/canari"    element={<MascotteDetailPage />} />
