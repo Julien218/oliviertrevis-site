@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Tour de Dour — La série documentaire sur Dour</title>
+  <meta name="description" content="Une série de reportages, visites et interviews pour découvrir Dour autrement — ses lieux, ses gens, ses histoires. Par Olivier Trevis." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.letourdedour.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.letourdedour.com" />
+  <meta property="og:title" content="Le Tour de Dour — La série documentaire sur Dour" />
+  <meta property="og:description" content="Découvrez Dour à travers les yeux d'Olivier Trevis. Visites, interviews, événements — Le Tour de Dour vous emmène au cœur de la vie douroise." />
+  <meta property="og:image" content="https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/42704af36_NewlogoletourdeDourJs-innovia-julienpagin.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: #0D1117; color: #F5F1E8; overflow-x: hidden; }
+    :root {
+      --orange: #D47A2C; --amber: #F0C982; --blue: #1E6FA5;
+      --night: #0D1117; --nightMid: #161B22; --cream: #F5F1E8; --gold: #C9A227;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--night); }
+    ::-webkit-scrollbar-thumb { background: #D47A2C40; border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 2rem;
+      background: rgba(13,17,23,0.85); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212,122,44,0.15);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(240,201,130,0.4); }
+    .nav-logo-text { font-weight: 900; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #F5F1E8; }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { color: rgba(245,241,232,0.7); text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: #F0C982; }
+    .nav-cta { background: linear-gradient(135deg, #D47A2C, #F0C982); color: #0D1117 !important; padding: 0.45rem 1.1rem; border-radius: 9999px; }
+    @media(max-width: 640px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 7rem 1.5rem 4rem; overflow: hidden;
+      background: linear-gradient(180deg, #161B22 0%, #0D1117 100%);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(30,111,165,0.12) 0%, transparent 35%),
+        radial-gradient(circle at 80% 20%, rgba(240,201,130,0.09) 0%, transparent 30%),
+        radial-gradient(circle at 50% 75%, rgba(212,122,44,0.07) 0%, transparent 45%);
+    }
+    /* Étoiles animées */
+    .star {
+      position: absolute; border-radius: 50%; background: #F0C982; pointer-events: none;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+    @keyframes twinkle { 0%,100%{opacity:0.15;transform:scale(1)} 50%{opacity:0.8;transform:scale(1.5)} }
+    .hero-content { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
+    .hero-logo-wrap {
+      width: 180px; height: 180px; margin: 0 auto 2.2rem;
+      border-radius: 50%; overflow: hidden;
+      border: 2.5px solid rgba(240,201,130,0.35);
+      filter: drop-shadow(0 0 32px rgba(240,201,130,0.3)) drop-shadow(0 0 64px rgba(212,122,44,0.18));
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+    @keyframes floatLogo { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .hero-logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-title {
+      font-weight: 900; font-size: clamp(2.4rem, 8vw, 5.5rem);
+      letter-spacing: 0.10em; text-transform: uppercase; color: #fff; line-height: 1.05;
+    }
+    .hero-de { font-size: 0.48em; color: var(--amber); letter-spacing: 0.14em; }
+    .hero-script {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      color: var(--amber); margin-top: 0.3rem; line-height: 1.1;
+    }
+    .gold-sep {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      margin: 1.4rem 0;
+    }
+    .gold-line { height: 1px; width: 64px; border-radius: 999px; }
+    .gold-line-l { background: linear-gradient(90deg, transparent, var(--orange)); }
+    .gold-line-r { background: linear-gradient(90deg, var(--orange), transparent); }
+    .gold-star { width: 10px; height: 10px; background: var(--amber); clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+    .hero-tagline { font-size: clamp(0.88rem, 2.5vw, 1rem); color: rgba(245,241,232,0.78); line-height: 1.7; max-width: 520px; margin: 0 auto 2.2rem; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.8rem; border-radius: 9999px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.05em; text-decoration: none; border: none; cursor: pointer; transition: all 0.25s ease; }
+    .btn-primary { background: linear-gradient(135deg, var(--orange), var(--amber)); color: #0D1117; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,122,44,0.45); }
+    .btn-outline { background: transparent; border: 1.5px solid var(--amber); color: var(--amber); }
+    .btn-outline:hover { background: rgba(240,201,130,0.10); transform: translateY(-2px); }
+    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); animation: bounce 1.8s ease-in-out infinite; }
+    .hero-scroll span { display: block; width: 20px; height: 20px; border-right: 2.5px solid rgba(240,201,130,0.55); border-bottom: 2.5px solid rgba(240,201,130,0.55); transform: rotate(45deg); }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+    /* ── COUNTER ── */
+    .counters { background: linear-gradient(180deg, rgba(30,111,165,0.08) 0%, transparent 100%); padding: 3.5rem 1.5rem; border-bottom: 1px solid rgba(212,122,44,0.10); }
+    .counters-grid { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    .counter-card { background: rgba(22,27,34,0.8); border: 1px solid rgba(212,122,44,0.15); border-radius: 1rem; padding: 1.6rem 1rem; text-align: center; }
+    .counter-val { font-weight: 900; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--amber); line-height: 1; }
+    .counter-label { font-size: 0.75rem; font-weight: 700; color: rgba(245,241,232,0.6); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .s-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.4rem; }
+    .s-title { font-weight: 900; font-size: clamp(1.5rem, 4vw, 2.3rem); color: #fff; margin-bottom: 0.75rem; }
+    .s-sub { color: rgba(245,241,232,0.7); font-size: 0.95rem; line-height: 1.7; max-width: 560px; }
+
+    /* ── CONCEPT ── */
+    .concept-bg { background: #161B22; }
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+    .concept-card { background: #0D1117; border: 1px solid rgba(212,122,44,0.18); border-radius: 1rem; padding: 1.75rem; transition: all 0.3s ease; }
+    .concept-card:hover { border-color: rgba(212,122,44,0.5); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(212,122,44,0.12); }
+    .concept-icon { width: 46px; height: 46px; border-radius: 0.7rem; display: flex; align-items: center; justify-content: center; margin-bottom: 0.9rem; font-size: 1.4rem; }
+    .concept-card h3 { font-weight: 800; font-size: 1rem; margin-bottom: 0.4rem; color: #fff; }
+    .concept-card p { color: rgba(245,241,232,0.65); font-size: 0.88rem; line-height: 1.6; }
+
+    /* ── VIDEOS ── */
+    .search-bar {
+      margin-top: 1.75rem; margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      background: #161B22; border: 1.5px solid rgba(212,122,44,0.25);
+      border-radius: 9999px; padding: 0.5rem 1.2rem;
+      max-width: 420px;
+    }
+    .search-bar svg { color: var(--amber); flex-shrink: 0; }
+    .search-bar input { background: none; border: none; outline: none; color: #F5F1E8; font-family: 'Montserrat',sans-serif; font-size: 0.9rem; flex: 1; }
+    .search-bar input::placeholder { color: rgba(245,241,232,0.35); }
+    .videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; margin-top: 0.5rem; }
+    .video-card { border: 1.5px solid rgba(212,122,44,0.18); background: linear-gradient(160deg, #161B22 0%, #0D1117 100%); border-radius: 1rem; overflow: hidden; transition: all 0.3s ease; }
+    .video-card:hover { border-color: rgba(212,122,44,0.55); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(212,122,44,0.15); }
+    .video-card iframe { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
+    .video-info { padding: 1rem 1.1rem 1.2rem; }
+    .ep-badge { display: inline-block; font-size: 0.68rem; font-weight: 800; padding: 0.2rem 0.65rem; border-radius: 9999px; background: linear-gradient(135deg, var(--orange), var(--amber)); color: #0D1117; margin-bottom: 0.45rem; letter-spacing: 0.04em; }
+    .video-title { font-weight: 800; font-size: 0.92rem; color: #fff; margin-bottom: 0.35rem; line-height: 1.35; }
+    .video-desc { font-size: 0.8rem; color: rgba(245,241,232,0.55); line-height: 1.5; }
+    .no-results { text-align:center; padding: 3rem; color: rgba(245,241,232,0.45); font-size:0.9rem; }
+    .yt-btn { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 2rem; background: #FF0000; color: #fff; padding: 0.7rem 1.5rem; border-radius: 9999px; font-weight: 800; font-size: 0.85rem; text-decoration: none; transition: all 0.2s; }
+    .yt-btn:hover { background: #cc0000; transform: translateY(-2px); }
+
+    /* ── PROFIL OLIVIER ── */
+    .profil-bg { background: #161B22; }
+    .profil-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; max-width: 960px; margin: 0 auto; }
+    @media(max-width: 680px) { .profil-inner { grid-template-columns: 1fr; text-align: center; } }
+    .profil-img-wrap { position: relative; }
+    .profil-img { width: 100%; max-width: 340px; border-radius: 1.25rem; display: block; margin: 0 auto; border: 2px solid rgba(212,122,44,0.3); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+    .profil-badge { position: absolute; bottom: -1rem; right: 0; background: linear-gradient(135deg, var(--orange), var(--amber)); color: #0D1117; font-weight: 900; font-size: 0.8rem; padding: 0.45rem 1rem; border-radius: 9999px; white-space: nowrap; }
+    .profil-content .s-label { margin-bottom: 0.3rem; }
+    .profil-content .s-title { margin-bottom: 0.8rem; }
+    .profil-content p { color: rgba(245,241,232,0.72); font-size: 0.92rem; line-height: 1.75; margin-bottom: 1rem; }
+    .social-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.4rem; }
+    .social-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1.1rem; border-radius: 9999px; font-family: 'Montserrat',sans-serif; font-weight: 700; font-size: 0.78rem; text-decoration: none; transition: all 0.2s; letter-spacing: 0.03em; }
+    .social-btn-yt { background: #FF0000; color: #fff; }
+    .social-btn-yt:hover { background: #cc0000; transform: translateY(-2px); }
+    .social-btn-fb { background: #1877F2; color: #fff; }
+    .social-btn-fb:hover { background: #1260cc; transform: translateY(-2px); }
+    .social-btn-site { background: transparent; border: 1.5px solid var(--amber); color: var(--amber); }
+    .social-btn-site:hover { background: rgba(240,201,130,0.1); transform: translateY(-2px); }
+    @media(max-width:680px){ .social-row{justify-content:center;} .profil-badge{right:50%;transform:translateX(50%);} }
+
+    /* ── PROPOSER ── */
+    .proposer-bg { background: #0D1117; }
+    .proposer-card { max-width: 680px; margin: 0 auto; background: #161B22; border: 1px solid rgba(212,122,44,0.2); border-radius: 1.5rem; padding: 2.5rem 2rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    @media(max-width: 520px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1/-1; }
+    .form-group label { font-size: 0.78rem; font-weight: 700; color: rgba(245,241,232,0.6); text-transform: uppercase; letter-spacing: 0.06em; }
+    .form-group input, .form-group textarea {
+      background: #0D1117; border: 1.5px solid rgba(212,122,44,0.2); border-radius: 0.6rem;
+      padding: 0.65rem 0.9rem; color: #F5F1E8; font-family: 'Montserrat',sans-serif; font-size: 0.88rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: rgba(212,122,44,0.6); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-check { display: flex; align-items: flex-start; gap: 0.6rem; margin-top: 0.5rem; }
+    .form-check input[type=checkbox] { margin-top: 0.15rem; accent-color: var(--orange); flex-shrink: 0; }
+    .form-check label { font-size: 0.8rem; color: rgba(245,241,232,0.55); line-height: 1.5; }
+    .form-submit { margin-top: 1.5rem; width: 100%; justify-content: center; font-size: 0.9rem; padding: 0.85rem; }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+    .success-msg { text-align: center; padding: 2.5rem 1rem; }
+    .success-msg .icon { font-size: 3rem; margin-bottom: 0.75rem; }
+    .success-msg h3 { font-size: 1.2rem; font-weight: 800; color: var(--amber); margin-bottom: 0.4rem; }
+    .success-msg p { color: rgba(245,241,232,0.65); font-size: 0.9rem; }
+
+    /* ── FOOTER ── */
+    footer { background: #0A0E14; border-top: 1px solid rgba(212,122,44,0.12); padding: 2.5rem 1.5rem; text-align: center; }
+    .footer-logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 0.10em; text-transform: uppercase; color: #F5F1E8; margin-bottom: 0.3rem; }
+    .footer-logo span { color: var(--amber); }
+    .footer-sub { font-size: 0.8rem; color: rgba(245,241,232,0.4); margin-bottom: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .footer-links a { color: rgba(245,241,232,0.45); text-decoration: none; font-size: 0.78rem; font-weight: 600; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--amber); }
+    .footer-credit { font-size: 0.72rem; color: rgba(245,241,232,0.25); }
+    .footer-credit a { color: rgba(212,122,44,0.6); text-decoration: none; }
+
+    /* ── Animations ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/42704af36_NewlogoletourdeDourJs-innovia-julienpagin.png" alt="TDD" />
+    <span class="nav-logo-text">Le Tour de Dour</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#concept">Le concept</a></li>
+    <li><a href="#episodes">Épisodes</a></li>
+    <li><a href="#olivier">Olivier</a></li>
+    <li><a href="https://www.youtube.com/@OlivierTrevis" target="_blank" class="nav-cta">YouTube ↗</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<section class="hero" id="top">
+  <!-- Étoiles générées par JS -->
+  <div id="stars-container"></div>
+
+  <div class="hero-content">
+    <div class="hero-logo-wrap">
+      <img src="https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/42704af36_NewlogoletourdeDourJs-innovia-julienpagin.png" alt="Le Tour de Dour" />
+    </div>
+
+    <h1 class="hero-title">
+      LE TOUR <span class="hero-de">de</span> DOUR
+    </h1>
+    <p class="hero-script">Olivier Trevis</p>
+
+    <div class="gold-sep">
+      <div class="gold-line gold-line-l"></div>
+      <div class="gold-star"></div>
+      <div class="gold-line gold-line-r"></div>
+    </div>
+
+    <p class="hero-tagline">
+      Une série de reportages, visites et interviews pour découvrir
+      <strong style="color: var(--amber)">Dour</strong> autrement —
+      ses lieux, ses gens, ses histoires.
+      <span style="color:var(--orange)"> 15 épisodes disponibles.</span>
+    </p>
+
+    <div class="hero-cta">
+      <a href="#episodes" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        Voir les épisodes
+      </a>
+      <a href="https://www.youtube.com/@OlivierTrevis" target="_blank" class="btn btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5a3 3 0 00-2.1 2.1C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1C24 16 24 12 24 12s0-4-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+        S'abonner
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll"><span></span></div>
+</section>
+
+<!-- ══════════════════════════ COUNTERS ══════════════════════════ -->
+<div class="counters fade-in">
+  <div class="counters-grid">
+    <div class="counter-card">
+      <div class="counter-val">28+</div>
+      <div class="counter-label">Épisodes tournés</div>
+    </div>
+    <div class="counter-card">
+      <div class="counter-val">3+</div>
+      <div class="counter-label">Ans sur le terrain</div>
+    </div>
+    <div class="counter-card">
+      <div class="counter-val">100%</div>
+      <div class="counter-label">Made in Dour</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ CONCEPT ══════════════════════════ -->
+<section class="concept-bg" id="concept">
+  <div class="container fade-in">
+    <p class="s-label">La série</p>
+    <h2 class="s-title">Qu'est-ce que le Tour de Dour ?</h2>
+    <p class="s-sub">Une web-série locale qui met en lumière tout ce qui fait la richesse de Dour — le patrimoine, les habitants, les événements, les initiatives citoyennes.</p>
+
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-icon" style="background: rgba(212,122,44,0.15);">🎥</div>
+        <h3>Visites de lieux</h3>
+        <p>Lieux remarquables et patrimoine de Dour mis en lumière à travers chaque épisode.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon" style="background: rgba(30,111,165,0.15);">🎙️</div>
+        <h3>Interviews</h3>
+        <p>Rencontres avec habitants, artisans et acteurs locaux qui font vivre Dour.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon" style="background: rgba(240,201,130,0.12);">🎉</div>
+        <h3>Événements</h3>
+        <p>Couverture des événements culturels, sportifs et festifs de Dour et de sa région.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon" style="background: rgba(30,111,165,0.15);">💡</div>
+        <h3>Initiatives</h3>
+        <p>Projets citoyens, associations et innovations locales qui transforment le quotidien.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ VIDÉOS ══════════════════════════ -->
+<section id="episodes" style="background: #0D1117;">
+  <div class="container fade-in">
+    <p class="s-label">Tous les épisodes</p>
+    <h2 class="s-title">La vidéothèque du Tour de Dour</h2>
+    <p class="s-sub">Retrouvez tous les épisodes disponibles. 15 épisodes en ligne, régulièrement mis à jour.</p>
+
+    <div class="search-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search-input" placeholder="Rechercher un épisode…" />
+    </div>
+
+    <div class="videos-grid" id="videos-grid">
+      <!-- Episodes injectés par JS -->
+    </div>
+
+    <div id="no-results" class="no-results" style="display:none;">
+      Aucun épisode ne correspond à votre recherche.
+    </div>
+
+    <div style="text-align:center;">
+      <a href="https://www.youtube.com/@OlivierTrevis" target="_blank" class="yt-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5a3 3 0 00-2.1 2.1C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1C24 16 24 12 24 12s0-4-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+        Voir toutes les vidéos sur YouTube
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PROFIL OLIVIER ══════════════════════════ -->
+<section class="profil-bg" id="olivier">
+  <div class="container fade-in">
+    <div class="profil-inner">
+      <div class="profil-img-wrap">
+        <img
+          src="https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/892f73e5f_LogoOlivierTrevisOfficielJs-INNOVIA.jpg"
+          alt="Olivier Trevis"
+          class="profil-img"
+        />
+        <div class="profil-badge">🎬 Créateur du Tour de Dour</div>
+      </div>
+      <div class="profil-content">
+        <p class="s-label">Le créateur</p>
+        <h2 class="s-title">Olivier Trevis</h2>
+        <p>Né et grandi à Dour, Olivier Trevis est passionné par sa commune depuis toujours. Avec Le Tour de Dour, il part à la rencontre des lieux, des gens et des événements qui font battre le cœur de Dour.</p>
+        <p>À travers chaque épisode, il livre une vision sincère, chaleureuse et locale d'une commune qui a beaucoup à raconter.</p>
+        <p>Producteur, réalisateur, présentateur — il porte le projet de A à Z, avec passion et authenticité.</p>
+        <div class="social-row">
+          <a href="https://www.youtube.com/@OlivierTrevis" target="_blank" class="social-btn social-btn-yt">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5a3 3 0 00-2.1 2.1C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1C24 16 24 12 24 12s0-4-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+            YouTube
+          </a>
+          <a href="https://www.facebook.com/OlivierTrevisDour" target="_blank" class="social-btn social-btn-fb">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </a>
+          <a href="https://www.oliviertrevis.be" target="_blank" class="social-btn social-btn-site">
+            🌐 oliviertrevis.be
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PROPOSER UN LIEU ══════════════════════════ -->
+<section class="proposer-bg" id="proposer">
+  <div class="container fade-in">
+    <div style="text-align:center; margin-bottom:2.5rem;">
+      <p class="s-label">Participez</p>
+      <h2 class="s-title">Proposer un lieu ou une initiative</h2>
+      <p class="s-sub" style="margin:0 auto;">Vous connaissez un endroit, une personne ou un projet qui mériterait d'être mis en lumière dans le Tour de Dour ? Dites-le nous !</p>
+    </div>
+
+    <div class="proposer-card">
+      <div id="form-container">
+        <form id="propose-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Prénom *</label>
+              <input type="text" name="prenom" required placeholder="Votre prénom" />
+            </div>
+            <div class="form-group">
+              <label>Nom *</label>
+              <input type="text" name="nom" required placeholder="Votre nom" />
+            </div>
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" name="email" required placeholder="votre@email.com" />
+            </div>
+            <div class="form-group">
+              <label>Lieu / Initiative *</label>
+              <input type="text" name="lieu" required placeholder="Ex : La chapelle de Cocar" />
+            </div>
+            <div class="form-group full">
+              <label>Description</label>
+              <textarea name="description" placeholder="Décrivez le lieu ou l'initiative en quelques mots…"></textarea>
+            </div>
+            <div class="form-group full">
+              <div class="form-check">
+                <input type="checkbox" id="rgpd" name="rgpd" required />
+                <label for="rgpd">J'accepte que mes données soient utilisées pour traiter ma proposition. Elles ne seront pas partagées à des tiers.</label>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit" id="submit-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+            Envoyer ma proposition
+          </button>
+        </form>
+      </div>
+      <div id="success-container" style="display:none;">
+        <div class="success-msg">
+          <div class="icon">✅</div>
+          <h3>Merci pour votre proposition !</h3>
+          <p>Olivier Trevis la recevra et reviendra vers vous si votre idée est retenue pour un prochain épisode.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+<footer>
+  <div class="footer-logo">LE TOUR <span>de</span> DOUR</div>
+  <div class="footer-sub" style="font-family:'Great Vibes',cursive; font-size:1.1rem; color:rgba(240,201,130,0.6);">Olivier Trevis</div>
+  <div class="footer-links">
+    <a href="https://www.oliviertrevis.be" target="_blank">oliviertrevis.be</a>
+    <a href="https://www.youtube.com/@OlivierTrevis" target="_blank">YouTube</a>
+    <a href="https://www.facebook.com/OlivierTrevisDour" target="_blank">Facebook</a>
+    <a href="https://www.oliviertrevis.be/mentions-legales" target="_blank">Mentions légales</a>
+  </div>
+  <div class="footer-credit">Propulsé par <a href="https://www.jsinnovia.com" target="_blank">JS-Innov.IA</a> · Dour, Belgique</div>
+</footer>
+
+<script>
+// ── ÉTOILES ANIMÉES ──────────────────────────────────────────────────────────
+(function() {
+  const container = document.getElementById('stars-container');
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 1;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*100}%;
+      left:${Math.random()*100}%;
+      animation-delay:${Math.random()*4}s;
+      animation-duration:${2.5 + Math.random()*3}s;
+    `;
+    container.appendChild(s);
+  }
+})();
+
+// ── VIDÉOS ───────────────────────────────────────────────────────────────────
+const VIDEOS = [
+  { titre:"Épisode 28 — Belvédère", ytId:"Qn5071Zaq10", desc:"28e numéro du Tour de Dour — Cap sur le Belvédère ! Ouverture officielle du bassin de nage pour la saison 2025.", ep:28 },
+  { titre:"Épisode 27 — Relais pour la Vie", ytId:"hthZk96ARLg", desc:"Le Tour de Dour au Relais pour la Vie : 24h de solidarité, d'émotion et d'espoir à Dour.", ep:27 },
+  { titre:"Épisode 26 — Carnaval d'Élouges", ytId:"KXclmEXKA1A", desc:"Pour ce 26e numéro, micros et caméras au cœur du carnaval d'Élouges — complètement déjanté !", ep:26 },
+  { titre:"Épisode 25 — Les nouveaux Miss et Mister Dour sont élus !", ytId:"eHgBZGIEazI", desc:"Élection de Miss et Mister Dour 2025 : les coulisses de l'un des événements les plus glamour de l'année à Dour.", ep:25 },
+  { titre:"Épisode 24 — David Jeanmotte, la personnalité médiatique douroise", ytId:"-n9Su5g3p9g", desc:"Interview de David Jeanmotte — chroniqueur, présentateur, acteur et relookeur passionné de Dour.", ep:24 },
+  { titre:"Épisode 23 — Le Tour de Dour des Miss et Mister", ytId:"badAmqK_eyc", desc:"Les candidats Miss et Mister ont exploré tous les lieux emblématiques de Dour — patrimoine, paysages et rencontres.", ep:23 },
+  { titre:"Épisode 22 — Focus sur le Samyn !", ytId:"-DoBoWeOUao", desc:"Le cyclisme à l'honneur : focus sur le Samyn à Dour, course emblématique de la région.", ep:22 },
+  { titre:"Épisode 21 — Le Centre Sportif de Tir Dourois", ytId:"lUhCMnYJa60", desc:"Découverte du Centre Sportif de Tir Dourois — précision, concentration et maîtrise au cœur de Dour.", ep:21 },
+  { titre:"Épisode 20 — Le Doux Rire Festival", ytId:"d3JprQyulSw", desc:"À la découverte des talents de l'humour belge au Doux Rire Festival de Dour.", ep:20 },
+  { titre:"Épisode 19 — Les finalistes Miss et Mister Dour 2025", ytId:"vzJvvkIJOjM", desc:"Les coulisses et préparatifs des élections Miss et Mister Dour 2025 — découvrez les finalistes !", ep:19 },
+  { titre:"Épisode 18 — Les fanfares du Tour de Dour", ytId:"-a3Q3RKkSzw", desc:"L'univers festif des fanfares de Dour et Wihéries qui ont enflammé le Centre Culturel de Dour.", ep:18 },
+  { titre:"Épisode 17 — Faisons connaissance avec Freddy Adam", ytId:"XPrpFJARctk", desc:"Rencontre avec Freddy Adam, personnalité haute en couleur qui aime Dour et ses villages.", ep:17 },
+  { titre:"Épisode 16 — La parade de Noël à Dour", ytId:"WQMNn8Q3Xmw", desc:"Le Tour de Dour au cœur de la parade de Noël — un événement festif qui réunit petits et grands.", ep:16 },
+  { titre:"Épisode 14 — Le cyclisme, une passion à Dour", ytId:"_Xndtn8fQRI", desc:"Le cyclisme incontournable de Dour — entre loisirs et compétitions, ce sport emblématique occupe une place centrale.", ep:14 },
+  { titre:"Épisode 8 — La chapelle du Bois de Cocar", ytId:"peZBVeVcpQ8", desc:"Exploration de la chapelle du Bois de Cocar, nichée au cœur de la nature — sérénité et histoire.", ep:8 },
+];
+
+function getEpLabel(titre) {
+  const m = titre.match(/[ÉEé]pisode\s+(\d+)/i);
+  return m ? `Épisode ${m[1]}` : '';
+}
+
+function renderVideos(list) {
+  const grid = document.getElementById('videos-grid');
+  const noRes = document.getElementById('no-results');
+  if (!list.length) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+  grid.innerHTML = list.map(v => `
+    <div class="video-card">
+      <iframe
+        src="https://www.youtube.com/embed/${v.ytId}?rel=0&modestbranding=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+        title="${v.titre}"
+      ></iframe>
+      <div class="video-info">
+        ${getEpLabel(v.titre) ? `<span class="ep-badge">${getEpLabel(v.titre)}</span>` : ''}
+        <div class="video-title">${v.titre.replace(/^Épisode \d+ — /, '')}</div>
+        ${v.desc ? `<div class="video-desc">${v.desc}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+renderVideos(VIDEOS);
+
+document.getElementById('search-input').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  if (!q) { renderVideos(VIDEOS); return; }
+  renderVideos(VIDEOS.filter(v =>
+    v.titre.toLowerCase().includes(q) || (v.desc||'').toLowerCase().includes(q)
+  ));
+});
+
+// ── FORMULAIRE ───────────────────────────────────────────────────────────────
+document.getElementById('propose-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi en cours…';
+
+  const data = new FormData(this);
+  const payload = {
+    prenom: data.get('prenom'),
+    nom: data.get('nom'),
+    email: data.get('email'),
+    objet: 'Tour de Dour — Proposition de lieu',
+    message: `Lieu / Initiative : ${data.get('lieu')}\n\n${data.get('description') || '(pas de description)'}`,
+    lu: false, repondu: false, consentement_rgpd: true
+  };
+
+  try {
+    const res = await fetch('https://formspree.io/f/xkgbpozd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('success-container').style.display = 'block';
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = '↩ Réessayer';
+    }
+  } catch {
+    btn.disabled = false;
+    btn.innerHTML = '↩ Réessayer';
+  }
+});
+
+// ── SCROLL ANIMATIONS ────────────────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
