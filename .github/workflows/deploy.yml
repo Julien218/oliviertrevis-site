@@ -3,6 +3,7 @@ name: 🚀 CI/CD — Olivier Trevis (Railway)
 on:
   push:
     branches: [main, master]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -32,7 +33,7 @@ jobs:
       - name: 🚀 Deploy to Railway
         run: railway up --detach
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROJECT_TOKEN }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
       - name: ✅ Done
         run: echo "✨ oliviertrevis.be déployé via Railway — JS-Innov.IA"
