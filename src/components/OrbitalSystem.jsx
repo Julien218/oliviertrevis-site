@@ -8,7 +8,7 @@ const ITEMS = [
   { titre: "Miss & Mister Dour", logo: LOGO_MISS,     site: "https://www.missetmisterdour.be",  c: "#c9a84c", external: true  },
   { titre: "Fashionist'ART",     logo: LOGO_FASHION,  site: "https://fashionistartdour.be", c: "#e91e8c", external: true  },
   { titre: "Le Tour de Dour",    logo: LOGO_TDD,      site: "/tour-de-dour",                    c: "#D47A2C", external: false },
-  { titre: "P&V Assurances",     logo: LOGO_PV,       site: "https://www.assurancesdour.be",    c: "#dc2626", external: true  },
+  { titre: "P&V Assurances",     logo: LOGO_PV,       site: "https://www.assurances-dour.be",    c: "#dc2626", external: true  },
   { titre: "Synergie Dour",      logo: LOGO_SYNERGIE, site: "https://www.synergiedour.be",      c: "#3b82f6", external: true  },
 ];
 

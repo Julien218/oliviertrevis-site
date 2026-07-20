@@ -75,7 +75,7 @@ const PROJETS = [
     sous: "Agence de Dour",
     desc: "Votre conseiller assurances de confiance — auto, habitation, famille.",
     logo: LOGO_PV,
-    site: "https://www.assurancesdour.be",
+    site: "https://www.assurances-dour.be",
     // Couleurs : rouge cardinal/orange P&V
     c1: "#9b1c1c", c2: "#ea580c", bg: "#0a0202",
     particleColors: ["#9b1c1c", "#ea580c", "#fca5a5", "#fed7aa"],

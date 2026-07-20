@@ -67,7 +67,7 @@ const PROJETS = [
     soustitre: "Agence de Dour",
     desc: "Votre conseiller assurances de confiance à Dour.",
     logo: LOGO_PV,
-    site: "https://www.assurancesdour.be",
+    site: "https://www.assurances-dour.be",
     accent: "#4a9eff",
     glow: "rgba(74,158,255,0.35)",
     socials: [{ href: SOCIAL_LINKS.pvAssurances.facebook, Icon: FbIcon }],

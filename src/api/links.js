@@ -25,7 +25,7 @@ export const SOCIAL_LINKS = {
     facebook:  "https://www.facebook.com/groups/casepasseadour",
   },
   pvAssurances: {
-    site:      "https://www.assurancesdour.be",
+    site:      "https://www.assurances-dour.be",
     facebook:  "https://www.facebook.com/pvassurancesdour",
   },
 };

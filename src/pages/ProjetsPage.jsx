@@ -48,7 +48,7 @@ const PROJETS = [
     soustitre: "Agence de Dour",
     description: "Votre conseiller assurances de confiance à Dour. Auto, habitation, famille, santé, entreprise — des solutions personnalisées et un accompagnement de proximité.",
     tags: ["Assurances", "Proximité", "Dour", "Conseils"],
-    site: "https://www.assurancesdour.be",
+    site: "https://www.assurances-dour.be",
     socials: [
       { href: SOCIAL_LINKS.pvAssurances.facebook, Icon: FbIcon, color: "#1877f2", label: "Facebook" },
     ],
