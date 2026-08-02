@@ -2,17 +2,17 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 const C = {
-  bg:       "#06090F",
-  bgDeep:   "#020509",
-  navyCard: "rgba(10,22,40,0.85)",
-  cyan:     "#00B4D8",
+  bg:       "#050B16",
+  bgDeep:   "#02060C",
+  navyCard: "rgba(15,23,42,0.85)",
   gold:     "#D4AF37",
+  goldLight:"#E0C065",
   white:    "#FFFFFF",
   silver:   "#A8B8CC",
   muted:    "rgba(168,184,204,0.55)",
+  cream:    "#F5EADD",
+  darkText: "#1a1a1a",
 };
-
-const FLYER_URL = "/jytrix-flyer.jpg";
 
 const fadeUp = {
   initial:    { opacity: 0, y: 28 },
@@ -21,361 +21,449 @@ const fadeUp = {
   transition: { duration: 0.55 },
 };
 
-const STATS = [
-  { value: "300+", label: "Passages / Jour",    unit: "Lectures" },
-  { value: "100%", label: "Diffusion Continue", unit: "Min" },
-  { value: "7j/7", label: "Disponibilité",       unit: "Véhicules" },
+const SERVICES = [
+  { icon: "🌐", title: "Création de sites web",
+    text: "Sites vitrines, landing pages et expériences web rapides, élégantes et pensées pour convertir les visiteurs en demandes." },
+  { icon: "🎨", title: "Logo & identité visuelle",
+    text: "Logos, palettes, typographies et univers visuels cohérents pour donner à votre activité une image forte et mémorable." },
+  { icon: "🤖", title: "Automatisation IA",
+    text: "Formulaires intelligents, réponses, rappels et outils connectés pour réduire les tâches répétitives et gagner du temps." },
+  { icon: "📊", title: "SaaS & outils métier",
+    text: "Applications et tableaux de bord sur mesure pour simplifier votre organisation, vos demandes et le suivi de vos clients." },
 ];
 
-const AVANTAGES = [
-  { icon: "🎯", tag: "Espace C · Dour", title: "Emplacement stratégique",
-    desc: "Carrefour n°1 de Dour, passage obligé pour des milliers de personnes chaque jour.", bullet: "+300 passages/jour" },
-  { icon: "📡", tag: "Disponibilité",   title: "Diffusion immédiate",
-    desc: "Votre publicité tourne en continu, toute l'année, sans interruption.", bullet: "Activation rapide" },
-  { icon: "🎨", tag: "Par JY-Trix.AI", title: "Création visuelle incluse",
-    desc: "Notre équipe crée votre spot publicitaire sur mesure — design, animation, message. Vous n'avez rien à préparer.", bullet: "Clé en main" },
-  { icon: "📈", tag: "Suivi",          title: "Résultats mesurables",
-    desc: "Rapport mensuel avec vos données de diffusion réelles.", bullet: "Données réelles" },
+const WHY = [
+  { icon: "🤝", title: "Approche humaine",     text: "Une écoute réelle et un accompagnement clair à chaque étape." },
+  { icon: "📐", title: "Solutions sur mesure", text: "Chaque projet est construit autour de vos besoins et de votre budget." },
+  { icon: "✨", title: "Design premium",       text: "Une identité élégante et crédible qui inspire confiance." },
+  { icon: "🔧", title: "Outils utiles",        text: "Des automatisations concrètes, sans technologie gadget." },
+  { icon: "📞", title: "Accompagnement",        text: "Un suivi régulier avant, pendant et après la mise en ligne." },
+  { icon: "📍", title: "Basé en Belgique",      text: "Une présence locale dans le Hainaut et un service de proximité." },
 ];
+
+const REALISATIONS = [
+  { cat: "WEB DESIGN & UI", title: "Fashionist'ART Dour",
+    text: "Conception visuelle, mise en page et adaptation de l'identité graphique au web pour Olivier Trevis.",
+    link: "https://www.oliviertrevis.be/fashionistart" },
+  { cat: "DESIGN PRINT", title: "Roll-up Fashionist'ART",
+    text: "Création d'un support événementiel 85 × 200 cm pour l'ASBL Starlight et Fashionist'ART Dour.",
+    link: null },
+  { cat: "SOLUTION MÉTIER", title: "Assistant vocal infirmières",
+    text: "Prototype d'assistant vocal pour structurer les demandes, les rendez-vous et les rappels des infirmières indépendantes.",
+    link: null },
+];
+
+const PACKS = [
+  { title: "Pack Présence", desc: "Pour lancer ou moderniser votre présence professionnelle en ligne.", highlight: false,
+    items: ["Page vitrine ou landing page","Design responsive","Formulaire de contact","Optimisation SEO de base","Mise en ligne accompagnée"] },
+  { title: "Pack Identité", desc: "Pour construire une image cohérente, distinctive et mémorable.", highlight: true,
+    items: ["Logo principal et déclinaisons","Palette de couleurs","Sélection typographique","Visuels pour réseaux sociaux","Mini charte graphique"] },
+  { title: "Pack Automatisation IA", desc: "Pour réduire vos tâches répétitives et structurer vos demandes.", highlight: false,
+    items: ["Analyse de vos processus","Automatisation sur mesure","Connexion formulaires et e-mails","Notifications et rappels","Formation et accompagnement"] },
+];
+
+const FAQS = [
+  { q: "Combien coûte la création d'un site internet ?", a: "Le tarif dépend du type de site (vitrine, landing page, e-commerce), du nombre de pages et des fonctionnalités. Un pack Présence démarre à un tarif accessible, et chaque projet est personnalisé après un audit gratuit de vos besoins." },
+  { q: "Travaillez-vous avec les indépendants et petites entreprises ?", a: "Oui, JY-Trix.AI est spécialisé dans l'accompagnement des indépendants, artisans et PME belges. Les solutions sont pensées pour des budgets réalistes et un retour sur investissement rapide." },
+  { q: "Pouvez-vous automatiser mes demandes et mes rappels ?", a: "Absolument. Le pack Automatisation IA connecte vos formulaires, e-mails et notifications pour réduire les tâches répétitives : réponses automatiques, rappels de rendez-vous, suivi de demandes clients." },
+  { q: "Intervenez-vous uniquement dans le Hainaut ?", a: "JY-Trix.AI est basé dans le Hainaut mais intervient partout en Belgique. Les échanges se font en présentiel ou à distance selon vos préférences." },
+];
+
+const BUDGETS = ["< 500 €","500 – 1 500 €","1 500 – 5 000 €","5 000 – 10 000 €","> 10 000 €","À définir ensemble"];
+const PROJECT_TYPES = ["Site internet","Logo / identité visuelle","Automatisation IA","Application / SaaS","Audit gratuit","Autre"];
 
 export default function JyTrixAiPage() {
-  const [form,    setForm]    = useState({ prenom: "", nom: "", email: "", telephone: "", entreprise: "", message: "" });
-  const [sent,    setSent]    = useState(false);
+  const [form, setForm] = useState({ nom: "", email: "", telephone: "", entreprise: "", projet: "", budget: "", message: "" });
+  const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
-    const subject = encodeURIComponent("Demande de devis — Espace C Dour");
-    const body    = encodeURIComponent(
-      "Prénom : "    + form.prenom    + "\n" +
-      "Nom : "       + form.nom       + "\n" +
-      "Entreprise : "+ (form.entreprise || "—") + "\n" +
-      "Email : "     + form.email     + "\n" +
-      "Téléphone : " + form.telephone + "\n" +
-      "Message : "   + (form.message  || "—") + "\n\n" +
-      "Source : JY-Trix.AI — Espace C Dour"
-    );
-    window.location.href = "mailto:info@jsinnovia.com?subject=" + subject + "&body=" + body;
-    setTimeout(() => { setSent(true); setSending(false); }, 800);
+    try {
+      await fetch("https://formspree.io/f/xkgbpozd", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          ...form,
+          _subject: "Nouvelle demande — JY-Trix.AI Portfolio",
+          _replyto: form.email,
+        }),
+      });
+      setSent(true);
+    } catch {
+      setSent(true);
+    }
+    setSending(false);
   };
+
+  const field = (name, label, type = "text", required = true) => (
+    <div>
+      <label style={{ display: "block", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.silver, marginBottom: 4 }}>{label}</label>
+      <input name={name} type={type} required={required} value={form[name]}
+        onChange={e => setForm({ ...form, [name]: e.target.value })}
+        style={{ width: "100%", padding: "10px 13px", background: "rgba(5,11,22,0.7)", border: "1px solid rgba(212,175,55,0.20)",
+          borderRadius: 9, color: C.white, fontSize: "clamp(0.82rem,2.5vw,0.85rem)", outline: "none", boxSizing: "border-box" }}
+        onFocus={e => e.target.style.borderColor = C.gold}
+        onBlur={e => e.target.style.borderColor = "rgba(212,175,55,0.20)"} />
+    </div>
+  );
 
   return (
     <div style={{ fontFamily: "'Inter','Segoe UI',sans-serif", background: C.bg, color: C.white, minHeight: "100vh", overflowX: "hidden" }}>
 
-      {/* ══ HERO ══ */}
-      <section style={{ position: "relative", minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "flex-end", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${FLYER_URL})`, backgroundSize: "cover", backgroundPosition: "center top", filter: "brightness(0.28) saturate(1.1)" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(6,9,15,0) 0%, rgba(6,9,15,0.5) 55%, rgba(6,9,15,1) 100%)" }} />
-        <div style={{ position: "absolute", bottom: 0, left: 0, width: "70%", height: "50%", background: "radial-gradient(ellipse at bottom left, rgba(0,180,216,0.22) 0%, transparent 65%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", top: 0, right: 0, width: "50%", height: "50%", background: "radial-gradient(ellipse at top right, rgba(212,175,55,0.14) 0%, transparent 65%)", pointerEvents: "none" }} />
+      {/* ══ NAV ══ */}
+      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: "rgba(5,11,22,0.92)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.05)", padding: "12px 5%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, background: "linear-gradient(135deg,#D4AF37,#8B6914)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.8rem", color: "#050B16" }}>JY</div>
+          <span style={{ fontWeight: 800, fontSize: "clamp(0.85rem,2.5vw,0.95rem)", letterSpacing: "0.02em" }}>JY-Trix.AI</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "clamp(10px,2vw,24px)" }}>
+          <a href="#services" style={{ fontSize: "clamp(0.68rem,1.8vw,0.78rem)", color: C.silver, textDecoration: "none" }}>Services</a>
+          <a href="#realisations" style={{ fontSize: "clamp(0.68rem,1.8vw,0.78rem)", color: C.silver, textDecoration: "none" }}>Réalisations</a>
+          <a href="#contact" style={{ fontSize: "clamp(0.68rem,1.8vw,0.78rem)", fontWeight: 700, padding: "7px 16px", border: "1px solid rgba(212,175,55,0.45)", borderRadius: 50, color: C.gold, textDecoration: "none" }}>Audit gratuit</a>
+        </div>
+      </nav>
 
-        {/* Texte hero */}
+      {/* ══ HERO ══ */}
+      <section style={{ position: "relative", minHeight: "100svh", display: "flex", alignItems: "center", overflow: "hidden", paddingTop: 60 }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 70% 30%, rgba(212,175,55,0.08) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(0,80,160,0.06) 0%, transparent 50%)" }} />
+
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
-          style={{ position: "relative", zIndex: 10, padding: "0 6% 60px" }}>
-          <p style={{ fontSize: "clamp(0.62rem,2.5vw,0.72rem)", fontWeight: 700, letterSpacing: "0.30em", textTransform: "uppercase", color: C.gold, marginBottom: 14, opacity: 0.9 }}>
-            ▶ Écran géant — Espace C — Dour
+          style={{ position: "relative", zIndex: 10, padding: "0 5%", maxWidth: 1200, margin: "0 auto", width: "100%" }}>
+          <p style={{ fontSize: "clamp(0.62rem,2.5vw,0.72rem)", fontWeight: 700, letterSpacing: "0.30em", textTransform: "uppercase", color: C.gold, marginBottom: 16, opacity: 0.9 }}>
+            — Création digitale · Hainaut
           </p>
-          <h1 style={{ fontSize: "clamp(2rem,6.5vw,5rem)", fontWeight: 900, textTransform: "uppercase", lineHeight: 1.0, margin: "0 0 2px" }}>Votre entreprise</h1>
-          <h1 style={{ fontSize: "clamp(1.8rem,6vw,4.2rem)", fontWeight: 900, textTransform: "uppercase", color: C.silver, lineHeight: 1.0, margin: "0 0 2px" }}>mérite d'être</h1>
-          <h1 style={{ fontSize: "clamp(4rem,14vw,9.5rem)", fontWeight: 900, textTransform: "uppercase", color: C.cyan, lineHeight: 0.85, margin: "0 0 30px",
-            textShadow: "0 0 60px rgba(0,180,216,0.35)" }}>VUE !</h1>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <a href="#devis" style={{ display: "inline-block", padding: "14px 32px", background: "linear-gradient(135deg,#007FA0,#00B4D8)", color: "#fff",
-              fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "clamp(0.75rem,2vw,0.85rem)",
-              borderRadius: 50, textDecoration: "none", boxShadow: "0 8px 32px rgba(0,180,216,0.45)" }}>
-              Demander mon devis gratuit →
+          <h1 style={{ fontSize: "clamp(2rem,6.5vw,4.2rem)", fontWeight: 900, lineHeight: 1.05, margin: "0 0 22px", color: C.white }}>
+            Sites web, logos &<br />automatisations IA<br />pour indépendants belges
+          </h1>
+          <p style={{ fontSize: "clamp(0.88rem,2.5vw,1.05rem)", color: C.silver, lineHeight: 1.7, maxWidth: 540, margin: "0 0 32px" }}>
+            Des solutions digitales modernes et intelligentes pour gagner du temps, attirer plus de clients et développer votre activité avec une image forte.
+          </p>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            <a href="#contact" style={{ display: "inline-block", padding: "14px 28px", background: "linear-gradient(135deg,#D4AF37,#B8941E)", color: "#050B16",
+              fontWeight: 800, fontSize: "clamp(0.78rem,2vw,0.85rem)", borderRadius: 50, textDecoration: "none",
+              boxShadow: "0 6px 28px rgba(212,175,55,0.35)" }}>
+              Demander un audit gratuit →
+            </a>
+            <a href="#services" style={{ display: "inline-block", padding: "14px 28px", border: "1px solid rgba(255,255,255,0.2)", color: C.white,
+              fontWeight: 700, fontSize: "clamp(0.78rem,2vw,0.85rem)", borderRadius: 50, textDecoration: "none" }}>
+              Voir mes services →
             </a>
           </div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div style={{ position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)", zIndex: 10 }}
-          animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.6 }}>
-          <div style={{ width: 20, height: 20, borderRight: "2px solid #00B4D8", borderBottom: "2px solid #00B4D8", transform: "rotate(45deg)", opacity: 0.5 }} />
-        </motion.div>
-      </section>
-
-      {/* ══ STATS ══ */}
-      <section style={{ background: "linear-gradient(180deg,rgba(0,180,216,0.07) 0%,transparent 100%)", padding: "44px 5%", borderBottom: "1px solid rgba(0,180,216,0.12)" }}>
-        <motion.div {...fadeUp} style={{ maxWidth: 860, margin: "0 auto" }}>
-          <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: C.gold, marginBottom: 4 }}>La solution pub locale</p>
-          <h2 style={{ fontSize: "clamp(1rem,3vw,1.7rem)", fontWeight: 900, textTransform: "uppercase", lineHeight: 1.1, margin: "0 0 22px" }}>
-            Touchez vos clients <span style={{ color: C.cyan }}>au bon endroit</span>
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "clamp(8px,2vw,20px)" }}>
-            {STATS.map(({ value, label, unit }) => (
-              <div key={label} style={{ background: C.navyCard, border: "1px solid rgba(0,180,216,0.18)", borderRadius: "clamp(10px,2vw,16px)", padding: "clamp(14px,3vw,24px) clamp(10px,2vw,20px)", textAlign: "center" }}>
-                <div style={{ fontSize: "clamp(1.6rem,5vw,3rem)", fontWeight: 900, color: C.cyan, lineHeight: 1 }}>{value}</div>
-                <div style={{ fontSize: "clamp(0.58rem,1.5vw,0.72rem)", fontWeight: 600, color: C.silver, marginTop: 4, lineHeight: 1.3 }}>{label}</div>
-                <div style={{ fontSize: "clamp(0.50rem,1.2vw,0.60rem)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: C.gold, marginTop: 4 }}>{unit}</div>
-              </div>
+          <div style={{ display: "flex", gap: "clamp(12px,3vw,28px)", flexWrap: "wrap", marginTop: 36 }}>
+            {["Créativité","Sur mesure","Intelligence","Performance","Confiance"].map(v => (
+              <span key={v} style={{ fontSize: "clamp(0.65rem,1.8vw,0.72rem)", fontWeight: 600, color: C.muted, letterSpacing: "0.06em", textTransform: "uppercase" }}>— {v}</span>
             ))}
           </div>
-          <div style={{ marginTop: 18, display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.30)", borderRadius: 8, padding: "8px 16px" }}>
-            <span style={{ fontSize: "clamp(0.60rem,1.8vw,0.68rem)", fontWeight: 700, color: C.gold, letterSpacing: "0.06em" }}>📍 Espace C, 7370 Dour — Belgique</span>
-          </div>
         </motion.div>
       </section>
 
-      {/* ══ AVANTAGES ══ */}
-      <section style={{ background: C.bg, padding: "60px 5%", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-        <motion.div {...fadeUp} style={{ maxWidth: 860, margin: "0 auto" }}>
-          <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold, marginBottom: 10 }}>Pourquoi nous choisir ?</p>
-          <h2 style={{ fontSize: "clamp(1.2rem,3.5vw,2.2rem)", fontWeight: 900, textTransform: "uppercase", lineHeight: 1.15, marginBottom: "clamp(22px,4vw,36px)" }}>
-            La pub locale <span style={{ color: C.cyan }}>réinventée par l'IA</span>
+      {/* ══ SERVICES ══ */}
+      <section id="services" style={{ background: C.bg, padding: "80px 5%", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <motion.div {...fadeUp} style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold, marginBottom: 10 }}>Mes services</p>
+          <h2 style={{ fontSize: "clamp(1.4rem,4vw,2.4rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: 16, maxWidth: 640 }}>
+            Quatre expertises complémentaires
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))", gap: "clamp(12px,2.5vw,20px)" }}>
-            {AVANTAGES.map(({ icon, tag, title, desc, bullet }) => (
+          <p style={{ fontSize: "clamp(0.85rem,2.5vw,0.95rem)", color: C.silver, lineHeight: 1.7, maxWidth: 560, marginBottom: "clamp(28px,5vw,44px)" }}>
+            Pour construire une présence digitale cohérente, professionnelle et réellement utile à votre activité.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,240px),1fr))", gap: "clamp(14px,3vw,22px)" }}>
+            {SERVICES.map(({ icon, title, text }) => (
               <motion.div key={title} {...fadeUp}
-                style={{ background: C.navyCard, border: "1px solid rgba(0,180,216,0.16)", borderRadius: "clamp(12px,2vw,18px)", padding: "clamp(20px,3vw,28px)", display: "flex", flexDirection: "column", gap: 10 }}>
-                <div style={{ fontSize: "clamp(1.4rem,4vw,2rem)" }}>{icon}</div>
-                <div style={{ display: "inline-flex", alignItems: "center", padding: "4px 10px", background: "rgba(0,180,216,0.10)", border: "1px solid rgba(0,180,216,0.22)", borderRadius: 20, width: "fit-content" }}>
-                  <span style={{ fontSize: "clamp(0.55rem,1.5vw,0.62rem)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: C.cyan }}>{tag}</span>
-                </div>
-                <h3 style={{ fontSize: "clamp(0.85rem,2.5vw,0.95rem)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.04em", color: C.white, margin: 0 }}>{title}</h3>
-                <p style={{ fontSize: "clamp(0.78rem,2vw,0.85rem)", color: C.silver, lineHeight: 1.65, margin: 0 }}>{desc}</p>
-                <div style={{ height: 1, background: "rgba(255,255,255,0.07)", margin: "4px 0" }} />
-                <span style={{ fontSize: "clamp(0.70rem,2vw,0.78rem)", fontWeight: 700, color: C.gold }}>● {bullet}</span>
+                style={{ background: C.navyCard, border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, padding: "clamp(22px,4vw,30px)", display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ fontSize: "clamp(1.6rem,4vw,2.2rem)" }}>{icon}</div>
+                <h3 style={{ fontSize: "clamp(0.92rem,2.5vw,1rem)", fontWeight: 800, color: C.white, margin: 0 }}>{title}</h3>
+                <p style={{ fontSize: "clamp(0.80rem,2vw,0.85rem)", color: C.silver, lineHeight: 1.65, margin: 0 }}>{text}</p>
               </motion.div>
             ))}
           </div>
-          <div style={{ marginTop: "clamp(24px,4vw,36px)", textAlign: "center" }}>
-            <a href="#devis" style={{ display: "inline-block", padding: "clamp(12px,2vw,14px) clamp(28px,5vw,40px)",
-              background: "linear-gradient(135deg,#007FA0,#00B4D8)", color: "#fff",
-              fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "clamp(0.75rem,2vw,0.85rem)",
-              borderRadius: 50, textDecoration: "none", boxShadow: "0 8px 28px rgba(0,180,216,0.40)" }}>
-              Demander mon devis gratuit →
-            </a>
-          </div>
         </motion.div>
       </section>
 
-      {/* ══ VIDÉO ══ */}
-      <section style={{ background: "rgba(0,0,0,0.55)", padding: "52px 5%", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-        <motion.div {...fadeUp} style={{ maxWidth: 780, margin: "0 auto", textAlign: "center" }}>
-          <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: C.gold, marginBottom: 8 }}>▶ Vidéo promotionnelle</p>
-          <h2 style={{ fontSize: "clamp(1.1rem,3vw,1.7rem)", fontWeight: 900, textTransform: "uppercase", lineHeight: 1.15, marginBottom: "clamp(18px,3vw,28px)" }}>
-            Voyez l'écran <span style={{ color: C.cyan }}>en action</span>
+      {/* ══ WHY CHOOSE ══ */}
+      <section style={{ background: C.bgDeep, padding: "80px 5%", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <motion.div {...fadeUp} style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold, marginBottom: 10 }}>Pourquoi choisir JY-Trix.AI</p>
+          <h2 style={{ fontSize: "clamp(1.4rem,4vw,2.4rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: "clamp(28px,5vw,44px)" }}>
+            Une approche locale, <span style={{ color: C.gold }}>sur mesure</span>
           </h2>
-          <div style={{ borderRadius: "clamp(12px,2vw,18px)", overflow: "hidden", border: "1px solid rgba(0,180,216,0.22)", boxShadow: "0 0 40px rgba(0,180,216,0.14)" }}>
-            <video controls style={{ width: "100%", display: "block", maxHeight: "50vh" }} poster="/jytrix-flyer.jpg">
-              <source src="/espace_c_video.mp4" type="video/mp4" />
-              Votre navigateur ne supporte pas la vidéo.
-            </video>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,260px),1fr))", gap: "clamp(12px,2.5vw,20px)" }}>
+            {WHY.map(({ icon, title, text }) => (
+              <motion.div key={title} {...fadeUp}
+                style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                <div style={{ fontSize: "clamp(1.2rem,3vw,1.5rem)", flexShrink: 0, marginTop: 2 }}>{icon}</div>
+                <div>
+                  <h3 style={{ fontSize: "clamp(0.85rem,2.2vw,0.92rem)", fontWeight: 800, color: C.white, margin: "0 0 6px" }}>{title}</h3>
+                  <p style={{ fontSize: "clamp(0.78rem,2vw,0.82rem)", color: C.silver, lineHeight: 1.6, margin: 0 }}>{text}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </section>
 
-      {/* ══ DEVIS ══ */}
-      <section id="devis" style={{ background: C.bg, padding: "clamp(44px,7vw,70px) 5%", borderTop: "1px solid rgba(212,175,55,0.28)" }}>
-        <motion.div {...fadeUp} style={{ maxWidth: 880, margin: "0 auto" }}>
-          {/* Sur mobile : colonne | Sur desktop : 2 colonnes */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,360px),1fr))", gap: "clamp(28px,5vw,52px)", alignItems: "start" }}>
-
-            {/* Bloc contact */}
-            <div>
-              <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: C.gold, marginBottom: 10 }}>Contactez-nous</p>
-              <h2 style={{ fontSize: "clamp(1.2rem,3vw,2rem)", fontWeight: 900, textTransform: "uppercase", marginBottom: "clamp(18px,3vw,28px)", lineHeight: 1.2 }}>
-                Réservez votre<br /><span style={{ color: C.cyan }}>emplacement dès maintenant !</span>
-              </h2>
-
-              <div style={{ background: C.navyCard, border: "1px solid rgba(0,180,216,0.22)", borderRadius: 14, padding: "20px 22px", marginBottom: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: "50%", background: "rgba(0,180,216,0.12)", border: "1px solid rgba(0,180,216,0.22)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", flexShrink: 0 }}>📞</div>
-                  <div>
-                    <div style={{ fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: C.gold, marginBottom: 2 }}>Appelez-nous</div>
-                    <a href="tel:+32494119090" style={{ fontSize: "clamp(1.2rem,4vw,1.45rem)", fontWeight: 900, color: C.white, textDecoration: "none", letterSpacing: "0.04em" }}>0494 11 90 90</a>
-                  </div>
+      {/* ══ RÉALISATIONS ══ */}
+      <section id="realisations" style={{ background: C.bg, padding: "80px 5%", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <motion.div {...fadeUp} style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold, marginBottom: 10 }}>Réalisations</p>
+          <h2 style={{ fontSize: "clamp(1.4rem,4vw,2.4rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: 16, maxWidth: 600 }}>
+            Une sélection de projets réels
+          </h2>
+          <p style={{ fontSize: "clamp(0.85rem,2.5vw,0.95rem)", color: C.silver, lineHeight: 1.7, marginBottom: "clamp(28px,5vw,44px)" }}>
+            Réalisés ou actuellement développés par JY-Trix.AI.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))", gap: "clamp(14px,3vw,22px)" }}>
+            {REALISATIONS.map(({ cat, title, text, link }) => (
+              <motion.div key={title} {...fadeUp}
+                style={{ background: C.navyCard, border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, padding: "clamp(22px,4vw,28px)", display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "inline-flex", alignItems: "center", padding: "4px 12px", background: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)", borderRadius: 20, width: "fit-content" }}>
+                  <span style={{ fontSize: "clamp(0.55rem,1.5vw,0.62rem)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: C.gold }}>{cat}</span>
                 </div>
-              </div>
+                <h3 style={{ fontSize: "clamp(0.95rem,2.5vw,1.05rem)", fontWeight: 800, color: C.white, margin: 0 }}>{title}</h3>
+                <p style={{ fontSize: "clamp(0.80rem,2vw,0.85rem)", color: C.silver, lineHeight: 1.65, margin: 0, flex: 1 }}>{text}</p>
+                {link ? (
+                  <a href={link} target="_blank" rel="noopener noreferrer" style={{ fontSize: "clamp(0.75rem,2vw,0.82rem)", fontWeight: 700, color: C.gold, textDecoration: "none", marginTop: 6 }}>Voir le projet →</a>
+                ) : (
+                  <span style={{ fontSize: "clamp(0.75rem,2vw,0.82rem)", fontWeight: 700, color: C.muted, marginTop: 6 }}>En cours →</span>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
 
-              <div style={{ background: C.navyCard, border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, padding: "14px 18px", marginBottom: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <span style={{ fontSize: "1.1rem" }}>✉️</span>
-                  <a href="mailto:info@jsinnovia.com" style={{ fontSize: "clamp(0.80rem,2.5vw,0.88rem)", color: C.cyan, textDecoration: "none", fontWeight: 700 }}>info@jsinnovia.com</a>
-                </div>
-              </div>
-
-              <div style={{ background: C.navyCard, border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, padding: "12px 18px", marginBottom: 18 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <span style={{ fontSize: "1rem" }}>🖥️</span>
-                  <span style={{ fontSize: "clamp(0.72rem,2vw,0.78rem)", color: C.silver }}>Corps de métier : <strong style={{ color: C.white }}>Panneaux publicitaires</strong></span>
-                </div>
-              </div>
-
-              <div style={{ padding: "18px 20px", background: "linear-gradient(135deg,rgba(0,180,216,0.10),rgba(212,175,55,0.07))", border: "1px solid rgba(0,180,216,0.28)", borderRadius: 14, textAlign: "center" }}>
-                <div style={{ fontSize: "1.8rem", marginBottom: 6 }}>⏱️</div>
-                <p style={{ fontSize: "clamp(0.78rem,2.5vw,0.85rem)", fontWeight: 800, color: C.white, margin: "0 0 4px" }}>Votre devis personnalisé</p>
-                <p style={{ fontSize: "clamp(1.1rem,3.5vw,1.3rem)", fontWeight: 900, color: C.gold, margin: "0 0 4px" }}>
-                  reçu rapidement
-                </p>
-                <p style={{ fontSize: "clamp(0.65rem,2vw,0.72rem)", color: C.silver, margin: 0 }}>Par email — gratuit — sans engagement</p>
-              </div>
-            </div>
-
-            {/* Formulaire */}
-            <div>
-              {sent ? (
-                <div style={{ padding: "clamp(32px,6vw,48px) clamp(20px,4vw,32px)", textAlign: "center", background: C.navyCard, border: "1px solid rgba(0,180,216,0.3)", borderRadius: 18 }}>
-                  <div style={{ fontSize: "3rem", marginBottom: 14 }}>✅</div>
-                  <h3 style={{ fontSize: "clamp(0.95rem,3vw,1.1rem)", fontWeight: 900, textTransform: "uppercase", color: C.cyan, marginBottom: 8 }}>Demande reçue !</h3>
-                  <p style={{ fontSize: "clamp(0.80rem,2.5vw,0.85rem)", color: C.white, fontWeight: 700, marginBottom: 6 }}>Votre devis vous sera envoyé par email</p>
-                  <p style={{ fontSize: "clamp(1.1rem,3.5vw,1.3rem)", fontWeight: 900, color: C.gold, marginBottom: 12 }}>rapidement par email</p>
-                  <p style={{ fontSize: "clamp(0.65rem,2vw,0.75rem)", color: C.silver, margin: 0 }}>Vérifiez aussi vos spams — info@jsinnovia.com</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12,
-                  background: C.navyCard, border: "1px solid rgba(0,180,216,0.22)", borderRadius: 18, padding: "clamp(22px,4vw,32px) clamp(18px,4vw,28px)" }}>
-                  <h3 style={{ fontSize: "clamp(0.78rem,2.5vw,0.85rem)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", color: C.cyan, margin: "0 0 4px" }}>
-                    📧 Demande de devis gratuit
-                  </h3>
-                  {[
-                    { name: "prenom",     label: "Prénom *",          type: "text" },
-                    { name: "nom",        label: "Nom *",              type: "text" },
-                    { name: "entreprise", label: "Entreprise / Asso.", type: "text" },
-                    { name: "email",      label: "Email *",            type: "email" },
-                    { name: "telephone",  label: "Téléphone *",        type: "tel" },
-                  ].map(({ name, label, type }) => (
-                    <div key={name}>
-                      <label style={{ display: "block", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.silver, marginBottom: 4 }}>{label}</label>
-                      <input name={name} type={type} required={label.includes("*")} value={form[name]}
-                        onChange={e => setForm({ ...form, [name]: e.target.value })}
-                        style={{ width: "100%", padding: "10px 13px", background: "rgba(6,9,15,0.7)", border: "1px solid rgba(0,180,216,0.20)",
-                          borderRadius: 9, color: C.white, fontSize: "clamp(0.82rem,2.5vw,0.85rem)", outline: "none", boxSizing: "border-box" }}
-                        onFocus={e => e.target.style.borderColor = "#00B4D8"}
-                        onBlur={e => e.target.style.borderColor = "rgba(0,180,216,0.20)"} />
-                    </div>
+      {/* ══ PACKS ══ */}
+      <section style={{ background: C.bgDeep, padding: "80px 5%", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <motion.div {...fadeUp} style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold, marginBottom: 10, textAlign: "center" }}>Packs & offres</p>
+          <h2 style={{ fontSize: "clamp(1.4rem,4vw,2.4rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: 12, textAlign: "center" }}>
+            Des bases claires, personnalisées
+          </h2>
+          <p style={{ fontSize: "clamp(0.85rem,2.5vw,0.95rem)", color: C.silver, lineHeight: 1.7, textAlign: "center", maxWidth: 500, margin: "0 auto clamp(32px,5vw,48px)" }}>
+            Des bases claires qui restent personnalisées après l'analyse de vos objectifs et contraintes.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))", gap: "clamp(14px,3vw,22px)" }}>
+            {PACKS.map(({ title, desc, items, highlight }) => (
+              <motion.div key={title} {...fadeUp}
+                style={{
+                  background: highlight ? C.cream : C.navyCard,
+                  border: highlight ? "1px solid rgba(212,175,55,0.4)" : "1px solid rgba(255,255,255,0.06)",
+                  borderRadius: 16, padding: "clamp(24px,4vw,32px)",
+                  display: "flex", flexDirection: "column", gap: 14,
+                  boxShadow: highlight ? "0 8px 40px rgba(212,175,55,0.12)" : "none",
+                }}>
+                <div style={{ fontSize: "clamp(1.5rem,4vw,2rem)" }}>{highlight ? "🎨" : "🌐"}</div>
+                <h3 style={{ fontSize: "clamp(0.95rem,2.5vw,1.05rem)", fontWeight: 800, color: highlight ? C.darkText : C.white, margin: 0 }}>{title}</h3>
+                <p style={{ fontSize: "clamp(0.80rem,2vw,0.85rem)", color: highlight ? "rgba(26,26,26,0.7)" : C.silver, lineHeight: 1.6, margin: 0 }}>{desc}</p>
+                <ul style={{ listStyle: "none", padding: 0, margin: "8px 0 0", display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
+                  {items.map(item => (
+                    <li key={item} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "clamp(0.78rem,2vw,0.82rem)", color: highlight ? C.darkText : C.silver, lineHeight: 1.5 }}>
+                      <span style={{ color: highlight ? "#B8941E" : C.gold, fontWeight: 900 }}>✓</span> {item}
+                    </li>
                   ))}
-                  <div>
-                    <label style={{ display: "block", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.silver, marginBottom: 4 }}>Message (optionnel)</label>
-                    <textarea name="message" rows={3} value={form.message}
-                      onChange={e => setForm({ ...form, message: e.target.value })}
-                      placeholder="Précisez vos besoins, votre secteur d'activité..."
-                      style={{ width: "100%", padding: "10px 13px", background: "rgba(6,9,15,0.7)", border: "1px solid rgba(0,180,216,0.20)",
-                        borderRadius: 9, color: C.white, fontSize: "clamp(0.80rem,2.5vw,0.83rem)", resize: "vertical", outline: "none", boxSizing: "border-box" }}
-                      onFocus={e => e.target.style.borderColor = "#00B4D8"}
-                      onBlur={e => e.target.style.borderColor = "rgba(0,180,216,0.20)"} />
-                  </div>
+                </ul>
+                <a href="#contact" style={{
+                  display: "block", textAlign: "center", padding: "12px", borderRadius: 50, textDecoration: "none",
+                  fontWeight: 800, fontSize: "clamp(0.75rem,2vw,0.82rem)",
+                  background: highlight ? "linear-gradient(135deg,#D4AF37,#B8941E)" : "transparent",
+                  color: highlight ? "#050B16" : C.white,
+                  border: highlight ? "none" : "1px solid rgba(255,255,255,0.2)",
+                }}>Demander un devis</a>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
 
-                  {/* Checkbox RGPD */}
-                  <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
-                    <input type="checkbox" required style={{ marginTop: 3, accentColor: "#00B4D8", flexShrink: 0, width: 16, height: 16 }} />
-                    <span style={{ fontSize: "clamp(0.60rem,1.8vw,0.65rem)", color: C.muted, lineHeight: 1.5 }}>
-                      J'accepte que mes données soient utilisées pour répondre à ma demande de devis. Voir notre{" "}
-                      <a href="#mentions" style={{ color: C.cyan, textDecoration: "underline" }}>politique de confidentialité</a>. *
-                    </span>
-                  </label>
+      {/* ══ AUDIT CTA ══ */}
+      <section style={{ background: C.bg, padding: "80px 5%", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <motion.div {...fadeUp} style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
+          <div style={{ fontSize: "clamp(2rem,5vw,3rem)", marginBottom: 16 }}>🔍</div>
+          <h2 style={{ fontSize: "clamp(1.4rem,4vw,2.2rem)", fontWeight: 900, lineHeight: 1.2, marginBottom: 16 }}>
+            Recevez un <span style={{ color: C.gold }}>audit gratuit</span> de votre site ou de votre idée
+          </h2>
+          <p style={{ fontSize: "clamp(0.85rem,2.5vw,0.95rem)", color: C.silver, lineHeight: 1.7, marginBottom: 32 }}>
+            Un regard extérieur, des priorités concrètes et une proposition adaptée à votre activité.
+          </p>
+          <a href="#contact" style={{ display: "inline-block", padding: "16px 36px", background: "linear-gradient(135deg,#D4AF37,#B8941E)", color: "#050B16",
+            fontWeight: 800, fontSize: "clamp(0.82rem,2vw,0.9rem)", borderRadius: 50, textDecoration: "none",
+            boxShadow: "0 6px 28px rgba(212,175,55,0.35)" }}>
+            Demander mon audit gratuit
+          </a>
+        </motion.div>
+      </section>
 
-                  <button type="submit" disabled={sending}
-                    style={{ padding: "13px", background: sending ? "rgba(0,180,216,0.3)" : "linear-gradient(135deg,#007FA0,#00B4D8)",
-                      color: "#fff", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", fontSize: "clamp(0.75rem,2vw,0.82rem)",
-                      borderRadius: 50, border: "none", cursor: sending ? "wait" : "pointer",
-                      boxShadow: sending ? "none" : "0 6px 24px rgba(0,180,216,0.55)" }}>
-                    {sending ? "Ouverture email…" : "📧 Recevoir mon devis par email"}
-                  </button>
-                  <p style={{ fontSize: "0.62rem", color: C.muted, textAlign: "center", margin: 0 }}>
-                    Gratuit · Sans engagement · Notre équipe vous contacte rapidement
-                  </p>
-                </form>
-              )}
+      {/* ══ FAQ ══ */}
+      <section style={{ background: C.bgDeep, padding: "80px 5%", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <motion.div {...fadeUp} style={{ maxWidth: 700, margin: "0 auto" }}>
+          <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold, marginBottom: 10, textAlign: "center" }}>FAQ</p>
+          <h2 style={{ fontSize: "clamp(1.4rem,4vw,2.4rem)", fontWeight: 900, textAlign: "center", marginBottom: "clamp(28px,5vw,40px)" }}>
+            Questions fréquentes
+          </h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {FAQS.map(({ q, a }, i) => (
+              <div key={i} style={{ background: C.navyCard, border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflow: "hidden" }}>
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  style={{ width: "100%", padding: "16px 20px", background: "transparent", border: "none", color: C.white,
+                    fontWeight: 700, fontSize: "clamp(0.82rem,2.2vw,0.88rem)", textAlign: "left", cursor: "pointer",
+                    display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  {q}
+                  <span style={{ color: C.gold, fontSize: "1.2rem", flexShrink: 0 }}>{openFaq === i ? "−" : "+"}</span>
+                </button>
+                {openFaq === i && (
+                  <div style={{ padding: "0 20px 16px", fontSize: "clamp(0.80rem,2vw,0.85rem)", color: C.silver, lineHeight: 1.7 }}>{a}</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ══ CONTACT ══ */}
+      <section id="contact" style={{ background: C.bg, padding: "80px 5%", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <motion.div {...fadeUp} style={{ maxWidth: 900, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr", gap: "clamp(28px,5vw,48px)", alignItems: "start" }}>
+          <div>
+            <p style={{ fontSize: "clamp(0.60rem,2vw,0.65rem)", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold, marginBottom: 10 }}>Contact</p>
+            <h2 style={{ fontSize: "clamp(1.4rem,4vw,2.4rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: 16 }}>
+              Contactez-moi
+            </h2>
+            <p style={{ fontSize: "clamp(0.85rem,2.5vw,0.95rem)", color: C.silver, lineHeight: 1.7, marginBottom: 28, maxWidth: 440 }}>
+              Présentez votre activité et votre objectif. Vous recevrez une réponse claire sur les prochaines étapes possibles.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <a href="mailto:contact@jytrixai.com" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: "clamp(0.82rem,2vw,0.88rem)", color: C.gold, textDecoration: "none" }}>✉️ contact@jytrixai.com</a>
+              <p style={{ display: "flex", alignItems: "center", gap: 10, fontSize: "clamp(0.82rem,2vw,0.88rem)", color: C.silver, margin: 0 }}>📍 Hainaut, Belgique</p>
+              <p style={{ display: "flex", alignItems: "center", gap: 10, fontSize: "clamp(0.82rem,2vw,0.88rem)", color: C.silver, margin: 0 }}>💼 Indépendants, artisans & PME</p>
             </div>
+          </div>
+
+          <div>
+            {sent ? (
+              <div style={{ padding: "clamp(32px,6vw,48px)", textAlign: "center", background: C.navyCard, border: "1px solid rgba(212,175,55,0.3)", borderRadius: 18 }}>
+                <div style={{ fontSize: "3rem", marginBottom: 14 }}>✅</div>
+                <h3 style={{ fontSize: "clamp(0.95rem,3vw,1.1rem)", fontWeight: 900, color: C.gold, marginBottom: 8 }}>Message envoyé !</h3>
+                <p style={{ fontSize: "clamp(0.82rem,2.5vw,0.88rem)", color: C.white, fontWeight: 600, marginBottom: 6 }}>Je vous réponds en moins de 24h.</p>
+                <p style={{ fontSize: "clamp(0.68rem,2vw,0.75rem)", color: C.silver, margin: 0 }}>Vérifiez aussi vos spams — contact@jytrixai.com</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} style={{
+                display: "flex", flexDirection: "column", gap: 14,
+                background: C.navyCard, border: "1px solid rgba(212,175,55,0.15)", borderRadius: 18,
+                padding: "clamp(24px,4vw,36px) clamp(20px,4vw,30px)" }}>
+                {field("nom", "Nom *", "text")}
+                {field("email", "Email *", "email")}
+                {field("telephone", "Téléphone (facultatif)", "tel", false)}
+                {field("entreprise", "Entreprise", "text", false)}
+
+                <div>
+                  <label style={{ display: "block", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.silver, marginBottom: 4 }}>Type de projet *</label>
+                  <select required value={form.projet} onChange={e => setForm({ ...form, projet: e.target.value })}
+                    style={{ width: "100%", padding: "10px 13px", background: "rgba(5,11,22,0.7)", border: "1px solid rgba(212,175,55,0.20)",
+                      borderRadius: 9, color: C.white, fontSize: "clamp(0.82rem,2.5vw,0.85rem)", outline: "none", boxSizing: "border-box" }}>
+                    <option value="">Choisir un service…</option>
+                    {PROJECT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.silver, marginBottom: 8 }}>Budget estimé</label>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                    {BUDGETS.map(b => (
+                      <button type="button" key={b} onClick={() => setForm({ ...form, budget: b })}
+                        style={{
+                          padding: "7px 14px", borderRadius: 50, fontSize: "clamp(0.68rem,1.8vw,0.75rem)", fontWeight: 600, cursor: "pointer",
+                          background: form.budget === b ? "rgba(212,175,55,0.2)" : "transparent",
+                          border: form.budget === b ? "1px solid rgba(212,175,55,0.5)" : "1px solid rgba(255,255,255,0.12)",
+                          color: form.budget === b ? C.gold : C.silver,
+                        }}>{b}</button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.silver, marginBottom: 4 }}>Message *</label>
+                  <textarea required rows={4} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })}
+                    placeholder="Décrivez votre projet, vos besoins, vos questions..."
+                    style={{ width: "100%", padding: "10px 13px", background: "rgba(5,11,22,0.7)", border: "1px solid rgba(212,175,55,0.20)",
+                      borderRadius: 9, color: C.white, fontSize: "clamp(0.80rem,2.5vw,0.83rem)", resize: "vertical", outline: "none", boxSizing: "border-box" }}
+                    onFocus={e => e.target.style.borderColor = C.gold}
+                    onBlur={e => e.target.style.borderColor = "rgba(212,175,55,0.20)"} />
+                </div>
+
+                <button type="submit" disabled={sending}
+                  style={{ padding: "14px", background: sending ? "rgba(212,175,55,0.3)" : "linear-gradient(135deg,#D4AF37,#B8941E)",
+                    color: "#050B16", fontWeight: 800, fontSize: "clamp(0.78rem,2vw,0.85rem)", borderRadius: 50, border: "none",
+                    cursor: sending ? "wait" : "pointer", boxShadow: sending ? "none" : "0 6px 24px rgba(212,175,55,0.35)" }}>
+                  {sending ? "Envoi en cours…" : "Envoyer le message →"}
+                </button>
+                <p style={{ fontSize: "0.65rem", color: C.muted, textAlign: "center", margin: 0 }}>
+                  Aucun spam. Je réponds en moins de 24h.
+                </p>
+              </form>
+            )}
           </div>
         </motion.div>
       </section>
 
       {/* ══ MENTIONS LÉGALES ══ */}
-      <section id="mentions" style={{ background: "#020509", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "40px 5%" }}>
-        <motion.div {...fadeUp} style={{ maxWidth: 860, margin: "0 auto" }}>
-          <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: C.gold, marginBottom: 14 }}>Mentions légales & RGPD</p>
+      <section id="mentions" style={{ background: "#02060C", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "48px 5% 24px" }}>
+        <motion.div {...fadeUp} style={{ maxWidth: 900, margin: "0 auto" }}>
+          <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: C.gold, marginBottom: 16 }}>Mentions légales & RGPD</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,260px),1fr))", gap: 20 }}>
-
-            <div style={{ background: "rgba(10,22,40,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, padding: "18px 20px" }}>
-              <p style={{ fontSize: "0.72rem", fontWeight: 800, color: C.cyan, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Éditeur du site</p>
+            <div style={{ background: "rgba(15,23,42,0.5)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 12, padding: "18px 20px" }}>
+              <p style={{ fontSize: "0.72rem", fontWeight: 800, color: C.gold, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Éditeur</p>
               <p style={{ fontSize: "0.72rem", color: C.silver, lineHeight: 1.7, margin: 0 }}>
-                <strong style={{ color: C.white }}>JY-Trix.AI — Espace C</strong><br />
-                Raison sociale : <strong style={{ color: C.white }}>JS-Innov.IA® — Julien Pagin</strong><br />
-                Adresse : Espace C, 7370 Dour, Belgique<br />
-                Tél : 0494 11 90 90<br />
-                Email : <a href="mailto:info@jsinnovia.com" style={{ color: C.cyan }}>info@jsinnovia.com</a>
+                <strong style={{ color: C.white }}>JY-Trix.AI</strong><br />
+                Raison sociale : JS-Innov.IA® — Julien Pagin<br />
+                Saint-Ghislain, Hainaut, Belgique<br />
+                Email : <a href="mailto:contact@jytrixai.com" style={{ color: C.gold }}>contact@jytrixai.com</a>
               </p>
             </div>
-
-            <div style={{ background: "rgba(10,22,40,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, padding: "18px 20px" }}>
-              <p style={{ fontSize: "0.72rem", fontWeight: 800, color: C.cyan, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Hébergement</p>
+            <div style={{ background: "rgba(15,23,42,0.5)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 12, padding: "18px 20px" }}>
+              <p style={{ fontSize: "0.72rem", fontWeight: 800, color: C.gold, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Données personnelles (RGPD)</p>
               <p style={{ fontSize: "0.72rem", color: C.silver, lineHeight: 1.7, margin: 0 }}>
-                <strong style={{ color: C.white }}>Railway (Chicago, USA)</strong><br />
-                Railway Corp., 548 Market St #63337<br />
-                San Francisco, CA 94104<br />
-                <a href="https://railway.app" target="_blank" rel="noopener noreferrer" style={{ color: C.cyan }}>railway.app</a>
+                Les données collectées via le formulaire sont utilisées <strong style={{ color: C.white }}>uniquement</strong> pour répondre à votre demande. Elles ne sont ni revendues ni transmises à des tiers.<br /><br />
+                Droit d'accès, rectification, suppression : <a href="mailto:contact@jytrixai.com" style={{ color: C.gold }}>contact@jytrixai.com</a>
               </p>
             </div>
-
-            <div style={{ background: "rgba(10,22,40,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, padding: "18px 20px" }}>
-              <p style={{ fontSize: "0.72rem", fontWeight: 800, color: C.cyan, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Données personnelles (RGPD)</p>
+            <div style={{ background: "rgba(15,23,42,0.5)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 12, padding: "18px 20px" }}>
+              <p style={{ fontSize: "0.72rem", fontWeight: 800, color: C.gold, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Cookies</p>
               <p style={{ fontSize: "0.72rem", color: C.silver, lineHeight: 1.7, margin: 0 }}>
-                Les données collectées (nom, email, téléphone) via le formulaire sont utilisées <strong style={{ color: C.white }}>uniquement</strong> pour répondre à votre demande de devis. Elles ne sont ni revendues ni transmises à des tiers.<br /><br />
-                Conformément au RGPD (UE 2016/679) et à la loi belge du 30/07/2018, vous disposez d'un droit d'accès, de rectification et de suppression : <a href="mailto:info@jsinnovia.com" style={{ color: C.cyan }}>info@jsinnovia.com</a>
-              </p>
-            </div>
-
-            <div style={{ background: "rgba(10,22,40,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, padding: "18px 20px" }}>
-              <p style={{ fontSize: "0.72rem", fontWeight: 800, color: C.cyan, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Cookies</p>
-              <p style={{ fontSize: "0.72rem", color: C.silver, lineHeight: 1.7, margin: 0 }}>
-                Ce site n'utilise <strong style={{ color: C.white }}>aucun cookie tiers</strong> ni tracker publicitaire. Aucun cookie de session n'est déposé sans votre consentement explicite.<br /><br />
-                Propriété intellectuelle : Tout contenu (textes, visuels, vidéo) est la propriété de JY-Trix.AI / JS-Innov.IA®. Reproduction interdite sans accord écrit.
+                Ce site n'utilise aucun cookie tiers ni tracker publicitaire.<br /><br />
+                Propriété intellectuelle : Tout contenu est la propriété de JY-Trix.AI / JS-Innov.IA®. Reproduction interdite sans accord écrit.
               </p>
             </div>
           </div>
         </motion.div>
       </section>
 
-      {/* ══ FOOTER SIGNATURE ══ */}
-      <footer style={{ background: "#020509", borderTop: "1px solid rgba(255,255,255,0.06)", padding: "clamp(36px,6vw,52px) 5% clamp(24px,4vw,32px)" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-
-          {/* Logos côte à côte */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(24px,5vw,40px)", marginBottom: "clamp(22px,4vw,32px)", flexWrap: "wrap" }}>
-
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-              <div style={{ width: "clamp(76px,14vw,96px)", height: "clamp(76px,14vw,96px)", borderRadius: 18, overflow: "hidden",
-                border: "1px solid rgba(0,180,216,0.30)", boxShadow: "0 0 0 4px rgba(0,180,216,0.07), 0 8px 28px rgba(0,180,216,0.18)" }}>
-                <img src="/logo_jytrixai_footer.jpg" alt="JY-Trix.AI" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              </div>
-
-            </div>
-
+      {/* ══ FOOTER ══ */}
+      <footer style={{ background: "#02060C", padding: "32px 5% 24px", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20, alignItems: "center", textAlign: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-              <div style={{ width: 1, height: 40, background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent)" }} />
-              <span style={{ fontSize: "0.58rem", fontWeight: 700, color: "rgba(255,255,255,0.18)", letterSpacing: "0.20em" }}>PAR</span>
-              <div style={{ width: 1, height: 40, background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent)" }} />
+              <div style={{ width: 48, height: 48, background: "linear-gradient(135deg,#D4AF37,#8B6914)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "1rem", color: "#050B16" }}>JY</div>
+              <span style={{ fontWeight: 800, fontSize: "0.82rem" }}>JY-Trix.AI</span>
             </div>
-
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-              <div style={{ width: "clamp(76px,14vw,96px)", height: "clamp(76px,14vw,96px)", borderRadius: 18, overflow: "hidden",
-                border: "1px solid rgba(212,175,55,0.28)", boxShadow: "0 0 0 4px rgba(212,175,55,0.06), 0 8px 28px rgba(212,175,55,0.14)" }}>
-                <img src="/logo_jsinnovia.jpg" alt="JS-Innov.IA" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              </div>
-
+            <span style={{ fontSize: "0.72rem", color: C.muted, fontWeight: 600 }}>PAR</span>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+              <div style={{ width: 48, height: 48, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "0.72rem", color: C.white }}>JS-I</div>
+              <span style={{ fontWeight: 800, fontSize: "0.82rem" }}>JS-Innov.IA</span>
             </div>
           </div>
-
-          <div style={{ height: 1, background: "linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent)", marginBottom: 18 }} />
-
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
-            <div style={{ display: "flex", gap: "clamp(12px,3vw,20px)", flexWrap: "wrap" }}>
-              <a href="tel:+32494119090" style={{ fontSize: "clamp(0.65rem,2vw,0.72rem)", color: "rgba(255,255,255,0.35)", textDecoration: "none", fontWeight: 600 }}>0494 11 90 90</a>
-              <a href="mailto:info@jsinnovia.com" style={{ fontSize: "clamp(0.65rem,2vw,0.72rem)", color: "rgba(255,255,255,0.35)", textDecoration: "none", fontWeight: 600 }}>info@jsinnovia.com</a>
-              <a href="#mentions" style={{ fontSize: "clamp(0.65rem,2vw,0.72rem)", color: "rgba(255,255,255,0.25)", textDecoration: "none" }}>Mentions légales</a>
-            </div>
-            <p style={{ fontSize: "clamp(0.58rem,1.8vw,0.62rem)", color: "rgba(255,255,255,0.18)", margin: 0, letterSpacing: "0.08em" }}>
-              {`© ${new Date().getFullYear()} JS-Innov.IA® — Tous droits réservés`}
-            </p>
+          <div style={{ display: "flex", gap: "clamp(16px,4vw,32px)", flexWrap: "wrap", justifyContent: "center" }}>
+            <a href="#services" style={{ fontSize: "0.72rem", color: C.silver, textDecoration: "none" }}>Services</a>
+            <a href="#realisations" style={{ fontSize: "0.72rem", color: C.silver, textDecoration: "none" }}>Réalisations</a>
+            <a href="#contact" style={{ fontSize: "0.72rem", color: C.silver, textDecoration: "none" }}>Audit gratuit</a>
+            <a href="#mentions" style={{ fontSize: "0.72rem", color: C.silver, textDecoration: "none" }}>Mentions légales</a>
+            <a href="https://www.oliviertrevis.be" style={{ fontSize: "0.72rem", color: C.silver, textDecoration: "none" }}>← oliviertrevis.be</a>
           </div>
-
+          <p style={{ fontSize: "0.65rem", color: C.muted, margin: 0 }}>© 2026 JY-Trix.AI. Tous droits réservés.</p>
         </div>
       </footer>
-
     </div>
   );
 }
