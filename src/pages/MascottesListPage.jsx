@@ -309,7 +309,7 @@ export default function MascottesListPage() {
       {/* Footer */}
       <div className="py-16 text-center" style={{ background: "#0A0A0B" }}>
         <p className="text-[10px] uppercase tracking-[0.4em]" style={{ color: "rgba(255,255,255,0.1)" }}>
-          Tour de Dour · JS-Innov.IA
+          Tour de Dour · Olivier Trevis
         </p>
       </div>
     </div>
