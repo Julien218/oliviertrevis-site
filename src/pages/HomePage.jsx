@@ -159,7 +159,7 @@ function DarkOverlay({ visible, introPhase }) {
         )}
       </motion.div>
 
-      {/* Signature JS-Innov.IA */}
+      
       <motion.p
         className="absolute bottom-8 text-xs tracking-[0.3em] font-light"
         style={{ color: BRAND.gold }}
