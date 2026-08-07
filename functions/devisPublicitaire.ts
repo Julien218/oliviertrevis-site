@@ -5,9 +5,9 @@ const SUPABASE_KEY = Deno.env.get("SUPABASE_SERVICE_KEY") || "";
 const GMAIL_TOKEN  = Deno.env.get("GMAIL_ACCESS_TOKEN") || "";
 
 function buildDevisEmail(data: any): string {
-  const isJY = data.context === "jytrixai";
-  const acheteurNom  = isJY ? "JY-Trix.Ai" : "JS-Innov.IA";
-  const emailFrom    = isJY ? "coronadoyanis16.01@gmail.com" : "info@jsinnovia.com";
+  
+  const acheteurNom = "JS-Innov.IA";
+  const emailFrom = "info@jsinnovia.com";
   const dateStr = new Date().toLocaleDateString("fr-BE", { day: "2-digit", month: "long", year: "numeric" });
   const devisNum = `DEV-${Date.now().toString().slice(-6)}`;
 
@@ -85,9 +85,9 @@ Espaces Publicitaires LED — Dour
 }
 
 function buildNotifEmail(data: any, devisRef: string): string {
-  const isJY = data.context === "jytrixai";
+  
   return `
-🔔 NOUVEAU DEVIS ENVOYÉ — ${isJY ? "JY-Trix.Ai" : "JS-Innov.IA"}
+🔔 NOUVEAU DEVIS ENVOYÉ — JS-Innov.IA
 
 Un devis vient d'être transmis automatiquement au client.
 
@@ -161,14 +161,14 @@ Deno.serve(async (req) => {
 
     // 1. Email devis au client
     const devisBody  = buildDevisEmail(data);
-    const isJY = data.context === "jytrixai";
+    
     const subjectClient = `Votre devis espace publicitaire — ${data.offre_label} | Réf. ${devisNum}`;
     await sendEmail(data.email, subjectClient, devisBody, accessToken);
 
     // 2. Notifications aux responsables
     const notifBody = buildNotifEmail(data, devisNum);
     const subjectNotif = `🔔 Nouveau devis envoyé — ${data.nom} | ${data.offre_label}`;
-    const notifEmails = data.notif_emails || ["oliviertrevis@outlook.be", "coronadoyanis16.01@gmail.com"];
+    const notifEmails = data.notif_emails || ["oliviertrevis@outlook.be"];
     for (const email of notifEmails) {
       await sendEmail(email, subjectNotif, notifBody, accessToken);
     }
