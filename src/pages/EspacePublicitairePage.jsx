@@ -51,8 +51,8 @@ export default function EspacePublicitairePage() {
         offre: offre?.id,
         offre_label: offre?.label,
         prix_htva: offre?.prix,
-        context: "jytrixai",
-        notif_emails: ["oliviertrevis@outlook.be", "coronadoyanis16.01@gmail.com"]
+        context: "jsinnovia",
+        notif_emails: ["oliviertrevis@outlook.be"]
       };
       await fetch(
         "https://app.base44.com/api/apps/6a0371a87c9257126b051d5a/functions/devisPublicitaire",
@@ -74,7 +74,7 @@ export default function EspacePublicitairePage() {
           JY
         </div>
         <div>
-          <div style={{ fontWeight: 800, fontSize: 20, color: c }}>JY-Trix.Ai</div>
+          <div style={{ fontWeight: 800, fontSize: 20, color: c }}>JS-Innov.IA</div>
           <div style={{ fontSize: 12, color: "#888" }}>Espaces Publicitaires — Écran LED Dour</div>
         </div>
         <div style={{ marginLeft: "auto", textAlign: "right" }}>
