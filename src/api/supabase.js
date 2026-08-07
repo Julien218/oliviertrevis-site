@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
 // ============================================================
-// JS-Innov.IA Cockpit Central — Projet unique multi-sites
+// Olivier Trevis — Site multi-pages
 // Ref: rzvvwcwyaddzsaattwqt | Schema: oliviertrevis
 // ============================================================
 const SUPABASE_URL = "https://rzvvwcwyaddzsaattwqt.supabase.co";
