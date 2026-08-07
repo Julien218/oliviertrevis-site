@@ -400,7 +400,7 @@ export default function Layout({ children }) {
       <main className={`flex-1 ${hideHeader ? "" : "pt-[84px]"}`}>{children}</main>
 
       {/* ══════════════════════════
-          FOOTER PREMIUM JS-INNOV.IA
+          FOOTER PREMIUM
       ══════════════════════════ */}
       <footer style={{ background: "#0B0B0F", position: "relative", overflow: "hidden" }}>
 
