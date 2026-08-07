@@ -279,7 +279,7 @@ function PremiumMenu({ open, onClose, isActive }) {
 
               <div className="flex justify-end">
                 <span className="text-[10px] font-light" style={{ color: "rgba(255,255,255,0.15)" }}>
-                  <span style={{ color: BRAND.gold, opacity: 0.45 }}>JS-Innov.IA</span>
+                  <span style={{ color: BRAND.gold, opacity: 0.45 }}>Olivier Trevis</span>
                 </span>
               </div>
             </motion.div>
@@ -523,7 +523,7 @@ export default function Layout({ children }) {
           {/* Ligne séparatrice */}
           <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.15), transparent)", marginBottom: 20 }} />
 
-          {/* ── Barre bas — copyright + JS-Innov.IA + liens légaux ── */}
+          {/* ── Barre bas — copyright + Olivier Trevis + liens légaux ── */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
 
             {/* Gauche : copyright */}
@@ -531,8 +531,8 @@ export default function Layout({ children }) {
               © {new Date().getFullYear()} Olivier Trevis · Dour, Belgique
             </p>
 
-            {/* Centre : badge JS-Innov.IA */}
-            <a href="https://www.jsinnovia.com" target="_blank" rel="noopener noreferrer"
+            {/* Centre : badge Olivier Trevis */}
+            <a href="https://www.oliviertrevis.com" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-2 transition-all duration-200"
               style={{ textDecoration: "none" }}
               onMouseEnter={e => e.currentTarget.style.opacity = "0.8"}
@@ -546,10 +546,10 @@ export default function Layout({ children }) {
               </svg>
               <div>
                 <span style={{ fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.1em", background: "linear-gradient(90deg, #D4AF37, #F0C040)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  JS-Innov.IA
+                  Olivier Trevis
                 </span>
                 <span style={{ fontSize: "0.55rem", display: "block", color: "rgba(255,255,255,0.2)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                  Conçu par JS-Innov.IA
+                  © Olivier Trevis
                 </span>
               </div>
             </a>
