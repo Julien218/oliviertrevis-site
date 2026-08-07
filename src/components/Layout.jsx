@@ -315,7 +315,7 @@ export default function Layout({ children }) {
   const isActive = (href) => href === "/" ? location.pathname === "/" : location.pathname.startsWith(href);
 
   // Pages qui n'affichent PAS la navbar globale (elles ont leur propre layout)
-  const hideHeader = ["/jytrixai"].includes(location.pathname);
+  const hideHeader = false;
 
   return (
     <div className="min-h-screen text-white flex flex-col" style={{ background: BRAND.black, fontFamily: "'Montserrat',sans-serif" }}>
