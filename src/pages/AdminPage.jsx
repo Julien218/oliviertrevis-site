@@ -376,7 +376,7 @@ export default function AdminPage() {
             <LogOut className="w-4 h-4" />
             Déconnexion
           </button>
-          <p className="text-xs text-gray-700 text-center mt-2">JS-Innov.IA © 2026</p>
+          <p className="text-xs text-gray-700 text-center mt-2">Olivier Trevis © 2026</p>
         </div>
       </aside>
 
