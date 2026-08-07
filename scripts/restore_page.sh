@@ -18,7 +18,7 @@ echo ""
 read -p "Restaurer TOUTES les pages de ce tag ? (oui/non) : " CONFIRM
 
 if [ "$CONFIRM" = "oui" ]; then
-  git checkout $TAG -- public/unesco.html public/jytrixai.html public/mascotte.html
+  git checkout $TAG -- public/unesco.html public/mascotte.html
   git checkout $TAG -- src/pages/ nginx-docker.conf
   echo "✅ Pages restaurées depuis $TAG"
   echo "🚀 Lance 'git add . && git commit -m \"restore: $TAG\" && git push github main' pour redéployer"
