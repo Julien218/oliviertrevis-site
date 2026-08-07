@@ -82,7 +82,7 @@ def draw_cover_bg(c, doc):
     c.setFont('Helvetica', 6.5)
     c.setFillColor(NAVY)
     c.drawCentredString(W/2, 2.5*mm,
-        "ASBL Starlight Dour — BCE 1012.267.056 — www.fashionistartdour.be  |  Conception : JS-Innov.IA — www.jsinnovia.com")
+        "ASBL Starlight Dour — BCE 1012.267.056 — www.fashionistartdour.be  |  Conception : Olivier Trevis — www.oliviertrevis.be")
     c.restoreState()
 
 def draw_inner_bg(c, doc):
@@ -97,7 +97,7 @@ def draw_inner_bg(c, doc):
     c.setFont('Helvetica', 6.5)
     c.setFillColor(GRAY_MED)
     c.drawCentredString(W/2, MARGIN_B - 8*mm,
-        "ASBL Starlight Dour — BCE 1012.267.056  |  www.fashionistartdour.be  |  JS-Innov.IA — www.jsinnovia.com")
+        "ASBL Starlight Dour — BCE 1012.267.056  |  www.fashionistartdour.be  |  Olivier Trevis — www.oliviertrevis.be")
     pg = c.getPageNumber() - 1  # page 1 = cover, donc -1
     if pg > 0:
         c.drawRightString(W - MARGIN_R, MARGIN_B - 8*mm, f"Page {pg}")
@@ -154,7 +154,7 @@ def build_cover(styles):
         [Paragraph("Dates :",             styles['label']), Paragraph("15 — 18 avril 2027",                         styles['body_l'])],
         [Paragraph("Lieu :",              styles['label']), Paragraph("Dour, Province de Hainaut, Belgique",         styles['body_l'])],
         [Paragraph("Organisateur :",      styles['label']), Paragraph("ASBL Starlight Dour — BCE 1012.267.056",      styles['body_l'])],
-        [Paragraph("Partenaire digital :",styles['label']), Paragraph("JS-Innov.IA — www.jsinnovia.com",             styles['body_l'])],
+        [Paragraph("Partenaire digital :",styles['label']), Paragraph("Olivier Trevis — www.oliviertrevis.be",             styles['body_l'])],
     ]
     info_t = Table(info_rows, colWidths=[45*mm, COL_W - 45*mm])
     info_t.setStyle(TableStyle([
@@ -367,7 +367,7 @@ def build_page4(styles):
         ("Province de Hainaut",          "Soutien culturel provincial"),
         ("Fédération Wallonie-Bruxelles","Programme d'aide aux arts de la scène"),
         ("ASBL Starlight Dour",          "Organisateur officiel — BCE 1012.267.056"),
-        ("JS-Innov.IA",                  "Partenaire digital &amp; communication — www.jsinnovia.com"),
+        ("Olivier Trevis",                  "Partenaire digital &amp; communication — www.oliviertrevis.be"),
     ]
     st = Table([[Paragraph(s[0], styles['contact_lbl']), Paragraph(s[1], styles['step_body'])] for s in soutiens],
                colWidths=[55*mm, COL_W - 55*mm])
@@ -434,7 +434,7 @@ def build_page6(styles):
         ("Dossier UNESCO",        "www.oliviertrevis.be/unesco"),
         ("Contact email",         "contact@fashionistartdour.be"),
         ("Email direction",       "oliviertrevis@outlook.be"),
-        ("Partenaire Digital",    "JS-Innov.IA — www.jsinnovia.com"),
+        ("Partenaire Digital",    "Olivier Trevis — www.oliviertrevis.be"),
     ]
     ct = Table([[Paragraph(c[0], styles['contact_lbl']), Paragraph(c[1], styles['contact_val'])] for c in contacts],
                colWidths=[55*mm, COL_W - 55*mm])
@@ -459,7 +459,7 @@ def build_page6(styles):
         styles['small']))
     story.append(Spacer(1, 2*mm))
     story.append(Paragraph(
-        "Conception &amp; Réalisation digitale : JS-Innov.IA — www.jsinnovia.com",
+        "Conception &amp; Réalisation digitale : Olivier Trevis — www.oliviertrevis.be",
         styles['small']))
     return story
 
@@ -475,7 +475,7 @@ def generate(output_path):
         topMargin=MARGIN_T,
         bottomMargin=MARGIN_B + 10*mm,
         title="Dossier UNESCO FashionistART Dour 2027",
-        author="ASBL Starlight Dour — JS-Innov.IA",
+        author="ASBL Starlight Dour — Olivier Trevis",
     )
 
     story = []
