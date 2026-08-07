@@ -135,7 +135,7 @@ export default function LoginPage({ onLogin }) {
         </form>
 
         <p className="text-center text-gray-600 text-xs mt-6">
-          Accès réservé — JS-Innov.IA © 2026
+          Accès réservé — Olivier Trevis © 2026
         </p>
       </motion.div>
     </div>
