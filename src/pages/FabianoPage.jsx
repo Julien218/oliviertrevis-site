@@ -5,7 +5,7 @@ const VIDEO_URL    = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files
 const HERO_BG      = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/0a96d15c5_espace_c_panneau.png";   // photo panneau au rond-point
 const AERIAL_URL   = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/c1cf179ef_fabiano_flyer.png";        // flyer complet
 
-const LOGO_JSINNOVIA = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/9f10f06fc_logo_jsinnovia_officiel.jpg";
+const LOGO_OT = "";
 const gold     = "#f0c040";
 const goldDark = "#c8922a";
 const navy     = "#0a1628";
@@ -24,7 +24,7 @@ export default function FabianoPage() {
   return (
     <div style={{ fontFamily: "'Montserrat', sans-serif", background: navy, color: "#fff", minHeight: "100vh", overflowX: "hidden" }}>
 
-      {/* ══ HERO — photo panneau JS-Innov.IA au rond-point Espace C ══ */}
+      {/* ══ HERO — photo panneau Olivier Trevis au rond-point Espace C ══ */}
       <section style={{ position: "relative", minHeight: "92vh", display: "flex", flexDirection: "column", justifyContent: "flex-end", overflow: "hidden" }}>
         <div style={{
           position: "absolute", inset: 0,
@@ -45,7 +45,7 @@ export default function FabianoPage() {
           style={{ position: "relative", zIndex: 10, padding: "40px 6% 60px", maxWidth: 720 }}
         >
           <p style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: 14 }}>
-            JS-Innov.IA · Espace C · Dour
+            Espace C · Dour
           </p>
           <h1 style={{ fontSize: "clamp(2.2rem, 7vw, 5rem)", fontWeight: 900, textTransform: "uppercase", lineHeight: 1.05 }}>
             Votre entreprise
@@ -86,7 +86,7 @@ export default function FabianoPage() {
           {/* Image du flyer complet */}
           <img
             src={AERIAL_URL}
-            alt="Flyer écran géant Espace C Dour — JS-Innov.IA"
+            alt="Flyer écran géant Espace C Dour"
             style={{
               width: "100%",
               borderRadius: 16,
@@ -232,21 +232,21 @@ export default function FabianoPage() {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0 }}>
           <div style={{ position: "relative", marginBottom: 20 }}>
             <div style={{ position: "absolute", inset: -8, borderRadius: "50%", background: `radial-gradient(circle, rgba(240,192,64,0.25) 0%, transparent 70%)` }} />
-            <img src={LOGO_JSINNOVIA} alt="JS-Innov.IA"
+            <img src={LOGO_OT} alt="Olivier Trevis"
               style={{ width: 110, height: 110, borderRadius: "50%", objectFit: "cover", border: `2px solid rgba(240,192,64,0.4)`, boxShadow: `0 0 40px rgba(240,192,64,0.3), 0 0 80px rgba(200,146,42,0.15)`, display: "block", position: "relative", zIndex: 1 }} />
           </div>
-          <div style={{ fontFamily: "'Cinzel', serif", fontSize: "1.6rem", fontWeight: 900, letterSpacing: "0.08em", background: `linear-gradient(135deg, ${goldDark}, ${gold}, ${goldDark})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: 4 }}>JS-Innov.IA®</div>
+          <div style={{ fontFamily: "'Cinzel', serif", fontSize: "1.6rem", fontWeight: 900, letterSpacing: "0.08em", background: `linear-gradient(135deg, ${goldDark}, ${gold}, ${goldDark})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: 4 }}>Olivier Trevis®</div>
           <div style={{ fontStyle: "italic", fontSize: "0.95rem", color: "rgba(240,192,64,0.6)", letterSpacing: "0.05em", marginBottom: 16 }}>Julien Pagin</div>
           <div style={{ width: 120, height: 1, background: `linear-gradient(90deg, transparent, ${gold}, transparent)`, marginBottom: 16 }} />
           <div style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.22em", color: "rgba(255,255,255,0.35)", marginBottom: 12 }}>
             Automatisation intelligente · Amplifiée par l'Humain
           </div>
           <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.3)", lineHeight: 1.8 }}>
-            contact@jsinnovia.com · +32 494 11 90 90 · www.jsinnovia.com
+            oliviertrevis@outlook.be · +32 475 42 69 42 · www.oliviertrevis.be
           </div>
           <div style={{ width: 60, height: 1, background: `linear-gradient(90deg, transparent, rgba(200,146,42,0.3), transparent)`, margin: "20px auto 14px" }} />
           <div style={{ fontSize: "0.62rem", color: "rgba(255,255,255,0.18)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-            © 2026 JS-Innov.IA — Tous droits réservés
+            © 2026 Olivier Trevis — Tous droits réservés
           </div>
         </div>
       </footer>
