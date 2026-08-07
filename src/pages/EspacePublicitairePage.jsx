@@ -51,7 +51,7 @@ export default function EspacePublicitairePage() {
         offre: offre?.id,
         offre_label: offre?.label,
         prix_htva: offre?.prix,
-        context: "jsinnovia",
+        context: "oliviertrevis",
         notif_emails: ["oliviertrevis@outlook.be"]
       };
       await fetch(
@@ -74,12 +74,12 @@ export default function EspacePublicitairePage() {
           JY
         </div>
         <div>
-          <div style={{ fontWeight: 800, fontSize: 20, color: c }}>JS-Innov.IA</div>
+          <div style={{ fontWeight: 800, fontSize: 20, color: c }}>Olivier Trevis</div>
           <div style={{ fontSize: 12, color: "#888" }}>Espaces Publicitaires — Écran LED Dour</div>
         </div>
         <div style={{ marginLeft: "auto", textAlign: "right" }}>
-          <div style={{ fontSize: 13, color: c, fontWeight: 600 }}>📞 0494 11 90 90</div>
-          <div style={{ fontSize: 12, color: "#888" }}>info@jsinnovia.com</div>
+          <div style={{ fontSize: 13, color: c, fontWeight: 600 }}>📞 0475 42 69 42</div>
+          <div style={{ fontSize: 12, color: "#888" }}>oliviertrevis@outlook.be</div>
         </div>
       </header>
 
@@ -104,8 +104,8 @@ export default function EspacePublicitairePage() {
           </div>
           <div style={{ marginTop: 24, padding: "14px 20px", background: "#0A0A18", borderRadius: 10, border: "1px solid #2A2A3A" }}>
             <div style={{ color: "#888", fontSize: 13 }}>Une question ? Contactez-nous directement :</div>
-            <div style={{ color: c, fontWeight: 700, marginTop: 4 }}>📞 0494 11 90 90</div>
-            <div style={{ color: "#AAA", fontSize: 13 }}>info@jsinnovia.com</div>
+            <div style={{ color: c, fontWeight: 700, marginTop: 4 }}>📞 0475 42 69 42</div>
+            <div style={{ color: "#AAA", fontSize: 13 }}>oliviertrevis@outlook.be</div>
           </div>
         </div>
       ) : (
@@ -124,9 +124,9 @@ export default function EspacePublicitairePage() {
               Réservez votre espace sur l'écran LED haute définition au cœur de Dour. Devis personnalisé reçu rapidement.
             </p>
             <div style={{ display: "inline-flex", gap: 20, alignItems: "center" }}>
-              <a href="tel:0494119090" style={{ color: c, fontWeight: 700, textDecoration: "none", fontSize: 15 }}>📞 0494 11 90 90</a>
+              <a href="tel:0475426942" style={{ color: c, fontWeight: 700, textDecoration: "none", fontSize: 15 }}>📞 0475 42 69 42</a>
               <span style={{ color: "#444" }}>|</span>
-              <a href="mailto:info@jsinnovia.com" style={{ color: "#AAA", textDecoration: "none", fontSize: 14 }}>info@jsinnovia.com</a>
+              <a href="mailto:oliviertrevis@outlook.be" style={{ color: "#AAA", textDecoration: "none", fontSize: 14 }}>oliviertrevis@outlook.be</a>
             </div>
           </div>
 
@@ -322,9 +322,9 @@ export default function EspacePublicitairePage() {
       <footer style={{ borderTop: "1px solid #1A1A2E", padding: "20px 32px", textAlign: "center", marginTop: 40 }}>
         <p style={{ color: "#444", fontSize: 12 }}>
           Écran LED — Olivier Trevis · BCE 0792.067.059 · Rue de la Corderie, 19 — 7370 Dour<br />
-          📞 <a href="tel:0494119090" style={{ color: "#666", textDecoration: "none" }}>0494 11 90 90</a> ·{" "}
-          <a href="mailto:info@jsinnovia.com" style={{ color: "#666", textDecoration: "none" }}>info@jsinnovia.com</a><br />
-          Conception digitale : <a href="https://www.jsinnovia.com" style={{ color: c }}>JS-Innov.IA</a> — Julien Pagin
+          📞 <a href="tel:0475426942" style={{ color: "#666", textDecoration: "none" }}>0475 42 69 42</a> ·{" "}
+          <a href="mailto:oliviertrevis@outlook.be" style={{ color: "#666", textDecoration: "none" }}>oliviertrevis@outlook.be</a><br />
+          Conception digitale : <a href="https://www.oliviertrevis.be" style={{ color: c }}>Olivier Trevis</a> — Julien Pagin
         </p>
       </footer>
     </div>
