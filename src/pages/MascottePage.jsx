@@ -542,8 +542,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
   <div class="sep"></div>
   <img class="intro-logo"
     src="https://base44.app/api/apps/69ed0a42be17008cf11027eb/files/mp/public/69ed0a42be17008cf11027eb/473857e8a_1a90dc4ba_logo-complet-800.png"
-    alt="Js-Innov.IA"/>
-  <p class="credit">Créé par <b>Js-Innov.IA</b> · www.jsinnovia.com</p>
+    alt="Olivier Trevis"/>
+  <p class="credit">© Olivier Trevis</p>
   <button class="cta" onclick="start()">▶ &nbsp;Commencer l'expérience</button>
 </div>
 
@@ -610,7 +610,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
 
     <div class="rgpd" onclick="togR()">
       <div class="rbox" id="rbox"></div>
-      <p class="rtxt">J'accepte que mes données (prénom, nom, email) soient utilisées uniquement pour m'informer de la mascotte du Tour de Dour. Conformément au RGPD, suppression possible via <a href="mailto:contact@jsinnovia.com">contact@jsinnovia.com</a></p>
+      <p class="rtxt">J'accepte que mes données (prénom, nom, email) soient utilisées uniquement pour m'informer de la mascotte du Tour de Dour. Conformément au RGPD, suppression possible via <a href="mailto:oliviertrevis@outlook.be">oliviertrevis@outlook.be</a></p>
     </div>
 
     <button class="sbtn" id="sbtn" type="button" onclick="sub()">
@@ -640,8 +640,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
 
   <img class="done-logo"
     src="https://base44.app/api/apps/69ed0a42be17008cf11027eb/files/mp/public/69ed0a42be17008cf11027eb/473857e8a_1a90dc4ba_logo-complet-800.png"
-    alt="Js-Innov.IA"/>
-  <p class="done-sig">Powered by Js-Innov.IA · www.jsinnovia.com</p>
+    alt="Olivier Trevis"/>
+  <p class="done-sig">© Olivier Trevis</p>
 </div>
 
 
@@ -662,7 +662,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);
          onclick="event.stopPropagation()"
          oninput="document.getElementById('bg-audio').volume=this.value" />
 </div>
-<div class="footer"><span>JS-Innov.IA · www.jsinnovia.com</span></div>
+<div class="footer"><span>Olivier Trevis · www.oliviertrevis.be</span></div>
 
 <script>
 /* ── QUESTIONS ── */
