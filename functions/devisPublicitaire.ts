@@ -6,8 +6,8 @@ const GMAIL_TOKEN  = Deno.env.get("GMAIL_ACCESS_TOKEN") || "";
 
 function buildDevisEmail(data: any): string {
   
-  const acheteurNom = "JS-Innov.IA";
-  const emailFrom = "info@jsinnovia.com";
+  const acheteurNom = "Olivier Trevis";
+  const emailFrom = "oliviertrevis@outlook.be";
   const dateStr = new Date().toLocaleDateString("fr-BE", { day: "2-digit", month: "long", year: "numeric" });
   const devisNum = `DEV-${Date.now().toString().slice(-6)}`;
 
@@ -75,7 +75,7 @@ Pour fixer un rendez-vous ou toute question :
 
 Ce devis est valable 30 jours à compter de sa date d'émission.
 Prestataire : Olivier Trevis — BCE 0792.067.059 — Rue du Commerce, 351 — 7370 Dour
-Conception digitale : JS-Innov.IA — www.jsinnovia.com
+Olivier Trevis — www.oliviertrevis.be
 
 Cordialement,
 
@@ -87,7 +87,7 @@ Espaces Publicitaires LED — Dour
 function buildNotifEmail(data: any, devisRef: string): string {
   
   return `
-🔔 NOUVEAU DEVIS ENVOYÉ — JS-Innov.IA
+🔔 NOUVEAU DEVIS ENVOYÉ
 
 Un devis vient d'être transmis automatiquement au client.
 
@@ -111,7 +111,7 @@ Devis envoyé à : ${data.email}
 ⚡ Action requise : contactez le client pour finaliser le rendez-vous et la signature du contrat.
 
 --
-JS-Innov.IA — Système automatique
+Système automatique
 `;
 }
 
