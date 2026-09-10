@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Actualite } from "@/api/entities";
 import {
-  LOGO_OT, LOGO_MISS, LOGO_FASHION, LOGO_PV, LOGO_SYNERGIE, LOGO_TDD,
+  LOGO_OT, LOGO_MISS, LOGO_FASHION, LOGO_PV, LOGO_SYNERGIE, LOGO_TDD, LOGO_PIXELIUM,
   BRAND
 } from "@/api/supabase";
 import { SOCIAL_LINKS } from "@/api/links";
@@ -85,11 +85,24 @@ const PROJETS = [
     socials: [{ href: SOCIAL_LINKS.synergieDour.facebook, Icon: FbIcon }],
     enterFrom: { x: 150, y: 150 }, // diagonale
   },
+  {
+    id: "pixelium",
+    titre: "Pixelium",
+    soustitre: "Écran publicitaire · Espace C",
+    desc: "Diffusez votre publicité sur l'écran géant au cœur de Dour — +300 passages par jour.",
+    logo: LOGO_PIXELIUM,
+    site: "/fabiano",
+    accent: "#6d5ce8",
+    glow: "rgba(109,92,232,0.35)",
+    internal: true,
+    socials: [],
+    enterFrom: { x: -150, y: -150 }, // diagonale opposée
+  },
 ];
 
 // ── Positions orbitales (5 cartes autour du centre) ───────────────────────
 // Angles en degrés, rayon adaptatif
-const ORBIT_ANGLES = [270, 342, 54, 126, 198]; // top, top-right, right-bottom, left-bottom, left-top
+const ORBIT_ANGLES = [270, 330, 30, 90, 150, 210]; // top, top-right, right, bottom-right, bottom-left, left
 
 function getOrbitalPos(angle, radius) {
   const rad = (angle * Math.PI) / 180;

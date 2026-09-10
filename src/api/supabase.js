@@ -23,6 +23,7 @@ export const LOGO_FASHION  = `${CDN}/55be1534b_LogoFashionistArt-Js-innovia.png`
 export const LOGO_TDD      = `${CDN}/42704af36_NewlogoletourdeDourJs-innovia-julienpagin.png`;
 export const LOGO_PV       = `${CDN}/85e334d8c_LogoPVassurancesagencedeDour.png`;
 export const LOGO_SYNERGIE = `${CDN}/4f971d778_LogoSynergieJs-innoviaBleu.png`;
+export const LOGO_PIXELIUM = "https://base44.app/api/apps/6a0371a87c9257126b051d5a/files/mp/public/6a0371a87c9257126b051d5a/44835e2ff_04bf4ab50_Logo-pixelium-Js-InnovIA.png";
 export const BRAND = {
   name: "Olivier Trevis",
   tagline: "Agir et Construire Ensemble",
