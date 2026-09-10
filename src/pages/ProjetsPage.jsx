@@ -78,7 +78,7 @@ const PROJETS = [
     soustitre: "Reportages & vidéos locales",
     description: "Des vidéos, des reportages, des rencontres et des découvertes autour de Dour. Un projet qui met en lumière les lieux, les initiatives et les personnes qui font vivre Dour.",
     tags: ["Vidéos", "Reportages", "Culture", "Dour"],
-    site: "/tour-de-dour",
+    site: "https://www.letourdedour.com",
     socials: [
       { href: SOCIAL_LINKS.tourDeDour.facebook, Icon: FbIcon, color: "#1877f2", label: "Facebook" },
     ],
@@ -86,7 +86,7 @@ const PROJETS = [
     accentBg: "rgba(248,113,113,0.08)",
     accentBorder: "rgba(248,113,113,0.25)",
     emoji: "🎬",
-    internal: true,
+    internal: false,
   },
 ];
 

@@ -54,10 +54,10 @@ const PROJETS = [
     soustitre: "Reportages & vidéos",
     desc: "Des vidéos et reportages pour valoriser Dour et ses habitants.",
     logo: LOGO_TDD,
-    site: "/tour-de-dour",
+    site: "https://www.letourdedour.com",
     accent: "#D47A2C",
     glow: "rgba(212,122,44,0.35)",
-    internal: true,
+    internal: false,
     socials: [{ href: SOCIAL_LINKS.tourDeDour.facebook, Icon: FbIcon }],
     enterFrom: { x: -200, y: 0 },  // gauche
   },
@@ -554,11 +554,11 @@ export default function HomePage() {
               <p className="text-sm leading-relaxed mb-6" style={{ color: BRAND.silver }}>
                 Partez à la découverte de Dour et de ses habitants à travers une série de reportages immersifs réalisés par Olivier Trevis.
               </p>
-              <Link to="/tour-de-dour"
+              <a href="https://www.letourdedour.com" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm"
                 style={{ background: "linear-gradient(135deg, #D47A2C, #F0C982)", color: "#090d18" }}>
                 <Play className="w-4 h-4" /> Voir les épisodes
-              </Link>
+              </a>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ function TkIcon() { return <svg className="w-4 h-4" fill="currentColor" viewBox=
 /* ── Data ──────────────────────────────────────────────────────────────────── */
 const NAV = [
   { label: "Accueil",      href: "/" },
-  { label: "Tour de Dour", href: "/tour-de-dour" },
+  { label: "Tour de Dour", href: "https://www.letourdedour.com" },
   { label: "Mascotte 🎭",  href: "/mascotte" },
   { label: "Mascottes 🐾", href: "/mascottes" },
   { label: "Actualités",   href: "/actualites" },
@@ -25,7 +25,7 @@ const NAV = [
 const PROJECTS = [
   { titre: "Miss & Mister Dour", logo: LOGO_MISS,     site: "https://www.missetmisterdour.be",  c: "#c9a84c", external: true  },
   { titre: "Fashionist'ART",     logo: LOGO_FASHION,  site: "https://fashionistartdour.be", c: "#e91e8c", external: true  },
-  { titre: "Le Tour de Dour",    logo: LOGO_TDD,      site: "/tour-de-dour",                    c: "#D47A2C", external: false },
+  { titre: "Le Tour de Dour",    logo: LOGO_TDD,      site: "https://www.letourdedour.com",   c: "#D47A2C", external: true },
   { titre: "P&V Assurances",     logo: LOGO_PV,       site: "https://www.assurances-dour.be",    c: "#dc2626", external: true  },
   { titre: "Synergie Dour",      logo: LOGO_SYNERGIE, site: "https://www.synergiedour.be",      c: "#3b82f6", external: true  },
 ];
@@ -149,45 +149,55 @@ function PremiumMenu({ open, onClose, isActive }) {
               <div className="space-y-1">
                 {NAV.map((n, i) => {
                   const active = isActive(n.href);
+                  const external = n.href.startsWith("http");
+                  const navItemContent = (
+                    <>
+                      {active && (
+                        <motion.div layoutId="menuActiveIndicator"
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full"
+                          style={{ background: `linear-gradient(180deg, ${BRAND.gold}, ${BRAND.gold}50)` }}
+                          transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+                      )}
+                      <span className="font-bold text-sm tracking-wide pl-2 transition-all duration-300"
+                        style={{
+                          fontFamily: "'Montserrat',sans-serif",
+                          color: active ? BRAND.gold : "rgba(255,255,255,0.6)",
+                        }}>
+                        {n.label}
+                      </span>
+                      <motion.div
+                        animate={{ x: 0, opacity: active ? 1 : 0 }}
+                        whileHover={{ x: 2, opacity: 1 }}
+                        className="w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0"
+                        style={{ background: active ? `${BRAND.gold}20` : "transparent" }}>
+                        <ArrowUpRight className="w-3 h-3" style={{ color: BRAND.gold }} />
+                      </motion.div>
+                    </>
+                  );
+                  const navItemProps = {
+                    className: "group flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300 relative overflow-hidden",
+                    style: {
+                      background: active ? `${BRAND.gold}12` : "transparent",
+                      border: `1px solid ${active ? BRAND.gold + "30" : "transparent"}`,
+                    },
+                    onMouseEnter: e => { if (!active) { e.currentTarget.style.background = "rgba(255,255,255,0.04)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }},
+                    onMouseLeave: e => { if (!active) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "transparent"; }},
+                  };
                   return (
                     <motion.div key={n.href}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 16 }}
                       transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: [0.23,1,0.32,1] }}>
-                      <Link to={n.href} onClick={onClose}
-                        className="group flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300 relative overflow-hidden"
-                        style={{
-                          background: active ? `${BRAND.gold}12` : "transparent",
-                          border: `1px solid ${active ? BRAND.gold + "30" : "transparent"}`,
-                        }}
-                        onMouseEnter={e => { if (!active) { e.currentTarget.style.background = "rgba(255,255,255,0.04)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}}
-                        onMouseLeave={e => { if (!active) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "transparent"; }}}>
-
-                        {/* Indicateur actif gauche */}
-                        {active && (
-                          <motion.div layoutId="menuActiveIndicator"
-                            className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full"
-                            style={{ background: `linear-gradient(180deg, ${BRAND.gold}, ${BRAND.gold}50)` }}
-                            transition={{ type: "spring", stiffness: 350, damping: 30 }} />
-                        )}
-
-                        <span className="font-bold text-sm tracking-wide pl-2 transition-all duration-300"
-                          style={{
-                            fontFamily: "'Montserrat',sans-serif",
-                            color: active ? BRAND.gold : "rgba(255,255,255,0.6)",
-                          }}>
-                          {n.label}
-                        </span>
-
-                        <motion.div
-                          animate={{ x: 0, opacity: active ? 1 : 0 }}
-                          whileHover={{ x: 2, opacity: 1 }}
-                          className="w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0"
-                          style={{ background: active ? `${BRAND.gold}20` : "transparent" }}>
-                          <ArrowUpRight className="w-3 h-3" style={{ color: BRAND.gold }} />
-                        </motion.div>
-                      </Link>
+                      {external ? (
+                        <a href={n.href} target="_blank" rel="noopener noreferrer" onClick={onClose} {...navItemProps}>
+                          {navItemContent}
+                        </a>
+                      ) : (
+                        <Link to={n.href} onClick={onClose} {...navItemProps}>
+                          {navItemContent}
+                        </Link>
+                      )}
                     </motion.div>
                   );
                 })}
@@ -354,6 +364,18 @@ export default function Layout({ children }) {
             <nav className="hidden lg:flex items-center gap-0.5 relative">
               {NAV.map(n => {
                 const active = isActive(n.href);
+                const external = n.href.startsWith("http");
+                if (external) {
+                  return (
+                    <a key={n.href} href={n.href} target="_blank" rel="noopener noreferrer"
+                      className="relative px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors duration-200 whitespace-nowrap"
+                      style={{ color: "rgba(255,255,255,0.4)" }}
+                      onMouseEnter={e => { e.currentTarget.style.color = "rgba(255,255,255,0.8)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.4)"; }}>
+                      <span className="relative z-10">{n.label}</span>
+                    </a>
+                  );
+                }
                 return (
                   <Link key={n.href} to={n.href}
                     className="relative px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors duration-200 whitespace-nowrap"

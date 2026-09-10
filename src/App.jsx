@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CookieBanner from "./components/CookieBanner";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
-import TourDeDourPage from "./pages/TourDeDourPage";
 import ActualitesPage from "./pages/ActualitesPage";
 import ContactPage from "./pages/ContactPage";
 import MentionsLegalesPage from "./pages/MentionsLegalesPage";
@@ -33,7 +32,6 @@ export default function App() {
           <Layout>
             <Routes>
               <Route path="/"                 element={<HomePage />} />
-              <Route path="/tour-de-dour"     element={<TourDeDourPage />} />
               <Route path="/actualites"       element={<ActualitesPage />} />
               <Route path="/contact"          element={<ContactPage />} />
               <Route path="/mentions-legales" element={<MentionsLegalesPage />} />

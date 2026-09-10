@@ -58,8 +58,8 @@ const PROJETS = [
     sous: "Reportages & vidéos",
     desc: "Des vidéos et reportages pour valoriser Dour et ses habitants.",
     logo: LOGO_TDD,
-    site: "/tour-de-dour",
-    internal: true,
+    site: "https://www.letourdedour.com",
+    internal: false,
     // Couleurs : orangé/bleu nuit — ADN Tour de Dour
     c1: "#D47A2C", c2: "#F0C982", bg: "#05080f",
     particleColors: ["#D47A2C", "#F0C982", "#1E6FA5", "#ffffff"],
